@@ -75,8 +75,36 @@
             <!-- Hero Image/Video/GIF support functionalities -->
             <div class="aspect-video w-full rounded-2xl overflow-hidden bg-white-smoke-100">
                 @if($featuredImage)
-                    <img src="{{ asset('storage/' . $featuredImage) }}"
-                        alt="{{ $title }}" class="w-full h-full object-cover">
+                    @php
+                        $imagePath = ltrim($featuredImage, '/');
+                        // Try different path combinations
+                        $potentialPaths = [
+                            // Standard storage paths
+                            'storage/' . $imagePath,
+                            'storage/uploads/projects/' . basename($imagePath),
+                            // Direct public paths without storage prefix
+                            $imagePath,
+                            'uploads/projects/' . basename($imagePath),
+                        ];
+                    @endphp
+                    
+                    @foreach($potentialPaths as $index => $path)
+                        <img 
+                            src="{{ asset($path) }}"
+                            alt="{{ $title }}" 
+                            class="w-full h-full object-cover"
+                            style="{{ $index > 0 ? 'display:none;' : '' }}"
+                            onerror="this.style.display='none';document.getElementById('img-{{$index+1}}').style.display='block';"
+                            id="img-{{$index}}">
+                    @endforeach
+                    
+                    <!-- Fallback image in case all other attempts fail -->
+                    <div id="img-{{count($potentialPaths)}}" style="display:none;" class="w-full h-full flex items-center justify-center bg-white-smoke-200">
+                        <p class="text-the-end-600">
+                            Image path: {{$featuredImage}} <br>
+                            (Image loading failed - please check file path)
+                        </p>
+                    </div>
                 @else
                     <div class="w-full h-full flex items-center justify-center bg-white-smoke-200">
                         <span class="text-the-end-400">No image available</span>

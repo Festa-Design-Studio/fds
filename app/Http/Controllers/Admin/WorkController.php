@@ -86,8 +86,8 @@ class WorkController extends Controller
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/uploads/projects', $filename);
-            $project->featured_image = 'uploads/projects/' . $filename;
+            $path = $image->storeAs('uploads/projects', $filename, 'public');
+            $project->featured_image = $path; // Store the relative path without 'public/'
         }
 
         $project->save();
@@ -148,8 +148,8 @@ class WorkController extends Controller
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/uploads/projects', $filename);
-            $project->featured_image = 'uploads/projects/' . $filename;
+            $path = $image->storeAs('uploads/projects', $filename, 'public');
+            $project->featured_image = $path; // Store the relative path without 'public/'
         }
 
         $project->save();

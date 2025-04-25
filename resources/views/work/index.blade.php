@@ -62,6 +62,7 @@
         ]"
         :sdgOptions="[
             'sdg1' => 'No Poverty',
+            'sdg2' => 'Zero Hunger',
             'sdg3' => 'Good Health & Well-being',
             'sdg4' => 'Quality Education',
             'sdg13' => 'Climate Action'
@@ -71,77 +72,38 @@
 
     <!-- 5. Work Grid -->
     <x-work.grid 
-        title="Featured Projects"
-        :items="[
-            [
-                'title' => 'Eco-Friendly Packaging Design',
-                'description' => 'Redesigned packaging to reduce environmental impact while maintaining product protection and brand appeal.',
-                'image' => 'https://images.unsplash.com/photo-1605600659873-d808a13e4d2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-                'url' => '/work/eco-friendly-packaging',
-                'tags' => [
-                    ['type' => 'sector', 'label' => 'Consumer Goods'],
-                    ['type' => 'sdg', 'label' => 'Responsible Consumption']
-                ]
-            ],
-            [
-                'title' => 'Health Education Campaign',
-                'description' => 'Created accessible health education materials that reached over 25,000 underserved community members.',
-                'image' => 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-                'url' => '/work/health-education-campaign',
-                'tags' => [
-                    ['type' => 'sector', 'label' => 'Nonprofit'],
-                    ['type' => 'industry', 'label' => 'Healthcare'],
-                    ['type' => 'sdg', 'label' => 'Good Health & Well-being']
-                ]
-            ],
-            [
-                'title' => 'Community Engagement Platform',
-                'description' => 'Built a digital platform that connected community organizations with volunteers, increasing participation by 215%.',
-                'image' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-                'url' => '/work/community-engagement-platform',
-                'tags' => [
-                    ['type' => 'sector', 'label' => 'Nonprofit'],
-                    ['type' => 'industry', 'label' => 'Community']
-                ]
-            ],
-            [
-                'title' => 'Nonprofit Rebrand',
-                'description' => 'Revitalized a 20-year-old nonprofit\'s brand identity to appeal to both long-time supporters and new audiences.',
-                'image' => 'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-                'url' => '/work/nonprofit-rebrand',
-                'tags' => [
-                    ['type' => 'sector', 'label' => 'Nonprofit'],
-                    ['type' => 'industry', 'label' => 'Brand Identity']
-                ]
-            ],
-            [
-                'title' => 'Climate Action Website',
-                'description' => 'Developed an engaging website that mobilized community support for local climate initiatives.',
-                'image' => 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-                'url' => '/work/climate-action-website',
-                'tags' => [
-                    ['type' => 'sector', 'label' => 'Environmental'],
-                    ['type' => 'sdg', 'label' => 'Climate Action']
-                ]
-            ],
-            [
-                'title' => 'Educational App UI/UX',
-                'description' => 'Designed an intuitive mobile application that improved learning outcomes for K-12 students.',
-                'image' => 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-                'url' => '/work/education-app',
-                'tags' => [
-                    ['type' => 'sector', 'label' => 'Education'],
-                    ['type' => 'industry', 'label' => 'Technology'],
-                    ['type' => 'sdg', 'label' => 'Quality Education']
-                ]
-            ]
-        ]"
+        title="Our Projects"
+        :items="$projects->map(function($project) {
+            $tags = [];
+            
+            if ($project->sector) {
+                $tags[] = ['type' => 'sector', 'label' => $project->sector];
+            }
+            
+            if ($project->industry) {
+                $tags[] = ['type' => 'industry', 'label' => $project->industry];
+            }
+            
+            if ($project->sdg_alignment) {
+                $tags[] = ['type' => 'sdg', 'label' => $project->sdg_alignment];
+            }
+            
+            return [
+                'title' => $project->title,
+                'description' => $project->excerpt,
+                'image' => asset('storage/' . $project->featured_image),
+                'url' => route('work.show', $project->slug),
+                'tags' => $tags
+            ];
+        })->toArray()"
     >
         <!-- 6. Load More Work Button -->
         <x-slot name="footer">
-            <x-core.button variant="secondary" size="large">
-                Load more work
-            </x-core.button>
+            @if($projects->count() > 6)
+                <x-core.button variant="secondary" size="large">
+                    Load more work
+                </x-core.button>
+            @endif
         </x-slot>
     </x-work.grid>
 

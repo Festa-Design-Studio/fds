@@ -24,6 +24,18 @@ class Project extends Model
         'industry',
         'sdg_alignment',
         'client_id',
+        'is_featured',
+        'published_at',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_featured' => 'boolean',
+        'published_at' => 'datetime',
     ];
 
     /**

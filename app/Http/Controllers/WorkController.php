@@ -9,12 +9,12 @@ class WorkController extends Controller
 {
     public function index()
     {
-        return view('work.index');
-    }
-
-    public function caseStudy()
-    {
-        return view('work.case-study');
+        // Get published projects
+        $projects = Project::whereNotNull('published_at')
+            ->orderBy('published_at', 'desc')
+            ->get();
+        
+        return view('work.index', compact('projects'));
     }
     
     /**
@@ -27,10 +27,18 @@ class WorkController extends Controller
     {
         $project = Project::where('slug', $slug)->firstOrFail();
         
-        // Get previous and next projects for navigation
-        $previousProject = Project::where('id', '<', $project->id)->orderBy('id', 'desc')->first();
-        $nextProject = Project::where('id', '>', $project->id)->orderBy('id', 'asc')->first();
+        // Get previous and next projects for navigation (only published projects)
+        $previousProject = Project::whereNotNull('published_at')
+            ->where('id', '<', $project->id)
+            ->orderBy('id', 'desc')
+            ->first();
+            
+        $nextProject = Project::whereNotNull('published_at')
+            ->where('id', '>', $project->id)
+            ->orderBy('id', 'asc')
+            ->first();
         
-        return view('work.show', compact('project', 'previousProject', 'nextProject'));
+        // Use the case-study-show template as per component showcase
+        return view('work.case-study-show', compact('project', 'previousProject', 'nextProject'));
     }
 } 

@@ -19,7 +19,7 @@
                         {{ $item['label'] }}
                     </span>
                 @else
-                    <a href="{{ $item['url'] }}" class="text-chicken-comb-600 text-body hover:text-the-end-900 transition">
+                    <a href="{{ $item['url'] }}" class="text-the-end-400 hover:text-pepper-green text-body  transition">
                         {{ $item['label'] }}
                     </a>
                 @endif

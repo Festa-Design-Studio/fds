@@ -2,6 +2,14 @@
 
 @section('title', "$project->title - Festa Design Studio")
 
+@section('breadcrumbs')
+    <!-- Breadcrumb navigation -->
+    <x-core.breadcrumbs :items="[
+        ['label' => 'Work', 'url' => route('work')],
+        ['label' => $project->title, 'url' => '']
+    ]" />
+@endsection
+
 @section('content')
 <!-- Work Case study Show page Main Content area-->
 <main class="bg-gradient-to-br from-pepper-green-50 via-white-smoke-50 to-chicken-comb-50">

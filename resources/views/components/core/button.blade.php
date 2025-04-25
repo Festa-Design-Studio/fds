@@ -4,6 +4,7 @@
     'size' => 'large', // small, medium, large
     'disabled' => false,
     'fullWidth' => false,
+    'href' => null,
 ])
 
 @php
@@ -32,9 +33,18 @@
     $classes = "{$baseClasses} {$widthClass} {$sizeClasses} {$variantClasses}";
 @endphp
 
-<button 
-    type="{{ $type }}" 
-    {{ $disabled ? 'disabled' : '' }} 
-    {{ $attributes->merge(['class' => $classes]) }}>
-    {{ $slot }}
-</button> 
+@if($href)
+    <a 
+        href="{{ $href }}"
+        {{ $disabled ? 'disabled' : '' }} 
+        {{ $attributes->merge(['class' => $classes]) }}>
+        {{ $slot }}
+    </a>
+@else
+    <button 
+        type="{{ $type }}" 
+        {{ $disabled ? 'disabled' : '' }} 
+        {{ $attributes->merge(['class' => $classes]) }}>
+        {{ $slot }}
+    </button>
+@endif 

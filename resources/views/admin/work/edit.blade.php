@@ -5,7 +5,7 @@
 @section('header_title', 'Edit Work')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/trix.css') }}">
+<link rel="stylesheet" href="{{ asset('css/festa-editor.css') }}">
 @endsection
 
 @section('action_button')
@@ -144,7 +144,7 @@
       </div>
     </div>
 
-    <!-- Work Content Area with Rich Text Editor-->
+    <!-- Work Content Area with Custom Festa Rich Text Editor -->
     <div>
       <label class="block text-body font-medium text-the-end-400 mb-2" for="content">
         Work content
@@ -171,11 +171,14 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/trix.js') }}"></script>
+<script>
+console.log('Admin edit work page loaded');
+</script>
 <script src="{{ asset('js/festa-rich-text-editor.js') }}"></script>
 <script src="{{ asset('js/festa-editor-init.js') }}"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing editor');
     initFestaEditor('festa-editor', 'content-hidden');
   });
 </script>
