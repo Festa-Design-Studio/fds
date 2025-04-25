@@ -1,43 +1,18 @@
 @props([
-    'objectives' => null,
-    'challenge' => null,
-    'solution' => null,
+    'content' => null,
     'solutionGallery' => [],
-    'results' => null,
     'resultsGallery' => []
 ])
 
 <article class="mx-auto max-w-3xl py-20 px-4 md:px-8 lg:px-16">
-    
-    <!-- Objectives Section -->
-    @if($objectives)
+    <!-- Content Section -->
+    @if($content)
     <div class="space-y-8 mb-16">
-        <h2 class="text-h2 font-bold text-pepper-green">Objectives</h2>
-        <div class="space-y-3.5 case-study-content">
-            {!! $objectives !!}
-        </div>
-    </div>
-    @endif
-
-    <!-- The Challenge Section -->
-    @if($challenge)
-    <div class="space-y-8 mb-16">
-        <h2 class="text-h2 font-bold text-pepper-green">The challenge</h2>
         <div class="case-study-content">
-            {!! $challenge !!}
-        </div>
-    </div>
-    @endif
-
-    <!-- The Solution Section -->
-    @if($solution)
-    <div class="space-y-8 mb-16">
-        <h2 class="text-h2 font-bold text-pepper-green">The solution</h2>
-        <div class="case-study-content">
-            {!! $solution !!}
+            {!! $content !!}
         </div>
         
-        @if(count($solutionGallery) > 0)
+        @if(isset($solutionGallery) && count($solutionGallery) > 0)
         <div class="grid lg:grid-cols-2 grid-cols-1 gap-6">
             @foreach($solutionGallery as $image)
             <!-- Image with Caption -->
@@ -54,18 +29,8 @@
             @endforeach
         </div>
         @endif
-    </div>
-    @endif
-
-    <!-- The Results Section -->
-    @if($results)
-    <div class="space-y-8">
-        <h2 class="text-h2 font-bold text-pepper-green">The results</h2>
-        <div class="case-study-content">
-            {!! $results !!}
-        </div>
         
-        @if(count($resultsGallery) > 0)
+        @if(isset($resultsGallery) && count($resultsGallery) > 0)
         <div class="grid lg:grid-cols-2 grid-cols-1 gap-6">
             @foreach($resultsGallery as $image)
             <!-- Image with Caption -->

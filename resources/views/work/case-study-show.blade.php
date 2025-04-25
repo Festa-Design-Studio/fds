@@ -27,12 +27,7 @@
     
     <!-- Project Work Case Study Body -->
     <x-work.case-study-body
-        :objectives="$project->objectives"
-        :challenge="$project->challenge"
-        :solution="$project->solution"
-        :solutionGallery="$project->solution_gallery"
-        :results="$project->results"
-        :resultsGallery="$project->results_gallery"
+        :content="$project->content"
     />
     
     <!-- Project Work Case Study Footer -->
