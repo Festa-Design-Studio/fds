@@ -845,6 +845,68 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Case Study Components -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Case Study Components</h3>
+                    
+                    <div class="space-y-8">
+                        <!-- Case Study Header Component -->
+                        <div>
+                            <h4 class="text-h5 font-medium text-the-end-900 mb-3">Case Study Header</h4>
+                            <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-gradient-to-br from-pepper-green-50 via-white-smoke-50 to-chicken-comb-50 p-6">
+                                <x-work.case-study-header
+                                    title="Redesigning for Purpose — Ethical UX for Dr. G's Lab"
+                                    :client="(object)['name' => 'Dr. G\'s Lab', 'slug' => 'dr-gs-lab']"
+                                    sector="Nonprofit"
+                                    industry="Research and development"
+                                    sdgAlignment="Quality education"
+                                    excerpt="Dr. G's Lab is a mission-driven organization at the intersection of science and empathy. The team approached Festa Design Studio to rethink how their digital presence could better reflect their trauma-informed, inclusive, and ethical design values."
+                                    featuredImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                                />
+                            </div>
+                        </div>
+                        
+                        <!-- Case Study Body Component -->
+                        <div>
+                            <h4 class="text-h5 font-medium text-the-end-900 mb-3">Case Study Body</h4>
+                            <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-gradient-to-br from-pepper-green-50 via-white-smoke-50 to-chicken-comb-50 p-6">
+                                <x-work.case-study-body
+                                    objectives="<h3 class='text-h4 font-semibold text-the-end-900'>Redefine brand positioning</h3>
+                                    <p class='text-body-lg text-the-end-700'>Translate the core values of trauma-informed research, inclusivity, and ethics into a coherent and compelling brand identity.</p>"
+                                    challenge="<p class='text-body text-the-end-700'>Despite a powerful mission and committed team, Dr. G's Lab struggled with misalignment between their internal identity and their public-facing content.</p>
+                                    
+                                    <div class='space-y-3'>
+                                        <h4 class='text-h6 font-medium text-chicken-comb-600'>Fragmented messaging</h4>
+                                        <p class='text-body text-the-end-700'>The previous site failed to communicate the full scope of services and impact areas. Messaging lacked emotional depth and was inconsistent across channels.</p>
+                                    </div>"
+                                    solution="<p class='text-body text-the-end-700'>Our response combined UX research, strategic communication design, and ethical branding to realign Dr. G's Lab's public presence with their mission.</p>"
+                                    :solutionGallery="[
+                                        ['url' => 'https://images.unsplash.com/photo-1523726491678-bf852e717f6a', 'alt' => 'Solution image', 'caption' => 'Informative caption that provides context for the image'],
+                                        ['url' => 'https://images.unsplash.com/photo-1523726491678-bf852e717f6a', 'alt' => 'Solution image', 'caption' => 'Informative caption that provides context for the image']
+                                    ]"
+                                    results="<p class='text-body text-the-end-700'>Our work with Dr. G's Lab generated measurable improvements and increased brand clarity across every touchpoint.</p>
+                                    
+                                    <div class='space-y-3'>
+                                        <h4 class='text-h6 font-medium text-chicken-comb-600'>Refined and aligned messaging</h4>
+                                        <p class='text-body text-the-end-700'>Stakeholders could clearly articulate what the lab stands for and how it differs from competitors. Messaging matched mission.</p>
+                                    </div>"
+                                />
+                            </div>
+                        </div>
+                        
+                        <!-- Case Study Footer Component -->
+                        <div>
+                            <h4 class="text-h5 font-medium text-the-end-900 mb-3">Case Study Footer</h4>
+                            <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-gradient-to-br from-pepper-green-50 via-white-smoke-50 to-chicken-comb-50 p-6">
+                                <x-work.case-study-footer
+                                    :previousProject="(object)['title' => 'Previous Case Study', 'slug' => 'previous-case-study']"
+                                    :nextProject="(object)['title' => 'Next Case Study', 'slug' => 'next-case-study']"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         

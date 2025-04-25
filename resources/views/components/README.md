@@ -1,3 +1,141 @@
+# Festa Design Studio
+
+A purpose-driven design agency website built with Laravel, Blade, and Tailwind CSS.
+
+## Project Overview
+
+Festa Design Studio is a comprehensive website for a design agency specializing in project design, communication design, and campaign design for purpose-driven organizations. The platform showcases Festa's services, work portfolio, blog, and resources while implementing a sophisticated design system.
+
+## Key Features
+
+- **Component-based architecture** using Blade components
+- **Custom design system** with Tailwind CSS
+- **Responsive layouts** for all device sizes
+- **Admin panel** for content management
+- **Blog platform** for sharing insights
+- **Portfolio showcase** for displaying work
+- **Services section** highlighting capabilities
+- **Contact system** for client inquiries
+
+## Tech Stack
+
+- **Backend**: Laravel 10+
+- **Frontend**: Blade templates, Tailwind CSS
+- **Database**: MySQL
+- **Asset Management**: Vite
+- **Deployment**: To be determined
+
+## Project Structure
+
+### Routes
+
+The application follows RESTful routing practices with the following main sections:
+
+- **Home**: Primary landing page
+- **Services**: Design offerings and sector specializations
+- **Work**: Portfolio and case studies
+- **About**: Team, process, and mission information
+- **Resources**: Blog and design toolkit resources
+- **Contact**: Client inquiry forms
+- **Admin**: Content management system
+
+### Component Library
+
+The project follows a component-driven approach with a comprehensive set of reusable Blade components located in `resources/views/components/`. See the [Component Documentation](resources/views/components/README.md) for detailed usage examples.
+
+Component categories include:
+
+- **Core**: Fundamental UI elements (buttons, inputs, etc.)
+- **Blog**: Blog-specific components
+- **Work**: Portfolio and case study components
+- **Services**: Service presentation components
+- **Toolkit**: Resource toolkit components
+- **About**: Team and company information components
+- **Home**: Homepage-specific components
+- **Contact**: Form and contact information components
+
+### Models
+
+Key data models include:
+
+- **Project**: Portfolio projects and case studies
+- **Client**: Client information and relationships
+- **User**: Authentication and admin user management
+
+### Controllers
+
+The application logic is organized into controller groups:
+
+- **Public Controllers**: Handle frontend page rendering
+- **Admin Controllers**: Manage content and settings in the admin panel
+
+## Development Setup
+
+### Prerequisites
+
+- PHP 8.1+
+- Composer
+- Node.js and NPM
+- MySQL
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone [repository-url]
+   cd fds
+   ```
+
+2. Install PHP dependencies:
+   ```bash
+   composer install
+   ```
+
+3. Install frontend dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Create environment file:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+5. Configure database settings in `.env` file
+   ```
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=festa_design
+   DB_USERNAME=[your-username]
+   DB_PASSWORD=[your-password]
+   ```
+
+6. Run migrations and seeders:
+   ```bash
+   php artisan migrate --seed
+   ```
+
+7. Start development servers:
+   ```bash
+   # Terminal 1: Start Laravel server
+   php artisan serve
+   
+   # Terminal 2: Watch for asset changes
+   npm run dev
+   ```
+
+8. Access the site at `http://localhost:8000`
+
+## Component Examples
+
+For detailed component usage examples, refer to the [Component Documentation](resources/views/components/README.md).
+
+## License
+
+This project is proprietary and confidential. All rights reserved.
+
 # Festa Component Library
 
 This directory contains reusable Blade components for the Festa Design Studio website. Components follow the Tailwind CSS conventions and implement Festa's design system tokens.

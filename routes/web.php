@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,10 @@ Route::get('/services/sectors/startup', [ServicesController::class, 'startup'])-
 // Work
 Route::get('/work', [WorkController::class, 'index'])->name('work');
 Route::get('/work/case-study', [WorkController::class, 'caseStudy'])->name('work.case-study');
+Route::get('/work/{slug}', [WorkController::class, 'show'])->name('work.show');
+
+// Client routes
+Route::get('/client/{slug}', [ClientController::class, 'show'])->name('client.show');
 
 // About
 Route::get('/about', [AboutController::class, 'index'])->name('about');
@@ -65,7 +70,16 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     
     // Pages Management
     Route::get('/services', [AdminController::class, 'services'])->name('services');
-    Route::get('/work', [AdminController::class, 'work'])->name('work');
+    
+    // Work Management
+    Route::get('/work', [\App\Http\Controllers\Admin\WorkController::class, 'index'])->name('work.index');
+    Route::get('/work/create', [\App\Http\Controllers\Admin\WorkController::class, 'create'])->name('work.create');
+    Route::post('/work', [\App\Http\Controllers\Admin\WorkController::class, 'store'])->name('work.store');
+    Route::get('/work/{id}/edit', [\App\Http\Controllers\Admin\WorkController::class, 'edit'])->name('work.edit');
+    Route::put('/work/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'update'])->name('work.update');
+    Route::delete('/work/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'destroy'])->name('work.destroy');
+    
+    // Other Admin Routes
     Route::get('/about', [AdminController::class, 'about'])->name('about');
     Route::get('/toolkit', [AdminController::class, 'toolkit'])->name('toolkit');
     Route::get('/design-system', [AdminController::class, 'designSystem'])->name('design-system');

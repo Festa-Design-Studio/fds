@@ -23,7 +23,7 @@
                                         fill="#e12729"></path>
                                 </g>
                             </svg>
-                            <h2 class="text-h2 font-bold text-the-end-900">Welcome to Festa's administrator</h2>
+                            <h2 class="text-h2 font-bold text-the-end-900">@yield('header_title', 'Welcome to Festa\'s administrator')</h2>
                         </div>
                         @yield('action_button')
                     </div>
@@ -47,5 +47,6 @@
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    @yield('scripts')
 </body>
 </html> 
