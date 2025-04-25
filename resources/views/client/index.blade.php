@@ -10,12 +10,12 @@
 @endsection
 
 @section('content')
-    <main class="mx-auto bg-gradient-to-br from-pepper-green-50 via-white-smoke-50 to-chicken-comb-50">
+    <main class="mx-auto bg-gradient-to-br from-pepper-green-50 via-white-smoke-50 to-chicken-comb-50 py-12 px-4 md:px-8 lg:px-16">
         <!-- Clients Header -->
         <section class="py-12 px-4 md:px-8 lg:px-16">
             <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-h1 font-black text-the-end-900 mb-6">Our Clients</h1>
-                <p class="text-body-lg text-the-end-700 mb-12 max-w-2xl mx-auto">
+                <h1 class="text-h1 font-black text-the-end-900 mb-4">Our Clients</h1>
+                <p class="text-body-lg text-the-end-700 max-w-2xl mx-auto">
                     We've partnered with a diverse range of organizations committed to making positive social and environmental impact.
                 </p>
             </div>
@@ -36,13 +36,13 @@
                                     </div>
                                 @endif
                                 
-                                <h3 class="text-h3 font-medium text-the-end-900 mb-3">{{ $client->name }}</h3>
+                                <h3 class="text-h3 font-bold text-the-end-900 mb-3">{{ $client->name }}</h3>
                                 
                                 @if($client->description)
-                                    <p class="text-the-end-700 mb-6 line-clamp-3">{{ Str::limit(strip_tags($client->description), 120) }}</p>
+                                    <p class="text-the-end-700 text-body-sm mb-6 line-clamp-3">{{ Str::limit(strip_tags($client->description), 120) }}</p>
                                 @endif
                                 
-                                <div class="mt-auto pt-4">
+                                <div class="mt-auto">
                                     <x-core.button href="{{ route('client.show', $client->slug) }}" variant="neutral" size="small">
                                         View Client's work
                                     </x-core.button>
