@@ -48,7 +48,8 @@ class WorkController extends Controller
      */
     public function create()
     {
-        return view('admin.work.create');
+        $clients = \App\Models\Client::orderBy('name')->get();
+        return view('admin.work.create', compact('clients'));
     }
 
     /**
@@ -69,6 +70,7 @@ class WorkController extends Controller
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_featured' => 'boolean',
             'published_at' => 'required|date',
+            'client_id' => 'nullable|exists:clients,id',
         ]);
 
         $project = new Project();
@@ -81,6 +83,7 @@ class WorkController extends Controller
         $project->sdg_alignment = $request->sdg_alignment;
         $project->is_featured = $request->has('is_featured') ? 1 : 0;
         $project->published_at = $request->published_at;
+        $project->client_id = $request->client_id;
 
         // Handle file upload
         if ($request->hasFile('featured_image')) {
@@ -104,7 +107,8 @@ class WorkController extends Controller
     public function edit($id)
     {
         $project = Project::findOrFail($id);
-        return view('admin.work.edit', compact('project'));
+        $clients = \App\Models\Client::orderBy('name')->get();
+        return view('admin.work.edit', compact('project', 'clients'));
     }
 
     /**
@@ -126,6 +130,7 @@ class WorkController extends Controller
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_featured' => 'boolean',
             'published_at' => 'required|date',
+            'client_id' => 'nullable|exists:clients,id',
         ]);
 
         $project = Project::findOrFail($id);
@@ -143,6 +148,7 @@ class WorkController extends Controller
         $project->sdg_alignment = $request->sdg_alignment;
         $project->is_featured = $request->has('is_featured') ? 1 : 0;
         $project->published_at = $request->published_at;
+        $project->client_id = $request->client_id;
 
         // Handle file upload
         if ($request->hasFile('featured_image')) {

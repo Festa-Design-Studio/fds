@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
     /**
+     * Display a listing of all clients.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $clients = Client::all();
+        return view('client.index', compact('clients'));
+    }
+
+    /**
      * Display the specified client.
      *
      * @param  string  $slug

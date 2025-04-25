@@ -19,7 +19,7 @@ class Client extends Model
         'slug',
         'description',
         'logo',
-        'website',
+        'website_url',
     ];
 
     /**

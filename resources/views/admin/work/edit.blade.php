@@ -71,6 +71,23 @@
         </div>
 
         <div>
+          <label class="block text-body font-medium text-the-end-400 mb-2" for="client_id">
+            Client
+          </label>
+          <select id="client_id" name="client_id" class="w-full h-10 px-3 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 appearance-none focus:ring-2 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 @error('client_id') border-chicken-comb-600 @enderror">
+            <option value="">Select a client</option>
+            @foreach($clients as $client)
+              <option value="{{ $client->id }}" {{ old('client_id', $project->client_id) == $client->id ? 'selected' : '' }}>
+                {{ $client->name }}
+              </option>
+            @endforeach
+          </select>
+          @error('client_id')
+            <p class="mt-1 text-chicken-comb-600 text-sm">{{ $message }}</p>
+          @enderror
+        </div>
+
+        <div>
           <label class="block text-body font-medium text-the-end-400 mb-2" for="industry">
             Industry
           </label>

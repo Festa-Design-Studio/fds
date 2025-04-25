@@ -35,6 +35,7 @@ Route::get('/work/case-study', [WorkController::class, 'caseStudy'])->name('work
 Route::get('/work/{slug}', [WorkController::class, 'show'])->name('work.show');
 
 // Client routes
+Route::get('/clients', [ClientController::class, 'index'])->name('clients');
 Route::get('/client/{slug}', [ClientController::class, 'show'])->name('client.show');
 
 // About
@@ -86,6 +87,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/contact', [AdminController::class, 'contact'])->name('contact');
     Route::get('/privacy', [AdminController::class, 'privacy'])->name('privacy');
     Route::get('/terms', [AdminController::class, 'terms'])->name('terms');
+    
+    // Client Management
+    Route::resource('clients', \App\Http\Controllers\Admin\ClientController::class);
     
     // Blog Management
     Route::get('/blog/posts', [BlogController::class, 'posts'])->name('blog.posts');
