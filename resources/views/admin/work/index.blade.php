@@ -15,9 +15,9 @@
 @section('content')
 <div class="p-8 max-w-4xl mx-auto bg-white-smoke-100 rounded-lg shadow-sm">
   <div class="">
-    <div class="flex flex-col justify-between gap-3 items-center mb-16">
+    <div class="flex flex-col justify-between gap-3 items-center mb-8">
       <!-- Filters Form -->
-      <form action="{{ route('admin.work.index') }}" method="GET" class="w-full flex flex-col md:flex-row gap-3 justify-between">
+      <form action="#" class="admin-filter-form w-full flex flex-col md:flex-row gap-3 justify-between">
         <!-- Sector select -->
         <div class="relative">
           <select name="sector" class="appearance-none pl-4 pr-10 py-2 text-body text-the-end-400 rounded-full border border-the-end-200 focus:outline-none focus:border-pepper-green-600">
@@ -78,9 +78,13 @@
               <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
             </svg>
           </div>
-          <button type="submit" class="hidden">Search</button>
         </div>
       </form>
+      
+      <!-- Clear filters button -->
+      <button class="admin-clear-filters mt-3 md:mt-0 px-4 py-2 text-body-sm text-the-end-700 hover:bg-white-smoke-300/50 active:bg-white-smoke-300 rounded-full">
+        Clear filters
+      </button>
     </div>
     
     <!-- Display session messages -->
@@ -90,7 +94,12 @@
       </div>
     @endif
     
-    <div class="space-y-4">
+    <!-- No results message (hidden by default) -->
+    <div class="admin-no-results-message hidden flex justify-center p-8">
+      <p class="text-the-end-600">No matching work case studies found.</p>
+    </div>
+    
+    <div class="space-y-4 admin-work-grid">
       @if($projects->isEmpty())
         <div class="flex justify-center p-8">
           <p class="text-the-end-600">No work case studies found.</p>
@@ -98,7 +107,18 @@
       @else
         @foreach($projects as $project)
           <!-- admin work card -->
-          <div class="flex items-center justify-between p-4 bg-white-smoke-50 rounded-lg">
+          <div class="admin-work-item flex items-center justify-between p-4 bg-white-smoke-50 rounded-lg"
+               data-sector="{{ $project->sector }}"
+               data-industry="{{ $project->industry }}"
+               data-sdg="{{ Str::startsWith($project->sdg_alignment, 'sdg') ? $project->sdg_alignment : 'sdg'.array_search($project->sdg_alignment, [
+                   'No Poverty', 'Zero Hunger', 'Good Health & Well-being', 'Quality Education', 'Gender equality',
+                   'Clean water & sanitation', 'Affordable & clean energy', 'Decent work & economic growth',
+                   'Industry, innovation and infrastructure', 'Reduced inequalities', 'Sustainable cities & communities',
+                   'Responsible consumption & production', 'Climate Action', 'Life below water', 'Life on land',
+                   'Peace, justice & strong institutions', 'Partnerships for the goals'
+               ]) + 1 }}"
+               data-title="{{ $project->title }}"
+               data-description="{{ $project->excerpt }}">
             <div class="space-y-1">
               <!-- admin Work title-->
               <h4 class="text-body-lg font-medium text-the-end-900">
@@ -108,14 +128,54 @@
               <p class="text-body-sm text-the-end-600">
                 Published on {{ \Carbon\Carbon::parse($project->published_at)->format('F j, Y') }}
               </p>
-              <div class="flex gap-6 items-center mt-1">
-                <!-- admin work tag Category -->
+              <div class="flex gap-2 flex-wrap items-center mt-1">
+                <!-- admin work tag Categories -->
                 <!-- Sector Tag -->
                 <span class="inline-flex items-center px-3 py-1 rounded-full text-body-sm bg-pepper-green-50 text-pepper-green-700 border border-pepper-green-200">
                   {{ ucfirst($project->sector) }}
                 </span>
-                <!-- Show number of post views-->
-                <p class="text-body-sm text-the-end-600">
+                
+                <!-- Industry Tag -->
+                @if($project->industry)
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-body-sm bg-chicken-comb-50 text-chicken-comb-700 border border-chicken-comb-200">
+                  {{ ucfirst($project->industry) }}
+                </span>
+                @endif
+                
+                <!-- SDG Tag -->
+                @if($project->sdg_alignment)
+                @php
+                  $sdgLabel = $project->sdg_alignment;
+                  if (Str::startsWith($project->sdg_alignment, 'sdg')) {
+                    $sdgMap = [
+                      'sdg1' => 'No Poverty',
+                      'sdg2' => 'Zero Hunger',
+                      'sdg3' => 'Good Health & Well-being',
+                      'sdg4' => 'Quality Education',
+                      'sdg5' => 'Gender equality',
+                      'sdg6' => 'Clean water & sanitation',
+                      'sdg7' => 'Affordable & clean energy',
+                      'sdg8' => 'Decent work & economic growth',
+                      'sdg9' => 'Industry, innovation and infrastructure',
+                      'sdg10' => 'Reduced inequalities',
+                      'sdg11' => 'Sustainable cities & communities',
+                      'sdg12' => 'Responsible consumption & production',
+                      'sdg13' => 'Climate Action',
+                      'sdg14' => 'Life below water',
+                      'sdg15' => 'Life on land',
+                      'sdg16' => 'Peace, justice & strong institutions',
+                      'sdg17' => 'Partnerships for the goals'
+                    ];
+                    $sdgLabel = $sdgMap[$project->sdg_alignment] ?? $project->sdg_alignment;
+                  }
+                @endphp
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-body-sm bg-apocalyptic-orange-50 text-apocalyptic-orange-700 border border-apocalyptic-orange-200">
+                  {{ $sdgLabel }}
+                </span>
+                @endif
+                
+                <!-- Show number of post views -->
+                <p class="text-body-sm text-the-end-600 ml-auto">
                   {{ $project->views ?? 0 }} views
                 </p>
               </div>
@@ -140,31 +200,19 @@
       @endif
     </div>
 
+    <!-- Load more button -->
+    @if($projects->count() > 5)
+      <div class="mt-8 flex justify-center">
+        <button class="admin-load-more-btn lg:w-auto md:w-auto w-full px-6 py-3 border-2 text-body-lg text-the-end-700 border-pepper-green-600/50 rounded-full hover:bg-pepper-green-50 active:bg-pepper-green-100 disabled:border-pepper-green-200 disabled:text-pepper-green-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-pepper-green-600 focus:ring-offset-2">
+          Load more work
+        </button>
+      </div>
+    @endif
+
     <div class="flex justify-between items-center mt-6">
-      <p class="text-the-end-600">
+      <p class="admin-count-display text-the-end-600">
         Showing {{ $projects->firstItem() ?? 0 }}-{{ $projects->lastItem() ?? 0 }} of {{ $projects->total() }} works
       </p>
-      <div class="flex gap-2">
-        @if($projects->onFirstPage())
-          <button disabled class="lg:w-auto md:w-auto w-full px-3 py-1.5 text-body-sm h-[32px] border-2 border-white-smoke-400 text-the-end-300 rounded-full disabled:cursor-not-allowed transition-all duration-150 ease-in-out">
-            Previous
-          </button>
-        @else
-          <a href="{{ $projects->previousPageUrl() }}" class="lg:w-auto md:w-auto w-full px-3 py-1.5 text-body-sm h-[32px] border-2 border-white-smoke-400 text-the-end-700 rounded-full hover:bg-white-smoke-300/50 active:bg-white-smoke-300 transition-all duration-150 ease-in-out focus:ring-2 focus:ring-white-smoke-400 focus:ring-offset-2 inline-flex items-center justify-center">
-            Previous
-          </a>
-        @endif
-
-        @if($projects->hasMorePages())
-          <a href="{{ $projects->nextPageUrl() }}" class="lg:w-auto md:w-auto w-full px-3 py-1.5 text-body-sm h-[32px] border-2 border-pepper-green-600/50 text-the-end-700 rounded-full hover:bg-pepper-green-50 active:bg-pepper-green-100 transition-all duration-150 ease-in-out focus:ring-2 focus:ring-pepper-green-600 focus:ring-offset-2 inline-flex items-center justify-center">
-            Next
-          </a>
-        @else
-          <button disabled class="lg:w-auto md:w-auto w-full px-3 py-1.5 text-body-sm h-[32px] border-2 border-pepper-green-200 text-pepper-green-200 rounded-full disabled:cursor-not-allowed transition-all duration-150 ease-in-out">
-            Next
-          </button>
-        @endif
-      </div>
     </div>
   </div>
 </div>

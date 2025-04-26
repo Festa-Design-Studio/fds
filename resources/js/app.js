@@ -1,4 +1,6 @@
 import './bootstrap';
+import './work-filter';
+import './admin-work-filter';
 
 import Alpine from 'alpinejs';
 

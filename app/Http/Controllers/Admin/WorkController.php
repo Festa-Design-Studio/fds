@@ -16,28 +16,10 @@ class WorkController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Project::query();
-
-        // Apply filters if present
-        if ($request->has('sector') && $request->sector != '') {
-            $query->where('sector', $request->sector);
-        }
-
-        if ($request->has('industry') && $request->industry != '') {
-            $query->where('industry', $request->industry);
-        }
-
-        if ($request->has('sdg') && $request->sdg != '') {
-            $query->where('sdg_alignment', 'like', '%' . $request->sdg . '%');
-        }
-
-        if ($request->has('search') && $request->search != '') {
-            $query->where('title', 'like', '%' . $request->search . '%')
-                  ->orWhere('excerpt', 'like', '%' . $request->search . '%');
-        }
-
-        $projects = $query->paginate(10);
-
+        // We'll handle filtering in JavaScript now, so just load all projects
+        // For backward compatibility, maintain the query parameters but don't apply them server-side
+        $projects = Project::query()->orderBy('created_at', 'desc')->get();
+        
         return view('admin.work.index', compact('projects'));
     }
 

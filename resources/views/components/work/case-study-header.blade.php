@@ -59,7 +59,32 @@
                             <!-- SDG Tag -->
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-body-sm
                             bg-apocalyptic-orange-50 text-apocalyptic-orange-700 border border-apocalyptic-orange-200">
-                            {{ $sdgAlignment }}
+                            @php
+                                $sdgLabel = $sdgAlignment;
+                                if (Str::startsWith($sdgAlignment, 'sdg')) {
+                                    $sdgMap = [
+                                        'sdg1' => 'No Poverty',
+                                        'sdg2' => 'Zero Hunger',
+                                        'sdg3' => 'Good Health & Well-being',
+                                        'sdg4' => 'Quality Education',
+                                        'sdg5' => 'Gender equality',
+                                        'sdg6' => 'Clean water & sanitation',
+                                        'sdg7' => 'Affordable & clean energy',
+                                        'sdg8' => 'Decent work & economic growth',
+                                        'sdg9' => 'Industry, innovation and infrastructure',
+                                        'sdg10' => 'Reduced inequalities',
+                                        'sdg11' => 'Sustainable cities & communities',
+                                        'sdg12' => 'Responsible consumption & production',
+                                        'sdg13' => 'Climate Action',
+                                        'sdg14' => 'Life below water',
+                                        'sdg15' => 'Life on land',
+                                        'sdg16' => 'Peace, justice & strong institutions',
+                                        'sdg17' => 'Partnerships for the goals'
+                                    ];
+                                    $sdgLabel = $sdgMap[$sdgAlignment] ?? $sdgAlignment;
+                                }
+                            @endphp
+                            {{ $sdgLabel }}
                             </span>
                         </div>
                         @endif
