@@ -4,7 +4,7 @@
     'value' => '',
     'required' => false,
     'placeholder' => 'Start writing rich content here...',
-    'uploadUrl' => route('api.upload-image'),
+    'uploadUrl' => route('admin.api.upload-image'),
     'helpText' => null,
 ])
 

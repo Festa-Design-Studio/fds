@@ -11,8 +11,8 @@
 @endsection
 
 @section('content')
-<!-- Work Case study Show page Main Content area-->
-<main class="bg-gradient-to-br from-pepper-green-50 via-white-smoke-50 to-chicken-comb-50">
+<!-- Work Case study Show page Content area-->
+<div class="bg-gradient-to-br from-pepper-green-50 via-white-smoke-50 to-chicken-comb-50">
     
     <!-- Project Work Case Study Header -->
     <x-work.case-study-header
@@ -35,5 +35,5 @@
         :previousProject="$previousProject"
         :nextProject="$nextProject"
     />
-</main>
+</div>
 @endsection 

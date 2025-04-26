@@ -86,7 +86,7 @@ function loadDependencies() {
  */
 function initializeEditor(container) {
     const fieldName = container.dataset.fieldName || 'content';
-    const uploadUrl = container.dataset.uploadUrl || '/api/upload-image';
+    const uploadUrl = container.dataset.uploadUrl || '/admin/api/upload-image';
     const content = container.dataset.content || '';
     
     // Create editor instance

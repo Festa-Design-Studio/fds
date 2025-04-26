@@ -75,4 +75,147 @@
     height: auto;
     margin: 1rem 0;
     border-radius: 0.25rem;
+}
+
+/* Festa Editor Styles */
+
+/* Enhanced Responsive Video Containers */
+.responsive-video {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.responsive-video iframe,
+.responsive-video video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+/* For larger screens, ensure video has good presence */
+@media (min-width: 1200px) {
+    .responsive-video {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    /* When inside a constrained container, allow breaking out slightly */
+    .festa-editor-content .responsive-video,
+    .case-study-content .responsive-video {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* For extra large screens, prevent videos from being too small */
+@media (min-width: 1600px) {
+    .festa-editor-content .responsive-video,
+    .case-study-content .responsive-video {
+        width: 100%; 
+        max-width: 100%;
+    }
+}
+
+/* Ensure content around videos has appropriate spacing */
+.festa-editor-content p + .responsive-video,
+.case-study-content p + .responsive-video {
+    margin-top: 2.5rem;
+}
+
+.festa-editor-content .responsive-video + p,
+.case-study-content .responsive-video + p {
+    margin-top: 2.5rem;
+}
+
+/* Media queries for responsive video sizing */
+@media (max-width: 768px) {
+    .responsive-video {
+        margin: 1.5rem auto;
+        border-radius: 0.375rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .responsive-video {
+        margin: 1.25rem auto;
+    }
+}
+
+/* Ensure consistency between editor and case study display */
+.case-study-content .responsive-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    background-color: var(--color-white-smoke-200);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.case-study-content .responsive-video iframe,
+.case-study-content .responsive-video video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+/* Editor Image Styling */
+.festa-rich-text-editor img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
+    margin: 1rem 0;
+}
+
+.festa-rich-text-editor figure {
+    max-width: 100%;
+    margin: 1.5rem 0;
+}
+
+.festa-rich-text-editor figcaption {
+    margin-top: 0.5rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+/* Editor Content Paragraph Spacing */
+.festa-rich-text-editor p {
+    margin-bottom: 1rem;
+}
+
+.festa-rich-text-editor h1,
+.festa-rich-text-editor h2,
+.festa-rich-text-editor h3,
+.festa-rich-text-editor h4,
+.festa-rich-text-editor h5,
+.festa-rich-text-editor h6 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Ensure images are properly contained */
+.case-study-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
 } 

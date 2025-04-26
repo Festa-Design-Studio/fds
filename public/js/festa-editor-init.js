@@ -28,38 +28,102 @@ function initFestaEditor(editorId, hiddenInputId) {
     editorContainer.dataset.fieldName = hiddenInput.name;
     editorContainer.dataset.content = hiddenInput.value || '';
     
-    // Load and initialize the editor
-    if (typeof window.createFestaEditor === 'function') {
-        // If the editor library is already loaded
-        console.log('Creating Festa editor (function already available)');
-        window.createFestaEditor({
-            selector: `#${editorId}`,
-            onChange: (html) => {
-                hiddenInput.value = html;
+    // Configure the image upload URL - USING EXACT ROUTE FROM LARAVEL
+    const uploadUrl = window.location.origin + '/admin/api/upload-image';
+    console.log('Setting upload URL to:', uploadUrl);
+    
+    // Initialize the editor
+    const editor = new FestaRichTextEditor({
+        selector: '#' + editorId,
+        uploadUrl: uploadUrl,
+        onChange: (html) => {
+            // Update hidden input with editor content
+            hiddenInput.value = html;
+            
+            // Log content length for debugging
+            console.log('Editor content updated, length:', html.length);
+        }
+    });
+    
+    // Store editor reference on container element
+    editorContainer.editor = editor;
+    
+    // Ensure media controls (including video button) are present
+    setTimeout(() => {
+        ensureVideoButton(editorContainer);
+    }, 500);
+    
+    return editor;
+}
+
+// Function to ensure the video button is present
+function ensureVideoButton(editorContainer) {
+    const toolbar = editorContainer.querySelector('.festa-editor-toolbar');
+    if (!toolbar) {
+        console.error('Toolbar not found');
+        return;
+    }
+    
+    // Check if video button already exists
+    let videoBtn = toolbar.querySelector('button[title="Embed Video"]');
+    
+    // If video button doesn't exist, add it
+    if (!videoBtn) {
+        console.log('Video button not found, adding it now');
+        
+        // Get editor instance
+        const editor = editorContainer.editor;
+        if (!editor) {
+            console.error('Editor instance not found on container');
+            return;
+        }
+        
+        // Create the video button
+        videoBtn = document.createElement('button');
+        videoBtn.type = 'button';
+        videoBtn.className = 'px-2 py-1 rounded text-sm hover:bg-white-smoke-100';
+        videoBtn.textContent = 'Video';
+        videoBtn.title = 'Embed Video';
+        
+        // Add icon or styling to make it more visible
+        videoBtn.innerHTML = '<span class="px-2 py-1 bg-chicken-comb-50 text-chicken-comb-600 rounded">Video</span>';
+        
+        // Add click handler to show video dialog
+        videoBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (typeof editor.showVideoEmbedDialog === 'function') {
+                editor.showVideoEmbedDialog();
+            } else {
+                console.error('showVideoEmbedDialog method not found on editor');
+                alert('Video embed functionality not available. Please refresh the page.');
             }
         });
+        
+        // Add to toolbar
+        toolbar.appendChild(videoBtn);
+        console.log('Video button added to toolbar');
     } else {
-        // Need to wait for scripts to load
-        console.log('Loading editor scripts first');
-        loadEditorScripts().then(() => {
-            console.log('Scripts loaded, now creating editor');
-            window.createFestaEditor({
-                selector: `#${editorId}`,
-                onChange: (html) => {
-                    hiddenInput.value = html;
-                }
-            });
-        }).catch(err => {
-            console.error('Failed to load editor scripts', err);
-        });
+        console.log('Video button already exists in toolbar');
     }
 }
 
 // Load required scripts if not already loaded
-function loadEditorScripts() {
+function loadEditorScripts(forceReload = false) {
     return new Promise((resolve, reject) => {
-        // Check if main editor script is already loaded
-        if (typeof window.FestaRichTextEditor !== 'undefined') {
+        // Remove existing script if force reload
+        if (forceReload) {
+            const existingScript = document.querySelector('script[src="/js/festa-rich-text-editor.js"]');
+            if (existingScript) {
+                existingScript.parentNode.removeChild(existingScript);
+                // Reset the global variable
+                window.FestaRichTextEditor = undefined;
+                window.createFestaEditor = undefined;
+                console.log('Removed existing editor script for reload');
+            }
+        }
+        
+        // Check if main editor script is already loaded and we're not forcing reload
+        if (!forceReload && typeof window.FestaRichTextEditor !== 'undefined') {
             console.log('FestaRichTextEditor already loaded');
             resolve();
             return;
@@ -71,7 +135,8 @@ function loadEditorScripts() {
         script.src = '/js/festa-rich-text-editor.js';
         script.onload = () => {
             console.log('festa-rich-text-editor.js loaded successfully');
-            resolve();
+            // Short delay to ensure script is fully initialized
+            setTimeout(resolve, 100);
         };
         script.onerror = (err) => {
             console.error('Error loading festa-rich-text-editor.js', err);

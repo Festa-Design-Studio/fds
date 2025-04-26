@@ -8,7 +8,7 @@ class FestaRichTextEditor {
     constructor(options = {}) {
         this.options = {
             selector: '#festa-editor',
-            uploadUrl: '/api/upload-image',
+            uploadUrl: '/admin/api/upload-image',
             ...options
         };
         

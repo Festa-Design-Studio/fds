@@ -179,10 +179,40 @@ console.log('Admin create work page loaded');
 </script>
 <script src="{{ asset('js/festa-rich-text-editor.js') }}"></script>
 <script src="{{ asset('js/festa-editor-init.js') }}"></script>
+<script src="{{ asset('js/add-video-button.js') }}"></script>
+<script src="{{ asset('js/force-video-button.js') }}"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing editor');
     initFestaEditor('festa-editor', 'content-hidden');
+    
+    // Debug script to verify editor is fully initialized
+    setTimeout(function() {
+      console.log('Debug check: Editor initialized?', !!window.FestaRichTextEditor);
+      
+      const editorWrapper = document.querySelector('.festa-editor-wrapper');
+      if (editorWrapper) {
+        console.log('Editor wrapper found:', editorWrapper);
+        
+        // Check if toolbar was created correctly
+        const toolbar = document.querySelector('.festa-editor-toolbar');
+        if (toolbar) {
+          console.log('Toolbar found with children:', toolbar.children.length);
+          console.log('Toolbar buttons:', Array.from(toolbar.querySelectorAll('button')).map(b => b.title));
+          
+          // Force add video button after 500ms
+          setTimeout(function() {
+            if (typeof addVideoButtonToEditors === 'function') {
+              addVideoButtonToEditors();
+            }
+          }, 500);
+        } else {
+          console.error('Toolbar not found!');
+        }
+      } else {
+        console.error('Editor wrapper not found!');
+      }
+    }, 1000);
   });
 </script>
 @endsection 

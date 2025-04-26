@@ -116,6 +116,38 @@
         color: var(--color-the-end-600);
         margin-top: 0.5rem;
     }
+    
+    /* Enhance image display */
+    .case-study-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.375rem;
+        margin: 1.5rem 0;
+        display: block;
+    }
+    
+    /* Responsive video container */
+    .case-study-content .responsive-video {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+        max-width: 100%;
+        margin: 1.5rem 0;
+        border-radius: 0.375rem;
+        background: var(--color-white-smoke-200);
+    }
+    
+    .case-study-content .responsive-video iframe,
+    .case-study-content .responsive-video video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.375rem;
+        border: none;
+    }
 </style>
 @endpush
 @endonce 

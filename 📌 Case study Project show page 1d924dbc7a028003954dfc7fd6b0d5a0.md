@@ -154,7 +154,7 @@ Code snippets:
 
 ### Project Work Case Study Body
 
-*This section is where the **Trix Rich Text Editor** is used to manage content like copy, images, and captions.*
+*This section is where the  is used to manage content like copy, images, and captions.*
 
 - **Subsection: Objectives**
     - h2 title
@@ -185,7 +185,7 @@ Code snippets:
 <!-- Project Work Case Study Body -->
     <article class="mx-auto max-w-3xl py-20 px-4 md:px-8 lg:px-16">
         
-        <!-- Case Study Body Introduction. Must utilize Installed Trix Rich Text editor -->
+        <!-- Case Study Body Introduction. -->
         <div class="space-y-8 mb-16">
             <h2 class="text-h2 font-bold text-pepper-green">Objectives</h2>
             <div class="space-y-3.5">
@@ -204,7 +204,7 @@ Code snippets:
             </div>
         </div>
 
-        <!-- The Challenge Must utilize Installed Trix Rich Text editor -->
+        <!-- The Challenge Must utilize Installed  -->
         <div class="space-y-8 mb-16">
             <h2 class="text-h2 font-bold text-pepper-green">The challenge</h2>
             <p class="text-body text-the-end-700">Despite a powerful mission and committed team, Dr. G’s Lab struggled with misalignment between their internal identity and their public-facing content.</p>
@@ -237,7 +237,7 @@ Code snippets:
             
         </div>
 
-        <!-- The Solution Must utilize Installed Trix Rich Text editor -->
+        <!-- The Solution Must utilize Installed -->
         <div class="space-y-8 mb-16">
             <h2 class="text-h2 font-bold text-pepper-green">The solution</h2>
             <p class="text-body text-the-end-700">Our response combined UX research, strategic communication design, and ethical branding to realign Dr. G’s Lab’s public presence with their mission.</p>
@@ -323,7 +323,7 @@ Code snippets:
             </div>
         </div>
 
-         <!-- The Results Must utilize Installed Trix Rich Text editor -->
+         <!-- The Results Must utilize  -->
          <div class="space-y-8">
             <h2 class="text-h2 font-bold text-pepper-green">The results</h2>
             <p class="text-body text-the-end-700">Our work with Dr. G’s Lab generated measurable improvements and increased brand clarity across every touchpoint.</p>
@@ -506,7 +506,7 @@ Code snippet:
     <!-- Work Case Study Body -->
     <article class="mx-auto max-w-3xl py-20 px-4 md:px-8 lg:px-16">
         
-        <!-- Case Study Body Introduction. Must utilize Installed Trix Rich Text editor -->
+        <!-- Case Study Body Introduction.-->
         <div class="space-y-8 mb-16">
             <h2 class="text-h2 font-bold text-pepper-green">Objectives</h2>
             <div class="space-y-3.5">
@@ -525,7 +525,7 @@ Code snippet:
             </div>
         </div>
 
-        <!-- The Challenge Must utilize Installed Trix Rich Text editor -->
+       
         <div class="space-y-8 mb-16">
             <h2 class="text-h2 font-bold text-pepper-green">The challenge</h2>
             <p class="text-body text-the-end-700">Despite a powerful mission and committed team, Dr. G’s Lab struggled with misalignment between their internal identity and their public-facing content.</p>
@@ -558,7 +558,7 @@ Code snippet:
             
         </div>
 
-        <!-- The Solution Must utilize Installed Trix Rich Text editor -->
+        
         <div class="space-y-8 mb-16">
             <h2 class="text-h2 font-bold text-pepper-green">The solution</h2>
             <p class="text-body text-the-end-700">Our response combined UX research, strategic communication design, and ethical branding to realign Dr. G’s Lab’s public presence with their mission.</p>
@@ -591,6 +591,7 @@ Code snippet:
 
             </div>
 
+            <!-- Gallery image inn grid -->
             <div class="grid lg:grid-cols-2 grid-cols-1 gap-6">
 
                 <!-- Image with Caption -->
@@ -644,7 +645,8 @@ Code snippet:
             </div>
         </div>
 
-         <!-- The Results Must utilize Installed Trix Rich Text editor -->
+      
+    
          <div class="space-y-8">
             <h2 class="text-h2 font-bold text-pepper-green">The results</h2>
             <p class="text-body text-the-end-700">Our work with Dr. G’s Lab generated measurable improvements and increased brand clarity across every touchpoint.</p>

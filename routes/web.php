@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -99,6 +100,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::put('/blog/posts/{id}', [BlogController::class, 'update'])->name('blog.update');
     Route::delete('/blog/posts/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
     Route::get('/blog/categories', [BlogController::class, 'categories'])->name('blog.categories');
+    
+    // Image Upload for Editor
+    Route::post('/api/upload-image', [ImageController::class, 'upload'])->name('admin.api.upload-image');
     
     // Admin Settings
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
