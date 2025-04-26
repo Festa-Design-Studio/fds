@@ -3,11 +3,13 @@
 @section('title', $client->name . ' - Festa Design Studio')
 
 @section('breadcrumbs')
-    <x-core.breadcrumbs :items="[
-        ['label' => 'Work', 'url' => route('work')],
-        ['label' => 'Clients', 'url' => route('clients')], 
-        ['label' => $client->name]
-    ]" />
+    <x-core.breadcrumbs-truncated
+        :items="[
+            ['label' => 'Work', 'url' => route('work')],
+            ['label' => 'Clients', 'url' => route('clients')]
+        ]"
+        :currentLabel="$client->name"
+    />
 @endsection
 
 @section('content')

@@ -6,7 +6,7 @@
     'maxWidth' => '150px'
 ])
 
-<nav aria-label="Breadcrumb" {{ $attributes->merge(['class' => 'mx-auto']) }}>
+<nav aria-label="Breadcrumb" {{ $attributes->merge(['class' => 'mx-auto px-4 sm:px-6 lg:px-6 py-4 sm:py-6 lg:py-6']) }}>
     <div class="flex items-center space-x-2 text-sm">
         <a href="{{ $homeUrl }}" class="px-2 py-1 text-body text-the-end-400 hover:text-pepper-green-600 transition">
             {{ $homeLabel }}
