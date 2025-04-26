@@ -211,7 +211,7 @@
 
     <div class="flex justify-between items-center mt-6">
       <p class="admin-count-display text-the-end-600">
-        Showing {{ $projects->firstItem() ?? 0 }}-{{ $projects->lastItem() ?? 0 }} of {{ $projects->total() }} works
+        Showing projects from the total of {{ $projects->count() }} works
       </p>
     </div>
   </div>
