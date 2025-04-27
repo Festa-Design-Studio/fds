@@ -228,6 +228,139 @@
             </div>
         </section>
         
+        <!-- Team Member Components -->
+        <section class="mb-16">
+            <h2 class="text-h3 font-semibold text-the-end-900 mb-6">Team Member Components</h2>
+            
+            <div class="space-y-10 p-6 bg-white-smoke-50 rounded-lg">
+                <!-- Avatar Component -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Team Member Avatar</h3>
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                        <x-about.team.team-member.avatar 
+                            name="Abayomi Ogundipe"
+                            title="Founder, Festa Design Studio"
+                            email="abayomi@festa.design"
+                            linkedin="https://www.linkedin.com/in/abayomiogundipe"
+                            avatar="/src/img/Abayomi-Ogundipe.jpg"
+                        />
+                    </div>
+                </div>
+                
+                <!-- Summary Component -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Team Member Summary</h3>
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                        <x-about.team.team-member.summary 
+                            summary="International development professional with 15+ years of experience in program design, management, and fundraising. Demonstrated success in leading global teams, securing over $900,000 in funding, and implementing high-impact educational initiatives.
+
+Expertise in developing innovative STEAM (Science, Tech, Engineering, Arts & Maths) programs reaching 3,200+ underserved youth and managing cross-cultural partnerships with UN agencies, OECD donors, private philanthropy and corporate sponsors."
+                        />
+                    </div>
+                </div>
+                
+                <!-- Experience Component -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Team Member Experience</h3>
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                        <x-about.team.team-member.experience 
+                            :experiences="[
+                                [
+                                    'title' => 'Founder',
+                                    'company' => 'Festa Design Studio',
+                                    'period' => '2023 – Present',
+                                    'description' => 'Leading UX research, design systems, and implementation of accessible web applications for nonprofits and mission-driven startups.',
+                                    'logo' => '/src/img/fds-logomark.png',
+                                ],
+                                [
+                                    'title' => 'Founder',
+                                    'company' => 'TEKEDU',
+                                    'period' => '2013 – 2023',
+                                    'description' => 'Designed digital experiences and optimized interfaces for multiple nonprofit organizations, boosting user engagement.',
+                                    'logo' => '/src/img/tekedu.png',
+                                ]
+                            ]"
+                            title="Professional experience"
+                        />
+                    </div>
+                </div>
+                
+                <!-- Education Component -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Team Member Education</h3>
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                        <x-about.team.team-member.education 
+                            :education="[
+                                [
+                                    'degree' => 'Advanced Diploma, International Development',
+                                    'institution' => 'University of Cambridge, UK',
+                                ],
+                                [
+                                    'degree' => 'B.Sc. in Business Administration',
+                                    'institution' => 'University of Lagos, Nigeria',
+                                ]
+                            ]"
+                        />
+                    </div>
+                </div>
+                
+                <!-- Certifications Component -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Team Member Certifications</h3>
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                        <x-about.team.team-member.certifications 
+                            :certifications="[
+                                [
+                                    'name' => 'Professional Diploma in UX Design',
+                                    'institution' => 'UX Design Institute, Ireland',
+                                    'logo' => '/src/img/ux-design-institute.jpeg',
+                                ],
+                                [
+                                    'name' => 'Professional Diploma in Front-end Web Development',
+                                    'institution' => 'General Assembly, Washington D.C.',
+                                    'logo' => '/src/img/general-assembly.png',
+                                ]
+                            ]"
+                        />
+                    </div>
+                </div>
+                
+                <!-- Skills Component -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Team Member Skills</h3>
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                        <x-about.team.team-member.skills
+                            :skills="[
+                                'UX research & design' => ['UX Research', 'Interaction Design', 'Design Systems', 'Figma'],
+                                'Frontend web development' => ['Tailwind CSS', 'Laravel', 'PHP', 'jQuery', 'HTML5', 'CSS'],
+                            ]"
+                        />
+                    </div>
+                </div>
+                
+                <!-- Press Component -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Team Member Press</h3>
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                        <x-about.team.team-member.press
+                            :press="[
+                                [
+                                    'title' => 'Moldova: Hire Me',
+                                    'source' => 'The Institute for War & Peace Reporting',
+                                    'url' => 'https://iwpr.net/impact/moldova-hire-me',
+                                ],
+                                [
+                                    'title' => 'Moldova ramps up IT training for girls',
+                                    'source' => 'UN Women Europe and Central Asia',
+                                    'url' => 'https://example.com/article-2',
+                                ]
+                            ]"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section class="mb-16">
             <h2 class="text-h3 font-semibold text-the-end-900 mb-6">Page Components</h2>
             

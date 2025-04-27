@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\About\Team\TeamMemberController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,6 +46,20 @@ Route::get('/about/team', [AboutController::class, 'team'])->name('about.team');
 Route::get('/about/our-process', [AboutController::class, 'process'])->name('about.process');
 Route::get('/about/focus', [AboutController::class, 'focus'])->name('about.focus');
 Route::get('/about/we-design-for-good', [AboutController::class, 'designForGood'])->name('about.design-for-good');
+
+// Team Members
+Route::get('/about/team/{team_member}', [TeamMemberController::class, 'show'])->name('about.team.show');
+
+// Admin Team Members
+Route::prefix('admin/about/team')->middleware(['auth'])->group(function () {
+    Route::get('/', [TeamMemberController::class, 'index'])->name('admin.about.team.index');
+    Route::get('/create', [TeamMemberController::class, 'create'])->name('admin.about.team.create');
+    Route::post('/', [TeamMemberController::class, 'store'])->name('admin.about.team.store');
+    Route::get('/{team_member}/edit', [TeamMemberController::class, 'edit'])->name('admin.about.team.edit');
+    Route::put('/{team_member}', [TeamMemberController::class, 'update'])->name('admin.about.team.update');
+    Route::delete('/{team_member}', [TeamMemberController::class, 'destroy'])->name('admin.about.team.destroy');
+    Route::post('/upload-logo', [TeamMemberController::class, 'uploadLogo'])->name('admin.about.team.upload-logo');
+});
 
 // Resources
 Route::get('/resources/blog', [ResourcesController::class, 'blog'])->name('resources.blog');
