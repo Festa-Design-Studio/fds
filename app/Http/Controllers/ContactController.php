@@ -15,4 +15,9 @@ class ContactController extends Controller
     {
         return view('contact.talktofesta');
     }
+
+    public function thankYou()
+    {
+        return view('contact.thank-you');
+    }
 } 

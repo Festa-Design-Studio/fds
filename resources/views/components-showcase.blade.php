@@ -4,6 +4,19 @@
     <div class="container mx-auto">
         <h1 class="text-h1 font-bold text-the-end-900 mb-10">Festa Component Showcase</h1>
         
+        <!-- Quick Access Links -->
+        <div class="mb-10 p-4 bg-white-smoke-100 rounded-lg border border-white-smoke-300">
+            <h2 class="text-h4 font-medium text-the-end-900 mb-4">Quick Access</h2>
+            <div class="flex flex-wrap gap-4">
+                <a href="{{ route('test.thank-you') }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-chicken-comb-600 text-white-smoke-50 rounded-full hover:bg-chicken-comb-700 transition-colors">
+                    View Thank You Page
+                </a>
+                <a href="{{ url('/thank-you') }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-pepper-green-600 text-white-smoke-50 rounded-full hover:bg-pepper-green-700 transition-colors">
+                    Original Thank You URL
+                </a>
+            </div>
+        </div>
+        
         <section class="mb-16">
             <h2 class="text-h3 font-semibold text-the-end-900 mb-6">Core Components</h2>
             
@@ -1536,6 +1549,41 @@ Expertise in developing innovative STEAM (Science, Tech, Engineering, Arts & Mat
                                 url="#"
                             />
                         </x-home.insights-section>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Components Section -->
+        <section class="mb-16">
+            <h2 class="text-h3 font-semibold text-the-end-900 mb-6">Contact Components</h2>
+            
+            <div class="space-y-16">
+                <!-- Talk to Festa Form -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Talk to Festa Form</h3>
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden p-6">
+                        <x-contact.talk-to-festa-form access_key="9e78fe8d-0945-41da-851e-7be12cc06087" />
+                    </div>
+                </div>
+                
+                <!-- Thank You Page Preview -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Thank You Page Preview</h3>
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
+                        <div class="p-4 bg-white-smoke-50 text-center">
+                            <p class="text-body-sm text-the-end-500 mb-4">Thank You Page Preview (scaled down version)</p>
+                            
+                            <div class="h-[600px] overflow-hidden relative rounded-lg">
+                                <iframe src="{{ route('contact.thank-you') }}" class="w-full h-full"></iframe>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <a href="{{ route('contact.thank-you') }}" target="_blank" class="text-pepper-green-600 hover:underline">
+                                    Open Thank You page in a new tab →
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

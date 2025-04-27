@@ -69,6 +69,7 @@ Route::get('/resources/design-system', [ResourcesController::class, 'designSyste
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contact/talktofesta', [ContactController::class, 'talkToFesta'])->name('contact.talk-to-festa');
+Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('contact.thank-you');
 
 // Utility Pages
 Route::get('/privacy', [UtilityController::class, 'privacy'])->name('privacy');
@@ -79,6 +80,11 @@ Route::get('/sitemap', [UtilityController::class, 'sitemap'])->name('sitemap');
 Route::get('/components-showcase', function () {
     return view('components-showcase');
 })->name('components.showcase');
+
+// Special test route for thank-you page
+Route::get('/test-thank-you', function () {
+    return view('contact.thank-you');
+})->name('test.thank-you');
 
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
