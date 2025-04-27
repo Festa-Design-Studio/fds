@@ -11,7 +11,7 @@
                     <h2 class="text-h4 text-the-end font-bold">We design for good</h2>
                     <p class="text-body-sm text-the-end-700">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam dolor cum.</p>
                     <!-- Primary large button -->
-                    <x-core.button variant="primary" size="large" href="/contact">
+                    <x-core.button variant="primary" size="large" href="/contact/talktofesta">
                         Talk to Festa
                     </x-core.button>
                 </div>

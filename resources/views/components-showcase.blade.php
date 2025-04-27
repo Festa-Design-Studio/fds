@@ -51,6 +51,24 @@
                             </div>
                         </div>
                         
+                        <!-- Truncated Breadcrumbs Component -->
+                        <div>
+                            <h4 class="text-h5 font-medium text-the-end-900 mb-3">Truncated Breadcrumbs</h4>
+                            <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                                <x-core.breadcrumbs-truncated 
+                                    :homeUrl="'/'" 
+                                    :homeLabel="'Home'" 
+                                    :items="[
+                                        ['label' => 'Services', 'url' => '/services'],
+                                        ['label' => 'Web Design', 'url' => '/services/web-design'],
+                                        ['label' => 'Advanced Techniques', 'url' => '/services/web-design/advanced-techniques']
+                                    ]" 
+                                    :currentLabel="'Responsive Development'" 
+                                    :maxWidth="'150px'" 
+                                />
+                            </div>
+                        </div>
+                        
                         <!-- Footer Component -->
                         <div>
                             <h4 class="text-h5 font-medium text-the-end-900 mb-3">Footer</h4>
@@ -1549,6 +1567,33 @@ Expertise in developing innovative STEAM (Science, Tech, Engineering, Arts & Mat
                                 url="#"
                             />
                         </x-home.insights-section>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Utility Components Section -->
+        <section class="mb-16">
+            <h2 class="text-h3 font-semibold text-the-end-900 mb-6">Utility Components</h2>
+            
+            <div class="space-y-16">
+                <!-- 404 Page -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">404 Not Found Page</h3>
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
+                        <section class="bg-gradient-to-br from-white-smoke-50 via-apocalyptic-orange-50 to-pot-of-gold-100 min-h-screen flex items-center justify-center px-4 py-12">
+                            <div class="max-w-lg text-center space-y-6">
+                                <h1 class="text-display font-black text-the-end-900">404</h1>
+                                <h2 class="text-h2 font-bold text-the-end-900">Page Not Found</h2>
+                                <p class="text-body-lg text-the-end-700">The page you're looking for seems to have taken a different path.</p>
+                                
+                                <!-- Large Primary Button -->
+                                <a href="{{ url('/') }}" 
+                                    class="inline-flex lg:w-auto md:w-auto w-full px-6 py-3 text-body-lg h-[48px] bg-chicken-comb-600 text-white-smoke-50 rounded-full hover:bg-chicken-comb-700 active:bg-chicken-comb-800 disabled:bg-chicken-comb-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-chicken-comb-600 focus:ring-offset-2 flex items-center justify-center">
+                                    Return back home
+                                </a>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>

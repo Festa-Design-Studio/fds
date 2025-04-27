@@ -157,7 +157,7 @@
       <!-- Primary Medium CTA Button Column -->
       <div class="flex items-center space-x-4">
         <!-- "Talk to Festa" Primary Medium CTA Button -->
-        <x-core.button variant="primary" size="small" href="/contact" class="hidden md:flex">
+        <x-core.button variant="primary" size="small" href="/contact/talktofesta" class="hidden md:flex">
             Talk to Festa
         </x-core.button>
 
