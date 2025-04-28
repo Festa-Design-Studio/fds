@@ -39,6 +39,9 @@
         @endforeach
     </x-about.team-section>
     
+    <!-- How We Work Section -->
+    <x-about.how-we-work />
+    
     <!-- Partners Section -->
     <x-about.partners-section 
         title="Organizations We've Worked With" 

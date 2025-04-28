@@ -59,7 +59,7 @@
 
   <!-- About Hero Headline and Subheadline -->
   <div class="max-w-4xl mx-auto text-center relative z-10 space-y-8">
-    <span class="text-body-sm text-pepper-green-600 font-medium">Vision</span>
+    <span class="text-body-sm text-pepper-green-600 uppercase tracking-wide">Vision</span>
 
     <h1 class="text-h1 font-black text-chicken-comb-600">Shaping tomorrow's impact</h1>
     <p class="text-body-lg text-the-end-700 max-w-2xl mx-auto">

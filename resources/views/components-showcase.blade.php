@@ -1424,6 +1424,15 @@ Expertise in developing innovative STEAM (Science, Tech, Engineering, Arts & Mat
                     </div>
                 </div>
                 
+                <!-- How We Work Section -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">How We Work Section</h3>
+                    
+                    <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
+                        <x-about.how-we-work />
+                    </div>
+                </div>
+                
                 <!-- Partner Logo -->
                 <div>
                     <h3 class="text-h4 font-medium text-the-end-900 mb-4">Partner Logo</h3>
