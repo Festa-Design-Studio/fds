@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
 
 class AboutController extends Controller
 {
     public function index()
     {
-        return view('about.index');
+        $teamMembers = TeamMember::orderBy('name')->take(3)->get();
+        return view('about.index', compact('teamMembers'));
     }
 
     public function team()
     {
-        return view('about.team');
+        $teamMembers = TeamMember::orderBy('name')->get();
+        return view('about.team', compact('teamMembers'));
     }
 
     public function process()

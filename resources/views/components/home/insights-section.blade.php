@@ -2,7 +2,7 @@
 
 <!-- Latest insight section -->
 <section class="py-20 px-4 md:px-8 lg:px-16 bg-leaf-50">
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-6xl mx-auto">
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <div class="space-y-8">
         <div class="space-y-4">

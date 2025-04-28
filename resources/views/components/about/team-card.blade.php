@@ -12,7 +12,7 @@
   </div>
   <!-- Team Member Name and Position -->
   <h4 class="text-h4 font-semibold text-the-end-900 mb-2">{{ $name }}</h4>
-  <p class="text-body-lg text-pepper-green-600 mb-4">{{ $position }}</p>
+  <p class="text-body text-chicken-comb-600 mb-4">{{ $position }}</p>
 
   <div class="flex gap-4 mb-6">
     @if($linkedin)

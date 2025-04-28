@@ -1,7 +1,7 @@
 <!-- Hero Section -->
 <section
   class="bg-gradient-to-b from-pepper-green-50 to-white-smoke-50 py-20 px-4 md:px-8 lg:px-16">
-  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+  <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
     <!-- Hero title, sub-title and CTA button "Why we design for good"-->
     <div class="space-y-6">
       <h1 class="text-display font-black text-the-end-900">

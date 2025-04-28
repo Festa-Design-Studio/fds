@@ -38,7 +38,7 @@
             <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2"/>
         </svg>
         
-        <span class="px-2 py-1 font-medium text-chicken-comb-600" aria-current="page">
+        <span class="px-2 py-1  text-chicken-comb-600" aria-current="page">
             {{ $currentLabel }}
         </span>
     </div>

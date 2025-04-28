@@ -232,7 +232,7 @@
 
     <!-- Mobile Primary Medium Button -->
     <div class="px-5 pt-4 pb-3">
-      <x-core.button variant="primary" size="small" href="/contact" class="w-full">
+      <x-core.button variant="primary" size="small" href="/contact/talktofesta" class="w-full">
           Talk to Festa
       </x-core.button>
     </div>
