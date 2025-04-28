@@ -4,7 +4,7 @@
 <section class="bg-gradient-to-br from-white-smoke-50 via-apocalyptic-orange-50 to-pot-of-gold-100 min-h-screen flex items-center justify-center px-4 py-12">
     <div class="max-w-lg text-center space-y-6">
         <h1 class="text-display font-black text-the-end-900">404</h1>
-        <h2 class="text-h2 font-bold text-the-end-900">Page Not Found</h2>
+        <h2 class="text-h2 font-bold text-the-end-900">Page not found</h2>
         <p class="text-body-lg text-the-end-700">The page you're looking for seems to have taken a different path.</p>
         
         <!-- Large Primary Button -->

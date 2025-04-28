@@ -14,7 +14,7 @@
     <x-home.work-section
         title="Work in action"
         description="Discover how our collaborative design approach drives real-world change for mission-driven organizations."
-        buttonText="View all work"
+        buttonText="View all our work"
         buttonUrl="{{ route('work') }}"
     >
         {{-- Display most recent work card--}}
@@ -80,7 +80,7 @@
     <x-home.insights-section
         title="Knowledge for impact"
         description="Explore our latest thoughts on design, social impact, and creating meaningful change."
-        buttonText="View all articles"
+        buttonText="View all our articles"
         buttonUrl="#"
     >
         <x-blog.article-card 

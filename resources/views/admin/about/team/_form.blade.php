@@ -217,294 +217,1174 @@
     </button>
 </div>
 
-<!-- Similar sections for other components (volunteer experience, education, certifications, skills, press) -->
-<!-- These would follow the same pattern as the professional experience section -->
-
-<!-- Update the volunteer experience logo field similar to professional experience -->
-<div>
-    <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
-    <div class="flex items-center gap-2 mt-1">
-        <div class="flex-grow">
-            <input 
-                type="text" 
-                name="volunteer_experience[${volunteerExpCount}][logo]" 
-                class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
-                placeholder="/src/img/organization-logo.png"
-            >
-        </div>
-        <div class="flex-shrink-0">
-            <label for="vol-exp-logo-${volunteerExpCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
-                Upload
-            </label>
-            <input 
-                type="file" 
-                id="vol-exp-logo-${volunteerExpCount}" 
-                class="hidden logo-upload" 
-                data-section="volunteer_experience"
-                data-index="${volunteerExpCount}"
-                accept="image/*"
-            >
-        </div>
+<!-- Volunteer Experience -->
+<div class="mt-10 space-y-6">
+    <h2 class="text-h3 font-semibold text-the-end-800 border-b border-gray-200 pb-2">Volunteer Experience</h2>
+    
+    <div id="volunteer-experience-container">
+        @if(isset($team_member) && $team_member->volunteer_experience)
+            @php
+                $experiences = is_string($team_member->volunteer_experience) 
+                    ? json_decode($team_member->volunteer_experience, true) 
+                    : $team_member->volunteer_experience;
+            @endphp
+            
+            @foreach($experiences as $index => $experience)
+                <div class="experience-item border border-white-smoke-200 rounded-md p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Experience</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-volunteer-experience">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Organization Name</label>
+                            <input 
+                                type="text" 
+                                name="volunteer_experience[{{ $index }}][organization]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $experience['organization'] ?? '' }}"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Role</label>
+                            <input 
+                                type="text" 
+                                name="volunteer_experience[{{ $index }}][role]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $experience['role'] ?? '' }}"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Period</label>
+                            <input 
+                                type="text" 
+                                name="volunteer_experience[{{ $index }}][period]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $experience['period'] ?? '' }}" 
+                                placeholder="e.g. 2018 - Present"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex-grow">
+                                    <input 
+                                        type="text" 
+                                        name="volunteer_experience[{{ $index }}][logo]" 
+                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
+                                        placeholder="/src/img/organization-logo.png"
+                                        value="{{ $experience['logo'] ?? '' }}"
+                                    >
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <label for="vol-exp-logo-{{ $index }}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
+                                        Upload
+                                    </label>
+                                    <input 
+                                        type="file" 
+                                        id="vol-exp-logo-{{ $index }}" 
+                                        class="hidden logo-upload" 
+                                        data-section="volunteer_experience"
+                                        data-index="{{ $index }}"
+                                        accept="image/*"
+                                    >
+                                </div>
+                            </div>
+                            <div class="logo-preview mt-2 {{ ($experience['logo'] ?? '') ? '' : 'hidden' }}">
+                                @if(isset($experience['logo']) && $experience['logo'])
+                                    @php
+                                        $logoPath = $experience['logo'];
+                                        if (str_starts_with($logoPath, 'team-members/')) {
+                                            $logoUrl = asset('storage/' . $logoPath);
+                                        } elseif (str_starts_with($logoPath, '/')) {
+                                            $logoUrl = $logoPath;
+                                        } else {
+                                            $logoUrl = $logoPath;
+                                        }
+                                    @endphp
+                                    <img src="{{ $logoUrl }}" alt="Logo preview" class="h-10 w-auto">
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-the-end-700">Description</label>
+                        <textarea 
+                            name="volunteer_experience[{{ $index }}][description]" 
+                            rows="2" 
+                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                        >{{ $experience['description'] ?? '' }}</textarea>
+                    </div>
+                </div>
+            @endforeach
+        @endif
     </div>
-    <div class="logo-preview mt-2 hidden">
-        <img src="" alt="Logo preview" class="h-10 w-auto">
-    </div>
+    
+    <button 
+        type="button" 
+        id="add-volunteer-experience" 
+        class="px-4 py-2 bg-white-smoke-100 text-the-end-800 rounded-lg hover:bg-white-smoke-200 font-medium flex items-center gap-2"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        Add Volunteer Experience
+    </button>
 </div>
 
-<!-- Update the certifications logo field similar to professional experience -->
-<div>
-    <label class="block text-sm font-medium text-the-end-700">Institution Logo</label>
-    <div class="flex items-center gap-2 mt-1">
-        <div class="flex-grow">
-            <input 
-                type="text" 
-                name="certifications[${certificationCount}][logo]" 
-                class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
-                placeholder="/src/img/certification-logo.png"
-            >
-        </div>
-        <div class="flex-shrink-0">
-            <label for="cert-logo-${certificationCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
-                Upload
-            </label>
-            <input 
-                type="file" 
-                id="cert-logo-${certificationCount}" 
-                class="hidden logo-upload" 
-                data-section="certifications"
-                data-index="${certificationCount}"
-                accept="image/*"
-            >
-        </div>
+<!-- Education -->
+<div class="mt-10 space-y-6">
+    <h2 class="text-h3 font-semibold text-the-end-800 border-b border-gray-200 pb-2">Education</h2>
+    
+    <div id="education-container">
+        @if(isset($team_member) && $team_member->education)
+            @php
+                $educations = is_string($team_member->education) 
+                    ? json_decode($team_member->education, true) 
+                    : $team_member->education;
+            @endphp
+            
+            @foreach($educations as $index => $education)
+                <div class="experience-item border border-white-smoke-200 rounded-md p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Education</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-education">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Institution Name</label>
+                            <input 
+                                type="text" 
+                                name="education[{{ $index }}][institution]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $education['institution'] ?? '' }}"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Degree</label>
+                            <input 
+                                type="text" 
+                                name="education[{{ $index }}][degree]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $education['degree'] ?? '' }}"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Field of Study</label>
+                            <input 
+                                type="text" 
+                                name="education[{{ $index }}][field]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $education['field'] ?? '' }}"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Period</label>
+                            <input 
+                                type="text" 
+                                name="education[{{ $index }}][period]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $education['period'] ?? '' }}" 
+                                placeholder="e.g. 2018 - 2022"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Institution Logo</label>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex-grow">
+                                    <input 
+                                        type="text" 
+                                        name="education[{{ $index }}][logo]" 
+                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
+                                        placeholder="/src/img/institution-logo.png"
+                                        value="{{ $education['logo'] ?? '' }}"
+                                    >
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <label for="edu-logo-{{ $index }}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
+                                        Upload
+                                    </label>
+                                    <input 
+                                        type="file" 
+                                        id="edu-logo-{{ $index }}" 
+                                        class="hidden logo-upload" 
+                                        data-section="education"
+                                        data-index="{{ $index }}"
+                                        accept="image/*"
+                                    >
+                                </div>
+                            </div>
+                            <div class="logo-preview mt-2 {{ ($education['logo'] ?? '') ? '' : 'hidden' }}">
+                                @if(isset($education['logo']) && $education['logo'])
+                                    @php
+                                        $logoPath = $education['logo'];
+                                        if (str_starts_with($logoPath, 'team-members/')) {
+                                            $logoUrl = asset('storage/' . $logoPath);
+                                        } elseif (str_starts_with($logoPath, '/')) {
+                                            $logoUrl = $logoPath;
+                                        } else {
+                                            $logoUrl = $logoPath;
+                                        }
+                                    @endphp
+                                    <img src="{{ $logoUrl }}" alt="Logo preview" class="h-10 w-auto">
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-the-end-700">Description</label>
+                        <textarea 
+                            name="education[{{ $index }}][description]" 
+                            rows="2" 
+                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                        >{{ $education['description'] ?? '' }}</textarea>
+                    </div>
+                </div>
+            @endforeach
+        @endif
     </div>
-    <div class="logo-preview mt-2 hidden">
-        <img src="" alt="Logo preview" class="h-10 w-auto">
+    
+    <button 
+        type="button" 
+        id="add-education" 
+        class="px-4 py-2 bg-white-smoke-100 text-the-end-800 rounded-lg hover:bg-white-smoke-200 font-medium flex items-center gap-2"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        Add Education
+    </button>
+</div>
+
+<!-- Certifications -->
+<div class="mt-10 space-y-6">
+    <h2 class="text-h3 font-semibold text-the-end-800 border-b border-gray-200 pb-2">Certifications</h2>
+    
+    <div id="certifications-container">
+        @if(isset($team_member) && $team_member->certifications)
+            @php
+                $certifications = is_string($team_member->certifications) 
+                    ? json_decode($team_member->certifications, true) 
+                    : $team_member->certifications;
+            @endphp
+            
+            @foreach($certifications as $index => $certification)
+                <div class="experience-item border border-white-smoke-200 rounded-md p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Certification</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-certification">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Certification Name</label>
+                            <input 
+                                type="text" 
+                                name="certifications[{{ $index }}][name]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $certification['name'] ?? '' }}"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Issuing Organization</label>
+                            <input 
+                                type="text" 
+                                name="certifications[{{ $index }}][organization]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $certification['organization'] ?? '' }}"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Date Obtained</label>
+                            <input 
+                                type="text" 
+                                name="certifications[{{ $index }}][date]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $certification['date'] ?? '' }}" 
+                                placeholder="e.g. January 2023"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex-grow">
+                                    <input 
+                                        type="text" 
+                                        name="certifications[{{ $index }}][logo]" 
+                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
+                                        placeholder="/src/img/organization-logo.png"
+                                        value="{{ $certification['logo'] ?? '' }}"
+                                    >
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <label for="cert-logo-{{ $index }}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
+                                        Upload
+                                    </label>
+                                    <input 
+                                        type="file" 
+                                        id="cert-logo-{{ $index }}" 
+                                        class="hidden logo-upload" 
+                                        data-section="certifications"
+                                        data-index="{{ $index }}"
+                                        accept="image/*"
+                                    >
+                                </div>
+                            </div>
+                            <div class="logo-preview mt-2 {{ ($certification['logo'] ?? '') ? '' : 'hidden' }}">
+                                @if(isset($certification['logo']) && $certification['logo'])
+                                    @php
+                                        $logoPath = $certification['logo'];
+                                        if (str_starts_with($logoPath, 'team-members/')) {
+                                            $logoUrl = asset('storage/' . $logoPath);
+                                        } elseif (str_starts_with($logoPath, '/')) {
+                                            $logoUrl = $logoPath;
+                                        } else {
+                                            $logoUrl = $logoPath;
+                                        }
+                                    @endphp
+                                    <img src="{{ $logoUrl }}" alt="Logo preview" class="h-10 w-auto">
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-the-end-700">Description</label>
+                        <textarea 
+                            name="certifications[{{ $index }}][description]" 
+                            rows="2" 
+                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                        >{{ $certification['description'] ?? '' }}</textarea>
+                    </div>
+                </div>
+            @endforeach
+        @endif
     </div>
+    
+    <button 
+        type="button" 
+        id="add-certification" 
+        class="px-4 py-2 bg-white-smoke-100 text-the-end-800 rounded-lg hover:bg-white-smoke-200 font-medium flex items-center gap-2"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        Add Certification
+    </button>
+</div>
+
+<!-- Skills -->
+<div class="mt-10 space-y-6">
+    <h2 class="text-h3 font-semibold text-the-end-800 border-b border-gray-200 pb-2">Skills</h2>
+    
+    <div id="skills-container">
+        @if(isset($team_member) && $team_member->skills)
+            @php
+                $skills = is_string($team_member->skills) 
+                    ? json_decode($team_member->skills, true) 
+                    : $team_member->skills;
+            @endphp
+            
+            @foreach($skills as $index => $skillCategory)
+                <div class="skill-category border border-white-smoke-200 rounded-md p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Skill Category</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-skill-category">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-the-end-700">Category Name</label>
+                        <input 
+                            type="text" 
+                            name="skills[{{ $index }}][category]" 
+                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            value="{{ $skillCategory['category'] ?? '' }}"
+                            placeholder="e.g. UX Research & Design"
+                        >
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-the-end-700">Skills</label>
+                        <div class="skills-list space-y-2">
+                            @if(isset($skillCategory['skills']) && is_array($skillCategory['skills']))
+                                @foreach($skillCategory['skills'] as $skillIndex => $skill)
+                                    <div class="flex items-center gap-2">
+                                        <input 
+                                            type="text" 
+                                            name="skills[{{ $index }}][skills][]" 
+                                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                            value="{{ $skill }}"
+                                            placeholder="e.g. UX Research"
+                                        >
+                                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-skill">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        <button 
+                            type="button" 
+                            class="mt-2 px-3 py-1 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 text-sm font-medium add-skill"
+                        >
+                            Add Skill
+                        </button>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+    </div>
+    
+    <button 
+        type="button" 
+        id="add-skill-category" 
+        class="px-4 py-2 bg-white-smoke-100 text-the-end-800 rounded-lg hover:bg-white-smoke-200 font-medium flex items-center gap-2"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        Add Skill Category
+    </button>
+</div>
+
+<!-- Press Mentions -->
+<div class="mt-10 space-y-6">
+    <h2 class="text-h3 font-semibold text-the-end-800 border-b border-gray-200 pb-2">As Seen In</h2>
+    
+    <div id="press-container">
+        @if(isset($team_member) && $team_member->press)
+            @php
+                $pressItems = is_string($team_member->press) 
+                    ? json_decode($team_member->press, true) 
+                    : $team_member->press;
+            @endphp
+            
+            @foreach($pressItems as $index => $pressItem)
+                <div class="press-item border border-white-smoke-200 rounded-md p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Press Mention</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-press">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Title</label>
+                            <input 
+                                type="text" 
+                                name="press[{{ $index }}][title]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $pressItem['title'] ?? '' }}"
+                                placeholder="e.g. Moldova: Hire Me"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Publication</label>
+                            <input 
+                                type="text" 
+                                name="press[{{ $index }}][publication]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $pressItem['publication'] ?? '' }}"
+                                placeholder="e.g. The Institute for War & Peace Reporting"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">URL</label>
+                            <input 
+                                type="url" 
+                                name="press[{{ $index }}][url]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                value="{{ $pressItem['url'] ?? '' }}"
+                                placeholder="e.g. https://iwpr.net/impact/moldova-hire-me"
+                            >
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+    </div>
+    
+    <button 
+        type="button" 
+        id="add-press" 
+        class="px-4 py-2 bg-white-smoke-100 text-the-end-800 rounded-lg hover:bg-white-smoke-200 font-medium flex items-center gap-2"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        Add Press Mention
+    </button>
 </div>
 
 <script>
-    // Wait for the DOM to be fully loaded
     document.addEventListener('DOMContentLoaded', function() {
-        // Professional Experience Add/Remove
-        const professionalExpContainer = document.getElementById('professional-experience-container');
-        const addProfessionalExpBtn = document.getElementById('add-professional-experience');
-        
-        let professionalExpCount = professionalExpContainer.querySelectorAll('.experience-item').length;
-        
-        // Add new professional experience
-        addProfessionalExpBtn.addEventListener('click', function() {
-            const newExperience = document.createElement('div');
-            newExperience.className = 'experience-item border border-white-smoke-200 rounded-md p-4 mb-4';
-            newExperience.innerHTML = `
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-body-lg font-medium">Experience</h3>
-                    <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-experience">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-sm font-medium text-the-end-700">Company Name</label>
-                        <input 
-                            type="text" 
-                            name="professional_experience[${professionalExpCount}][company]" 
-                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                        >
+        // Professional Experience
+        const professionalExperienceContainer = document.getElementById('professional-experience-container');
+        let professionalExperienceCount = professionalExperienceContainer.children.length;
+
+        function addProfessionalExperience() {
+            const template = `
+                <div class="experience-item border border-white-smoke-200 rounded-md p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Experience</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-experience">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
                     </div>
                     
-                    <div>
-                        <label class="block text-sm font-medium text-the-end-700">Role</label>
-                        <input 
-                            type="text" 
-                            name="professional_experience[${professionalExpCount}][role]" 
-                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                        >
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-the-end-700">Period</label>
-                        <input 
-                            type="text" 
-                            name="professional_experience[${professionalExpCount}][period]" 
-                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            placeholder="e.g. 2018 - Present"
-                        >
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-the-end-700">Company Logo</label>
-                        <div class="flex items-center gap-2 mt-1">
-                            <div class="flex-grow">
-                                <input 
-                                    type="text" 
-                                    name="professional_experience[${professionalExpCount}][logo]" 
-                                    class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
-                                    placeholder="/src/img/company-logo.png"
-                                >
-                            </div>
-                            <div class="flex-shrink-0">
-                                <label for="prof-exp-logo-${professionalExpCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
-                                    Upload
-                                </label>
-                                <input 
-                                    type="file" 
-                                    id="prof-exp-logo-${professionalExpCount}" 
-                                    class="hidden logo-upload" 
-                                    data-section="professional_experience"
-                                    data-index="${professionalExpCount}"
-                                    accept="image/*"
-                                >
-                            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Company Name</label>
+                            <input 
+                                type="text" 
+                                name="professional_experience[${professionalExperienceCount}][company]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            >
                         </div>
-                        <div class="logo-preview mt-2 hidden">
-                            <!-- Preview image will be displayed here after upload -->
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Role</label>
+                            <input 
+                                type="text" 
+                                name="professional_experience[${professionalExperienceCount}][role]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Period</label>
+                            <input 
+                                type="text" 
+                                name="professional_experience[${professionalExperienceCount}][period]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                placeholder="e.g. January 2022 - Present"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Company Logo</label>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex-grow">
+                                    <input 
+                                        type="text" 
+                                        name="professional_experience[${professionalExperienceCount}][logo]" 
+                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
+                                        placeholder="/src/img/company-logo.png"
+                                    >
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <label for="prof-logo-${professionalExperienceCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
+                                        Upload
+                                    </label>
+                                    <input 
+                                        type="file" 
+                                        id="prof-logo-${professionalExperienceCount}" 
+                                        class="hidden logo-upload" 
+                                        data-section="professional_experience"
+                                        data-index="${professionalExperienceCount}"
+                                        accept="image/*"
+                                    >
+                                </div>
+                            </div>
+                            <div class="logo-preview mt-2 hidden"></div>
                         </div>
                     </div>
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-the-end-700">Description</label>
-                    <textarea 
-                        name="professional_experience[${professionalExpCount}][description]" 
-                        rows="2" 
-                        class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                    ></textarea>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-the-end-700">Description</label>
+                        <textarea 
+                            name="professional_experience[${professionalExperienceCount}][description]" 
+                            rows="2" 
+                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                        ></textarea>
+                    </div>
                 </div>
             `;
             
-            professionalExpContainer.appendChild(newExperience);
-            professionalExpCount++;
+            professionalExperienceContainer.insertAdjacentHTML('beforeend', template);
+            professionalExperienceCount++;
+        }
+
+        document.getElementById('add-professional-experience').addEventListener('click', addProfessionalExperience);
+
+        // Volunteer Experience
+        const volunteerExperienceContainer = document.getElementById('volunteer-experience-container');
+        let volunteerExperienceCount = volunteerExperienceContainer.children.length;
+
+        function addVolunteerExperience() {
+            const template = `
+                <div class="experience-item border border-white-smoke-200 rounded-md p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Experience</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-volunteer-experience">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Organization Name</label>
+                            <input 
+                                type="text" 
+                                name="volunteer_experience[${volunteerExperienceCount}][organization]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Role</label>
+                            <input 
+                                type="text" 
+                                name="volunteer_experience[${volunteerExperienceCount}][role]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Period</label>
+                            <input 
+                                type="text" 
+                                name="volunteer_experience[${volunteerExperienceCount}][period]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                placeholder="e.g. January 2022 - Present"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex-grow">
+                                    <input 
+                                        type="text" 
+                                        name="volunteer_experience[${volunteerExperienceCount}][logo]" 
+                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
+                                        placeholder="/src/img/organization-logo.png"
+                                    >
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <label for="vol-logo-${volunteerExperienceCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
+                                        Upload
+                                    </label>
+                                    <input 
+                                        type="file" 
+                                        id="vol-logo-${volunteerExperienceCount}" 
+                                        class="hidden logo-upload" 
+                                        data-section="volunteer_experience"
+                                        data-index="${volunteerExperienceCount}"
+                                        accept="image/*"
+                                    >
+                                </div>
+                            </div>
+                            <div class="logo-preview mt-2 hidden"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-the-end-700">Description</label>
+                        <textarea 
+                            name="volunteer_experience[${volunteerExperienceCount}][description]" 
+                            rows="2" 
+                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                        ></textarea>
+                    </div>
+                </div>
+            `;
             
-            // Add event listener to the remove button
-            const removeBtn = newExperience.querySelector('.remove-experience');
-            removeBtn.addEventListener('click', function() {
-                newExperience.remove();
-                updateProfessionalExpIndices();
-            });
+            volunteerExperienceContainer.insertAdjacentHTML('beforeend', template);
+            volunteerExperienceCount++;
+        }
+
+        document.getElementById('add-volunteer-experience').addEventListener('click', addVolunteerExperience);
+
+        // Education
+        const educationContainer = document.getElementById('education-container');
+        let educationCount = educationContainer.children.length;
+
+        function addEducation() {
+            const template = `
+                <div class="experience-item border border-white-smoke-200 rounded-md p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Education</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-education">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Institution Name</label>
+                            <input 
+                                type="text" 
+                                name="education[${educationCount}][institution]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Degree</label>
+                            <input 
+                                type="text" 
+                                name="education[${educationCount}][degree]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Field of Study</label>
+                            <input 
+                                type="text" 
+                                name="education[${educationCount}][field]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Period</label>
+                            <input 
+                                type="text" 
+                                name="education[${educationCount}][period]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                placeholder="e.g. 2018 - 2022"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Institution Logo</label>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex-grow">
+                                    <input 
+                                        type="text" 
+                                        name="education[${educationCount}][logo]" 
+                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
+                                        placeholder="/src/img/institution-logo.png"
+                                    >
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <label for="edu-logo-${educationCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
+                                        Upload
+                                    </label>
+                                    <input 
+                                        type="file" 
+                                        id="edu-logo-${educationCount}" 
+                                        class="hidden logo-upload" 
+                                        data-section="education"
+                                        data-index="${educationCount}"
+                                        accept="image/*"
+                                    >
+                                </div>
+                            </div>
+                            <div class="logo-preview mt-2 hidden"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-the-end-700">Description</label>
+                        <textarea 
+                            name="education[${educationCount}][description]" 
+                            rows="2" 
+                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                        ></textarea>
+                    </div>
+                </div>
+            `;
+            
+            educationContainer.insertAdjacentHTML('beforeend', template);
+            educationCount++;
+        }
+
+        document.getElementById('add-education').addEventListener('click', addEducation);
+
+        // Certifications
+        const certificationsContainer = document.getElementById('certifications-container');
+        let certificationsCount = certificationsContainer.children.length;
+
+        function addCertification() {
+            const template = `
+                <div class="experience-item border border-white-smoke-200 rounded-md p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Certification</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-certification">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Certification Name</label>
+                            <input 
+                                type="text" 
+                                name="certifications[${certificationsCount}][name]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Issuing Organization</label>
+                            <input 
+                                type="text" 
+                                name="certifications[${certificationsCount}][organization]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Date Obtained</label>
+                            <input 
+                                type="text" 
+                                name="certifications[${certificationsCount}][date]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                placeholder="e.g. January 2023"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex-grow">
+                                    <input 
+                                        type="text" 
+                                        name="certifications[${certificationsCount}][logo]" 
+                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
+                                        placeholder="/src/img/organization-logo.png"
+                                    >
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <label for="cert-logo-${certificationsCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
+                                        Upload
+                                    </label>
+                                    <input 
+                                        type="file" 
+                                        id="cert-logo-${certificationsCount}" 
+                                        class="hidden logo-upload" 
+                                        data-section="certifications"
+                                        data-index="${certificationsCount}"
+                                        accept="image/*"
+                                    >
+                                </div>
+                            </div>
+                            <div class="logo-preview mt-2 hidden"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-the-end-700">Description</label>
+                        <textarea 
+                            name="certifications[${certificationsCount}][description]" 
+                            rows="2" 
+                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                        ></textarea>
+                    </div>
+                </div>
+            `;
+            
+            certificationsContainer.insertAdjacentHTML('beforeend', template);
+            certificationsCount++;
+        }
+
+        document.getElementById('add-certification').addEventListener('click', addCertification);
+
+        // Skills
+        const skillsContainer = document.getElementById('skills-container');
+        let skillsCount = skillsContainer.children.length;
+
+        function addSkillCategory() {
+            const template = `
+                <div class="skill-category border border-white-smoke-200 rounded-md p-4 mb-4" data-index="${skillsCount}">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Skill Category</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-skill-category">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-the-end-700">Category Name</label>
+                        <input 
+                            type="text" 
+                            name="skills[${skillsCount}][category]" 
+                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            placeholder="e.g. UX Research & Design"
+                        >
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-the-end-700">Skills</label>
+                        <div class="skills-list space-y-2">
+                            <div class="flex items-center gap-2">
+                                <input 
+                                    type="text" 
+                                    name="skills[${skillsCount}][skills][]" 
+                                    class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                    placeholder="e.g. UX Research"
+                                >
+                                <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-skill">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <button 
+                            type="button" 
+                            class="mt-2 px-3 py-1 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 text-sm font-medium add-skill"
+                        >
+                            Add Skill
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            skillsContainer.insertAdjacentHTML('beforeend', template);
+            skillsCount++;
+        }
+
+        document.getElementById('add-skill-category').addEventListener('click', addSkillCategory);
+
+        // Press Mentions
+        const pressContainer = document.getElementById('press-container');
+        let pressCount = pressContainer.children.length;
+
+        function addPressMention() {
+            const template = `
+                <div class="press-item border border-white-smoke-200 rounded-md p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-body-lg font-medium">Press Mention</h3>
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-press">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Title</label>
+                            <input 
+                                type="text" 
+                                name="press[${pressCount}][title]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                placeholder="e.g. Moldova: Hire Me"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">Publication</label>
+                            <input 
+                                type="text" 
+                                name="press[${pressCount}][publication]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                placeholder="e.g. The Institute for War & Peace Reporting"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-the-end-700">URL</label>
+                            <input 
+                                type="url" 
+                                name="press[${pressCount}][url]" 
+                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                                placeholder="e.g. https://iwpr.net/impact/moldova-hire-me"
+                            >
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            pressContainer.insertAdjacentHTML('beforeend', template);
+            pressCount++;
+        }
+
+        document.getElementById('add-press').addEventListener('click', addPressMention);
+
+        // Event delegation for removing items
+        document.addEventListener('click', function(e) {
+            // Remove professional experience
+            if (e.target.closest('.remove-experience')) {
+                e.target.closest('.experience-item').remove();
+                updateIndices('professional_experience');
+            }
+            
+            // Remove volunteer experience
+            if (e.target.closest('.remove-volunteer-experience')) {
+                e.target.closest('.experience-item').remove();
+                updateIndices('volunteer_experience');
+            }
+            
+            // Remove education
+            if (e.target.closest('.remove-education')) {
+                e.target.closest('.experience-item').remove();
+                updateIndices('education');
+            }
+            
+            // Remove certification
+            if (e.target.closest('.remove-certification')) {
+                e.target.closest('.experience-item').remove();
+                updateIndices('certifications');
+            }
+            
+            // Remove skill category
+            if (e.target.closest('.remove-skill-category')) {
+                e.target.closest('.skill-category').remove();
+                updateIndices('skills');
+            }
+            
+            // Remove skill
+            if (e.target.closest('.remove-skill')) {
+                e.target.closest('.flex').remove();
+            }
+            
+            // Remove press mention
+            if (e.target.closest('.remove-press')) {
+                e.target.closest('.press-item').remove();
+                updateIndices('press');
+            }
         });
-        
-        // Add event listeners to existing remove buttons
-        document.querySelectorAll('.remove-experience').forEach(button => {
-            button.addEventListener('click', function() {
-                button.closest('.experience-item').remove();
-                updateProfessionalExpIndices();
-            });
+
+        // Add skill to category
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.add-skill')) {
+                const skillCategory = e.target.closest('.skill-category');
+                const skillsList = skillCategory.querySelector('.skills-list');
+                const categoryIndex = skillCategory.dataset.index;
+                
+                const skillTemplate = `
+                    <div class="flex items-center gap-2">
+                        <input 
+                            type="text" 
+                            name="skills[${categoryIndex}][skills][]" 
+                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
+                            placeholder="e.g. UX Research"
+                        >
+                        <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-skill">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                `;
+                
+                skillsList.insertAdjacentHTML('beforeend', skillTemplate);
+            }
         });
-        
-        // Update indices after removing an item
-        function updateProfessionalExpIndices() {
-            const items = professionalExpContainer.querySelectorAll('.experience-item');
+
+        // Update indices for form fields
+        function updateIndices(section) {
+            const container = document.getElementById(`${section}-container`);
+            const items = container.querySelectorAll(`.${section === 'skills' ? 'skill-category' : `${section}-item`}`);
+            
             items.forEach((item, index) => {
-                item.querySelectorAll('input, textarea').forEach(input => {
-                    const nameAttr = input.getAttribute('name');
-                    if (nameAttr) {
-                        const newName = nameAttr.replace(/professional_experience\[\d+\]/, `professional_experience[${index}]`);
-                        input.setAttribute('name', newName);
+                // Update data-index attribute for skill categories
+                if (section === 'skills') {
+                    item.dataset.index = index;
+                }
+                
+                // Update input names
+                const inputs = item.querySelectorAll('input, textarea');
+                inputs.forEach(input => {
+                    const name = input.getAttribute('name');
+                    if (name) {
+                        input.setAttribute('name', name.replace(/\[\d+\]/, `[${index}]`));
                     }
                 });
             });
-            professionalExpCount = items.length;
         }
-        
+
         // Handle logo uploads
-        function setupLogoUploads() {
-            document.querySelectorAll('.logo-upload').forEach(fileInput => {
-                fileInput.addEventListener('change', function(e) {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    
-                    const section = this.dataset.section;
-                    const index = this.dataset.index;
-                    const formData = new FormData();
-                    formData.append('logo', file);
-                    formData.append('section', section);
-                    
-                    // Show loading state
-                    const parentDiv = this.closest('div').parentElement;
-                    const previewDiv = parentDiv.nextElementSibling;
-                    const pathInput = parentDiv.querySelector('.logo-path-input');
-                    
-                    // Add loading indicator
-                    previewDiv.innerHTML = '<div class="text-sm text-the-end-600">Uploading...</div>';
-                    previewDiv.classList.remove('hidden');
-                    
-                    // Send AJAX request
-                    fetch('{{ route('admin.about.team.upload-logo') }}', {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            // Update the logo path input field
-                            pathInput.value = data.path;
-                            
-                            // Show the preview
-                            previewDiv.innerHTML = `
-                                <img src="${data.url}" alt="Logo preview" class="h-10 w-auto">
-                                <p class="text-xs text-the-end-500 mt-1">Logo uploaded successfully</p>
-                            `;
-                            previewDiv.classList.remove('hidden');
-                        } else {
-                            previewDiv.innerHTML = `<div class="text-sm text-apocalyptic-orange-600">Upload failed: ${data.message}</div>`;
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error uploading logo:', error);
-                        previewDiv.innerHTML = '<div class="text-sm text-apocalyptic-orange-600">Upload failed. Please try again.</div>';
-                    });
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('logo-upload')) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                console.log('File selected:', file.name, file.type, file.size);
+                console.log('Section:', e.target.dataset.section);
+                console.log('Index:', e.target.dataset.index);
+
+                const formData = new FormData();
+                formData.append('logo', file);
+                formData.append('section', e.target.dataset.section);
+
+                // Find the logo path input and logo preview elements more reliably
+                const experienceItem = e.target.closest('.experience-item');
+                const logoPathInput = experienceItem.querySelector('.logo-path-input');
+                const logoPreview = experienceItem.querySelector('.logo-preview');
+
+                console.log('Logo path input:', logoPathInput);
+                console.log('Logo preview:', logoPreview);
+
+                fetch('/admin/about/team/upload-logo', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response data:', data);
+                    if (data.success) {
+                        logoPathInput.value = data.path;
+                        logoPreview.innerHTML = `<img src="${data.url}" alt="Logo preview" class="h-10 w-auto">`;
+                        logoPreview.classList.remove('hidden');
+                    } else {
+                        console.error('Upload failed:', data.message);
+                        alert('Failed to upload logo: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to upload logo: ' + error.message);
                 });
-            });
-        }
-        
-        // Set up initial logo uploads
-        setupLogoUploads();
-        
-        // Ensure new logo uploads are set up after adding new experiences
-        const addProfessionalExpBtn = document.getElementById('add-professional-experience');
-        if (addProfessionalExpBtn) {
-            const originalClickHandler = addProfessionalExpBtn.onclick;
-            addProfessionalExpBtn.onclick = function(e) {
-                if (originalClickHandler) {
-                    originalClickHandler.call(this, e);
-                }
-                // Set up logo uploads for newly added fields
-                setTimeout(setupLogoUploads, 100);
-            };
-        }
-        
-        // Similarly, for other add buttons (volunteer experience, certifications)
-        const addVolunteerExpBtn = document.getElementById('add-volunteer-experience');
-        if (addVolunteerExpBtn) {
-            const originalClickHandler = addVolunteerExpBtn.onclick;
-            addVolunteerExpBtn.onclick = function(e) {
-                if (originalClickHandler) {
-                    originalClickHandler.call(this, e);
-                }
-                setTimeout(setupLogoUploads, 100);
-            };
-        }
-        
-        const addCertificationBtn = document.getElementById('add-certification');
-        if (addCertificationBtn) {
-            const originalClickHandler = addCertificationBtn.onclick;
-            addCertificationBtn.onclick = function(e) {
-                if (originalClickHandler) {
-                    originalClickHandler.call(this, e);
-                }
-                setTimeout(setupLogoUploads, 100);
-            };
-        }
+            }
+        });
     });
 </script> 

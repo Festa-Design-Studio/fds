@@ -146,9 +146,16 @@ class TeamMemberController extends Controller
     public function uploadLogo(Request $request)
     {
         try {
+            Log::info('Logo upload request received', [
+                'section' => $request->input('section'),
+                'has_file' => $request->hasFile('logo'),
+                'file_name' => $request->hasFile('logo') ? $request->file('logo')->getClientOriginalName() : null,
+                'file_size' => $request->hasFile('logo') ? $request->file('logo')->getSize() : null,
+            ]);
+            
             $request->validate([
                 'logo' => 'required|image|max:2048',
-                'section' => 'required|string|in:professional_experience,volunteer_experience,certifications',
+                'section' => 'required|string|in:professional_experience,volunteer_experience,education,certifications',
             ]);
             
             if ($request->hasFile('logo')) {
@@ -162,15 +169,28 @@ class TeamMemberController extends Controller
                     Storage::disk('public')->makeDirectory($directory);
                 }
                 
-                $path = $file->store($directory, 'public');
-                
-                // Return the path for use in the form
-                return response()->json([
-                    'success' => true,
-                    'path' => $path,
-                    'url' => asset('storage/' . $path),
-                    'message' => 'Logo uploaded successfully.',
-                ]);
+                try {
+                    $path = $file->store($directory, 'public');
+                    
+                    // Return the path for use in the form
+                    return response()->json([
+                        'success' => true,
+                        'path' => $path,
+                        'url' => asset('storage/' . $path),
+                        'message' => 'Logo uploaded successfully.',
+                    ]);
+                } catch (\Exception $e) {
+                    Log::error('Error storing file: ' . $e->getMessage(), [
+                        'exception' => get_class($e),
+                        'file' => $e->getFile(),
+                        'line' => $e->getLine(),
+                    ]);
+                    
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Error storing file: ' . $e->getMessage(),
+                    ], 500);
+                }
             }
             
             return response()->json([
@@ -179,7 +199,12 @@ class TeamMemberController extends Controller
             ], 400);
         } catch (\Exception $e) {
             // Log the error
-            Log::error('Logo upload error: ' . $e->getMessage());
+            Log::error('Logo upload error: ' . $e->getMessage(), [
+                'exception' => get_class($e),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
             
             return response()->json([
                 'success' => false,

@@ -19,7 +19,7 @@
 
         <!-- Organization Details Section -->
         <div class="space-y-6">
-            <h3 class="text-h4 font-semibold text-pepper-green">Organization Details</h3>
+            <h3 class="text-h4 font-semibold text-pepper-green">Organization details</h3>
             
             <x-core.input 
                 name="organization_name"
@@ -32,7 +32,7 @@
                 name="organization_mission"
                 label="Organization Mission"
                 placeholder="Briefly describe your organization's mission and goals"
-                rows="4"
+                rows="3"
             ></x-core.textarea>
             
             <div class="space-y-2">

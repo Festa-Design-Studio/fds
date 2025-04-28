@@ -3,6 +3,11 @@
 @php
     // Ensure press is an array for foreach
     $pressData = is_string($press) ? json_decode($press, true) : $press;
+    
+    // If still not an array, initialize as empty array to prevent errors
+    if (!is_array($pressData)) {
+        $pressData = [];
+    }
 @endphp
 
 <!-- As seen in section-->
@@ -12,8 +17,8 @@
   <ul class="space-y-4 text-body-sm text-the-end-700">
     @foreach($pressData as $mention)
       <li>
-        <a href="{{ $mention['url'] }}" target="_blank" rel="noopener noreferrer" class="text-apocalyptic-orange-600 hover:underline">
-          "{{ $mention['title'] }}" — {{ $mention['source'] }}
+        <a href="{{ $mention['url'] ?? '#' }}" target="_blank" rel="noopener noreferrer" class="text-apocalyptic-orange-600 hover:underline">
+          "{{ $mention['title'] ?? '' }}" — {{ $mention['publication'] ?? '' }}
         </a>
       </li>
     @endforeach

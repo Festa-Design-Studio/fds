@@ -26,7 +26,7 @@
           @endphp
           <img 
             src="{{ $logoUrl }}" 
-            alt="{{ $experience['company'] ?? 'Company' }}" 
+            alt="{{ $experience['company'] ?? $experience['organization'] ?? 'Company' }}" 
             class="w-12 h-12 object-contain"
           >
         @else
@@ -39,8 +39,8 @@
         <div class="space-y-2">
           <h3 class="text-h4 font-medium text-the-end-800">
             @if(isset($experience['role'])){{ $experience['role'] }}@endif
-            @if(isset($experience['role']) && isset($experience['company'])) — @endif
-            @if(isset($experience['company'])){{ $experience['company'] }}@endif
+            @if(isset($experience['role']) && (isset($experience['company']) || isset($experience['organization']))) — @endif
+            @if(isset($experience['company'])){{ $experience['company'] }}@elseif(isset($experience['organization'])){{ $experience['organization'] }}@endif
           </h3>
           @if(isset($experience['period']) && $experience['period'])
             <p class="text-body-sm text-chicken-comb-600">{{ $experience['period'] }}</p>
