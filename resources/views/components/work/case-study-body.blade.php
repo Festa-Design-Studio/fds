@@ -4,7 +4,7 @@
     'resultsGallery' => []
 ])
 
-<article class="mx-auto max-w-3xl py-20 px-4 md:px-8 lg:px-16">
+<article class="mx-auto max-w-3xl py-20 px-7 md:px-8 lg:px-16">
     <!-- Content Section -->
     @if($content)
     <div class="space-y-8 mb-16">

@@ -3,7 +3,7 @@
     'nextProject' => null
 ])
 
-<section class="py-20 px-4 md:px-8 lg:px-16">
+<section class="py-20 px-7 md:px-8 lg:px-16">
     <div class="max-w-3xl mx-auto space-y-12">
         <!-- Case Study Navigation for Previous and Next project -->
         <div class="flex justify-between items-center pt-8 border-t border-white-smoke-300">

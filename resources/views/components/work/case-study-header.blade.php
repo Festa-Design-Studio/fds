@@ -8,7 +8,7 @@
     'featuredImage' => null
 ])
 
-<article class="py-20 px-4 md:px-8 lg:px-16">
+<article class="py-20 px-7 md:px-8 lg:px-16">
     <div class="max-w-3xl mx-auto">
         <article class="space-y-12">
             <div class="space-y-8">
@@ -18,7 +18,7 @@
                 <!-- Client business name and website -->
                 <div class="grid grid-cols-2">
                     <div class="space-y-2">
-                        <p class="text-body font-medium text-the-end mb-2">Partner</p>
+                        <p class="text-body font-medium text-the-end-600/90 mb-2">Partner</p>
                         @if($client)
                         <a href="{{ route('client.show', $client->slug) }}"
                             class="text-body text-pepper-green-600 hover:text-pepper-green-700 transition-colors duration-150">
@@ -33,7 +33,7 @@
                     <div class="flex-col space-y-4">
                         @if($sector)
                         <div class="space-y-2">
-                            <p class="text-body font-medium text-the-end">Sector</p>
+                            <p class="text-body font-medium text-the-end-600/90">Sector</p>
                             <!-- Sector Tag -->
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-body-sm
                             bg-pepper-green-50 text-pepper-green-700 border border-pepper-green-200">
@@ -44,7 +44,7 @@
 
                         @if($industry)
                         <div class="space-y-2">
-                            <p class="text-body font-medium text-the-end">Industry</p>
+                            <p class="text-body font-medium text-the-end-600/90">Industry</p>
                             <!-- Industry Tag -->
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-body-sm
                             bg-chicken-comb-50 text-chicken-comb-700 border border-chicken-comb-200">
@@ -55,7 +55,7 @@
 
                         @if($sdgAlignment)
                         <div class="space-y-2">
-                            <p class="text-body font-medium text-the-end">SDG alignment</p>
+                            <p class="text-body font-medium text-the-end-600/90">SDG alignment</p>
                             <!-- SDG Tag -->
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-body-sm
                             bg-apocalyptic-orange-50 text-apocalyptic-orange-700 border border-apocalyptic-orange-200">

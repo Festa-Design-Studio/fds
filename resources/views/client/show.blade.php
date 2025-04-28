@@ -15,7 +15,7 @@
 @section('content')
     <main class="mx-auto bg-gradient-to-br from-pepper-green-50 via-white-smoke-50 to-chicken-comb-50 ">
         <!-- Client Header -->
-        <section class="py-12 px-4 md:px-8 lg:px-16">
+        <section class="py-12 px-7 md:px-8 lg:px-16">
             <div class="max-w-4xl mx-auto">
                 <h1 class="text-h1 font-black text-the-end-900 mb-6">{{ $client->name }}</h1>
                 
@@ -41,7 +41,7 @@
         </section>
         
         <!-- Related Projects -->
-        <section class="py-12 px-4 md:px-8 lg:px-16 border-t border-white-smoke-300 ">
+        <section class="py-12 px-7 md:px-8 lg:px-16 border-t border-white-smoke-300 ">
             <div class="max-w-4xl mx-auto">
                 <h2 class="text-h2 font-semibold text-the-end-900 mb-8">Projects with {{ $client->name }}</h2>
                 

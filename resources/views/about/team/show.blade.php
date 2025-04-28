@@ -13,7 +13,7 @@
 />
 
 <!-- Team member main content area -->
-<article class="max-w-3xl mx-auto py-16 px-6 sm:px-12 bg-white-smoke-50 font-Inter text-the-end-900">
+<article class="max-w-3xl mx-auto py-16 px-7 sm:px-12 bg-white-smoke-50 font-Inter text-the-end-900">
   
   <!-- Avatar component -->
   <x-about.team.team-member.avatar 
