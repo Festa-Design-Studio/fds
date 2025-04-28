@@ -48,6 +48,32 @@ class TeamMemberController extends Controller
             'press' => 'nullable|array',
         ]);
         
+        // Process skills data to ensure proper structure
+        if (isset($validated['skills']) && is_array($validated['skills'])) {
+            $processedSkills = [];
+            
+            foreach ($validated['skills'] as $skillCategory) {
+                if (is_array($skillCategory) && isset($skillCategory['category']) && !empty($skillCategory['category'])) {
+                    $category = $skillCategory['category'];
+                    $skills = isset($skillCategory['skills']) && is_array($skillCategory['skills']) ? $skillCategory['skills'] : [];
+                    
+                    // Filter out empty skills
+                    $skills = array_filter($skills, function($skill) {
+                        return !empty($skill);
+                    });
+                    
+                    if (!empty($skills)) {
+                        $processedSkills[] = [
+                            'category' => $category,
+                            'skills' => array_values($skills) // Reset array keys
+                        ];
+                    }
+                }
+            }
+            
+            $validated['skills'] = $processedSkills;
+        }
+        
         // Generate slug from name
         $validated['slug'] = Str::slug($validated['name']);
         
@@ -98,6 +124,32 @@ class TeamMemberController extends Controller
             'skills' => 'nullable|array',
             'press' => 'nullable|array',
         ]);
+        
+        // Process skills data to ensure proper structure
+        if (isset($validated['skills']) && is_array($validated['skills'])) {
+            $processedSkills = [];
+            
+            foreach ($validated['skills'] as $skillCategory) {
+                if (is_array($skillCategory) && isset($skillCategory['category']) && !empty($skillCategory['category'])) {
+                    $category = $skillCategory['category'];
+                    $skills = isset($skillCategory['skills']) && is_array($skillCategory['skills']) ? $skillCategory['skills'] : [];
+                    
+                    // Filter out empty skills
+                    $skills = array_filter($skills, function($skill) {
+                        return !empty($skill);
+                    });
+                    
+                    if (!empty($skills)) {
+                        $processedSkills[] = [
+                            'category' => $category,
+                            'skills' => array_values($skills) // Reset array keys
+                        ];
+                    }
+                }
+            }
+            
+            $validated['skills'] = $processedSkills;
+        }
         
         // Update slug only if name changes
         if ($team_member->name !== $validated['name']) {

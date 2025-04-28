@@ -7,7 +7,7 @@
 
 <!-- Professional Experience section -->
 <section class="mt-10 space-y-6">
-  <h2 class="text-h3 font-semibold text-the-end-900 border-b border-white-smoke-300 pb-2">{{ $title }}</h2>
+  <h2 class="text-h3 font-semibold text-pepper-green border-b border-white-smoke-300 pb-2">{{ $title }}</h2>
 
   <div class="space-y-6">
     @foreach($experiencesData as $experience)

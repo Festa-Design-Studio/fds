@@ -12,7 +12,7 @@
 
 <!-- As seen in section-->
 <section class="mt-10 space-y-8">
-  <h2 class="text-h3 font-semibold text-the-end-900 border-b border-white-smoke-300 pb-2">As seen in</h2>
+  <h2 class="text-h3 font-semibold text-pepper-green border-b border-white-smoke-300 pb-2">As seen in</h2>
 
   <ul class="space-y-4 text-body-sm text-the-end-700">
     @foreach($pressData as $mention)

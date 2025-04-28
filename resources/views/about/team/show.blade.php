@@ -4,12 +4,12 @@
 
 @section('content')
 <!-- Breadcrumbs navigation -->
-<x-core.breadcrumbs
+<x-core.breadcrumbs-truncated
     :items="[
         ['label' => 'About', 'url' => route('about')],
-        ['label' => 'Team', 'url' => route('about.team')],
-        ['label' => $team_member->name]
+        ['label' => 'Team', 'url' => route('about.team')]
     ]"
+    :currentLabel="$team_member->name"
 />
 
 <!-- Team member main content area -->

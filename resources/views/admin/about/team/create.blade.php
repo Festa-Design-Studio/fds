@@ -33,15 +33,6 @@
         <form action="{{ route('admin.about.team.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @include('admin.about.team._form')
-
-            <div class="mt-8 flex justify-end">
-                <button 
-                    type="submit" 
-                    class="px-4 py-2 bg-apocalyptic-orange-600 text-white rounded-lg hover:bg-apocalyptic-orange-700 font-medium"
-                >
-                    Create Team Member
-                </button>
-            </div>
         </form>
     </div>
 </div>

@@ -6,90 +6,109 @@
         <!-- Name -->
         <div>
             <label for="name" class="block text-sm font-medium text-the-end-700">Name <span class="text-apocalyptic-orange-500">*</span></label>
-            <input 
+            <x-core.input 
                 type="text" 
                 name="name" 
                 id="name" 
-                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                value="{{ old('name', $team_member->name ?? '') }}" 
+                value="{{ old('name', $team_member->name ?? '') }}"
                 required
-            >
+                class="mt-1"
+            />
+            @error('name')
+                <p class="mt-1 text-sm text-apocalyptic-orange-500">{{ $message }}</p>
+            @enderror
         </div>
-        
+
         <!-- Title -->
         <div>
             <label for="title" class="block text-sm font-medium text-the-end-700">Title <span class="text-apocalyptic-orange-500">*</span></label>
-            <input 
+            <x-core.input 
                 type="text" 
                 name="title" 
                 id="title" 
-                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                value="{{ old('title', $team_member->title ?? '') }}" 
+                value="{{ old('title', $team_member->title ?? '') }}"
                 required
-            >
+                class="mt-1"
+            />
+            @error('title')
+                <p class="mt-1 text-sm text-apocalyptic-orange-500">{{ $message }}</p>
+            @enderror
         </div>
-        
+
         <!-- Email -->
         <div>
-            <label for="email" class="block text-sm font-medium text-the-end-700">Email</label>
-            <input 
+            <label for="email" class="block text-sm font-medium text-the-end-700">Email <span class="text-apocalyptic-orange-500">*</span></label>
+            <x-core.input 
                 type="email" 
                 name="email" 
                 id="email" 
-                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                 value="{{ old('email', $team_member->email ?? '') }}"
-            >
+                required
+                class="mt-1"
+            />
+            @error('email')
+                <p class="mt-1 text-sm text-apocalyptic-orange-500">{{ $message }}</p>
+            @enderror
         </div>
-        
+
         <!-- LinkedIn -->
         <div>
-            <label for="linkedin" class="block text-sm font-medium text-the-end-700">LinkedIn URL</label>
-            <input 
+            <label for="linkedin" class="block text-sm font-medium text-the-end-700">LinkedIn</label>
+            <x-core.input 
                 type="url" 
                 name="linkedin" 
                 id="linkedin" 
-                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                 value="{{ old('linkedin', $team_member->linkedin ?? '') }}"
-            >
+                class="mt-1"
+            />
+            @error('linkedin')
+                <p class="mt-1 text-sm text-apocalyptic-orange-500">{{ $message }}</p>
+            @enderror
         </div>
     </div>
+</div>
+
+<!-- Bio -->
+<div class="mt-8 space-y-6">
+    <h2 class="text-h3 font-semibold text-the-end-800 border-b border-gray-200 pb-2">Bio</h2>
     
-    <!-- Avatar -->
     <div>
-        <label class="block text-sm font-medium text-the-end-700 mb-1">Avatar</label>
-        
-        @if(isset($team_member) && $team_member->avatar)
-            <div class="mb-3 flex items-center space-x-3">
-                <img 
-                    src="{{ asset('storage/' . $team_member->avatar) }}" 
-                    alt="{{ $team_member->name }}" 
-                    class="w-16 h-16 rounded-full object-cover"
-                >
-                <span class="text-sm text-the-end-600">Current avatar</span>
-            </div>
-        @endif
-        
-        <input 
+        <label for="summary" class="block text-sm font-medium text-the-end-700">Professional Summary <span class="text-apocalyptic-orange-500">*</span></label>
+        <x-core.textarea 
+            name="summary" 
+            id="summary" 
+            rows="4"
+            required
+            class="mt-1"
+        >{{ old('summary', $team_member->summary ?? '') }}</x-core.textarea>
+        @error('summary')
+            <p class="mt-1 text-sm text-apocalyptic-orange-500">{{ $message }}</p>
+        @enderror
+    </div>
+</div>
+
+<!-- Avatar -->
+<div class="mt-8 space-y-6">
+    <h2 class="text-h3 font-semibold text-the-end-800 border-b border-gray-200 pb-2">Profile Image</h2>
+    
+    <div>
+        <label for="avatar" class="block text-sm font-medium text-the-end-700">Avatar</label>
+        <x-core.input 
             type="file" 
             name="avatar" 
             id="avatar" 
-            class="mt-1 block w-full text-sm text-the-end-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-white-smoke-100 file:text-the-end-800 hover:file:bg-white-smoke-200"
             accept="image/*"
-        >
-        <p class="mt-1 text-sm text-the-end-500">Upload a square image for best results. Maximum size: 2MB.</p>
-    </div>
-    
-    <!-- Summary -->
-    <div>
-        <label for="summary" class="block text-sm font-medium text-the-end-700">Professional Summary <span class="text-apocalyptic-orange-500">*</span></label>
-        <textarea 
-            name="summary" 
-            id="summary" 
-            rows="4" 
-            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-            required
-        >{{ old('summary', $team_member->summary ?? '') }}</textarea>
-        <p class="mt-1 text-sm text-the-end-500">A brief professional summary that highlights your expertise and background.</p>
+            class="mt-1"
+        />
+        @error('avatar')
+            <p class="mt-1 text-sm text-apocalyptic-orange-500">{{ $message }}</p>
+        @enderror
+        
+        @if(isset($team_member) && $team_member->avatar)
+            <div class="mt-4">
+                <img src="{{ asset('storage/' . $team_member->avatar) }}" alt="{{ $team_member->name }}" class="w-32 h-32 object-cover rounded-lg">
+            </div>
+        @endif
     </div>
 </div>
 
@@ -119,46 +138,46 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Company Name</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="professional_experience[{{ $index }}][company]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $experience['company'] ?? '' }}"
-                            >
+                                class="mt-1"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Role</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="professional_experience[{{ $index }}][role]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $experience['role'] ?? '' }}"
-                            >
+                                class="mt-1"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Period</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="professional_experience[{{ $index }}][period]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $experience['period'] ?? '' }}" 
                                 placeholder="e.g. 2018 - Present"
-                            >
+                                class="mt-1"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Company Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <input 
+                                    <x-core.input 
                                         type="text" 
                                         name="professional_experience[{{ $index }}][logo]" 
-                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
                                         placeholder="/src/img/company-logo.png"
                                         value="{{ $experience['logo'] ?? '' }}"
-                                    >
+                                        class="logo-path-input"
+                                    />
                                 </div>
                                 <div class="flex-shrink-0">
                                     <label for="prof-exp-logo-{{ $index }}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
@@ -194,27 +213,28 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-the-end-700">Description</label>
-                        <textarea 
+                        <x-core.textarea 
                             name="professional_experience[{{ $index }}][description]" 
-                            rows="2" 
-                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                        >{{ $experience['description'] ?? '' }}</textarea>
+                            rows="2"
+                            class="mt-1"
+                        >{{ $experience['description'] ?? '' }}</x-core.textarea>
                     </div>
                 </div>
             @endforeach
         @endif
     </div>
     
-    <button 
+    <x-core.button 
         type="button" 
         id="add-professional-experience" 
-        class="px-4 py-2 bg-white-smoke-100 text-the-end-800 rounded-lg hover:bg-white-smoke-200 font-medium flex items-center gap-2"
+        variant="neutral"
+        class="flex items-center gap-2"
     >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
         Add Professional Experience
-    </button>
+    </x-core.button>
 </div>
 
 <!-- Volunteer Experience -->
@@ -243,46 +263,46 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Organization Name</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="volunteer_experience[{{ $index }}][organization]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $experience['organization'] ?? '' }}"
-                            >
+                                class="mt-1"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Role</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="volunteer_experience[{{ $index }}][role]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $experience['role'] ?? '' }}"
-                            >
+                                class="mt-1"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Period</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="volunteer_experience[{{ $index }}][period]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $experience['period'] ?? '' }}" 
                                 placeholder="e.g. 2018 - Present"
-                            >
+                                class="mt-1"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <input 
+                                    <x-core.input 
                                         type="text" 
                                         name="volunteer_experience[{{ $index }}][logo]" 
-                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
                                         placeholder="/src/img/organization-logo.png"
                                         value="{{ $experience['logo'] ?? '' }}"
-                                    >
+                                        class="logo-path-input"
+                                    />
                                 </div>
                                 <div class="flex-shrink-0">
                                     <label for="vol-exp-logo-{{ $index }}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
@@ -318,27 +338,28 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-the-end-700">Description</label>
-                        <textarea 
+                        <x-core.textarea 
                             name="volunteer_experience[{{ $index }}][description]" 
-                            rows="2" 
-                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                        >{{ $experience['description'] ?? '' }}</textarea>
+                            rows="2"
+                            class="mt-1"
+                        >{{ $experience['description'] ?? '' }}</x-core.textarea>
                     </div>
                 </div>
             @endforeach
         @endif
     </div>
     
-    <button 
+    <x-core.button 
         type="button" 
         id="add-volunteer-experience" 
-        class="px-4 py-2 bg-white-smoke-100 text-the-end-800 rounded-lg hover:bg-white-smoke-200 font-medium flex items-center gap-2"
+        variant="neutral"
+        class="flex items-center gap-2"
     >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
         Add Volunteer Experience
-    </button>
+    </x-core.button>
 </div>
 
 <!-- Education -->
@@ -612,7 +633,7 @@
             @endphp
             
             @foreach($skills as $index => $skillCategory)
-                <div class="skill-category border border-white-smoke-200 rounded-md p-4 mb-4">
+                <div class="skill-category border border-white-smoke-200 rounded-md p-4 mb-4" data-index="{{ $index }}">
                     <div class="flex justify-between items-center mb-3">
                         <h3 class="text-body-lg font-medium">Skill Category</h3>
                         <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-skill-category">
@@ -623,14 +644,13 @@
                     </div>
                     
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-the-end-700">Category Name</label>
-                        <input 
-                            type="text" 
-                            name="skills[{{ $index }}][category]" 
-                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            value="{{ $skillCategory['category'] ?? '' }}"
+                        <x-core.input
+                            type="text"
+                            name="skills[{{ $index }}][category]"
+                            label="Category Name"
                             placeholder="e.g. UX Research & Design"
-                        >
+                            value="{{ $skillCategory['category'] ?? '' }}"
+                        />
                     </div>
                     
                     <div class="mb-4">
@@ -639,13 +659,12 @@
                             @if(isset($skillCategory['skills']) && is_array($skillCategory['skills']))
                                 @foreach($skillCategory['skills'] as $skillIndex => $skill)
                                     <div class="flex items-center gap-2">
-                                        <input 
-                                            type="text" 
-                                            name="skills[{{ $index }}][skills][]" 
-                                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                                            value="{{ $skill }}"
+                                        <x-core.input
+                                            type="text"
+                                            name="skills[{{ $index }}][skills][]"
                                             placeholder="e.g. UX Research"
-                                        >
+                                            value="{{ $skill }}"
+                                        />
                                         <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-skill">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
@@ -655,28 +674,31 @@
                                 @endforeach
                             @endif
                         </div>
-                        <button 
-                            type="button" 
-                            class="mt-2 px-3 py-1 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 text-sm font-medium add-skill"
+                        <x-core.button
+                            type="button"
+                            variant="neutral"
+                            size="small"
+                            class="mt-2 add-skill"
                         >
                             Add Skill
-                        </button>
+                        </x-core.button>
                     </div>
                 </div>
             @endforeach
         @endif
     </div>
     
-    <button 
-        type="button" 
-        id="add-skill-category" 
-        class="px-4 py-2 bg-white-smoke-100 text-the-end-800 rounded-lg hover:bg-white-smoke-200 font-medium flex items-center gap-2"
+    <x-core.button
+        type="button"
+        variant="neutral"
+        id="add-skill-category"
+        class="flex items-center gap-2"
     >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
         Add Skill Category
-    </button>
+    </x-core.button>
 </div>
 
 <!-- Press Mentions -->
@@ -753,6 +775,13 @@
     </button>
 </div>
 
+<!-- Submit Button -->
+<div class="mt-8">
+    <x-core.button type="submit" class="w-full md:w-auto">
+        {{ isset($team_member) ? 'Update Team Member' : 'Create Team Member' }}
+    </x-core.button>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Professional Experience
@@ -774,42 +803,41 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Company Name</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="professional_experience[${professionalExperienceCount}][company]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            >
+                                class="mt-1"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Role</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="professional_experience[${professionalExperienceCount}][role]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            >
+                                class="mt-1"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Period</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="professional_experience[${professionalExperienceCount}][period]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                                placeholder="e.g. January 2022 - Present"
-                            >
+                                class="mt-1"
+                                placeholder="e.g. 2018 - Present"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Company Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <input 
+                                    <x-core.input 
                                         type="text" 
                                         name="professional_experience[${professionalExperienceCount}][logo]" 
-                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
-                                        placeholder="/src/img/company-logo.png"
-                                    >
+                                        class="logo-path-input"
+                                    />
                                 </div>
                                 <div class="flex-shrink-0">
                                     <label for="prof-logo-${professionalExperienceCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
@@ -831,11 +859,11 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-the-end-700">Description</label>
-                        <textarea 
+                        <x-core.textarea 
                             name="professional_experience[${professionalExperienceCount}][description]" 
-                            rows="2" 
-                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                        ></textarea>
+                            rows="2"
+                            class="mt-1"
+                        ></x-core.textarea>
                     </div>
                 </div>
             `;
@@ -865,42 +893,41 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Organization Name</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="volunteer_experience[${volunteerExperienceCount}][organization]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            >
+                                class="mt-1"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Role</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="volunteer_experience[${volunteerExperienceCount}][role]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            >
+                                class="mt-1"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Period</label>
-                            <input 
+                            <x-core.input 
                                 type="text" 
                                 name="volunteer_experience[${volunteerExperienceCount}][period]" 
-                                class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                                placeholder="e.g. January 2022 - Present"
-                            >
+                                class="mt-1"
+                                placeholder="e.g. 2018 - Present"
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <input 
+                                    <x-core.input 
                                         type="text" 
                                         name="volunteer_experience[${volunteerExperienceCount}][logo]" 
-                                        class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
-                                        placeholder="/src/img/organization-logo.png"
-                                    >
+                                        class="logo-path-input"
+                                    />
                                 </div>
                                 <div class="flex-shrink-0">
                                     <label for="vol-logo-${volunteerExperienceCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
@@ -922,11 +949,11 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-the-end-700">Description</label>
-                        <textarea 
+                        <x-core.textarea 
                             name="volunteer_experience[${volunteerExperienceCount}][description]" 
-                            rows="2" 
-                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                        ></textarea>
+                            rows="2"
+                            class="mt-1"
+                        ></x-core.textarea>
                     </div>
                 </div>
             `;
@@ -1145,25 +1172,32 @@
                     </div>
                     
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-the-end-700">Category Name</label>
-                        <input 
-                            type="text" 
-                            name="skills[${skillsCount}][category]" 
-                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            placeholder="e.g. UX Research & Design"
-                        >
+                        <div class="space-y-2">
+                            <label for="skills-${skillsCount}-category" class="text-the-end-900 text-body-sm font-medium">Category Name</label>
+                            <div class="relative">
+                                <input
+                                    type="text"
+                                    name="skills[${skillsCount}][category]"
+                                    id="skills-${skillsCount}-category"
+                                    placeholder="e.g. UX Research & Design"
+                                    class="w-full px-4 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 placeholder-the-end-400 focus:ring-1 focus:ring-chicken-comb-300 focus:border-chicken-comb-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 outline-chicken-comb-600 disabled:bg-white-smoke-100 disabled:text-the-end-300 disabled:cursor-not-allowed"
+                                />
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-the-end-700">Skills</label>
                         <div class="skills-list space-y-2">
                             <div class="flex items-center gap-2">
-                                <input 
-                                    type="text" 
-                                    name="skills[${skillsCount}][skills][]" 
-                                    class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                                    placeholder="e.g. UX Research"
-                                >
+                                <div class="relative flex-grow">
+                                    <input
+                                        type="text"
+                                        name="skills[${skillsCount}][skills][]"
+                                        placeholder="e.g. UX Research"
+                                        class="w-full px-4 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 placeholder-the-end-400 focus:ring-1 focus:ring-chicken-comb-300 focus:border-chicken-comb-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 outline-chicken-comb-600 disabled:bg-white-smoke-100 disabled:text-the-end-300 disabled:cursor-not-allowed"
+                                    />
+                                </div>
                                 <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-skill">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
@@ -1296,12 +1330,14 @@
                 
                 const skillTemplate = `
                     <div class="flex items-center gap-2">
-                        <input 
-                            type="text" 
-                            name="skills[${categoryIndex}][skills][]" 
-                            class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            placeholder="e.g. UX Research"
-                        >
+                        <div class="relative flex-grow">
+                            <input 
+                                type="text" 
+                                name="skills[${categoryIndex}][skills][]" 
+                                placeholder="e.g. UX Research"
+                                class="w-full px-4 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 placeholder-the-end-400 focus:ring-1 focus:ring-chicken-comb-300 focus:border-chicken-comb-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 outline-chicken-comb-600 disabled:bg-white-smoke-100 disabled:text-the-end-300 disabled:cursor-not-allowed"
+                            />
+                        </div>
                         <button type="button" class="text-apocalyptic-orange-600 hover:text-apocalyptic-orange-800 remove-skill">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
@@ -1323,13 +1359,26 @@
                 // Update data-index attribute for skill categories
                 if (section === 'skills') {
                     item.dataset.index = index;
+                    
+                    // Update all skill inputs within this category
+                    const skillInputs = item.querySelectorAll('input[name^="skills"][name$="][skills][]"]');
+                    skillInputs.forEach(input => {
+                        input.setAttribute('name', `skills[${index}][skills][]`);
+                    });
+                    
+                    // Update category input
+                    const categoryInput = item.querySelector(`input[name^="skills"][name$="][category]"]`);
+                    if (categoryInput) {
+                        categoryInput.setAttribute('name', `skills[${index}][category]`);
+                        categoryInput.setAttribute('id', `skills-${index}-category`);
+                    }
                 }
                 
                 // Update input names
                 const inputs = item.querySelectorAll('input, textarea');
                 inputs.forEach(input => {
                     const name = input.getAttribute('name');
-                    if (name) {
+                    if (name && !name.includes('[skills][]')) {
                         input.setAttribute('name', name.replace(/\[\d+\]/, `[${index}]`));
                     }
                 });
