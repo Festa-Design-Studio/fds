@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\WorkMetric;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class WorkMetricController extends Controller
 {
@@ -57,6 +58,7 @@ class WorkMetricController extends Controller
      */
     public function edit(WorkMetric $metric)
     {
+        Log::info('Editing metric', ['metric_id' => $metric->id, 'metric' => $metric->toArray()]);
         return view('admin.work.metrics.edit', compact('metric'));
     }
 
@@ -65,6 +67,11 @@ class WorkMetricController extends Controller
      */
     public function update(Request $request, WorkMetric $metric)
     {
+        Log::info('Updating metric', [
+            'metric_id' => $metric->id, 
+            'request_data' => $request->all()
+        ]);
+        
         $validated = $request->validate([
             'value' => 'required|string|max:255',
             'title' => 'required|string|max:255',
@@ -73,7 +80,13 @@ class WorkMetricController extends Controller
             'display_order' => 'nullable|integer'
         ]);
 
-        $metric->update($validated);
+        $result = $metric->update($validated);
+        
+        Log::info('Metric update result', [
+            'metric_id' => $metric->id, 
+            'success' => $result,
+            'updated_metric' => $metric->fresh()->toArray()
+        ]);
 
         return redirect()->route('admin.work.metrics.index')
             ->with('success', 'Metric updated successfully.');

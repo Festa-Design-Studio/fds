@@ -6,6 +6,17 @@
 
 @section('content')
     <div class="max-w-2xl mx-auto">
+        @if($errors->any())
+            <div class="bg-apocalyptic-orange-50 p-4 rounded-lg mb-6">
+                <h3 class="text-h5 font-bold text-apocalyptic-orange-700 mb-2">Please fix the following errors:</h3>
+                <ul class="list-disc pl-5">
+                    @foreach($errors->all() as $error)
+                        <li class="text-apocalyptic-orange-600">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('admin.work.metrics.update', $metric) }}" method="POST" class="space-y-6">
             @csrf
             @method('PUT')
@@ -41,9 +52,8 @@
                     name="description"
                     label="Description"
                     placeholder="e.g., Empowered through purposeful design"
-                    :value="old('description', $metric->description)"
                     required
-                />
+                >{{ old('description', $metric->description) }}</x-core.textarea>
                 @error('description')
                     <p class="mt-1 text-body-sm text-apocalyptic-orange-600">{{ $message }}</p>
                 @enderror

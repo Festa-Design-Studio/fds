@@ -5,36 +5,35 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             @foreach($metrics as $metric)
                 <div class="text-center space-y-3">
-                    <span 
+                    <div 
                         x-data="{ 
-                            value: 0,
-                            alpineValue: '{{ $metric['value'] }}',
-                            suffix: '',
-                            version: '{{ $version }}'
+                            count: 0,
+                            target: parseInt('{{ $metric['value'] }}') || 0,
+                            duration: 3000,
+                            startTime: null,
+                            isAnimating: false
                         }"
                         x-init="
-                            console.log('Initializing metric:', alpineValue, 'Version:', version);
-                            duration = 2000;
-                            start = 0;
-                            // Remove commas and any non-numeric characters except decimal points
-                            end = parseInt(alpineValue.replace(/,/g, '').replace(/[^0-9.]/g, ''));
-                            console.log('Parsed end value:', end);
-                            startTimestamp = null;
+                            console.log('Metric value:', '{{ $metric['value'] }}', 'Parsed target:', parseInt('{{ $metric['value'] }}'));
                             
-                            function step(timestamp) {
-                                if (!startTimestamp) startTimestamp = timestamp;
-                                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                                value = Math.floor(progress * (end - start) + start);
+                            function animate(timestamp) {
+                                if (!startTime) startTime = timestamp;
+                                const progress = Math.min((timestamp - startTime) / duration, 1);
+                                count = Math.floor(progress * target);
+                                
                                 if (progress < 1) {
-                                    window.requestAnimationFrame(step);
+                                    requestAnimationFrame(animate);
+                                } else {
+                                    isAnimating = false;
                                 }
                             }
                             
-                            observer = new IntersectionObserver((entries) => {
+                            const observer = new IntersectionObserver((entries) => {
                                 entries.forEach(entry => {
-                                    if (entry.isIntersecting) {
-                                        console.log('Starting animation for:', alpineValue);
-                                        window.requestAnimationFrame(step);
+                                    if (entry.isIntersecting && !isAnimating) {
+                                        isAnimating = true;
+                                        startTime = null;
+                                        requestAnimationFrame(animate);
                                         observer.unobserve(entry.target);
                                     }
                                 });
@@ -42,9 +41,9 @@
                             
                             observer.observe($el);
                         "
-                        x-text="value.toLocaleString() + suffix"
+                        x-text="count.toLocaleString()"
                         class="text-display font-black {{ $metric['colorClass'] ?? 'text-chicken-comb-600' }}"
-                    ></span>
+                    ></div>
                     <h3 class="text-h4 font-bold text-the-end-900">{{ $metric['title'] }}</h3>
                     <p class="text-body text-the-end-700">{{ $metric['description'] }}</p>
                 </div>

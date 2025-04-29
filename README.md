@@ -6,6 +6,18 @@
 
 Festa Design Studio is a design agency website built with Laravel, Blade, and Tailwind CSS. The project showcases Festa's services, work portfolio, blog, and resources while implementing a comprehensive design system with a fully functional admin panel.
 
+## Key Features
+
+- **Component-based architecture** using Blade components
+- **Custom design system** with Tailwind CSS
+- **Responsive layouts** for all device sizes
+- **Admin panel** for content management
+- **Blog platform** for sharing insights
+- **Portfolio showcase** for displaying work
+- **Services section** highlighting capabilities
+- **Contact system** for client inquiries
+- **Metrics display** with animated counters
+
 ## Routes Structure
 
 ### Web Routes (`routes/web.php`)
@@ -70,12 +82,24 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/services', [AdminController::class, 'services'])->name('services');
     
     // Work Management
-    Route::get('/work', [\App\Http\Controllers\Admin\WorkController::class, 'index'])->name('work.index');
-    Route::get('/work/create', [\App\Http\Controllers\Admin\WorkController::class, 'create'])->name('work.create');
-    Route::post('/work', [\App\Http\Controllers\Admin\WorkController::class, 'store'])->name('work.store');
-    Route::get('/work/{id}/edit', [\App\Http\Controllers\Admin\WorkController::class, 'edit'])->name('work.edit');
-    Route::put('/work/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'update'])->name('work.update');
-    Route::delete('/work/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'destroy'])->name('work.destroy');
+    Route::prefix('work')->name('work.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\WorkController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\Admin\WorkController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\Admin\WorkController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [\App\Http\Controllers\Admin\WorkController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'destroy'])->name('destroy');
+        
+        // Metrics Routes
+        Route::prefix('metrics')->name('metrics.')->group(function () {
+            Route::get('/', [WorkMetricController::class, 'index'])->name('index');
+            Route::get('/create', [WorkMetricController::class, 'create'])->name('create');
+            Route::post('/', [WorkMetricController::class, 'store'])->name('store');
+            Route::get('/{metric}/edit', [WorkMetricController::class, 'edit'])->name('edit');
+            Route::put('/{metric}', [WorkMetricController::class, 'update'])->name('update');
+            Route::delete('/{metric}', [WorkMetricController::class, 'destroy'])->name('destroy');
+        });
+    });
     
     // Team Members Management
     Route::prefix('about/team')->group(function () {
@@ -129,6 +153,7 @@ The application logic is organized into controller groups:
 #### Admin Controllers
 - `AdminController`: Manages the admin dashboard and settings
 - `WorkController` (Admin): Manages project portfolio content
+- `WorkMetricController`: Manages metrics for the work section
 - `ClientController` (Admin): Handles client data management
 - `BlogController`: Manages blog posts and categories
 - `TeamMemberController` (Admin): Manages team member information
@@ -142,6 +167,7 @@ The application uses the following data models:
 - `Project`: Portfolio projects and case studies with attributes like title, description, client, images
 - `Client`: Client information and relationships with attributes like name, logo, website
 - `TeamMember`: Team member information with attributes like name, position, bio, and social links
+- `WorkMetric`: Metrics displayed in the work section with attributes like value, title, description, color class, and display order
 
 ### Database Migrations
 
@@ -151,6 +177,7 @@ Key database tables include:
 - `projects`: Portfolio projects and case studies with fields for title, slug, description, images, client relation, published status
 - `clients`: Client information with fields for name, logo, website URL, description
 - `team_members`: Team member profiles with fields for name, position, bio, image, social links
+- `work_metrics`: Metrics for the work section with fields for value, title, description, color class, and display order
 
 ## Component Library
 
@@ -166,6 +193,70 @@ Component categories include:
 - **About**: Team and company information components
 - **Home**: Homepage-specific components
 - **Contact**: Form and contact information components
+
+## Key Features Implementation
+
+### Metrics System
+
+The metrics system displays animated counters for key statistics in the work section. Each metric has its own independent counter that animates when scrolled into view.
+
+#### Implementation Details:
+
+1. **Database Structure**:
+   - The `work_metrics` table stores metric data with fields for value, title, description, color class, and display order.
+
+2. **Admin Management**:
+   - The `WorkMetricController` provides CRUD operations for metrics.
+   - The edit form includes validation and error handling to ensure data integrity.
+
+3. **Frontend Display**:
+   - The `x-work.metrics` component renders metrics with animated counters.
+   - Each metric has a unique identifier to ensure independent animation.
+   - The animation uses Alpine.js with IntersectionObserver to trigger when scrolled into view.
+
+#### Code Example:
+
+```blade
+<!-- Metrics Component -->
+<x-work.metrics :metrics="$metrics" />
+
+<!-- Individual Metric Counter -->
+<span 
+    x-data="{ 
+        value: 0,
+        alpineValue: '{{ $metric['value'] }}',
+        suffix: '',
+        uniqueId: '{{ $metric['id'] ?? uniqid() }}',
+        version: '{{ $version }}'
+    }"
+    x-init="
+        // Animation logic with unique identifier
+        function step(timestamp) {
+            if (!$el.startTimestamp) $el.startTimestamp = timestamp;
+            const progress = Math.min((timestamp - $el.startTimestamp) / duration, 1);
+            value = Math.floor(progress * (end - start) + start);
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        }
+        
+        // IntersectionObserver to trigger animation
+        observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    $el.startTimestamp = null; // Reset timestamp for each animation
+                    window.requestAnimationFrame(step);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe($el);
+    "
+    x-text="value.toLocaleString() + suffix"
+    class="text-display font-black {{ $metric['colorClass'] ?? 'text-chicken-comb-600' }}"
+></span>
+```
 
 ## Step-by-Step Project Creation Guide
 
@@ -214,6 +305,7 @@ DB_PASSWORD=
 php artisan make:migration create_projects_table
 php artisan make:migration create_clients_table
 php artisan make:migration create_team_members_table
+php artisan make:migration create_work_metrics_table
 
 # Run migrations
 php artisan migrate
@@ -226,6 +318,7 @@ php artisan migrate
 php artisan make:model Project
 php artisan make:model Client
 php artisan make:model TeamMember
+php artisan make:model WorkMetric
 ```
 
 ### 6. Create Controllers
@@ -245,6 +338,7 @@ php artisan make:controller About/Team/TeamMemberController
 # Create Admin controllers
 php artisan make:controller Admin/AdminController
 php artisan make:controller Admin/WorkController
+php artisan make:controller Admin/WorkMetricController
 php artisan make:controller Admin/ClientController
 php artisan make:controller Admin/BlogController
 php artisan make:controller Admin/ImageController
@@ -322,6 +416,7 @@ cp ~/path/to/logo.svg public/assets/images/
 php artisan make:seeder ProjectSeeder
 php artisan make:seeder ClientSeeder
 php artisan make:seeder TeamMemberSeeder
+php artisan make:seeder WorkMetricSeeder
 php artisan make:seeder UserSeeder
 
 # Run seeders
@@ -338,12 +433,50 @@ php artisan serve
 npm run dev
 ```
 
+## Troubleshooting Common Issues
+
+### Metric Edit Form Not Storing Data
+
+If the metric edit form is not storing data:
+
+1. **Check Form Method and Action**:
+   - Ensure the form has the correct method (`POST`) and includes `@method('PUT')` directive
+   - Verify the form action points to the correct route: `{{ route('admin.work.metrics.update', $metric) }}`
+
+2. **Verify CSRF Protection**:
+   - Make sure the form includes the CSRF token: `@csrf`
+
+3. **Check Validation**:
+   - Ensure all required fields are properly validated in the controller
+   - Add error handling to display validation errors to the user
+
+4. **Add Logging**:
+   - Add logging in the controller to track form submission and update process
+   - Check the Laravel logs for any errors
+
+### Metric Counter Animation Issues
+
+If the metric counters are not animating correctly:
+
+1. **Ensure Unique Identifiers**:
+   - Each metric should have a unique identifier to prevent animation conflicts
+   - Use the metric ID or generate a unique ID: `uniqueId: '{{ $metric['id'] ?? uniqid() }}'`
+
+2. **Scope Animation State**:
+   - Use element-specific timestamps: `$el.startTimestamp` instead of global variables
+   - Reset timestamps for each animation instance
+
+3. **Improve Logging**:
+   - Add console logging to track animation initialization and execution
+   - Include unique identifiers in log messages for easier debugging
+
 ## Built With
 
 - **Laravel 10+** - PHP framework
 - **Breeze** - Authentication scaffolding
 - **Blade** - Templating engine
 - **Tailwind CSS** - Utility-first CSS framework
+- **Alpine.js** - Lightweight JavaScript framework
 - **MySQL** - Database
 - **Vite** - Asset bundling
 

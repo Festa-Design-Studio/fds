@@ -18,16 +18,27 @@ class WorkController extends Controller
 
         // Get metrics and log them for debugging
         $metrics = WorkMetric::orderBy('display_order')->get();
-        Log::info('Work Metrics:', $metrics->toArray());
+        Log::info('Raw Work Metrics:', $metrics->toArray());
         
         $metrics = $metrics->map(function($metric) {
+            // Convert value to integer, removing any non-numeric characters
+            $value = (int) preg_replace('/[^0-9]/', '', $metric->value);
+            
+            Log::info("Processing metric {$metric->id}:", [
+                'original_value' => $metric->value,
+                'processed_value' => $value
+            ]);
+            
             return [
-                'value' => $metric->value,
+                'id' => $metric->id,
+                'value' => $value,
                 'title' => $metric->title,
                 'description' => $metric->description,
                 'colorClass' => $metric->color_class
             ];
         });
+        
+        Log::info('Processed Work Metrics:', $metrics->toArray());
         
         // Return response with no-cache headers
         return response()
@@ -58,7 +69,27 @@ class WorkController extends Controller
             ->orderBy('id', 'asc')
             ->first();
         
+        // Get metrics for the show page
+        $metrics = WorkMetric::orderBy('display_order')->get();
+        $metrics = $metrics->map(function($metric) {
+            // Convert value to integer, removing any non-numeric characters
+            $value = (int) preg_replace('/[^0-9]/', '', $metric->value);
+            
+            Log::info("Processing metric for show page {$metric->id}:", [
+                'original_value' => $metric->value,
+                'processed_value' => $value
+            ]);
+            
+            return [
+                'id' => $metric->id,
+                'value' => $value,
+                'title' => $metric->title,
+                'description' => $metric->description,
+                'colorClass' => $metric->color_class
+            ];
+        });
+        
         // Use the case-study-show template as per component showcase
-        return view('work.case-study-show', compact('project', 'previousProject', 'nextProject'));
+        return view('work.case-study-show', compact('project', 'previousProject', 'nextProject', 'metrics'));
     }
 } 
