@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\About\Team\TeamMemberController;
+use App\Http\Controllers\Admin\WorkMetricController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,16 +92,28 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Admin Dashboard
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     
+    // Work Management
+    Route::prefix('work')->name('work.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\WorkController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\Admin\WorkController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\Admin\WorkController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [\App\Http\Controllers\Admin\WorkController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'destroy'])->name('destroy');
+        
+        // Metrics Routes
+        Route::prefix('metrics')->name('metrics.')->group(function () {
+            Route::get('/', [WorkMetricController::class, 'index'])->name('index');
+            Route::get('/create', [WorkMetricController::class, 'create'])->name('create');
+            Route::post('/', [WorkMetricController::class, 'store'])->name('store');
+            Route::get('/{metric}/edit', [WorkMetricController::class, 'edit'])->name('edit');
+            Route::put('/{metric}', [WorkMetricController::class, 'update'])->name('update');
+            Route::delete('/{metric}', [WorkMetricController::class, 'destroy'])->name('destroy');
+        });
+    });
+    
     // Pages Management
     Route::get('/services', [AdminController::class, 'services'])->name('services');
-    
-    // Work Management
-    Route::get('/work', [\App\Http\Controllers\Admin\WorkController::class, 'index'])->name('work.index');
-    Route::get('/work/create', [\App\Http\Controllers\Admin\WorkController::class, 'create'])->name('work.create');
-    Route::post('/work', [\App\Http\Controllers\Admin\WorkController::class, 'store'])->name('work.store');
-    Route::get('/work/{id}/edit', [\App\Http\Controllers\Admin\WorkController::class, 'edit'])->name('work.edit');
-    Route::put('/work/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'update'])->name('work.update');
-    Route::delete('/work/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'destroy'])->name('work.destroy');
     
     // Other Admin Routes
     Route::get('/about', [AdminController::class, 'about'])->name('about');

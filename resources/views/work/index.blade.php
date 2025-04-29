@@ -17,34 +17,7 @@
     />
 
     <!-- 3. Metrics Section -->
-    <x-work.metrics 
-        :metrics="[
-            [
-                'value' => '500+',
-                'title' => 'Organizations',
-                'description' => 'Empowered through purposeful design',
-                'colorClass' => 'text-chicken-comb-600'
-            ],
-            [
-                'value' => '98%',
-                'title' => 'Satisfaction',
-                'description' => 'From our partner organizations',
-                'colorClass' => 'text-pepper-green-600'
-            ],
-            [
-                'value' => '1M+',
-                'title' => 'Lives Impacted',
-                'description' => 'Through our collaborative work',
-                'colorClass' => 'text-apocalyptic-orange-600'
-            ],
-            [
-                'value' => '10+',
-                'title' => 'Years',
-                'description' => 'Creating meaningful change',
-                'colorClass' => 'text-pot-of-gold-600'
-            ]
-        ]"
-    />
+    <x-work.metrics :metrics="$metrics" :version="time()" />
 
     <!-- 4. Filter Component -->
     <x-work.filter 

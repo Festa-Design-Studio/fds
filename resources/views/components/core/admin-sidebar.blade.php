@@ -23,12 +23,20 @@
         </a>
 
         <!-- Admin work-->
-        <a href="{{ route('admin.work.index') }}" class="flex items-center gap-2 {{ request()->routeIs('admin.work*') ? 'text-chicken-comb-600' : 'text-the-end-600 hover:text-chicken-comb-600' }} transition-colors">
+        <a href="{{ route('admin.work.index') }}" class="flex items-center gap-2 {{ request()->routeIs('admin.work.index') ? 'text-chicken-comb-600' : 'text-the-end-600 hover:text-chicken-comb-600' }} transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
                 <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
             </svg>
             <span class="text-body text-the-end-700">Work</span>
+        </a>
+
+        <!-- Admin Work Metrics -->
+        <a href="{{ route('admin.work.metrics.index') }}" class="flex items-center gap-2 ml-6 {{ request()->routeIs('admin.work.metrics.*') ? 'text-chicken-comb-600' : 'text-the-end-600 hover:text-chicken-comb-600' }} transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            <span class="text-body text-the-end-700">Metrics</span>
         </a>
 
         <!-- Admin Clients -->

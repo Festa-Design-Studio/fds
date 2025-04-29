@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\WorkMetric;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class WorkController extends Controller
 {
@@ -13,8 +15,26 @@ class WorkController extends Controller
         $projects = Project::whereNotNull('published_at')
             ->orderBy('published_at', 'desc')
             ->get();
+
+        // Get metrics and log them for debugging
+        $metrics = WorkMetric::orderBy('display_order')->get();
+        Log::info('Work Metrics:', $metrics->toArray());
         
-        return view('work.index', compact('projects'));
+        $metrics = $metrics->map(function($metric) {
+            return [
+                'value' => $metric->value,
+                'title' => $metric->title,
+                'description' => $metric->description,
+                'colorClass' => $metric->color_class
+            ];
+        });
+        
+        // Return response with no-cache headers
+        return response()
+            ->view('work.index', compact('projects', 'metrics'))
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', 'Fri, 01 Jan 1990 00:00:00 GMT');
     }
     
     /**
