@@ -83,9 +83,12 @@
     </p>
 
     <!-- Secondary Button -->
-    <button
-      class="lg:w-auto md:w-auto w-full px-6 py-3 border-2 text-body-lg text-the-end-700 border-pepper-green-600/50 rounded-full hover:bg-pepper-green-50 active:bg-pepper-green-100 disabled:border-pepper-green-200 disabled:text-pepper-green-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-pepper-green-600 focus:ring-offset-2">
+    <x-core.button
+      variant="secondary"
+      size="large"
+      href="{{ route('about.process') }}"
+    >
       Learn more about our process
-    </button>
+    </x-core.button>
   </div>
 </section> 

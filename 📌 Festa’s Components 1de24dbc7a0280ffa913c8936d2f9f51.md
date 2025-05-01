@@ -1599,8 +1599,6 @@ Code snippets for **Testimonial Section Layout**:
 
 			<!-- Grid Layout for Basic Testimonial Card here -->
 
-       <!-- Load more Testimonial card large secondary button here -->
-
     </section>
 ```
 
@@ -1860,6 +1858,48 @@ Code snippets for **Sector we serve section**:
     <!-- Sector card grid layout here-->
 
   </section>
+```
+
+Code snippets for **Project design service hero section: “Newly added”**
+
+```html
+<!-- Project design service Hero Section -->
+<section class="py-10 px-6 text-center max-w-5xl mx-auto">
+  <p class="text-body-sm text-chicken-comb-600 uppercase tracking-wider mb-2">
+    Project Design
+  </p>
+  <h1 class="text-h1 font-bold mb-4">Designing for impact and clarity</h1>
+  <p class="text-body-lg text-the-end-700 max-w-2xl mx-auto mb-8">
+    We partner with nonprofits and purpose-led teams to co-create strong project
+    frameworks, strategies, and funding narratives that drive real change.
+  </p>
+  <button
+    class="lg:w-auto md:w-auto w-full px-6 py-3 border-2 text-body-lg text-the-end-700 border-pepper-green-600/50 rounded-full hover:bg-pepper-green-50 active:bg-pepper-green-100 disabled:border-pepper-green-200 disabled:text-pepper-green-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-pepper-green-600 focus:ring-offset-2"
+  >
+    How we work
+  </button>
+</section>
+```
+
+Code snippets for **Services CTA: “Newly added”**
+
+```html
+<!-- CTA Section -->
+<section class="py-20 px-6 text-center lg:max-w-5xl mx-auto">
+  <h2 class="text-h2 font-bold text-pepper-green mb-4">
+    Not seeing what you’re looking for?
+  </h2>
+  <p class="text-body-lg text-the-end-700 max-w-2xl mx-auto mb-8">
+    If your needs are unique or not listed above, we’d still love to hear from
+    you. Let's explore how Festa can help bring your ideas to life.
+  </p>
+  <!-- Primary Button -->
+  <button
+    class="lg:w-auto md:w-auto w-full px-6 py-3 text-body-lg bg-chicken-comb-600 text-white-smoke-50 rounded-full hover:bg-chicken-comb-700 active:bg-chicken-comb-800 disabled:bg-chicken-comb-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-chicken-comb-600 focus:ring-offset-2"
+  >
+    Talk to Festa
+  </button>
+</section>
 ```
 
 ## Toolkit components
@@ -2237,7 +2277,7 @@ Code snippets for **Team section layout:**
   </section>
 ```
 
-Code snippets for **How we work**: “**Just added**”
+Code snippets for **How we work**:
 
 ```html
  <!-- How we Work  Section of About page -->
@@ -2335,6 +2375,184 @@ Code snippets for **How we work**: “**Just added**”
 </section>
 ```
 
+Code snippets for **SDG Section:** “**Just added**”
+
+```html
+<!-- SDG Section -->
+<section class="py-20 px-4 md:px-8 lg:px-16 bg-white-smoke-100">
+  <div class="max-w-7xl mx-auto text-center space-y-8">
+    <!-- Eyebrow -->
+    <p class="text-body-sm text-chicken-comb-600 uppercase tracking-wide">
+      Sustainable Development Goals
+    </p>
+
+    <!-- Section Title -->
+    <h2 class="text-h2 font-bold text-pepper-green">We design for good</h2>
+
+    <!-- Section Description -->
+    <p class="text-body-lg text-the-end-700 max-w-3xl mx-auto">
+      We align our design solutions with the United Nations' Sustainable
+      Development Goals to create meaningful impact across the globe.
+    </p>
+
+    <!-- SDG Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <!-- SDG Goal 1 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-1.svg"
+          alt="SDG 1: No Poverty"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 2 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-2.svg"
+          alt="SDG 2: Zero Hunger"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 3 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-3.svg"
+          alt="SDG 3: Good Health and Well-being"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 4 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-4.svg"
+          alt="SDG 4: Quality Education"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 5 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-5.svg"
+          alt="SDG 5: Gender Equality"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 6 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-6.svg"
+          alt="SDG 6: Clean Water and Sanitation"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 7 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-7.svg"
+          alt="SDG 7: Affordable and Clean Energy"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 8 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-8.svg"
+          alt="SDG 8: Decent Work and Economic Growth"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 9 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-9.svg"
+          alt="SDG 9: Industry, Innovation, and Infrastructure"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 10 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-10.svg"
+          alt="SDG 10: Reduced Inequalities"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 11 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-11.svg"
+          alt="SDG 11: Sustainable Cities and Communities"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 12 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-12.svg"
+          alt="SDG 12: Responsible Consumption and Production"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 13 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-13.svg"
+          alt="SDG 13: Climate Action"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 14 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-14.svg"
+          alt="SDG 14: Life Below Water"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 15 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-15.svg"
+          alt="SDG 15: Life on Land"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 16 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/sdg-16.svg"
+          alt="SDG 16: Peace, Justice, and Strong Institutions"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- SDG Goal 17 -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/sdg/sdg-17.svg"
+          alt="SDG 17: Partnerships for the Goals"
+          class="w-24 h-24"
+        />
+      </div>
+      <!-- Global goals -->
+      <div class="flex items-center justify-center">
+        <img
+          src="/src/img/global-goals.svg"
+          alt="Global Goals"
+          class="w-24 h-24"
+        />
+      </div>
+    </div>
+
+    <!-- CTA Button -->
+    <button
+      class="lg:w-auto md:w-auto w-full px-6 py-3 border-2 text-body-lg text-the-end-700 border-pepper-green-600/50 rounded-full hover:bg-pepper-green-50 active:bg-pepper-green-100 disabled:border-pepper-green-200 disabled:text-pepper-green-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-pepper-green-600 focus:ring-offset-2"
+    >
+      Learn more about SDGs
+    </button>
+  </div>
+</section>
+```
+
 Code snippets for **partners logo card**:
 
 ```html
@@ -2384,6 +2602,254 @@ Code snippets for **partners logo card grid layout**:
 
       </div>
       </section>
+```
+
+## Our process components **“Newly added”**
+
+/resources/views/components/about/our-process
+
+This is a child page of **“about” page**. “/resources/views/about/our-process”
+
+Code snippets for **Our Process Hero Section: “Newly added”**
+
+```html
+<!-- Our-process Hero Section with Video -->
+    <section class="relative py-20 px-4 md:px-8 lg:px-16 bg-gradient-to-br from-pepper-green-50 to-leaf-50">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+            <h1 class="text-h1 font-black text-the-end-900">Remote<span class="text-chicken-comb-600">-</span>first
+                culture studio</h1>
+            <p class="text-body-lg text-the-end-700 max-w-2xl mx-auto">
+                Flexible working environment, client-centered confidentiality, embedded partnership for seamless collaboration.
+            </p>
+            <!-- Vimeo Video Embed -->
+            <div class="aspect-video rounded-xl overflow-hidden shadow-xl">
+                <embed src="https://player.vimeo.com/video/1005973852" class="w-full h-full mx-auto" type="video/mp4">
+            </div>
+        </div>
+    </section>
+```
+
+Code snippets for **Our Philosophy Section: “Newly added”**
+
+```html
+<!-- Our Philosophy Section -->
+<article
+  class="bg-apocalyptic-orange-50 text-the-end-900 py-20 px-8 lg:px-16 mx-auto justify-items-center"
+>
+  <div class="max-w-3xl mx-auto text-center space-y-8 mb-16">
+    <h2 class="text-h2 font-bold text-pepper-green">Our design philosophy</h2>
+    <p class="text-body text-the-end-700 max-w-2xl mx-auto">
+      At Festa Design Studio, we believe that thoughtful design has the power to
+      amplify social impact and drive meaningful change. Our design philosophy
+      is built on three core principles:
+    </p>
+  </div>
+
+  <!-- 2-Column Grid -->
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-20 max-w-3xl mx-auto">
+    <div class="space-y-4">
+      <div class="flex items-center space-x-4">
+        <p
+          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
+        >
+          1
+        </p>
+        <h3 class="text-h4 font-semibold text-the-end-700">
+          Purpose-Driven Design
+        </h3>
+      </div>
+      <p class="text-body-sm text-the-end-600">
+        Every design decision we make is intentionally aligned with our clients'
+        missions for social good. We believe that effective design must serve a
+        greater purpose beyond aesthetics.
+      </p>
+    </div>
+    <div class="space-y-4">
+      <div class="flex items-center space-x-4">
+        <p
+          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
+        >
+          2
+        </p>
+        <h3 class="text-h4 font-semibold text-the-end-700">
+          Human-Centered Approach
+        </h3>
+      </div>
+      <p class="text-body-sm text-the-end-600">
+        We place people at the heart of our design process, deeply understanding
+        the needs of both our clients and their target audiences to create
+        solutions that genuinely resonate and drive engagement.
+      </p>
+    </div>
+    <div class="space-y-4 md:col-span-2 mx-auto" style="max-width: 450px;">
+      <div class="flex items-center space-x-4">
+        <p
+          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
+        >
+          3
+        </p>
+        <h3 class="text-h4 font-semibold text-the-end-700">
+          Impact-Focused Solutions
+        </h3>
+      </div>
+      <p class="text-body-sm text-the-end-600">
+        Our designs are crafted to deliver measurable results. We combine
+        creative excellence with strategic thinking to create solutions that
+        advance our clients' goals for positive social change.
+      </p>
+    </div>
+  </section>
+</article>
+```
+
+Code snippets for **Our methodology Section: “Newly added”**
+
+```html
+<!-- Our methodology Section -->
+<article
+  class="bg-leaf-50 text-the-end-900 py-20 px-8 lg:px-16 mx-auto justify-items-center"
+>
+  <div class="max-w-3xl mx-auto text-center space-y-8 mb-16">
+    <h2 class="text-h2 font-bold text-pepper-green">Our methodology</h2>
+  </div>
+
+  <!-- 2-Column Grid -->
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-20 max-w-3xl">
+    <div class="space-y-4">
+      <div class="flex items-center space-x-4">
+        <p
+          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
+        >
+          1
+        </p>
+        <h3 class="text-h4 font-semibold text-the-end-700">Discovery</h3>
+      </div>
+      <p class="text-body-sm text-the-end-600">
+        The initial discovery period where we learn about your organization and
+        craft a tailored proposal that aligns with your goals and budget.
+      </p>
+    </div>
+    <div class="space-y-4">
+      <div class="flex items-center space-x-4">
+        <p
+          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
+        >
+          2
+        </p>
+        <h3 class="text-h4 font-semibold text-the-end-700">Agreement</h3>
+      </div>
+      <p class="text-body-sm text-the-end-600">
+        A structured process to formalize our partnership through detailed
+        discussions, documentation, and contract signing.
+      </p>
+    </div>
+    <div class="space-y-4">
+      <div class="flex items-center space-x-4">
+        <p
+          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
+        >
+          3
+        </p>
+        <h3 class="text-h4 font-semibold text-the-end-700">Discovery</h3>
+      </div>
+      <p class="text-body-sm text-the-end-600">
+        Deep research and collaborative planning to develop a comprehensive
+        understanding of your needs and create an effective design strategy.
+      </p>
+    </div>
+    <div class="space-y-4">
+      <div class="flex items-center space-x-4">
+        <p
+          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
+        >
+          4
+        </p>
+        <h3 class="text-h4 font-semibold text-the-end-700">Design & Build</h3>
+      </div>
+      <p class="text-body-sm text-the-end-600">
+        An iterative design process with regular feedback loops and structured
+        reviews, culminating in careful execution with proper documentation.
+      </p>
+    </div>
+    <div class="space-y-4">
+      <div class="flex items-center space-x-4">
+        <p
+          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
+        >
+          5
+        </p>
+        <h3 class="text-h4 font-semibold text-the-end-700">Optimization</h3>
+      </div>
+      <p class="text-body-sm text-the-end-600">
+        Thorough evaluation of results against success metrics, with detailed
+        reporting and ongoing support to ensure lasting impact.
+      </p>
+    </div>
+  </section>
+</article>
+```
+
+Code snippets for **Impact Measurement Section: “Newly added”**
+
+```html
+<!-- Impact Measurement Section -->
+      <article class="bg-white-smoke-300 text-the-end-900 py-20 px-8 lg:px-16 mx-auto justify-items-center">
+       
+        <div class="max-w-3xl mx-auto text-center space-y-8 mb-20">
+            <h2 class="text-h2 font-bold text-pepper-green">Impact we measure</h2>
+        </div>
+       
+        <!-- 2-Column Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-20 max-w-3xl">
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-chicken-comb-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h11M9 21V3m0 0L3 10m6-7l6 7" />
+            </svg>
+              <h3 class="text-h4 font-semibold text-the-end-700">Organizations empowered</h3>
+            </div>
+            <p class="text-body-sm text-the-end-600">Tracking the number of organizations served through our design solutions.</p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-chicken-comb-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v18h18M3 8h18M8 3v18" />
+            </svg>
+            <h3 class="text-h4 font-semibold text-the-end-700">Performance improvements</h3>
+              </div>
+            <p class="text-body-sm text-the-end-600">Measuring improvements in client organizations' key performance indicators (engagement rates, fundraising success, program participation).</p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-chicken-comb-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 0V4m0 8h4" />
+            </svg>
+            <h3 class="text-h4 font-semibold text-the-end-700">Client satisfaction</h3>
+              </div>
+            <p class="text-body-sm text-the-end-600">Collecting satisfaction scores and qualitative feedback on our design services' impact.</p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-chicken-comb-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16H4zM8 8h8v8H8z" />
+            </svg>
+            <h3 class="text-h4 font-semibold text-the-end-700">Impact case studies</h3>
+              </div>
+            <p class="text-body-sm text-the-end-600">Developing detailed case studies showing tangible social impact achieved.</p>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-chicken-comb-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4m4-4h8m-8 8h8" />
+            </svg>
+            <h3 class="text-h4 font-semibold text-the-end-700">Accessibility Growth</h3>
+              </div>
+            <p class="text-body-sm text-the-end-600">Monitoring the accessibility of our services across organizations of varying sizes and budgets.</p>
+          </div>
+        </section>
+
+   
+      </article>
 ```
 
 ## Home components
@@ -2573,7 +3039,7 @@ Code snippets for **Work section in home page**
       </section>
 ```
 
-Code snippets for Latest Inight 
+Code snippets for Latest Insight 
 
 ```html
 <!-- Latest insight section -->

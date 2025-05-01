@@ -191,10 +191,17 @@ Component categories include:
 - **Blog**: Blog-specific components
 - **Work**: Portfolio and case study components
 - **Services**: Service presentation components
+  - **Project Design**: Components specific to the project design service page
 - **Toolkit**: Resource toolkit components
 - **About**: Team and company information components
+  - **Our Process**: Components detailing Festa's work methodology
 - **Home**: Homepage-specific components
 - **Contact**: Form and contact information components
+
+Recent additions include:
+- Project Design Service components (Hero Section, Core Services CTA)
+- SDG Section for the About page
+- Our Process components (Hero, Philosophy, Methodology, and Impact Measurement sections)
 
 ## Key Features Implementation
 

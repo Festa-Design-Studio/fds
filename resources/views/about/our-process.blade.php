@@ -3,8 +3,23 @@
 @section('title', 'Our Process - Festa Design Studio')
 
 @section('content')
-<div class="container">
-    <h1>How We Work</h1>
-    <p>Content here</p>
-</div>
+    <!-- Breadcrumbs navigation -->
+    <x-core.breadcrumbs
+        :items="[
+            ['label' => 'About', 'url' => route('about')],
+            ['label' => 'Our Process']
+        ]"
+    />
+    
+    <!-- Our Process Hero Section -->
+    <x-about.our-process.hero-section />
+    
+    <!-- Our Philosophy Section -->
+    <x-about.our-process.philosophy-section />
+    
+    <!-- Our Methodology Section -->
+    <x-about.our-process.methodology-section />
+    
+    <!-- Impact Measurement Section -->
+    <x-about.our-process.impact-measurement-section />
 @endsection 

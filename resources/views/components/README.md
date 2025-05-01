@@ -724,6 +724,68 @@ The testimonial components support:
 </x-services.industry-expertise-section>
 ```
 
+## Project Design Service Components
+
+### Hero Section
+
+```blade
+<x-services.project-design.hero-section />
+```
+
+The Project Design Hero Section includes a title, description, and a CTA button. It's designed to introduce visitors to Festa's project design service offerings.
+
+### Core Services CTA
+
+```blade
+<x-services.project-design.core-services-cta />
+```
+
+The Core Services CTA component provides a call-to-action for visitors who may be looking for specialized services not explicitly mentioned on the page.
+
+## About Components
+
+### SDG Section
+
+```blade
+<x-about.sdg-section />
+```
+
+The SDG (Sustainable Development Goals) section showcases Festa's commitment to global sustainability initiatives and how their design work aligns with the United Nations' SDGs.
+
+## Our Process Components
+
+### Hero Section
+
+```blade
+<x-about.our-process.hero-section />
+```
+
+The Our Process Hero Section introduces visitors to Festa's remote-first culture and features a prominent video that showcases their collaborative approach.
+
+### Philosophy Section
+
+```blade
+<x-about.our-process.philosophy-section />
+```
+
+The Philosophy Section outlines Festa's three core design principles: Purpose-Driven Design, Human-Centered Approach, and Impact-Focused Solutions.
+
+### Methodology Section
+
+```blade
+<x-about.our-process.methodology-section />
+```
+
+The Methodology Section details Festa's five-step design process: Discovery, Agreement, Research, Design & Build, and Optimization.
+
+### Impact Measurement Section
+
+```blade
+<x-about.our-process.impact-measurement-section />
+```
+
+The Impact Measurement Section highlights the key metrics Festa uses to measure the effectiveness of their design work, including organizations empowered, performance improvements, client satisfaction, impact case studies, and accessibility growth.
+
 ## Toolkit Components
 
 ### Hero Section Component

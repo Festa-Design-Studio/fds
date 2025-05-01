@@ -27,6 +27,8 @@
                 title="Project Design"
                 description="Comprehensive design solutions for projects that require strategic thinking and creative execution."
                 url="{{ route('services.project-design') }}"
+                link="{{ route('services.project-design') }}"
+                linkText="Learn how we design project"
             />
             
             <x-services.service-card
