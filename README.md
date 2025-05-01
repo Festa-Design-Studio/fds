@@ -168,6 +168,7 @@ The application uses the following data models:
 - `Client`: Client information and relationships with attributes like name, logo, website
 - `TeamMember`: Team member information with attributes like name, position, bio, and social links
 - `WorkMetric`: Metrics displayed in the work section with attributes like value, title, description, color class, and display order
+- `Testimonial`: Client testimonials with attributes like author name, title, quote, avatar, and display order
 
 ### Database Migrations
 
@@ -178,6 +179,7 @@ Key database tables include:
 - `clients`: Client information with fields for name, logo, website URL, description
 - `team_members`: Team member profiles with fields for name, position, bio, image, social links
 - `work_metrics`: Metrics for the work section with fields for value, title, description, color class, and display order
+- `testimonials`: Client testimonials with fields for author name, title, quote, avatar, published status, and display order
 
 ## Component Library
 

@@ -18,7 +18,7 @@
                         class="min-w-[160px]"
                     >
                         @foreach($sectorOptions as $value => $label)
-                            <option value="{{ $label }}">{{ $label }}</option>
+                            <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </x-core.select>
                 </div>
@@ -31,7 +31,7 @@
                         class="min-w-[160px]"
                     >
                         @foreach($industryOptions as $value => $label)
-                            <option value="{{ $label }}">{{ $label }}</option>
+                            <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </x-core.select>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="w-auto min-w-[160px]">
                     <x-core.select 
                         name="sdg" 
-                        placeholder="SDG goals"
+                        placeholder="SDG alignment"
                         class="min-w-[160px]"
                     >
                         @foreach($sdgOptions as $value => $label)

@@ -31,7 +31,11 @@ class WorkController extends Controller
     public function create()
     {
         $clients = \App\Models\Client::orderBy('name')->get();
-        return view('admin.work.create', compact('clients'));
+        $sectors = \App\Models\Sector::orderBy('name')->get();
+        $industries = \App\Models\Industry::orderBy('name')->get();
+        $sdgAlignments = \App\Models\SdgAlignment::orderBy('name')->get();
+        
+        return view('admin.work.create', compact('clients', 'sectors', 'industries', 'sdgAlignments'));
     }
 
     /**
@@ -42,13 +46,16 @@ class WorkController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'excerpt' => 'required|string',
             'content' => 'required|string',
-            'sector' => 'required|string',
-            'industry' => 'required|string',
-            'sdg_alignment' => 'required|string',
+            'sector' => 'nullable|string',
+            'industry' => 'nullable|string', 
+            'sdg_alignment' => 'nullable|string',
+            'sector_id' => 'required|exists:sectors,id',
+            'industry_id' => 'required|exists:industries,id',
+            'sdg_alignment_id' => 'required|exists:sdg_alignments,id',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_featured' => 'boolean',
             'published_at' => 'required|date',
@@ -60,9 +67,15 @@ class WorkController extends Controller
         $project->slug = Str::slug($request->title);
         $project->excerpt = $request->excerpt;
         $project->content = $request->content;
-        $project->sector = $request->sector;
-        $project->industry = $request->industry;
-        $project->sdg_alignment = $request->sdg_alignment;
+        
+        // Set both the old string fields and new relationship IDs
+        $project->sector = $request->sector ?? '';
+        $project->industry = $request->industry ?? '';
+        $project->sdg_alignment = $request->sdg_alignment ?? '';
+        $project->sector_id = $request->sector_id;
+        $project->industry_id = $request->industry_id;
+        $project->sdg_alignment_id = $request->sdg_alignment_id;
+        
         $project->is_featured = $request->has('is_featured') ? 1 : 0;
         $project->published_at = $request->published_at;
         $project->client_id = $request->client_id;
@@ -90,7 +103,11 @@ class WorkController extends Controller
     {
         $project = Project::findOrFail($id);
         $clients = \App\Models\Client::orderBy('name')->get();
-        return view('admin.work.edit', compact('project', 'clients'));
+        $sectors = \App\Models\Sector::orderBy('name')->get();
+        $industries = \App\Models\Industry::orderBy('name')->get();
+        $sdgAlignments = \App\Models\SdgAlignment::orderBy('name')->get();
+        
+        return view('admin.work.edit', compact('project', 'clients', 'sectors', 'industries', 'sdgAlignments'));
     }
 
     /**
@@ -102,13 +119,16 @@ class WorkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'excerpt' => 'required|string',
             'content' => 'required|string',
-            'sector' => 'required|string',
-            'industry' => 'required|string',
-            'sdg_alignment' => 'required|string',
+            'sector' => 'nullable|string',
+            'industry' => 'nullable|string',
+            'sdg_alignment' => 'nullable|string',
+            'sector_id' => 'required|exists:sectors,id',
+            'industry_id' => 'required|exists:industries,id',
+            'sdg_alignment_id' => 'required|exists:sdg_alignments,id',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_featured' => 'boolean',
             'published_at' => 'required|date',
@@ -125,9 +145,15 @@ class WorkController extends Controller
         
         $project->excerpt = $request->excerpt;
         $project->content = $request->content;
-        $project->sector = $request->sector;
-        $project->industry = $request->industry;
-        $project->sdg_alignment = $request->sdg_alignment;
+        
+        // Set both the old string fields and new relationship IDs
+        $project->sector = $request->sector ?? '';
+        $project->industry = $request->industry ?? '';
+        $project->sdg_alignment = $request->sdg_alignment ?? '';
+        $project->sector_id = $request->sector_id;
+        $project->industry_id = $request->industry_id;
+        $project->sdg_alignment_id = $request->sdg_alignment_id;
+        
         $project->is_featured = $request->has('is_featured') ? 1 : 0;
         $project->published_at = $request->published_at;
         $project->client_id = $request->client_id;

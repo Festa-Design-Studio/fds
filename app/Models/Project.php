@@ -23,6 +23,9 @@ class Project extends Model
         'sector',
         'industry',
         'sdg_alignment',
+        'sector_id',
+        'industry_id',
+        'sdg_alignment_id',
         'client_id',
         'is_featured',
         'published_at',
@@ -54,5 +57,29 @@ class Project extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+    
+    /**
+     * Get the sector associated with the project.
+     */
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class);
+    }
+    
+    /**
+     * Get the industry associated with the project.
+     */
+    public function industry()
+    {
+        return $this->belongsTo(Industry::class);
+    }
+    
+    /**
+     * Get the SDG alignment associated with the project.
+     */
+    public function sdgAlignment()
+    {
+        return $this->belongsTo(SdgAlignment::class, 'sdg_alignment_id');
     }
 } 

@@ -1,8 +1,8 @@
 <!-- About Hero section -->
-<section class="relative h-screen bg-gradient-to-br from-white-smoke-50 via-apocalyptic-orange-50 to-pot-of-gold-100 py-20 px-4 md:px-8 lg:px-16 overflow-hidden ">
+<section class="relative h-screen bg-gradient-to-br from-white-smoke-50 via-apocalyptic-orange-50 to-pot-of-gold-100 py-20 px-4 md:px-8 lg:px-16 overflow-hidden flex items-center justify-center">
 
   <!-- Background SVG Animation -->
-  <div class=" inset-0 w-full min-h-[600px] overflow-hidden">
+  <div class="absolute inset-0 w-full min-h-[600px] overflow-hidden">
     <!-- Interactive Demo Container -->
     <svg width="100%" height="600" viewBox="0 0 800 600">
       <defs>

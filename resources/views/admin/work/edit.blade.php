@@ -57,17 +57,36 @@
 
       <div class="space-y-3.5">
         <div>
-          <label class="block text-body font-medium text-the-end-400 mb-2" for="sector">
+          <label class="block text-body font-medium text-the-end-400 mb-2" for="sector_id">
             Sector
           </label>
-          <select id="sector" name="sector" class="w-full h-10 px-3 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 appearance-none focus:ring-2 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 @error('sector') border-chicken-comb-600 @enderror" required>
-            <option value="">Select a sector</option>
-            <option value="nonprofit" {{ old('sector', $project->sector) == 'nonprofit' ? 'selected' : '' }}>Nonprofit</option>
-            <option value="startup" {{ old('sector', $project->sector) == 'startup' ? 'selected' : '' }}>Startup</option>
-          </select>
-          @error('sector')
+          <div class="flex items-center space-x-2">
+            <select id="sector_id" name="sector_id" class="w-full h-10 px-3 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 appearance-none focus:ring-2 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 @error('sector_id') border-chicken-comb-600 @enderror" required>
+              <option value="">Select a sector</option>
+              @foreach($sectors as $sector)
+                <option value="{{ $sector->id }}" {{ old('sector_id', $project->sector_id) == $sector->id ? 'selected' : '' }}>
+                  {{ $sector->name }}
+                </option>
+              @endforeach
+            </select>
+            <a href="{{ route('admin.sectors.create') }}" target="_blank" class="inline-flex items-center justify-center h-10 px-3 py-2 bg-pepper-green-600 text-white rounded-full hover:bg-pepper-green-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="{{ route('admin.sectors.index') }}" target="_blank" class="inline-flex items-center justify-center h-10 px-3 py-2 bg-the-end-600 text-white rounded-full hover:bg-the-end-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+          @error('sector_id')
             <p class="mt-1 text-chicken-comb-600 text-sm">{{ $message }}</p>
           @enderror
+          
+          <!-- Keep old sector field for backward compatibility (hidden) -->
+          <input type="hidden" id="sector" name="sector" value="{{ old('sector', $project->sector) }}">
         </div>
 
         <div>
@@ -88,35 +107,69 @@
         </div>
 
         <div>
-          <label class="block text-body font-medium text-the-end-400 mb-2" for="industry">
+          <label class="block text-body font-medium text-the-end-400 mb-2" for="industry_id">
             Industry
           </label>
-          <select id="industry" name="industry" class="w-full h-10 px-3 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 appearance-none focus:ring-2 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 @error('industry') border-chicken-comb-600 @enderror" required>
-            <option value="">Select an industry</option>
-            <option value="education" {{ old('industry', $project->industry) == 'education' ? 'selected' : '' }}>Education</option>
-            <option value="healthcare" {{ old('industry', $project->industry) == 'healthcare' ? 'selected' : '' }}>Healthcare</option>
-            <option value="research-and-development" {{ old('industry', $project->industry) == 'research-and-development' ? 'selected' : '' }}>Research and development</option>
-          </select>
-          @error('industry')
+          <div class="flex items-center space-x-2">
+            <select id="industry_id" name="industry_id" class="w-full h-10 px-3 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 appearance-none focus:ring-2 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 @error('industry_id') border-chicken-comb-600 @enderror" required>
+              <option value="">Select an industry</option>
+              @foreach($industries as $industry)
+                <option value="{{ $industry->id }}" {{ old('industry_id', $project->industry_id) == $industry->id ? 'selected' : '' }}>
+                  {{ $industry->name }}
+                </option>
+              @endforeach
+            </select>
+            <a href="{{ route('admin.industries.create') }}" target="_blank" class="inline-flex items-center justify-center h-10 px-3 py-2 bg-pepper-green-600 text-white rounded-full hover:bg-pepper-green-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="{{ route('admin.industries.index') }}" target="_blank" class="inline-flex items-center justify-center h-10 px-3 py-2 bg-the-end-600 text-white rounded-full hover:bg-the-end-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+          @error('industry_id')
             <p class="mt-1 text-chicken-comb-600 text-sm">{{ $message }}</p>
           @enderror
+          
+          <!-- Keep old industry field for backward compatibility (hidden) -->
+          <input type="hidden" id="industry" name="industry" value="{{ old('industry', $project->industry) }}">
         </div>
 
         <div>
-          <label class="block text-body font-medium text-the-end-400 mb-2" for="sdg_alignment">
-            SDG
+          <label class="block text-body font-medium text-the-end-400 mb-2" for="sdg_alignment_id">
+            SDG Alignment
           </label>
-          <select id="sdg_alignment" name="sdg_alignment" class="w-full h-10 px-3 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 appearance-none focus:ring-2 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 @error('sdg_alignment') border-chicken-comb-600 @enderror" required>
-            <option value="">Select an SDG goal</option>
-            <option value="sdg1" {{ old('sdg_alignment', $project->sdg_alignment) == 'sdg1' ? 'selected' : '' }}>No Poverty</option>
-            <option value="sdg2" {{ old('sdg_alignment', $project->sdg_alignment) == 'sdg2' ? 'selected' : '' }}>Zero Hunger</option>
-            <option value="sdg3" {{ old('sdg_alignment', $project->sdg_alignment) == 'sdg3' ? 'selected' : '' }}>Good health & well-being</option>
-            <option value="sdg4" {{ old('sdg_alignment', $project->sdg_alignment) == 'sdg4' ? 'selected' : '' }}>Quality Education</option>
-            <option value="sdg5" {{ old('sdg_alignment', $project->sdg_alignment) == 'sdg5' ? 'selected' : '' }}>Gender equality</option>
-          </select>
-          @error('sdg_alignment')
+          <div class="flex items-center space-x-2">
+            <select id="sdg_alignment_id" name="sdg_alignment_id" class="w-full h-10 px-3 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 appearance-none focus:ring-2 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 @error('sdg_alignment_id') border-chicken-comb-600 @enderror" required>
+              <option value="">Select an SDG goal</option>
+              @foreach($sdgAlignments as $sdgAlignment)
+                <option value="{{ $sdgAlignment->id }}" {{ old('sdg_alignment_id', $project->sdg_alignment_id) == $sdgAlignment->id ? 'selected' : '' }}>
+                  {{ $sdgAlignment->name }}
+                </option>
+              @endforeach
+            </select>
+            <a href="{{ route('admin.sdg-alignments.create') }}" target="_blank" class="inline-flex items-center justify-center h-10 px-3 py-2 bg-pepper-green-600 text-white rounded-full hover:bg-pepper-green-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="{{ route('admin.sdg-alignments.index') }}" target="_blank" class="inline-flex items-center justify-center h-10 px-3 py-2 bg-the-end-600 text-white rounded-full hover:bg-the-end-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+          @error('sdg_alignment_id')
             <p class="mt-1 text-chicken-comb-600 text-sm">{{ $message }}</p>
           @enderror
+          
+          <!-- Keep old sdg_alignment field for backward compatibility (hidden) -->
+          <input type="hidden" id="sdg_alignment" name="sdg_alignment" value="{{ old('sdg_alignment', $project->sdg_alignment) }}">
         </div>
 
         <div>
@@ -190,6 +243,70 @@
 @section('scripts')
 <script>
 console.log('Admin edit work page loaded');
+
+// Script to handle the sector_id, industry_id, and sdg_alignment_id selects
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle sector_id changes
+  const sectorSelect = document.getElementById('sector_id');
+  const sectorHidden = document.getElementById('sector');
+  
+  if (sectorSelect && sectorHidden) {
+    sectorSelect.addEventListener('change', function() {
+      const selectedOption = this.options[this.selectedIndex];
+      // Default to empty string if nothing selected
+      sectorHidden.value = selectedOption.text.toLowerCase().replace(/\s+/g, '-');
+    });
+  }
+  
+  // Handle industry_id changes
+  const industrySelect = document.getElementById('industry_id');
+  const industryHidden = document.getElementById('industry');
+  
+  if (industrySelect && industryHidden) {
+    industrySelect.addEventListener('change', function() {
+      const selectedOption = this.options[this.selectedIndex];
+      // Default to empty string if nothing selected
+      industryHidden.value = selectedOption.text.toLowerCase().replace(/\s+/g, '-');
+    });
+  }
+  
+  // Handle sdg_alignment_id changes
+  const sdgSelect = document.getElementById('sdg_alignment_id');
+  const sdgHidden = document.getElementById('sdg_alignment');
+  
+  if (sdgSelect && sdgHidden) {
+    sdgSelect.addEventListener('change', function() {
+      const selectedOptionValue = this.value;
+      if (selectedOptionValue) {
+        // Find the data-code attribute or use a default format
+        const selectedOption = this.options[this.selectedIndex];
+        fetch(`/api/sdg/${selectedOptionValue}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data && data.code) {
+              sdgHidden.value = data.code;
+            } else {
+              // Default to sdgX format based on option text
+              const num = parseInt(selectedOptionValue);
+              sdgHidden.value = isNaN(num) ? '' : 'sdg' + num;
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching SDG code:', error);
+            // Fallback - if we can't get the code, use the index
+            const optionIndex = this.selectedIndex;
+            if (optionIndex > 0) {
+              sdgHidden.value = 'sdg' + optionIndex;
+            } else {
+              sdgHidden.value = '';
+            }
+          });
+      } else {
+        sdgHidden.value = '';
+      }
+    });
+  }
+});
 </script>
 <script src="{{ asset('js/festa-rich-text-editor.js') }}"></script>
 <script src="{{ asset('js/festa-editor-init.js') }}"></script>

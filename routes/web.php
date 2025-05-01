@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\About\Team\TeamMemberController;
 use App\Http\Controllers\Admin\WorkMetricController;
+use App\Http\Controllers\Admin\TestimonialController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -77,6 +78,15 @@ Route::get('/privacy', [UtilityController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [UtilityController::class, 'terms'])->name('terms');
 Route::get('/sitemap', [UtilityController::class, 'sitemap'])->name('sitemap');
 
+// API Route for retrieving SDG information
+Route::get('/api/sdg/{id}', function($id) {
+    $sdg = \App\Models\SdgAlignment::find($id);
+    if (!$sdg) {
+        return response()->json(['error' => 'SDG not found'], 404);
+    }
+    return response()->json(['id' => $sdg->id, 'name' => $sdg->name, 'code' => $sdg->code]);
+});
+
 // Components Showcase
 Route::get('/components-showcase', function () {
     return view('components-showcase');
@@ -110,6 +120,16 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
             Route::put('/{metric}', [WorkMetricController::class, 'update'])->name('update');
             Route::delete('/{metric}', [WorkMetricController::class, 'destroy'])->name('destroy');
         });
+
+        // Testimonials Routes
+        Route::prefix('testimonials')->name('testimonials.')->group(function () {
+            Route::get('/', [TestimonialController::class, 'index'])->name('index');
+            Route::get('/create', [TestimonialController::class, 'create'])->name('create');
+            Route::post('/', [TestimonialController::class, 'store'])->name('store');
+            Route::get('/{testimonial}/edit', [TestimonialController::class, 'edit'])->name('edit');
+            Route::put('/{testimonial}', [TestimonialController::class, 'update'])->name('update');
+            Route::delete('/{testimonial}', [TestimonialController::class, 'destroy'])->name('destroy');
+        });
     });
     
     // Pages Management
@@ -125,6 +145,15 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     
     // Client Management
     Route::resource('clients', \App\Http\Controllers\Admin\ClientController::class);
+    
+    // Sector Management
+    Route::resource('sectors', \App\Http\Controllers\Admin\SectorController::class);
+    
+    // Industry Management
+    Route::resource('industries', \App\Http\Controllers\Admin\IndustryController::class);
+    
+    // SDG Alignment Management
+    Route::resource('sdg-alignments', \App\Http\Controllers\Admin\SdgAlignmentController::class);
     
     // Blog Management
     Route::get('/blog/posts', [BlogController::class, 'posts'])->name('blog.posts');

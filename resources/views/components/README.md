@@ -533,36 +533,62 @@ This directory contains reusable Blade components for the Festa Design Studio we
 </x-work.grid>
 ```
 
-### Testimonial Component
+### Testimonial Components
 
 ```blade
+<!-- Individual Testimonial -->
 <x-work.testimonial 
-    quote="The design system has completely transformed how we approach our projects. We've seen a 45% increase in engagement."
+    quote="The design system has completely transformed how we approach our projects."
     authorName="Elena Rodriguez"
     authorTitle="Lead Designer, TechCorp"
 />
+
+<!-- Testimonial Section with Load More -->
+<div x-data="{ 
+    testimonials: @json($testimonials),
+    displayedCount: 3,
+    get displayedTestimonials() {
+        return this.testimonials.slice(0, this.displayedCount);
+    },
+    loadMore() {
+        this.displayedCount += 3;
+    },
+    get hasMore() {
+        return this.displayedCount < this.testimonials.length;
+    }
+}">
+    <x-work.testimonial-section 
+        title="What Our Partners Say"
+        description="Real stories from organizations making a difference."
+    >
+        <template x-for="testimonial in displayedTestimonials" :key="testimonial.id">
+            <x-work.testimonial 
+                x-bind:quote="testimonial.quote"
+                x-bind:authorName="testimonial.author_name"
+                x-bind:authorTitle="testimonial.author_title"
+            />
+        </template>
+
+        <div class="mt-8 text-center" x-show="hasMore">
+            <x-core.button 
+                variant="secondary" 
+                size="large"
+                @click="loadMore"
+            >
+                Load more testimonials
+            </x-core.button>
+        </div>
+    </x-work.testimonial-section>
+</div>
 ```
 
-### Testimonial Section Component
-
-```blade
-<x-work.testimonial-section 
-    title="What Our Partners Say"
-    description="Real stories from organizations making a difference with our collaborative approach."
-    :testimonials="[
-        [
-            'quote' => 'The design system has completely transformed how we approach our projects.',
-            'authorName' => 'Elena Rodriguez',
-            'authorTitle' => 'Lead Designer, TechCorp'
-        ],
-        [
-            'quote' => 'Working with Festa helped us clarify our message and reach more people in need.',
-            'authorName' => 'Michael Chen',
-            'authorTitle' => 'Executive Director, Health Forward'
-        ]
-    ]"
-/>
-```
+The testimonial components support:
+- Individual testimonial display with author details
+- Optional author avatars
+- Grouped testimonial sections
+- Dynamic loading with "Load more" functionality
+- Maintained display order
+- Smooth loading animations using Alpine.js
 
 ### Metrics Component
 

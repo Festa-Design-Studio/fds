@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->renameColumn('website', 'website_url');
+        Schema::create('sdg_alignments', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->string('code')->nullable(); // e.g., sdg1, sdg2, etc.
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->renameColumn('website_url', 'website');
-        });
+        Schema::dropIfExists('sdg_alignments');
     }
 };

@@ -1599,6 +1599,8 @@ Code snippets for **Testimonial Section Layout**:
 
 			<!-- Grid Layout for Basic Testimonial Card here -->
 
+       <!-- Load more Testimonial card large secondary button here -->
+
     </section>
 ```
 
