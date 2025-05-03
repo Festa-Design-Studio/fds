@@ -724,6 +724,58 @@ The testimonial components support:
 </x-services.industry-expertise-section>
 ```
 
+## Dynamic Service Components
+
+### Service Hero Section Component
+
+```blade
+<x-services.service-hero-section 
+    serviceType="Communication Design"
+    title="Crafting clear and compelling messages"
+    description="We help purpose-driven organizations communicate their vision effectively through strategic messaging and powerful visual storytelling."
+/>
+```
+
+The Service Hero Section component is designed to be reused across different service pages (Project Design, Communication Design, Campaign Design). It accepts parameters to customize the content based on the service type.
+
+### Service Core Section Component
+
+```blade
+<x-services.service-core-section 
+    expertiseTitle="Communication design expertise"
+    expertiseDescription="We turn complex ideas into clear, engaging messages that resonate with your audience."
+    :deliverables="[
+        [
+            'title' => 'Brand Strategy',
+            'description' => 'Define your unique voice and positioning in a crowded marketplace.'
+        ],
+        [
+            'title' => 'Visual Identity',
+            'description' => 'Create cohesive visual systems that express your organization\'s values.'
+        ],
+        [
+            'title' => 'Content Strategy',
+            'description' => 'Plan and produce content that engages your audience across channels.'
+        ]
+    ]"
+/>
+```
+
+The Service Core Section component displays a list of deliverables/services offered. It dynamically renders cards based on the provided array of deliverables, making it reusable across different service pages.
+
+### Service CTA Section Component
+
+```blade
+<x-services.service-cta-section 
+    title="Not seeing what you're looking for?"
+    description="If your needs are unique or not listed above, we'd still love to hear from you. Let's explore how Festa can help bring your ideas to life."
+    buttonText="Talk to Festa"
+    buttonUrl="{{ route('contact.talk-to-festa') }}"
+/>
+```
+
+The Service CTA Section component provides a call-to-action for visitors who may be looking for specialized services not explicitly mentioned on the page. All parameters are optional and have sensible defaults.
+
 ## Project Design Service Components
 
 ### Hero Section

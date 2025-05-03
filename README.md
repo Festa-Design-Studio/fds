@@ -199,6 +199,7 @@ Component categories include:
 - **Contact**: Form and contact information components
 
 Recent additions include:
+- Dynamic Service components (Service Hero Section, Service Core Section, Service CTA Section) for reuse across service pages
 - Project Design Service components (Hero Section, Core Services CTA)
 - SDG Section for the About page
 - Our Process components (Hero, Philosophy, Methodology, and Impact Measurement sections)

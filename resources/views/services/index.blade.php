@@ -35,12 +35,16 @@
                 title="Communication Design"
                 description="Strategic visual and verbal communication that connects with your audience and amplifies your message."
                 url="{{ route('services.communication-design') }}"
+                link="{{ route('services.communication-design') }}"
+                linkText="Learn how we design communication"
             />
             
             <x-services.service-card
                 title="Campaign Design"
                 description="End-to-end campaign design that drives engagement and delivers measurable results for your initiatives."
                 url="{{ route('services.campaign-design') }}"
+                link="{{ route('services.campaign-design') }}"
+                linkText="Learn how we design campaign"
             />
         </x-services.service-card-grid>
     </div>

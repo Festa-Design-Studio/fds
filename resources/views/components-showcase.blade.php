@@ -1670,6 +1670,58 @@ Expertise in developing innovative STEAM (Science, Tech, Engineering, Arts & Mat
                 </div>
             </div>
             
+            <!-- Dynamic Service Components (New) -->
+            <div class="border-t border-white-smoke-300 pt-8 mt-8">
+                <h3 class="text-h4 font-medium text-the-end-900 mb-4">Dynamic Service Components</h3>
+                
+                <div class="space-y-12">
+                    <!-- Dynamic Service Hero Section -->
+                    <div>
+                        <h4 class="text-h5 font-medium text-the-end-900 mb-3">Dynamic Service Hero Section</h4>
+                        <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
+                            <x-services.service-hero-section 
+                                serviceType="Communication Design"
+                                title="Crafting clear and compelling messages"
+                                description="We help purpose-driven organizations communicate their vision effectively through strategic messaging and powerful visual storytelling."
+                            />
+                        </div>
+                    </div>
+                    
+                    <!-- Dynamic Service Core Section -->
+                    <div>
+                        <h4 class="text-h5 font-medium text-the-end-900 mb-3">Dynamic Service Core Section</h4>
+                        <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
+                            <x-services.service-core-section 
+                                expertiseTitle="Communication design expertise"
+                                expertiseDescription="We turn complex ideas into clear, engaging messages that resonate with your audience."
+                                :deliverables="[
+                                    [
+                                        'title' => 'Brand Strategy',
+                                        'description' => 'Define your unique voice and positioning in a crowded marketplace.'
+                                    ],
+                                    [
+                                        'title' => 'Visual Identity',
+                                        'description' => 'Create cohesive visual systems that express your organization\'s values.'
+                                    ],
+                                    [
+                                        'title' => 'Content Strategy',
+                                        'description' => 'Plan and produce content that engages your audience across channels.'
+                                    ]
+                                ]"
+                            />
+                        </div>
+                    </div>
+                    
+                    <!-- Dynamic Service CTA Section -->
+                    <div>
+                        <h4 class="text-h5 font-medium text-the-end-900 mb-3">Dynamic Service CTA Section</h4>
+                        <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
+                            <x-services.service-cta-section />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- About Components -->
             <div class="border-t border-white-smoke-300 pt-8 mt-8">
                 <h3 class="text-h4 font-medium text-the-end-900 mb-4">About Components</h3>
@@ -1680,45 +1732,6 @@ Expertise in developing innovative STEAM (Science, Tech, Engineering, Arts & Mat
                         <h4 class="text-h5 font-medium text-the-end-900 mb-3">SDG Section</h4>
                         <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
                             <x-about.sdg-section />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Our Process Components -->
-            <div class="border-t border-white-smoke-300 pt-8 mt-8">
-                <h3 class="text-h4 font-medium text-the-end-900 mb-4">Our Process Components</h3>
-                
-                <div class="space-y-12">
-                    <!-- Hero Section -->
-                    <div>
-                        <h4 class="text-h5 font-medium text-the-end-900 mb-3">Our Process Hero Section</h4>
-                        <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
-                            <x-about.our-process.hero-section />
-                        </div>
-                    </div>
-                    
-                    <!-- Philosophy Section -->
-                    <div>
-                        <h4 class="text-h5 font-medium text-the-end-900 mb-3">Our Philosophy Section</h4>
-                        <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
-                            <x-about.our-process.philosophy-section />
-                        </div>
-                    </div>
-                    
-                    <!-- Methodology Section -->
-                    <div>
-                        <h4 class="text-h5 font-medium text-the-end-900 mb-3">Our Methodology Section</h4>
-                        <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
-                            <x-about.our-process.methodology-section />
-                        </div>
-                    </div>
-                    
-                    <!-- Impact Measurement Section -->
-                    <div>
-                        <h4 class="text-h5 font-medium text-the-end-900 mb-3">Impact Measurement Section</h4>
-                        <div class="border border-white-smoke-300 rounded-xl overflow-hidden">
-                            <x-about.our-process.impact-measurement-section />
                         </div>
                     </div>
                 </div>

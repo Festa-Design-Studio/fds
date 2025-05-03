@@ -29,17 +29,7 @@
     }
 @endphp
 
-<!-- Visual debugging output -->
-@if(count($processedTestimonials) === 0)
-    <!-- Only shown in development environment -->
-    @if(config('app.env') === 'local')
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
-        <p class="font-bold">Debug info:</p>
-        <p>No testimonials found to display. Check if testimonials exist in the database and are being passed correctly.</p>
-        <p>Data type received: {{ gettype($testimonials) }}</p>
-    </div>
-    @endif
-@endif
+
 
 <div class="max-w-7xl mx-auto text-center space-y-6">
     <h2 class="text-h2 font-bold text-pepper-green">{{ $title }}</h2>
