@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Article;
+use App\Models\Category;
+use App\Models\User; // For author selection
+use App\Http\Requests\Admin\StoreArticleRequest;
+use App\Http\Requests\Admin\UpdateArticleRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -26,7 +31,8 @@ class BlogController extends Controller
      */
     public function posts()
     {
-        return view('admin.blog.posts');
+        $articles = Article::with('category', 'author')->latest()->paginate(15);
+        return view('admin.blog.posts', compact('articles'));
     }
 
     /**
@@ -36,7 +42,9 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('admin.blog.create');
+        $categories = Category::orderBy('name')->get();
+        $authors = User::orderBy('name')->get(); // Assuming you want to select from Users table
+        return view('admin.blog.create', compact('categories', 'authors'));
     }
 
     /**
@@ -45,10 +53,34 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
-        // Validate and store logic will be implemented here
-        return redirect()->route('admin.blog.posts');
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image_path'] = $request->file('image')->store('blog_images', 'public');
+        }
+
+        // If user_id is not part of validated data (e.g., if you want to auto-assign logged-in user)
+        // you could set it here: $data['user_id'] = auth()->id();
+        // Ensure 'user_id' is then made nullable or removed from StoreArticleRequest if auto-assigned.
+        // For now, assuming 'user_id' comes from the form as per current request rules.
+
+        // Auto-generate slug if not provided and not handled by prepareForValidation
+        if (empty($data['slug']) && !empty($data['title'])) {
+            $data['slug'] = Str::slug($data['title']);
+            // Ensure uniqueness if auto-generating here
+            $originalSlug = $data['slug'];
+            $count = 1;
+            while (Article::where('slug', $data['slug'])->exists()) {
+                $data['slug'] = $originalSlug . '-' . $count++;
+            }
+        }
+
+
+        Article::create($data);
+
+        return redirect()->route('admin.blog.posts')->with('success', 'Article created successfully.');
     }
 
     /**
@@ -59,7 +91,10 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.blog.edit', ['id' => $id]);
+        $article = Article::findOrFail($id);
+        $categories = Category::orderBy('name')->get();
+        $authors = User::orderBy('name')->get();
+        return view('admin.blog.edit', compact('article', 'categories', 'authors'));
     }
 
     /**
@@ -69,10 +104,33 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateArticleRequest $request, $id)
     {
-        // Validate and update logic will be implemented here
-        return redirect()->route('admin.blog.posts');
+        $article = Article::findOrFail($id);
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($article->image_path && Storage::disk('public')->exists($article->image_path)) {
+                Storage::disk('public')->delete($article->image_path);
+            }
+            $data['image_path'] = $request->file('image')->store('blog_images', 'public');
+        }
+
+        // Auto-generate slug if not provided and title changed (and not handled by prepareForValidation)
+        if (empty($data['slug']) && !empty($data['title']) && $article->title !== $data['title']) {
+             $data['slug'] = Str::slug($data['title']);
+             $originalSlug = $data['slug'];
+             $count = 1;
+             while (Article::where('slug', $data['slug'])->where('id', '!=', $article->id)->exists()) {
+                 $data['slug'] = $originalSlug . '-' . $count++;
+             }
+        }
+
+
+        $article->update($data);
+
+        return redirect()->route('admin.blog.posts')->with('success', 'Article updated successfully.');
     }
 
     /**
@@ -83,8 +141,15 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        // Delete logic will be implemented here
-        return redirect()->route('admin.blog.posts');
+        $article = Article::findOrFail($id);
+
+        if ($article->image_path && Storage::disk('public')->exists($article->image_path)) {
+            Storage::disk('public')->delete($article->image_path);
+        }
+
+        $article->delete();
+
+        return redirect()->route('admin.blog.posts')->with('success', 'Article deleted successfully.');
     }
 
     /**
@@ -94,6 +159,8 @@ class BlogController extends Controller
      */
     public function categories()
     {
-        return view('admin.blog.categories');
+        $categories = Category::latest()->paginate(15);
+        // For now, just listing. CRUD operations for categories would require more views and methods.
+        return view('admin.blog.categories', compact('categories'));
     }
 } 

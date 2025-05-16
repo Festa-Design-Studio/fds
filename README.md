@@ -12,7 +12,7 @@ Festa Design Studio is a design agency website built with Laravel, Blade, and Ta
 - **Custom design system** with Tailwind CSS
 - **Responsive layouts** for all device sizes
 - **Admin panel** for content management
-- **Blog platform** for sharing insights
+- **Blog platform** with full CRUD functionality for articles and categories.
 - **Portfolio showcase** for displaying work
 - **Services section** highlighting capabilities
 - **Contact system** for client inquiries
@@ -60,6 +60,7 @@ Route::get('/about/team/{team_member}', [TeamMemberController::class, 'show'])->
 
 // Resources
 Route::get('/resources/blog', [ResourcesController::class, 'blog'])->name('resources.blog');
+Route::get('/resources/blog/{slug}', [ResourcesController::class, 'show'])->name('blog.show');
 Route::get('/resources/toolkit', [ResourcesController::class, 'toolkit'])->name('resources.toolkit');
 Route::get('/resources/design-system', [ResourcesController::class, 'designSystem'])->name('resources.design-system');
 
@@ -144,7 +145,7 @@ The application logic is organized into controller groups:
 - `ServicesController`: Manages service pages and sector specializations
 - `WorkController`: Manages portfolio and case studies
 - `AboutController`: Manages about pages including team, process and focus
-- `ResourcesController`: Handles blog and toolkit resources
+- `ResourcesController`: Handles blog listing, individual post views, and toolkit resources.
 - `ContactController`: Manages contact forms and inquiries
 - `UtilityController`: Handles utility pages like privacy policy and terms
 - `ClientController`: Manages client information display
@@ -155,7 +156,7 @@ The application logic is organized into controller groups:
 - `WorkController` (Admin): Manages project portfolio content
 - `WorkMetricController`: Manages metrics for the work section
 - `ClientController` (Admin): Handles client data management
-- `BlogController`: Manages blog posts and categories
+- `BlogController`: Manages blog posts (CRUD operations) and categories.
 - `TeamMemberController` (Admin): Manages team member information
 - `ImageController`: Handles image uploads for content
 
@@ -169,6 +170,8 @@ The application uses the following data models:
 - `TeamMember`: Team member information with attributes like name, position, bio, and social links
 - `WorkMetric`: Metrics displayed in the work section with attributes like value, title, description, color class, and display order
 - `Testimonial`: Client testimonials with attributes like author name, title, quote, avatar, and display order
+- `Article`: Stores blog articles, including title, slug, excerpt, content, image, author and category relationships, publication status, and timestamps.
+- `Category`: Stores blog categories, including name, slug, and description.
 
 ### Database Migrations
 
@@ -180,6 +183,8 @@ Key database tables include:
 - `team_members`: Team member profiles with fields for name, position, bio, image, social links
 - `work_metrics`: Metrics for the work section with fields for value, title, description, color class, and display order
 - `testimonials`: Client testimonials with fields for author name, title, quote, avatar, published status, and display order
+- `articles`: Stores blog posts with fields for title, slug, excerpt, content, image_path, user_id (author), category_id, published_at, status, meta fields, reading_time, and timestamps.
+- `categories`: Stores blog categories with fields for name, slug, description, and timestamps.
 
 ## Component Library
 
@@ -350,6 +355,8 @@ php artisan make:migration create_projects_table
 php artisan make:migration create_clients_table
 php artisan make:migration create_team_members_table
 php artisan make:migration create_work_metrics_table
+php artisan make:migration create_articles_table
+php artisan make:migration create_categories_table
 
 # Run migrations
 php artisan migrate
@@ -363,6 +370,8 @@ php artisan make:model Project
 php artisan make:model Client
 php artisan make:model TeamMember
 php artisan make:model WorkMetric
+php artisan make:model Article
+php artisan make:model Category
 ```
 
 ### 6. Create Controllers

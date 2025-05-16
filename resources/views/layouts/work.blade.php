@@ -29,5 +29,23 @@
     @stack('scripts')
 
     @include('cookie-consent::index')
+    <script>
+        document.addEventListener('laravelCookieConsentAccepted', function () {
+            // Load Google Analytics script dynamically
+            var gaScript = document.createElement('script');
+            gaScript.async = true;
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX'; // Replace with your GA4 Measurement ID
+            document.head.appendChild(gaScript);
+
+            // Initialize GA4 after script loads
+            gaScript.onload = function() {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', 'G-XXXXXXXXXX'); // Replace with your GA4 Measurement ID
+            };
+        });
+    </script>
 </body>
 </html>

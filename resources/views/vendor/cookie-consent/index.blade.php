@@ -46,6 +46,18 @@
                 buttons[i].addEventListener('click', consentWithCookies);
             }
 
+            // Add decline button functionality
+            document.addEventListener('DOMContentLoaded', function () {
+                var declineButtons = document.getElementsByClassName('js-cookie-consent-decline');
+                for (let i = 0; i < declineButtons.length; ++i) {
+                    declineButtons[i].addEventListener('click', function() {
+                        hideCookieDialog();
+                        // Optionally, set a cookie to remember decline
+                        // document.cookie = 'laravel_cookie_consent_declined=1;path=/';
+                    });
+                }
+            });
+
             return {
                 consentWithCookies: consentWithCookies,
                 hideCookieDialog: hideCookieDialog

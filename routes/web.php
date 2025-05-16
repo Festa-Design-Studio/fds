@@ -65,6 +65,7 @@ Route::prefix('admin/about/team')->middleware(['auth'])->group(function () {
 
 // Resources
 Route::get('/resources/blog', [ResourcesController::class, 'blog'])->name('resources.blog');
+Route::get('/resources/blog/{slug}', [ResourcesController::class, 'show'])->name('blog.show');
 Route::get('/resources/toolkit', [ResourcesController::class, 'toolkit'])->name('resources.toolkit');
 Route::get('/resources/design-system', [ResourcesController::class, 'designSystem'])->name('resources.design-system');
 

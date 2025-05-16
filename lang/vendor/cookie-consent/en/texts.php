@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'message' => 'Your experience on this site will be improved by allowing cookies.',
+    'message' => 'Safe and better experience here on Festa by allowing cookies.',
     'agree' => 'Allow cookies',
 ];

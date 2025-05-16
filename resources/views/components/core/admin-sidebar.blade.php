@@ -120,28 +120,28 @@
         <span class="font-semibold text-white-smoke-500 text-body-lg">Blog</span>
 
         <!-- Blog admin create post-->
-        <a href="{{ route('admin.blog.create') }}" class="flex items-center gap-2 text-the-end-600 hover:text-chicken-comb-600 transition-colors">
+        <a href="{{ route('admin.blog.create') }}" class="flex items-center gap-2 {{ request()->routeIs('admin.blog.create') ? 'text-chicken-comb-600' : 'text-the-end-600 hover:text-chicken-comb-600' }} transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z" clip-rule="evenodd"/>
             </svg>
-            <span class="text-body text-the-end-700">Create post</span>
+            <span class="text-body {{ request()->routeIs('admin.blog.create') ? '' : 'text-the-end-700' }}">Create post</span>
         </a>
 
         <!-- Blog admin post-->
-        <a href="{{ route('admin.blog.posts') }}" class="flex items-center gap-2 text-the-end-600 hover:text-chicken-comb-600 transition-colors">
+        <a href="{{ route('admin.blog.posts') }}" class="flex items-center gap-2 {{ request()->routeIs('admin.blog.posts') || request()->routeIs('admin.blog.edit') ? 'text-chicken-comb-600' : 'text-the-end-600 hover:text-chicken-comb-600' }} transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/>
                 <path d="M7 8h6a1 1 0 100-2H7a1 1 0 000 2zm0 4h6a1 1 0 100-2H7a1 1 0 100 2zm0 4h4a1 1 0 100-2H7a1 1 0 100 2z"/>
             </svg>
-            <span class="text-body text-the-end-700">Posts</span>
+            <span class="text-body {{ request()->routeIs('admin.blog.posts') || request()->routeIs('admin.blog.edit') ? '' : 'text-the-end-700' }}">Posts</span>
         </a>
 
         <!-- Blog admin categories-->
-        <a href="{{ route('admin.blog.categories') }}" class="flex items-center gap-2 text-the-end-600 hover:text-chicken-comb-600 transition-colors">
+        <a href="{{ route('admin.blog.categories') }}" class="flex items-center gap-2 {{ request()->routeIs('admin.blog.categories') ? 'text-chicken-comb-600' : 'text-the-end-600 hover:text-chicken-comb-600' }} transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
             </svg>
-            <span class="text-body text-the-end-700">Categories</span>
+            <span class="text-body {{ request()->routeIs('admin.blog.categories') ? '' : 'text-the-end-700' }}">Categories</span>
         </a>
 
         <!-- Blog User Admin -->
