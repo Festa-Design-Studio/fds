@@ -536,3 +536,29 @@ If the metric counters are not animating correctly:
 ## License
 
 This project is proprietary and confidential.
+
+## Recent Updates (2024)
+
+### Home Page
+- Displays the most recent published project and article using new Blade components (`<x-work.card>`, `<x-blog.article-card>`).
+- Uses modular section components for hero, work, and insights, improving maintainability and layout consistency.
+- Tags for sector, industry, and SDG alignment are dynamically generated for the latest project.
+
+### Blog System
+- Blog index page uses a grid section component with category filters and a "Load More" button.
+- Articles are shown with meta info, author, and category color coding.
+- Article show page features a header with meta info, reading time, and a footer with related articles.
+- Blog categories have color classes for visual distinction, managed via config.
+- Only published and visible articles are shown, with improved backend data fetching and logging.
+
+### Admin Blog Management
+- Admin sidebar now includes links for creating posts, viewing posts, and managing categories.
+- Blog posts and categories are managed via dedicated controllers and views.
+
+### Component Library
+- Expanded set of blog-specific Blade components for article cards, grid sections, categories, and article headers/footers.
+- Modular home page section components for hero, work, and insights.
+
+### UI/UX Improvements
+- More consistent and visually appealing layouts for home and blog pages.
+- Better use of Blade components and Tailwind CSS for maintainability and design consistency.

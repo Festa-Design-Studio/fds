@@ -81,20 +81,25 @@
         title="Knowledge for impact"
         description="Explore our latest thoughts on design, social impact, and creating meaningful change."
         buttonText="View all our articles"
-        buttonUrl="#"
+        buttonUrl="{{ route('resources.blog') }}"
     >
-        <x-blog.article-card 
-            title="The Future of Purpose-Driven Design"
-            excerpt="How designers are shaping positive social impact through thoughtful, strategic approaches to digital experiences."
-            date="Jun 15, 2023"
-            readTime="5 min read"
-            image="https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-            category="Design Insights"
-            categoryType="design"
-            author="Samuel Wilson"
-            authorAvatar="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
-            url="#"
-        />
-        
+        @if($latestArticle)
+            <x-blog.article-card 
+                title="{!! html_entity_decode($latestArticle->title) !!}"
+                excerpt="{!! html_entity_decode($latestArticle->excerpt) !!}"
+                date="{{ $latestArticle->published_at->format('M d, Y') }}"
+                readTime="{{ $latestArticle->reading_time ? $latestArticle->reading_time . ' min read' : '' }}"
+                image="{{ $latestArticle->image_path ? asset('storage/' . $latestArticle->image_path) : '' }}"
+                category="{{ $latestArticle->category->name ?? 'General' }}"
+                categoryType="{{ $latestArticle->category->slug ?? 'general' }}"
+                author="{{ $latestArticle->author->name ?? 'Festa Team' }}"
+                authorAvatar="{{ $latestArticle->author && $latestArticle->author->profile_photo_path ? asset('storage/' . $latestArticle->author->profile_photo_path) : 'https://ui-avatars.com/api/?name=' . urlencode($latestArticle->author->name ?? 'Festa Team') }}"
+                url="{{ route('blog.show', $latestArticle->slug) }}"
+            />
+        @else
+            <div class="bg-white-smoke-100 p-8 rounded-2xl text-center">
+                <p class="text-the-end-700">No recent articles published</p>
+            </div>
+        @endif
     </x-home.insights-section>
 @endsection 
