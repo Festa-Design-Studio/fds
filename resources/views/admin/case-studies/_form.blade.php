@@ -4,7 +4,7 @@
     <!-- Basic Information -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-            <x-core.input 
+            <x-core.text-input 
                 name="title" 
                 label="Project Title" 
                 :value="$project->title ?? old('title')" 
@@ -13,7 +13,7 @@
         </div>
         
         <div>
-            <x-core.input 
+            <x-core.text-input 
                 name="slug" 
                 label="Slug" 
                 :value="$project->slug ?? old('slug')" 
@@ -175,7 +175,7 @@
                                     </div>
                                     
                                     <div>
-                                        <x-core.input 
+                                        <x-core.text-input 
                                             name="solution_gallery[{{ $index }}][alt]" 
                                             label="Alt Text" 
                                             :value="$image['alt'] ?? ''"
@@ -184,7 +184,7 @@
                                     </div>
                                     
                                     <div>
-                                        <x-core.input 
+                                        <x-core.text-input 
                                             name="solution_gallery[{{ $index }}][caption]" 
                                             label="Caption" 
                                             :value="$image['caption'] ?? ''"
@@ -245,7 +245,7 @@
                                     </div>
                                     
                                     <div>
-                                        <x-core.input 
+                                        <x-core.text-input 
                                             name="results_gallery[{{ $index }}][alt]" 
                                             label="Alt Text" 
                                             :value="$image['alt'] ?? ''"
@@ -254,7 +254,7 @@
                                     </div>
                                     
                                     <div>
-                                        <x-core.input 
+                                        <x-core.text-input 
                                             name="results_gallery[{{ $index }}][caption]" 
                                             label="Caption" 
                                             :value="$image['caption'] ?? ''"

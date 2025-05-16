@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
@@ -30,6 +31,13 @@ class ResourcesController extends Controller
                             ->latest('published_at')
                             ->paginate(10);
 
+        $categories = Category::withCount(['articles' => function ($query) {
+                                $query->where('status', 'published')->where('published_at', '<=', now());
+                            }])
+                            ->where('articles_count', '>', 0)
+                            ->orderBy('name')
+                            ->get();
+
         Log::info('Blog Page: Fetched articles for display. Total published & visible: ' . $articles->total());
         if ($articles->isEmpty() && !$debug_articles->isEmpty()) {
             Log::info('Blog Page: No articles are meeting the "published" status and "published_at <= now()" criteria.');
@@ -39,7 +47,34 @@ class ResourcesController extends Controller
         }
         Log::info('--- Blog Page: Finished fetching articles ---');
 
-        return view('resources.blog.index', compact('articles'));
+        $activeCategory = null;
+        return view('resources.blog.index', compact('articles', 'categories', 'activeCategory'));
+    }
+
+    public function blogByCategory($categorySlug)
+    {
+        $activeCategory = Category::where('slug', $categorySlug)->firstOrFail();
+
+        $articles = Article::where('status', 'published')
+                            ->where('published_at', '<=', now())
+                            ->where('category_id', $activeCategory->id)
+                            ->with('category', 'author')
+                            ->latest('published_at')
+                            ->paginate(10); // Consider a config value for items per page
+
+        // Fetch all categories again for display, marking the active one
+        $categories = Category::withCount(['articles' => function ($query) {
+                                $query->where('status', 'published')->where('published_at', '<=', now());
+                            }])
+                            ->where('articles_count', '>', 0)
+                            ->orderBy('name')
+                            ->get();
+
+        // For the view, to optionally highlight the active category or adjust title
+        $pageTitle = $activeCategory->name . ' Articles'; 
+        $pageSubtitle = 'Browse articles in the category: ' . $activeCategory->name;
+
+        return view('resources.blog.index', compact('articles', 'categories', 'activeCategory', 'pageTitle', 'pageSubtitle'));
     }
 
     public function show($slug)
@@ -49,6 +84,11 @@ class ResourcesController extends Controller
                             ->where('published_at', '<=', now())
                             ->with('category', 'author')
                             ->firstOrFail();
+
+        // Calculate reading time (200 words per minute)
+        $plainText = strip_tags($article->content);
+        $wordCount = str_word_count($plainText);
+        $readingTime = max(1, ceil($wordCount / 200));
 
         $articleDataForHeader = $article->forArticleHeader();
 
@@ -69,7 +109,7 @@ class ResourcesController extends Controller
                 ];
             })->toArray();
 
-        return view('resources.blog.show', compact('article', 'articleDataForHeader', 'relatedArticlesData'));
+        return view('resources.blog.show', compact('article', 'articleDataForHeader', 'relatedArticlesData', 'readingTime'));
     }
 
     public function toolkit()

@@ -10,7 +10,7 @@
             @csrf
             
             <div>
-                <x-core.input
+                <x-core.text-input
                     name="value"
                     label="Value"
                     placeholder="e.g., 500+"
@@ -23,7 +23,7 @@
             </div>
 
             <div>
-                <x-core.input
+                <x-core.text-input
                     name="title"
                     label="Title"
                     placeholder="e.g., Organizations"
@@ -66,7 +66,7 @@
             </div>
 
             <div>
-                <x-core.input
+                <x-core.text-input
                     type="number"
                     name="display_order"
                     label="Display Order"

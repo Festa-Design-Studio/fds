@@ -21,7 +21,7 @@
                     <div class="space-y-6">
                         <!-- Author Name -->
                         <div>
-                            <x-core.input
+                            <x-core.text-input
                                 name="author_name"
                                 label="Author Name"
                                 value="{{ old('author_name', $testimonial->author_name ?? '') }}"
@@ -34,7 +34,7 @@
 
                         <!-- Author Title -->
                         <div>
-                            <x-core.input
+                            <x-core.text-input
                                 name="author_title"
                                 label="Author Title"
                                 value="{{ old('author_title', $testimonial->author_title ?? '') }}"
@@ -116,7 +116,7 @@
 
                         <!-- Display Order -->
                         <div>
-                            <x-core.input
+                            <x-core.text-input
                                 type="number"
                                 name="display_order"
                                 label="Display Order"

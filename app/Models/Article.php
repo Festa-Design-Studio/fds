@@ -76,6 +76,8 @@ class Article extends Model
             'title' => $this->title,
             'excerpt' => $this->excerpt,
             'category' => $this->category->name ?? null,
+            'categoryType' => $this->category->slug ?? 'default',
+            'colorClass' => $this->category->color_class ?? null,
             'image' => $this->image_path ? asset('storage/' . $this->image_path) : null, // Or a placeholder
             'published_at' => $this->published_at,
             'reading_time' => $this->reading_time,

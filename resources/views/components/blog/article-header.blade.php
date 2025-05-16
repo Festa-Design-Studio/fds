@@ -20,7 +20,10 @@
             <div class="space-y-6">
                 <!-- Article Category -->
                 <div>
-                    <x-blog.category type="design">{{ $article['category'] }}</x-blog.category>
+                    <x-blog.category 
+                        :type="$article['categoryType'] ?? 'default'" 
+                        :colorClass="$article['colorClass'] ?? null"
+                    >{{ $article['category'] }}</x-blog.category>
                 </div>
                 
                 <!-- Article title -->

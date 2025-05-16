@@ -10,6 +10,7 @@
     'authorTitle' => '',
     'authorAvatar' => '',
     'url' => '#',
+    'colorClass' => null,
 ])
 
 <article class="bg-white-smoke-100 rounded-lg overflow-hidden border border-white-smoke-300 h-full flex flex-col">
@@ -28,7 +29,7 @@
         <!-- Article Card Category Badge -->
         @if ($category)
             <div class="absolute top-4 left-4">
-                <x-blog.category :type="$categoryType">{{ $category }}</x-blog.category>
+                <x-blog.category :type="$categoryType" :colorClass="$colorClass ?? null">{{ $category }}</x-blog.category>
             </div>
         @endif
     </div>

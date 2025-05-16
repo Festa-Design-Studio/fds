@@ -179,13 +179,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <!-- Text inputs -->
                         <div class="space-y-6">
-                            <x-core.input 
+                            <x-core.text-input 
                                 name="text-input"
                                 label="Text Input"
                                 placeholder="Enter text here"
                             />
                             
-                            <x-core.input 
+                            <x-core.text-input
                                 name="search"
                                 placeholder="Search..."
                                 :leadingIcon="true"
@@ -195,7 +195,7 @@
                                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                                     </svg>
                                 </x-slot>
-                            </x-core.input>
+                            </x-core.text-input>
                             
                             <x-core.password-input 
                                 name="password"
@@ -1338,7 +1338,7 @@ Expertise in developing innovative STEAM (Science, Tech, Engineering, Arts & Mat
                             </x-slot>
                             
                             <x-slot name="search">
-                                <x-core.input 
+                                <x-core.text-input
                                     name="search"
                                     placeholder="Search tools..."
                                     :leadingIcon="true"
@@ -1348,7 +1348,7 @@ Expertise in developing innovative STEAM (Science, Tech, Engineering, Arts & Mat
                                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                                         </svg>
                                     </x-slot>
-                                </x-core.input>
+                                </x-core.text-input>
                             </x-slot>
                         </x-toolkit.filter-section>
                     </div>

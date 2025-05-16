@@ -21,7 +21,7 @@
         <div class="space-y-6">
             <h3 class="text-h4 font-semibold text-pepper-green">Organization details</h3>
             
-            <x-core.input 
+            <x-core.text-input 
                 name="organization_name"
                 label="Organization Name"
                 placeholder="Enter your organization's name"
@@ -60,7 +60,7 @@
             </div>
             
             <div id="organization_type_other_container" class="hidden">
-                <x-core.input 
+                <x-core.text-input 
                     name="organization_type_other"
                     placeholder="Please specify"
                 />
@@ -71,14 +71,14 @@
         <div class="space-y-6">
             <h3 class="text-h4 font-semibold text-pepper-green">Contact Person</h3>
             
-            <x-core.input 
+            <x-core.text-input 
                 name="representative_name"
                 label="Contact Name"
                 placeholder="Enter your full name"
                 required="true"
             />
             
-            <x-core.input 
+            <x-core.text-input 
                 name="representative_email"
                 type="email"
                 label="Email Address"
@@ -86,7 +86,7 @@
                 required="true"
             />
             
-            <x-core.input 
+            <x-core.text-input 
                 name="representative_phone"
                 type="tel"
                 label="Phone Number"

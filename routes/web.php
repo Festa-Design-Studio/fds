@@ -65,6 +65,7 @@ Route::prefix('admin/about/team')->middleware(['auth'])->group(function () {
 
 // Resources
 Route::get('/resources/blog', [ResourcesController::class, 'blog'])->name('resources.blog');
+Route::get('/resources/blog/category/{categorySlug}', [ResourcesController::class, 'blogByCategory'])->name('resources.blog.category');
 Route::get('/resources/blog/{slug}', [ResourcesController::class, 'show'])->name('blog.show');
 Route::get('/resources/toolkit', [ResourcesController::class, 'toolkit'])->name('resources.toolkit');
 Route::get('/resources/design-system', [ResourcesController::class, 'designSystem'])->name('resources.design-system');
@@ -163,7 +164,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/blog/posts/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
     Route::put('/blog/posts/{id}', [BlogController::class, 'update'])->name('blog.update');
     Route::delete('/blog/posts/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
-    Route::get('/blog/categories', [BlogController::class, 'categories'])->name('blog.categories');
+    Route::resource('blog/categories', \App\Http\Controllers\Admin\BlogCategoryController::class)
+        ->names('blog.categories')
+        ->except([
+            'show'
+        ]);
     
     // Image Upload for Editor
     Route::post('/api/upload-image', [ImageController::class, 'upload'])->name('admin.api.upload-image');

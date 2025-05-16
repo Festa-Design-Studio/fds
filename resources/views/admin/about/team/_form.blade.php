@@ -6,7 +6,7 @@
         <!-- Name -->
         <div>
             <label for="name" class="block text-sm font-medium text-the-end-700">Name <span class="text-apocalyptic-orange-500">*</span></label>
-            <x-core.input 
+            <x-core.text-input 
                 type="text" 
                 name="name" 
                 id="name" 
@@ -22,7 +22,7 @@
         <!-- Title -->
         <div>
             <label for="title" class="block text-sm font-medium text-the-end-700">Title <span class="text-apocalyptic-orange-500">*</span></label>
-            <x-core.input 
+            <x-core.text-input 
                 type="text" 
                 name="title" 
                 id="title" 
@@ -38,7 +38,7 @@
         <!-- Email -->
         <div>
             <label for="email" class="block text-sm font-medium text-the-end-700">Email <span class="text-apocalyptic-orange-500">*</span></label>
-            <x-core.input 
+            <x-core.text-input 
                 type="email" 
                 name="email" 
                 id="email" 
@@ -54,7 +54,7 @@
         <!-- LinkedIn -->
         <div>
             <label for="linkedin" class="block text-sm font-medium text-the-end-700">LinkedIn</label>
-            <x-core.input 
+            <x-core.text-input 
                 type="url" 
                 name="linkedin" 
                 id="linkedin" 
@@ -138,7 +138,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Company Name</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="professional_experience[{{ $index }}][company]" 
                                 value="{{ $experience['company'] ?? '' }}"
@@ -148,7 +148,7 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Role</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="professional_experience[{{ $index }}][role]" 
                                 value="{{ $experience['role'] ?? '' }}"
@@ -158,7 +158,7 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Period</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="professional_experience[{{ $index }}][period]" 
                                 value="{{ $experience['period'] ?? '' }}" 
@@ -171,7 +171,7 @@
                             <label class="block text-sm font-medium text-the-end-700">Company Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <x-core.input 
+                                    <x-core.text-input 
                                         type="text" 
                                         name="professional_experience[{{ $index }}][logo]" 
                                         placeholder="/src/img/company-logo.png"
@@ -263,7 +263,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Organization Name</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="volunteer_experience[{{ $index }}][organization]" 
                                 value="{{ $experience['organization'] ?? '' }}"
@@ -273,7 +273,7 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Role</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="volunteer_experience[{{ $index }}][role]" 
                                 value="{{ $experience['role'] ?? '' }}"
@@ -283,7 +283,7 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Period</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="volunteer_experience[{{ $index }}][period]" 
                                 value="{{ $experience['period'] ?? '' }}" 
@@ -296,7 +296,7 @@
                             <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <x-core.input 
+                                    <x-core.text-input 
                                         type="text" 
                                         name="volunteer_experience[{{ $index }}][logo]" 
                                         placeholder="/src/img/organization-logo.png"
@@ -388,56 +388,56 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Institution Name</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="education[{{ $index }}][institution]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $education['institution'] ?? '' }}"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Degree</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="education[{{ $index }}][degree]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $education['degree'] ?? '' }}"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Field of Study</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="education[{{ $index }}][field]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $education['field'] ?? '' }}"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Period</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="education[{{ $index }}][period]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $education['period'] ?? '' }}" 
                                 placeholder="e.g. 2018 - 2022"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Institution Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <input 
+                                    <x-core.text-input 
                                         type="text" 
                                         name="education[{{ $index }}][logo]" 
                                         class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
                                         placeholder="/src/img/institution-logo.png"
                                         value="{{ $education['logo'] ?? '' }}"
-                                    >
+                                    />
                                 </div>
                                 <div class="flex-shrink-0">
                                     <label for="edu-logo-{{ $index }}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
@@ -473,11 +473,11 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-the-end-700">Description</label>
-                        <textarea 
+                        <x-core.textarea 
                             name="education[{{ $index }}][description]" 
                             rows="2" 
                             class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                        >{{ $education['description'] ?? '' }}</textarea>
+                        >{{ $education['description'] ?? '' }}</x-core.textarea>
                     </div>
                 </div>
             @endforeach
@@ -522,46 +522,46 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Certification Name</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="certifications[{{ $index }}][name]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $certification['name'] ?? '' }}"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Issuing Organization</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="certifications[{{ $index }}][organization]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $certification['organization'] ?? '' }}"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Date Obtained</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="certifications[{{ $index }}][date]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $certification['date'] ?? '' }}" 
                                 placeholder="e.g. January 2023"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <input 
+                                    <x-core.text-input 
                                         type="text" 
                                         name="certifications[{{ $index }}][logo]" 
                                         class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
                                         placeholder="/src/img/organization-logo.png"
                                         value="{{ $certification['logo'] ?? '' }}"
-                                    >
+                                    />
                                 </div>
                                 <div class="flex-shrink-0">
                                     <label for="cert-logo-{{ $index }}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
@@ -597,11 +597,11 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-the-end-700">Description</label>
-                        <textarea 
+                        <x-core.textarea 
                             name="certifications[{{ $index }}][description]" 
                             rows="2" 
                             class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                        >{{ $certification['description'] ?? '' }}</textarea>
+                        >{{ $certification['description'] ?? '' }}</x-core.textarea>
                     </div>
                 </div>
             @endforeach
@@ -727,35 +727,35 @@
                     <div class="grid grid-cols-1 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Title</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="press[{{ $index }}][title]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $pressItem['title'] ?? '' }}"
                                 placeholder="e.g. Moldova: Hire Me"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Publication</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="press[{{ $index }}][publication]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $pressItem['publication'] ?? '' }}"
                                 placeholder="e.g. The Institute for War & Peace Reporting"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">URL</label>
-                            <input 
+                            <x-core.text-input 
                                 type="url" 
                                 name="press[{{ $index }}][url]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 value="{{ $pressItem['url'] ?? '' }}"
                                 placeholder="e.g. https://iwpr.net/impact/moldova-hire-me"
-                            >
+                            />
                         </div>
                     </div>
                 </div>
@@ -803,7 +803,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Company Name</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="professional_experience[${professionalExperienceCount}][company]" 
                                 class="mt-1"
@@ -812,7 +812,7 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Role</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="professional_experience[${professionalExperienceCount}][role]" 
                                 class="mt-1"
@@ -821,7 +821,7 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Period</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="professional_experience[${professionalExperienceCount}][period]" 
                                 class="mt-1"
@@ -833,7 +833,7 @@
                             <label class="block text-sm font-medium text-the-end-700">Company Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <x-core.input 
+                                    <x-core.text-input 
                                         type="text" 
                                         name="professional_experience[${professionalExperienceCount}][logo]" 
                                         class="logo-path-input"
@@ -893,7 +893,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Organization Name</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="volunteer_experience[${volunteerExperienceCount}][organization]" 
                                 class="mt-1"
@@ -902,7 +902,7 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Role</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="volunteer_experience[${volunteerExperienceCount}][role]" 
                                 class="mt-1"
@@ -911,7 +911,7 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Period</label>
-                            <x-core.input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="volunteer_experience[${volunteerExperienceCount}][period]" 
                                 class="mt-1"
@@ -923,7 +923,7 @@
                             <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <x-core.input 
+                                    <x-core.text-input 
                                         type="text" 
                                         name="volunteer_experience[${volunteerExperienceCount}][logo]" 
                                         class="logo-path-input"
@@ -983,51 +983,51 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Institution Name</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="education[${educationCount}][institution]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Degree</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="education[${educationCount}][degree]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Field of Study</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="education[${educationCount}][field]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Period</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="education[${educationCount}][period]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 placeholder="e.g. 2018 - 2022"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Institution Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <input 
+                                    <x-core.text-input 
                                         type="text" 
                                         name="education[${educationCount}][logo]" 
                                         class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
                                         placeholder="/src/img/institution-logo.png"
-                                    >
+                                    />
                                 </div>
                                 <div class="flex-shrink-0">
                                     <label for="edu-logo-${educationCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
@@ -1049,11 +1049,11 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-the-end-700">Description</label>
-                        <textarea 
+                        <x-core.textarea 
                             name="education[${educationCount}][description]" 
                             rows="2" 
                             class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                        ></textarea>
+                        ></x-core.textarea>
                     </div>
                 </div>
             `;
@@ -1083,42 +1083,42 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Certification Name</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="certifications[${certificationsCount}][name]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Issuing Organization</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="certifications[${certificationsCount}][organization]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Date Obtained</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="certifications[${certificationsCount}][date]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 placeholder="e.g. January 2023"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Organization Logo</label>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="flex-grow">
-                                    <input 
+                                    <x-core.text-input 
                                         type="text" 
                                         name="certifications[${certificationsCount}][logo]" 
                                         class="block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800 logo-path-input"
                                         placeholder="/src/img/organization-logo.png"
-                                    >
+                                    />
                                 </div>
                                 <div class="flex-shrink-0">
                                     <label for="cert-logo-${certificationsCount}" class="px-3 py-2 bg-white-smoke-100 text-the-end-800 rounded hover:bg-white-smoke-200 cursor-pointer inline-block">
@@ -1140,11 +1140,11 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-the-end-700">Description</label>
-                        <textarea 
+                        <x-core.textarea 
                             name="certifications[${certificationsCount}][description]" 
                             rows="2" 
                             class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
-                        ></textarea>
+                        ></x-core.textarea>
                     </div>
                 </div>
             `;
@@ -1175,7 +1175,7 @@
                         <div class="space-y-2">
                             <label for="skills-${skillsCount}-category" class="text-the-end-900 text-body-sm font-medium">Category Name</label>
                             <div class="relative">
-                                <input
+                                <x-core.text-input
                                     type="text"
                                     name="skills[${skillsCount}][category]"
                                     id="skills-${skillsCount}-category"
@@ -1191,7 +1191,7 @@
                         <div class="skills-list space-y-2">
                             <div class="flex items-center gap-2">
                                 <div class="relative flex-grow">
-                                    <input
+                                    <x-core.text-input
                                         type="text"
                                         name="skills[${skillsCount}][skills][]"
                                         placeholder="e.g. UX Research"
@@ -1240,32 +1240,32 @@
                     <div class="grid grid-cols-1 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Title</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="press[${pressCount}][title]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 placeholder="e.g. Moldova: Hire Me"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">Publication</label>
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="press[${pressCount}][publication]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 placeholder="e.g. The Institute for War & Peace Reporting"
-                            >
+                            />
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-the-end-700">URL</label>
-                            <input 
+                            <x-core.text-input 
                                 type="url" 
                                 name="press[${pressCount}][url]" 
                                 class="mt-1 block w-full rounded-md border-white-smoke-300 shadow-sm focus:border-apocalyptic-orange-500 focus:ring-apocalyptic-orange-500 text-body text-the-end-800"
                                 placeholder="e.g. https://iwpr.net/impact/moldova-hire-me"
-                            >
+                            />
                         </div>
                     </div>
                 </div>
@@ -1331,7 +1331,7 @@
                 const skillTemplate = `
                     <div class="flex items-center gap-2">
                         <div class="relative flex-grow">
-                            <input 
+                            <x-core.text-input 
                                 type="text" 
                                 name="skills[${categoryIndex}][skills][]" 
                                 placeholder="e.g. UX Research"

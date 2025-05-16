@@ -61,15 +61,9 @@ class BlogController extends Controller
             $data['image_path'] = $request->file('image')->store('blog_images', 'public');
         }
 
-        // If user_id is not part of validated data (e.g., if you want to auto-assign logged-in user)
-        // you could set it here: $data['user_id'] = auth()->id();
-        // Ensure 'user_id' is then made nullable or removed from StoreArticleRequest if auto-assigned.
-        // For now, assuming 'user_id' comes from the form as per current request rules.
-
         // Auto-generate slug if not provided and not handled by prepareForValidation
         if (empty($data['slug']) && !empty($data['title'])) {
             $data['slug'] = Str::slug($data['title']);
-            // Ensure uniqueness if auto-generating here
             $originalSlug = $data['slug'];
             $count = 1;
             while (Article::where('slug', $data['slug'])->exists()) {
@@ -77,6 +71,10 @@ class BlogController extends Controller
             }
         }
 
+        // Automatically calculate reading_time from content
+        $plainText = strip_tags($data['content'] ?? '');
+        $wordCount = str_word_count($plainText);
+        $data['reading_time'] = max(1, ceil($wordCount / 200));
 
         Article::create($data);
 
@@ -110,14 +108,12 @@ class BlogController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            // Delete old image if it exists
             if ($article->image_path && Storage::disk('public')->exists($article->image_path)) {
                 Storage::disk('public')->delete($article->image_path);
             }
             $data['image_path'] = $request->file('image')->store('blog_images', 'public');
         }
 
-        // Auto-generate slug if not provided and title changed (and not handled by prepareForValidation)
         if (empty($data['slug']) && !empty($data['title']) && $article->title !== $data['title']) {
              $data['slug'] = Str::slug($data['title']);
              $originalSlug = $data['slug'];
@@ -127,6 +123,10 @@ class BlogController extends Controller
              }
         }
 
+        // Automatically calculate reading_time from content
+        $plainText = strip_tags($data['content'] ?? '');
+        $wordCount = str_word_count($plainText);
+        $data['reading_time'] = max(1, ceil($wordCount / 200));
 
         $article->update($data);
 
