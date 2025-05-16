@@ -204,6 +204,40 @@ Recent additions include:
 - SDG Section for the About page
 - Our Process components (Hero, Philosophy, Methodology, and Impact Measurement sections)
 
+## Cookie Consent Implementation
+
+This project uses the [Spatie Laravel Cookie Consent](https://github.com/spatie/laravel-cookie-consent) package to display a cookie consent banner to users, in compliance with privacy regulations.
+
+### Installation
+- Installed via Composer:
+  ```bash
+  composer require spatie/laravel-cookie-consent
+  ```
+
+### Publishing Assets and Config
+- Published the package's config, views, and translations:
+  ```bash
+  php artisan vendor:publish --provider="Spatie\CookieConsent\CookieConsentServiceProvider"
+  ```
+- This creates:
+  - `config/cookie-consent.php` (configuration)
+  - `resources/views/vendor/cookie-consent/` (Blade views)
+  - `lang/vendor/cookie-consent/` (translations)
+
+### Integration
+- The consent banner is included in the main layouts:
+  - `resources/views/layouts/app.blade.php`
+  - `resources/views/layouts/work.blade.php`
+- The following Blade directive is added just before the closing `</body>` tag:
+  ```php
+  @include('cookie-consent::index')
+  ```
+
+### Customization
+- Edit `resources/views/vendor/cookie-consent/dialogContents.blade.php` to change the banner's appearance and message.
+- Adjust `config/cookie-consent.php` to enable/disable the banner, set the cookie name, and change the cookie lifetime.
+- Update translations in `lang/vendor/cookie-consent/` as needed.
+
 ## Key Features Implementation
 
 ### Metrics System
