@@ -10,6 +10,27 @@
             isset($activeCategory) ? ['label' => $activeCategory->name, 'url' => null] : null
         ]))"
     />
+    
+    <!-- Featured Article Container -->
+    <div class="py-8 px-4 md:px-8 lg:px-16">
+        <div class="max-w-7xl mx-auto">
+            @if (isset($featuredArticle) && $featuredArticle)
+                <x-blog.featured-article 
+                    :title="$featuredArticle->title"
+                    :excerpt="$featuredArticle->excerpt"
+                    :image="$featuredArticle->image_path ? asset('storage/' . $featuredArticle->image_path) : null"
+                    :category="$featuredArticle->category->name ?? null"
+                    :categoryType="$featuredArticle->category->slug ?? 'default'"
+                    :author="$featuredArticle->author->name ?? 'Festa Team'"
+                    :authorTitle="$featuredArticle->author->job_title ?? null"
+                    :authorAvatar="$featuredArticle->author->profile_photo_path ? asset('storage/' . $featuredArticle->author->profile_photo_path) : ($featuredArticle->author ? 'https://ui-avatars.com/api/?name=' . urlencode($featuredArticle->author->name) . '&color=7F9CF5&background=EBF4FF' : null)"
+                    :date="$featuredArticle->published_at ? $featuredArticle->published_at->format('M d, Y') : null"
+                    :url="route('blog.show', $featuredArticle->slug)"
+                />
+            @endif
+        </div>
+    </div>
+    
     <div class="py-12">
         <x-blog.grid-section 
             :title="$pageTitle ?? 'Our Latest Articles'"

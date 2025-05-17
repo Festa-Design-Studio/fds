@@ -25,9 +25,23 @@ class ResourcesController extends Controller
         }
         Log::info('---');
 
-        $articles = Article::where('status', 'published')
+        // First, check if there's a featured article
+        $featuredArticle = Article::where('status', 'published')
                             ->where('published_at', '<=', now())
+                            ->where('is_featured', true)
                             ->with('category', 'author')
+                            ->first();
+
+        // Then get all articles, excluding the featured one if it exists
+        $articlesQuery = Article::where('status', 'published')
+                            ->where('published_at', '<=', now());
+                            
+        // Don't include the featured article in the regular listing
+        if ($featuredArticle) {
+            $articlesQuery->where('id', '!=', $featuredArticle->id);
+        }
+        
+        $articles = $articlesQuery->with('category', 'author')
                             ->latest('published_at')
                             ->paginate(10);
 
@@ -48,17 +62,32 @@ class ResourcesController extends Controller
         Log::info('--- Blog Page: Finished fetching articles ---');
 
         $activeCategory = null;
-        return view('resources.blog.index', compact('articles', 'categories', 'activeCategory'));
+        return view('resources.blog.index', compact('articles', 'categories', 'activeCategory', 'featuredArticle'));
     }
 
     public function blogByCategory($categorySlug)
     {
         $activeCategory = Category::where('slug', $categorySlug)->firstOrFail();
 
-        $articles = Article::where('status', 'published')
+        // First, check if there's a featured article in this category
+        $featuredArticle = Article::where('status', 'published')
                             ->where('published_at', '<=', now())
                             ->where('category_id', $activeCategory->id)
+                            ->where('is_featured', true)
                             ->with('category', 'author')
+                            ->first();
+
+        // Then get all articles in this category, excluding the featured one if it exists
+        $articlesQuery = Article::where('status', 'published')
+                            ->where('published_at', '<=', now())
+                            ->where('category_id', $activeCategory->id);
+                            
+        // Don't include the featured article in the regular listing
+        if ($featuredArticle) {
+            $articlesQuery->where('id', '!=', $featuredArticle->id);
+        }
+        
+        $articles = $articlesQuery->with('category', 'author')
                             ->latest('published_at')
                             ->paginate(10); // Consider a config value for items per page
 
@@ -74,7 +103,7 @@ class ResourcesController extends Controller
         $pageTitle = $activeCategory->name . ' Articles'; 
         $pageSubtitle = 'Browse articles in the category: ' . $activeCategory->name;
 
-        return view('resources.blog.index', compact('articles', 'categories', 'activeCategory', 'pageTitle', 'pageSubtitle'));
+        return view('resources.blog.index', compact('articles', 'categories', 'activeCategory', 'pageTitle', 'pageSubtitle', 'featuredArticle'));
     }
 
     public function show($slug)

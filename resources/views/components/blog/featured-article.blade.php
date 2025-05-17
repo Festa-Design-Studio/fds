@@ -59,7 +59,7 @@
                                 @if ($authorTitle)
                                     {{ $authorTitle }} 
                                     @if ($date)
-                                        • {{ $date }}
+                                      <span class="text-chicken-comb-600 mx-1.5">• </span>  {{ $date }}
                                     @endif
                                 @else
                                     @if ($date)

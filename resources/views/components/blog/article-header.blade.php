@@ -38,7 +38,7 @@
                 <div class="flex items-center space-x-3">
                     <!-- Author Avatar -->
                     <img src="{{ $article['author']['avatar'] }}" alt="{{ $article['author']['name'] }}"
-                        class="w-14 h-14 rounded-full">
+                        class="w-14 h-14 object-cover rounded-full">
                     <!-- Author Name and Title -->
                     <div>
                         <span class="text-the-end-400 text-body-sm hidden sm:block">Written by</span>

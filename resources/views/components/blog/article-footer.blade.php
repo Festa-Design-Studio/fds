@@ -9,7 +9,7 @@
     <!-- Rate and share article section-->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-t border-b border-the-end-200 py-4">
         <!-- Rate this article -->
-        <x-blog.rate-article :articleId="$articleId" />
+        @livewire('blog.rate-article', ['articleId' => $articleId])
 
         <!-- Share this article -->
         <x-blog.share-article :title="$title" :url="$url" />

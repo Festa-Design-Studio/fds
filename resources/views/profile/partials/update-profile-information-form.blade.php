@@ -47,6 +47,23 @@
             @endif
         </div>
 
+        <div>
+            <x-core.input-label for="title" :value="__('Title / Role')" />
+            <x-core.text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title', $user->title)" autocomplete="title" />
+            <x-input-error class="mt-2" :messages="$errors->get('title')" />
+        </div>
+
+        <div>
+            <x-core.input-label for="profile_photo_path" :value="__('Profile Photo (Avatar)')" />
+            <input id="profile_photo_path" name="profile_photo_path" type="file" class="mt-1 block w-full" accept="image/*">
+            @if ($user->profile_photo_path)
+                <div class="mt-2">
+                    <img src="{{ asset('storage/' . $user->profile_photo_path) }}" alt="Current avatar" class="h-16 w-16 rounded-full object-cover">
+                </div>
+            @endif
+            <x-input-error class="mt-2" :messages="$errors->get('profile_photo_path')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

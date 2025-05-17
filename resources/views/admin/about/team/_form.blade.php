@@ -93,8 +93,7 @@
     
     <div>
         <label for="avatar" class="block text-sm font-medium text-the-end-700">Avatar</label>
-        <x-core.input 
-            type="file" 
+        <x-core.file-upload 
             name="avatar" 
             id="avatar" 
             accept="image/*"
@@ -644,7 +643,7 @@
                     </div>
                     
                     <div class="mb-4">
-                        <x-core.input
+                        <x-core.text-input
                             type="text"
                             name="skills[{{ $index }}][category]"
                             label="Category Name"
@@ -659,7 +658,7 @@
                             @if(isset($skillCategory['skills']) && is_array($skillCategory['skills']))
                                 @foreach($skillCategory['skills'] as $skillIndex => $skill)
                                     <div class="flex items-center gap-2">
-                                        <x-core.input
+                                        <x-core.text-input
                                             type="text"
                                             name="skills[{{ $index }}][skills][]"
                                             placeholder="e.g. UX Research"

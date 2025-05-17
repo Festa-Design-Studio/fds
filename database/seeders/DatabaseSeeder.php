@@ -20,6 +20,16 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
+        // Add Abayomi user
+        User::updateOrCreate(
+            ['email' => 'abayomi@festa.design'],
+            [
+                'name' => 'Abayomi',
+                'password' => \Illuminate\Support\Facades\Hash::make('Doctor99'),
+                'email_verified_at' => now(),
+            ]
+        );
+
         $this->call([
             TeamMemberSeeder::class,
         ]);

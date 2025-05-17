@@ -76,6 +76,11 @@ class BlogController extends Controller
         $wordCount = str_word_count($plainText);
         $data['reading_time'] = max(1, ceil($wordCount / 200));
 
+        // If this article is being featured, unfeature any other articles
+        if (!empty($data['is_featured']) && $data['is_featured']) {
+            Article::where('is_featured', true)->update(['is_featured' => false]);
+        }
+
         Article::create($data);
 
         return redirect()->route('admin.blog.posts')->with('success', 'Article created successfully.');
@@ -127,6 +132,11 @@ class BlogController extends Controller
         $plainText = strip_tags($data['content'] ?? '');
         $wordCount = str_word_count($plainText);
         $data['reading_time'] = max(1, ceil($wordCount / 200));
+
+        // If this article is being featured, unfeature any other articles
+        if (!empty($data['is_featured']) && $data['is_featured'] && !$article->is_featured) {
+            Article::where('is_featured', true)->where('id', '!=', $article->id)->update(['is_featured' => false]);
+        }
 
         $article->update($data);
 

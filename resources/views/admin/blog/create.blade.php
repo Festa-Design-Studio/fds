@@ -92,6 +92,40 @@
             <p class="mt-1 text-chicken-comb-600 text-sm">{{ $message }}</p>
           @enderror
         </div>
+        <div>
+          <label class="block text-body font-medium text-the-end-400 mb-2" for="status">Status</label>
+          <select id="status" name="status" class="w-full h-10 px-3 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 appearance-none focus:ring-2 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50 @error('status') border-chicken-comb-600 @enderror" required>
+            <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+            <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Published</option>
+            <option value="archived" {{ old('status') == 'archived' ? 'selected' : '' }}>Archived</option>
+          </select>
+          @error('status')
+            <p class="mt-1 text-chicken-comb-600 text-sm">{{ $message }}</p>
+          @enderror
+        </div>
+        
+        <!-- Featured Article Option -->
+        <div class="mt-4">
+          <label class="block text-body font-medium text-the-end-400 mb-2">Featured Article</label>
+          <div class="flex items-center space-x-4">
+            <x-core.radio 
+              name="is_featured" 
+              value="1" 
+              label="Yes" 
+              :checked="old('is_featured') == 1"
+            />
+            <x-core.radio 
+              name="is_featured" 
+              value="0" 
+              label="No" 
+              :checked="old('is_featured') === null || old('is_featured') == 0"
+            />
+          </div>
+          <p class="mt-1 text-body-sm text-the-end-500">Featured articles appear at the top of the blog homepage. Only one article can be featured at a time.</p>
+          @error('is_featured')
+            <p class="mt-1 text-chicken-comb-600 text-sm">{{ $message }}</p>
+          @enderror
+        </div>
       </div>
     </div>
     <div>
@@ -114,12 +148,39 @@
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('js/festa-rich-text-editor.js') }}"></script>
 <script src="{{ asset('js/festa-editor-init.js') }}"></script>
+<script src="{{ asset('js/add-video-button.js') }}"></script>
+<script src="{{ asset('js/force-video-button.js') }}"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing editor');
     initFestaEditor('festa-editor', 'content-hidden');
+    // Debug script to verify editor is fully initialized
+    setTimeout(function() {
+      console.log('Debug check: Editor initialized?', !!window.FestaRichTextEditor);
+      const editorWrapper = document.querySelector('.festa-editor-wrapper');
+      if (editorWrapper) {
+        console.log('Editor wrapper found:', editorWrapper);
+        // Check if toolbar was created correctly
+        const toolbar = document.querySelector('.festa-editor-toolbar');
+        if (toolbar) {
+          console.log('Toolbar found with children:', toolbar.children.length);
+          console.log('Toolbar buttons:', Array.from(toolbar.querySelectorAll('button')).map(b => b.title));
+          // Force add video button after 500ms
+          setTimeout(function() {
+            if (typeof addVideoButtonToEditors === 'function') {
+              addVideoButtonToEditors();
+            }
+          }, 500);
+        } else {
+          console.error('Toolbar not found!');
+        }
+      } else {
+        console.error('Editor wrapper not found!');
+      }
+    }, 1000);
   });
 </script>
-@endsection 
+@endpush 

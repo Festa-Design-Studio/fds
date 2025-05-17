@@ -13,7 +13,7 @@ class CreateAdminUser extends Command
      *
      * @var string
      */
-    protected $signature = 'app:create-admin-user {email?} {name?} {password?}';
+    protected $signature = 'app:create-admin-user {email?} {name?} {password?} {title?} {profile_photo_path?}';
 
     /**
      * The console command description.
@@ -30,6 +30,8 @@ class CreateAdminUser extends Command
         $email = $this->argument('email') ?? 'admin@example.com';
         $name = $this->argument('name') ?? 'Admin User';
         $password = $this->argument('password') ?? 'password';
+        $title = $this->argument('title') ?? 'Founder Festa Design Studio';
+        $profilePhotoPath = $this->argument('profile_photo_path') ?? null; // e.g., 'team-members/abayomi.jpg'
 
         // Check if user already exists
         $existingUser = User::where('email', $email)->first();
@@ -44,12 +46,14 @@ class CreateAdminUser extends Command
             'email' => $email,
             'password' => Hash::make($password),
             'email_verified_at' => now(),
+            'title' => $title,
+            'profile_photo_path' => $profilePhotoPath,
         ]);
 
         $this->info("Admin user created successfully!");
         $this->table(
-            ['Name', 'Email', 'Password'],
-            [[$user->name, $user->email, $password]]
+            ['Name', 'Email', 'Password', 'Title', 'Profile Photo Path'],
+            [[$user->name, $user->email, $password, $user->title, $user->profile_photo_path]]
         );
 
         return 0;

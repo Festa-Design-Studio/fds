@@ -241,6 +241,10 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('js/festa-rich-text-editor.js') }}"></script>
+<script src="{{ asset('js/festa-editor-init.js') }}"></script>
+<script src="{{ asset('js/add-video-button.js') }}"></script>
+<script src="{{ asset('js/force-video-button.js') }}"></script>
 <script>
 console.log('Admin edit work page loaded');
 
@@ -308,10 +312,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-<script src="{{ asset('js/festa-rich-text-editor.js') }}"></script>
-<script src="{{ asset('js/festa-editor-init.js') }}"></script>
-<script src="{{ asset('js/add-video-button.js') }}"></script>
-<script src="{{ asset('js/force-video-button.js') }}"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing editor');

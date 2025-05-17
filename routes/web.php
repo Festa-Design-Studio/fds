@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\WorkMetricController;
 use App\Http\Controllers\Admin\TestimonialController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Livewire;
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -176,7 +177,87 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Admin Settings
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
     Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/users/{user}/edit', [\App\Http\Controllers\Admin\UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users/create', [\App\Http\Controllers\Admin\UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
 });
 
 // Auth routes
 require __DIR__.'/auth.php';
+
+// New route for the admin ratings dashboard
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/blog/ratings-dashboard', \App\Livewire\Admin\ArticleRatingsDashboard::class)
+        ->name('admin.blog.ratings-dashboard');
+});
+
+// Test route for isolated Livewire component testing
+Route::get('/test-rating', function () {
+    if (!\App\Models\Article::find(1)) {
+        // Ensure at least one article, user, and category exist for the test
+        if (!\App\Models\User::find(1)) {
+            \App\Models\User::create(['name' => 'Test User', 'email' => 'testuser@example.com', 'password' => bcrypt('password')]);
+        }
+        if (!\App\Models\Category::find(1)) {
+            \App\Models\Category::create(['name' => 'Test Category', 'slug' => 'test-category']);
+        }
+        \App\Models\Article::create([
+            'title' => 'Test Article for Rating Page',
+            'slug' => 'test-article-for-rating-page',
+            'excerpt' => 'Test excerpt.',
+            'content' => 'Test content.',
+            'user_id' => 1,
+            'category_id' => 1,
+            'published_at' => now(),
+            'status' => 'published'
+        ]);
+    }
+    return view('test-rating-page');
+})->name('test-rating');
+
+// Direct Livewire asset routes
+Route::get('/livewire/livewire.js', function() {
+    $path = public_path('vendor/livewire/livewire.js');
+    if (file_exists($path)) {
+        return response()->file($path);
+    }
+    return response('// Livewire asset not found', 404)->header('Content-Type', 'application/javascript');
+});
+
+Route::get('/livewire/livewire.min.js', function() {
+    $path = public_path('vendor/livewire/livewire.min.js');
+    if (file_exists($path)) {
+        return response()->file($path);
+    }
+    return response('// Livewire asset not found', 404)->header('Content-Type', 'application/javascript');
+});
+
+// Fallback for any other Livewire assets
+Route::get('/livewire/{asset}', function($asset) {
+    $path = public_path("vendor/livewire/{$asset}");
+    if (file_exists($path)) {
+        $contentType = 'application/octet-stream';
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+        
+        $contentTypes = [
+            'js' => 'application/javascript',
+            'css' => 'text/css',
+            'map' => 'application/json',
+            'json' => 'application/json'
+        ];
+        
+        if (isset($contentTypes[$extension])) {
+            $contentType = $contentTypes[$extension];
+        }
+        
+        return response()->file($path, ['Content-Type' => $contentType]);
+    }
+    abort(404);
+});
+
+// Livewire debug test route
+Route::get('/debug-livewire', function() {
+    return view('livewire-debug');
+});

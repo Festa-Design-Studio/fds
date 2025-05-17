@@ -46,6 +46,7 @@ class UpdateArticleRequest extends FormRequest
             'category_id' => 'nullable|exists:categories,id',
             'published_at' => 'nullable|date',
             'status' => 'required|string|in:draft,published,archived',
+            'is_featured' => 'nullable|boolean',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:1000',
             'reading_time' => 'nullable|integer|min:1',

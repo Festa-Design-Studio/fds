@@ -12,11 +12,93 @@ Festa Design Studio is a design agency website built with Laravel, Blade, and Ta
 - **Custom design system** with Tailwind CSS
 - **Responsive layouts** for all device sizes
 - **Admin panel** for content management
-- **Blog platform** with full CRUD functionality for articles and categories.
+- **Blog platform** with full CRUD functionality for articles and categories
+  - **Featured Article** selection system for highlighting important content
+  - **Article rating** functionality for user feedback
 - **Portfolio showcase** for displaying work
 - **Services section** highlighting capabilities
 - **Contact system** for client inquiries
 - **Metrics display** with animated counters
+- **Testimonials system** for client feedback
+- **Sectors, Industries, and SDG Alignments** for advanced project categorization
+- **Cookie consent** integration with Spatie package
+
+## Installation & Setup
+
+### Prerequisites
+
+- PHP 8.2 or higher
+- Composer
+- Node.js and NPM
+- MySQL/PostgreSQL database
+
+### Installation Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd fds
+   ```
+
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
+
+3. **Install JavaScript dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Environment Configuration**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   Then edit `.env` to set up your database credentials and other configuration.
+
+5. **Run database migrations**
+   ```bash
+   php artisan migrate
+   ```
+
+6. **Seed the database (optional)**
+   ```bash
+   php artisan db:seed
+   ```
+
+7. **Create storage link**
+   ```bash
+   php artisan storage:link
+   ```
+
+8. **Start the development server**
+   ```bash
+   # Start Laravel server and Vite development server
+   composer run dev
+   ```
+   
+   Alternatively, you can start each service separately:
+   ```bash
+   # Laravel server
+   php artisan serve
+
+   # Vite development server
+   npm run dev
+   ```
+
+9. **Visit in your browser**
+   ```
+   http://localhost:8000
+   ```
+
+## Recent Updates
+
+- **Blog Featured Article System**: Implemented a system to allow admins to select a featured article for the blog homepage
+- **Article Rating Functionality**: Added Livewire-based rating system for blog articles
+- **Cookie Consent**: Integrated Spatie's cookie consent package for GDPR compliance
+- **Admin Interface Improvements**: Enhanced usability across the admin interface
+- **Performance Optimizations**: Improved database queries and page loading time
 
 ## Routes Structure
 
@@ -44,7 +126,7 @@ Route::get('/work', [WorkController::class, 'index'])->name('work');
 Route::get('/work/case-study', [WorkController::class, 'caseStudy'])->name('work.case-study');
 Route::get('/work/{slug}', [WorkController::class, 'show'])->name('work.show');
 
-// Client
+// Client routes
 Route::get('/clients', [ClientController::class, 'index'])->name('clients');
 Route::get('/client/{slug}', [ClientController::class, 'show'])->name('client.show');
 
@@ -60,6 +142,7 @@ Route::get('/about/team/{team_member}', [TeamMemberController::class, 'show'])->
 
 // Resources
 Route::get('/resources/blog', [ResourcesController::class, 'blog'])->name('resources.blog');
+Route::get('/resources/blog/category/{categorySlug}', [ResourcesController::class, 'blogByCategory'])->name('resources.blog.category');
 Route::get('/resources/blog/{slug}', [ResourcesController::class, 'show'])->name('blog.show');
 Route::get('/resources/toolkit', [ResourcesController::class, 'toolkit'])->name('resources.toolkit');
 Route::get('/resources/design-system', [ResourcesController::class, 'designSystem'])->name('resources.design-system');
@@ -73,14 +156,31 @@ Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('contact.
 Route::get('/privacy', [UtilityController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [UtilityController::class, 'terms'])->name('terms');
 Route::get('/sitemap', [UtilityController::class, 'sitemap'])->name('sitemap');
+```
 
+## Admin Routes
+The application has a comprehensive admin area with the following routes:
+
+```php
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     // Admin Dashboard
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     
-    // Pages Management
-    Route::get('/services', [AdminController::class, 'services'])->name('services');
+    // Blog Management
+    Route::get('/blog/posts', [BlogController::class, 'posts'])->name('blog.posts');
+    Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+    Route::post('/blog/posts', [BlogController::class, 'store'])->name('blog.store');
+    Route::get('/blog/posts/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
+    Route::put('/blog/posts/{id}', [BlogController::class, 'update'])->name('blog.update');
+    Route::delete('/blog/posts/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
+    Route::resource('blog/categories', \App\Http\Controllers\Admin\BlogCategoryController::class)
+        ->names('blog.categories')
+        ->except(['show']);
+    
+    // New route for the admin ratings dashboard
+    Route::get('/blog/ratings-dashboard', \App\Livewire\Admin\ArticleRatingsDashboard::class)
+        ->name('blog.ratings-dashboard');
     
     // Work Management
     Route::prefix('work')->name('work.')->group(function () {
@@ -90,6 +190,16 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         Route::get('/{id}/edit', [\App\Http\Controllers\Admin\WorkController::class, 'edit'])->name('edit');
         Route::put('/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'update'])->name('update');
         Route::delete('/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'destroy'])->name('destroy');
+        
+        // Testimonials Management
+        Route::prefix('testimonials')->name('testimonials.')->group(function () {
+            Route::get('/', [TestimonialController::class, 'index'])->name('index');
+            Route::get('/create', [TestimonialController::class, 'create'])->name('create');
+            Route::post('/', [TestimonialController::class, 'store'])->name('store');
+            Route::get('/{testimonial}/edit', [TestimonialController::class, 'edit'])->name('edit');
+            Route::put('/{testimonial}', [TestimonialController::class, 'update'])->name('update');
+            Route::delete('/{testimonial}', [TestimonialController::class, 'destroy'])->name('destroy');
+        });
         
         // Metrics Routes
         Route::prefix('metrics')->name('metrics.')->group(function () {
@@ -102,6 +212,18 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         });
     });
     
+    // Client Management
+    Route::resource('clients', \App\Http\Controllers\Admin\ClientController::class);
+    
+    // Sector Management
+    Route::resource('sectors', \App\Http\Controllers\Admin\SectorController::class);
+    
+    // Industry Management
+    Route::resource('industries', \App\Http\Controllers\Admin\IndustryController::class);
+    
+    // SDG Alignment Management
+    Route::resource('sdg-alignments', \App\Http\Controllers\Admin\SdgAlignmentController::class);
+    
     // Team Members Management
     Route::prefix('about/team')->group(function () {
         Route::get('/', [TeamMemberController::class, 'index'])->name('about.team.index');
@@ -113,17 +235,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         Route::post('/upload-logo', [TeamMemberController::class, 'uploadLogo'])->name('about.team.upload-logo');
     });
     
-    // Client Management
-    Route::resource('clients', \App\Http\Controllers\Admin\ClientController::class);
-    
-    // Blog Management
-    Route::get('/blog/posts', [BlogController::class, 'posts'])->name('blog.posts');
-    Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
-    Route::post('/blog/posts', [BlogController::class, 'store'])->name('blog.store');
-    Route::get('/blog/posts/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
-    Route::put('/blog/posts/{id}', [BlogController::class, 'update'])->name('blog.update');
-    Route::delete('/blog/posts/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
-    Route::get('/blog/categories', [BlogController::class, 'categories'])->name('blog.categories');
+    // Pages Management
+    Route::get('/services', [AdminController::class, 'services'])->name('services');
+    Route::get('/about', [AdminController::class, 'about'])->name('about');
+    Route::get('/toolkit', [AdminController::class, 'toolkit'])->name('toolkit');
+    Route::get('/design-system', [AdminController::class, 'designSystem'])->name('design-system');
+    Route::get('/contact', [AdminController::class, 'contact'])->name('contact');
+    Route::get('/privacy', [AdminController::class, 'privacy'])->name('privacy');
+    Route::get('/terms', [AdminController::class, 'terms'])->name('terms');
     
     // Image Upload for Editor
     Route::post('/api/upload-image', [ImageController::class, 'upload'])->name('admin.api.upload-image');
@@ -131,6 +250,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Admin Settings
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
     Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/users/{user}/edit', [\App\Http\Controllers\Admin\UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users/create', [\App\Http\Controllers\Admin\UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
 });
 ```
 
@@ -159,6 +283,10 @@ The application logic is organized into controller groups:
 - `BlogController`: Manages blog posts (CRUD operations) and categories.
 - `TeamMemberController` (Admin): Manages team member information
 - `ImageController`: Handles image uploads for content
+- `TestimonialController` (Admin): Manages client testimonials (CRUD)
+- `SectorController` (Admin): Manages sectors (CRUD)
+- `IndustryController` (Admin): Manages industries (CRUD)
+- `SdgAlignmentController` (Admin): Manages SDG alignments (CRUD)
 
 ### Models
 
@@ -169,396 +297,59 @@ The application uses the following data models:
 - `Client`: Client information and relationships with attributes like name, logo, website
 - `TeamMember`: Team member information with attributes like name, position, bio, and social links
 - `WorkMetric`: Metrics displayed in the work section with attributes like value, title, description, color class, and display order
-- `Testimonial`: Client testimonials with attributes like author name, title, quote, avatar, and display order
-- `Article`: Stores blog articles, including title, slug, excerpt, content, image, author and category relationships, publication status, and timestamps.
+- `Testimonial`: Client testimonials with attributes like author name, title, quote, avatar, published status, and display order
+- `Article`: Stores blog articles, including title, slug, excerpt, content, image, author and category relationships, publication status, featured article flag, and timestamps.
 - `Category`: Stores blog categories, including name, slug, and description.
+- `Sector`: Sectors for project categorization
+- `Industry`: Industries for project categorization
+- `SdgAlignment`: Sustainable Development Goal alignments for projects
+- `ArticleRating`: Stores user ratings for blog articles
 
-### Database Migrations
+### Blog System Features
 
-Key database tables include:
+The blog system includes the following key features:
 
-- `users`: Authentication and admin user data
-- `projects`: Portfolio projects and case studies with fields for title, slug, description, images, client relation, published status
-- `clients`: Client information with fields for name, logo, website URL, description
-- `team_members`: Team member profiles with fields for name, position, bio, image, social links
-- `work_metrics`: Metrics for the work section with fields for value, title, description, color class, and display order
-- `testimonials`: Client testimonials with fields for author name, title, quote, avatar, published status, and display order
-- `articles`: Stores blog posts with fields for title, slug, excerpt, content, image_path, user_id (author), category_id, published_at, status, meta fields, reading_time, and timestamps.
-- `categories`: Stores blog categories with fields for name, slug, description, and timestamps.
+- Complete article CRUD functionality
+- Category management
+- Featured article selection (only one can be featured at a time)
+- Article rating system using Livewire
+- Rich text editor with image upload
+- Search functionality
+- Category filtering
+- Responsive grid and list views
 
-## Component Library
+## Technologies Used
 
-The project follows a component-driven approach with a comprehensive set of reusable Blade components located in `resources/views/components/`. See the [Component Documentation](resources/views/components/README.md) for detailed usage examples.
+- **Laravel 12**: PHP framework for backend
+- **Blade**: Templating engine
+- **Tailwind CSS**: Utility-first CSS framework
+- **Alpine.js**: Lightweight JavaScript framework
+- **Livewire**: Laravel package for dynamic interfaces
+- **MySQL/PostgreSQL**: Database
+- **Vite**: Build tool and development server
 
-Component categories include:
+## Development Guidelines
 
-- **Core**: Fundamental UI elements (buttons, inputs, etc.)
-- **Blog**: Blog-specific components
-- **Work**: Portfolio and case study components
-- **Services**: Service presentation components
-  - **Project Design**: Components specific to the project design service page
-- **Toolkit**: Resource toolkit components
-- **About**: Team and company information components
-  - **Our Process**: Components detailing Festa's work methodology
-- **Home**: Homepage-specific components
-- **Contact**: Form and contact information components
-
-Recent additions include:
-- Dynamic Service components (Service Hero Section, Service Core Section, Service CTA Section) for reuse across service pages
-- Project Design Service components (Hero Section, Core Services CTA)
-- SDG Section for the About page
-- Our Process components (Hero, Philosophy, Methodology, and Impact Measurement sections)
-
-## Cookie Consent Implementation
-
-This project uses the [Spatie Laravel Cookie Consent](https://github.com/spatie/laravel-cookie-consent) package to display a cookie consent banner to users, in compliance with privacy regulations.
-
-### Installation
-- Installed via Composer:
-  ```bash
-  composer require spatie/laravel-cookie-consent
-  ```
-
-### Publishing Assets and Config
-- Published the package's config, views, and translations:
-  ```bash
-  php artisan vendor:publish --provider="Spatie\CookieConsent\CookieConsentServiceProvider"
-  ```
-- This creates:
-  - `config/cookie-consent.php` (configuration)
-  - `resources/views/vendor/cookie-consent/` (Blade views)
-  - `lang/vendor/cookie-consent/` (translations)
-
-### Integration
-- The consent banner is included in the main layouts:
-  - `resources/views/layouts/app.blade.php`
-  - `resources/views/layouts/work.blade.php`
-- The following Blade directive is added just before the closing `</body>` tag:
-  ```php
-  @include('cookie-consent::index')
-  ```
-
-### Customization
-- Edit `resources/views/vendor/cookie-consent/dialogContents.blade.php` to change the banner's appearance and message.
-- Adjust `config/cookie-consent.php` to enable/disable the banner, set the cookie name, and change the cookie lifetime.
-- Update translations in `lang/vendor/cookie-consent/` as needed.
-
-## Key Features Implementation
-
-### Metrics System
-
-The metrics system displays animated counters for key statistics in the work section. Each metric has its own independent counter that animates when scrolled into view.
-
-#### Implementation Details:
-
-1. **Database Structure**:
-   - The `work_metrics` table stores metric data with fields for value, title, description, color class, and display order.
-
-2. **Admin Management**:
-   - The `WorkMetricController` provides CRUD operations for metrics.
-   - The edit form includes validation and error handling to ensure data integrity.
-
-3. **Frontend Display**:
-   - The `x-work.metrics` component renders metrics with animated counters.
-   - Each metric has a unique identifier to ensure independent animation.
-   - The animation uses Alpine.js with IntersectionObserver to trigger when scrolled into view.
-
-#### Code Example:
-
-```blade
-<!-- Metrics Component -->
-<x-work.metrics :metrics="$metrics" />
-
-<!-- Individual Metric Counter -->
-<span 
-    x-data="{ 
-        value: 0,
-        alpineValue: '{{ $metric['value'] }}',
-        suffix: '',
-        uniqueId: '{{ $metric['id'] ?? uniqid() }}',
-        version: '{{ $version }}'
-    }"
-    x-init="
-        // Animation logic with unique identifier
-        function step(timestamp) {
-            if (!$el.startTimestamp) $el.startTimestamp = timestamp;
-            const progress = Math.min((timestamp - $el.startTimestamp) / duration, 1);
-            value = Math.floor(progress * (end - start) + start);
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            }
-        }
-        
-        // IntersectionObserver to trigger animation
-        observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    $el.startTimestamp = null; // Reset timestamp for each animation
-                    window.requestAnimationFrame(step);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        observer.observe($el);
-    "
-    x-text="value.toLocaleString() + suffix"
-    class="text-display font-black {{ $metric['colorClass'] ?? 'text-chicken-comb-600' }}"
-></span>
-```
-
-## Step-by-Step Project Creation Guide
-
-### 1. Set Up Laravel Project
+### Code Style
+The project follows Laravel's coding standards and PSR-12. You can use Laravel Pint for code style enforcement:
 
 ```bash
-# Create a new Laravel project
-composer create-project laravel/laravel festa-design-studio
-
-# Navigate to project directory
-cd festa-design-studio
+./vendor/bin/pint
 ```
 
-### 2. Set Up Tailwind CSS
+### Testing
+Run tests using Pest:
 
 ```bash
-# Install Tailwind CSS
-npm install -D tailwindcss postcss autoprefixer
-
-# Initialize Tailwind CSS
-npx tailwindcss init -p
-
-# Configure Tailwind CSS in tailwind.config.js
+php artisan test
 ```
 
-### 3. Configure Database
-
-```bash
-# Set up .env file with database credentials
-cp .env.example .env
-php artisan key:generate
-
-# Update database settings in .env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=festa_design
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-### 4. Create Database Structure
-
-```bash
-# Create migrations for the necessary tables
-php artisan make:migration create_projects_table
-php artisan make:migration create_clients_table
-php artisan make:migration create_team_members_table
-php artisan make:migration create_work_metrics_table
-php artisan make:migration create_articles_table
-php artisan make:migration create_categories_table
-
-# Run migrations
-php artisan migrate
-```
-
-### 5. Create Models
-
-```bash
-# Create Eloquent models
-php artisan make:model Project
-php artisan make:model Client
-php artisan make:model TeamMember
-php artisan make:model WorkMetric
-php artisan make:model Article
-php artisan make:model Category
-```
-
-### 6. Create Controllers
-
-```bash
-# Generate resource controllers
-php artisan make:controller HomeController
-php artisan make:controller ServicesController
-php artisan make:controller WorkController
-php artisan make:controller AboutController
-php artisan make:controller ResourcesController
-php artisan make:controller ContactController
-php artisan make:controller UtilityController
-php artisan make:controller ClientController
-php artisan make:controller About/Team/TeamMemberController
-
-# Create Admin controllers
-php artisan make:controller Admin/AdminController
-php artisan make:controller Admin/WorkController
-php artisan make:controller Admin/WorkMetricController
-php artisan make:controller Admin/ClientController
-php artisan make:controller Admin/BlogController
-php artisan make:controller Admin/ImageController
-```
-
-### 7. Create Blade Components
-
-```bash
-# Create component directories and files
-mkdir -p resources/views/components/{core,blog,work,services,toolkit,about,home,contact}
-
-# Create base layout components
-php artisan make:component AppLayout
-php artisan make:component GuestLayout
-
-# Create core components
-touch resources/views/components/core/button.blade.php
-touch resources/views/components/core/input.blade.php
-touch resources/views/components/core/select.blade.php
-# ... and other components as needed
-```
-
-### 8. Create View Templates
-
-```bash
-# Create directory structure for views
-mkdir -p resources/views/pages/{home,services,work,about,resources,contact}
-mkdir -p resources/views/pages/services/sectors
-mkdir -p resources/views/admin/{work,blog,clients,team}
-
-# Create page templates
-touch resources/views/pages/home/index.blade.php
-touch resources/views/pages/services/index.blade.php
-# ... and other page templates as needed
-```
-
-### 9. Define Routes
-
-```bash
-# Edit routes/web.php to define all routes
-# See the Routes Structure section for details
-```
-
-### 10. Set Up Authentication
-
-```bash
-# Install Laravel Breeze for authentication
-composer require laravel/breeze --dev
-php artisan breeze:install blade
-
-# Run migrations for authentication tables
-php artisan migrate
-```
-
-### 11. Add Assets
-
-```bash
-# Create necessary asset directories
-mkdir -p public/assets/{images,fonts,icons}
-
-# Add logo and other essential assets
-cp ~/path/to/logo.svg public/assets/images/
-```
-
-### 12. Customize Tailwind Configuration
-
-```bash
-# Update tailwind.config.js with custom colors, fonts, etc.
-```
-
-### 13. Set Up Database Seeders
-
-```bash
-# Create seeders for initial data
-php artisan make:seeder ProjectSeeder
-php artisan make:seeder ClientSeeder
-php artisan make:seeder TeamMemberSeeder
-php artisan make:seeder WorkMetricSeeder
-php artisan make:seeder UserSeeder
-
-# Run seeders
-php artisan db:seed
-```
-
-### 14. Run Development Server
-
-```bash
-# Start Laravel development server
-php artisan serve
-
-# Watch for asset changes
-npm run dev
-```
-
-## Troubleshooting Common Issues
-
-### Metric Edit Form Not Storing Data
-
-If the metric edit form is not storing data:
-
-1. **Check Form Method and Action**:
-   - Ensure the form has the correct method (`POST`) and includes `@method('PUT')` directive
-   - Verify the form action points to the correct route: `{{ route('admin.work.metrics.update', $metric) }}`
-
-2. **Verify CSRF Protection**:
-   - Make sure the form includes the CSRF token: `@csrf`
-
-3. **Check Validation**:
-   - Ensure all required fields are properly validated in the controller
-   - Add error handling to display validation errors to the user
-
-4. **Add Logging**:
-   - Add logging in the controller to track form submission and update process
-   - Check the Laravel logs for any errors
-
-### Metric Counter Animation Issues
-
-If the metric counters are not animating correctly:
-
-1. **Ensure Unique Identifiers**:
-   - Each metric should have a unique identifier to prevent animation conflicts
-   - Use the metric ID or generate a unique ID: `uniqueId: '{{ $metric['id'] ?? uniqid() }}'`
-
-2. **Scope Animation State**:
-   - Use element-specific timestamps: `$el.startTimestamp` instead of global variables
-   - Reset timestamps for each animation instance
-
-3. **Improve Logging**:
-   - Add console logging to track animation initialization and execution
-   - Include unique identifiers in log messages for easier debugging
-
-## Built With
-
-- **Laravel 10+** - PHP framework
-- **Breeze** - Authentication scaffolding
-- **Blade** - Templating engine
-- **Tailwind CSS** - Utility-first CSS framework
-- **Alpine.js** - Lightweight JavaScript framework
-- **MySQL** - Database
-- **Vite** - Asset bundling
+### Contributing
+1. Create a feature branch
+2. Make your changes
+3. Run tests and ensure they pass
+4. Submit a pull request
 
 ## License
 
-This project is proprietary and confidential.
-
-## Recent Updates (2024)
-
-### Home Page
-- Displays the most recent published project and article using new Blade components (`<x-work.card>`, `<x-blog.article-card>`).
-- Uses modular section components for hero, work, and insights, improving maintainability and layout consistency.
-- Tags for sector, industry, and SDG alignment are dynamically generated for the latest project.
-
-### Blog System
-- Blog index page uses a grid section component with category filters and a "Load More" button.
-- Articles are shown with meta info, author, and category color coding.
-- Article show page features a header with meta info, reading time, and a footer with related articles.
-- Blog categories have color classes for visual distinction, managed via config.
-- Only published and visible articles are shown, with improved backend data fetching and logging.
-
-### Admin Blog Management
-- Admin sidebar now includes links for creating posts, viewing posts, and managing categories.
-- Blog posts and categories are managed via dedicated controllers and views.
-
-### Component Library
-- Expanded set of blog-specific Blade components for article cards, grid sections, categories, and article headers/footers.
-- Modular home page section components for hero, work, and insights.
-
-### UI/UX Improvements
-- More consistent and visually appealing layouts for home and blog pages.
-- Better use of Blade components and Tailwind CSS for maintainability and design consistency.
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -20,6 +20,7 @@ class Article extends Model
         'category_id',
         'published_at',
         'status',
+        'is_featured',
         'meta_title',
         'meta_description',
         'reading_time',
@@ -32,6 +33,7 @@ class Article extends Model
      */
     protected $casts = [
         'published_at' => 'datetime',
+        'is_featured' => 'boolean',
     ];
 
     /**
@@ -48,6 +50,14 @@ class Article extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get all ratings for the article.
+     */
+    public function ratings()
+    {
+        return $this->hasMany(ArticleRating::class);
     }
 
     // Optional: If you're not using a sluggable package, you might auto-generate slugs.

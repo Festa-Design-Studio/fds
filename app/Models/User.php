@@ -18,9 +18,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'title', 'profile_photo_path', 'password',
     ];
 
     /**
@@ -43,6 +41,18 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
+    }
+
+    // For compatibility with blog UI expecting 'job_title'
+    public function getJobTitleAttribute()
+    {
+        return $this->title;
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin;
     }
 }
