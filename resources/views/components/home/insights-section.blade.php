@@ -9,10 +9,9 @@
           <h2 class="text-h2 font-bold text-pepper-green">{{ $title }}</h2>
           <p class="text-body-lg text-the-end-700 max-w-md">{{ $description }}</p>
         </div>
-        <a href="{{ $buttonUrl }}"
-          class="lg:w-auto md:w-auto w-full px-6 py-3 border-2 border-pepper-green-600/50 text-the-end rounded-full hover:bg-pepper-green-50 active:bg-pepper-green-100 disabled:border-pepper-green-200 disabled:text-pepper-green-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-pepper-green-600 focus:ring-offset-2 inline-flex items-center justify-center">
+        <x-core.button variant="secondary" size="large" href="{{ $buttonUrl }}">
           {{ $buttonText }}
-        </a>
+        </x-core.button>
       </div>
       
       <!-- Article Card slot -->

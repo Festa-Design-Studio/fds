@@ -37,8 +37,8 @@
                         <h3 class="text-h5 font-semibold text-the-end-900">Resources</h3>
                         <ul class="space-y-2">
                             <li><a href="{{ route('resources.blog') }}" class="text-body text-the-end-700 hover:text-pepper-green-600 transition-colors">Blog</a></li>
-                            <li><a href="/toolkit" class="text-body text-the-end-700 hover:text-pepper-green-600 transition-colors">Toolkit</a></li>
-                            <li><a href="/design-system" class="text-body text-the-end-700 hover:text-pepper-green-600 transition-colors">Festa design system</a></li>
+                            <li><a href="{{ route('resources.toolkit') }}" class="text-body text-the-end-700 hover:text-pepper-green-600 transition-colors">Toolkit</a></li>
+                            <li><a href="{{ route('resources.design-system') }}" class="text-body text-the-end-700 hover:text-pepper-green-600 transition-colors">Festa design system</a></li>
                         </ul>
                     </div>
                 </div>

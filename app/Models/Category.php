@@ -23,6 +23,14 @@ class Category extends Model
     {
         return $this->hasMany(Article::class);
     }
+    
+    /**
+     * Get the toolkits associated with the category.
+     */
+    public function toolkits()
+    {
+        return $this->hasMany(Toolkit::class);
+    }
 
     // Optional: If you're not using a sluggable package, you might auto-generate slugs.
     // protected static function boot()
