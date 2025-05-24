@@ -17,6 +17,11 @@ Festa Design Studio is a design agency website built with Laravel, Blade, and Ta
   - **Article rating** functionality for user feedback
 - **Portfolio showcase** for displaying work
 - **Services section** highlighting capabilities
+- **Interactive Toolkit page** with dynamic filtering and pagination
+  - **Real-time search** across toolkit resources
+  - **Category and tool filtering** with URL parameter management
+  - **Pagination system** with "Load More" functionality
+  - **Smooth animations** and responsive design
 - **Contact system** for client inquiries
 - **Metrics display** with animated counters
 - **Testimonials system** for client feedback
@@ -72,7 +77,12 @@ Festa Design Studio is a design agency website built with Laravel, Blade, and Ta
    php artisan storage:link
    ```
 
-8. **Start the development server**
+8. **Build frontend assets**
+   ```bash
+   npm run build
+   ```
+
+9. **Start the development server**
    ```bash
    # Start Laravel server and Vite development server
    composer run dev
@@ -87,18 +97,55 @@ Festa Design Studio is a design agency website built with Laravel, Blade, and Ta
    npm run dev
    ```
 
-9. **Visit in your browser**
-   ```
-   http://localhost:8000
-   ```
+10. **Visit in your browser**
+    ```
+    http://localhost:8000
+    ```
 
 ## Recent Updates
 
+- **Dynamic Toolkit Page**: Implemented a fully interactive toolkit page with filtering, search, and pagination functionality
+- **Real-time Filtering**: Added dynamic filtering by category and design tool with URL parameter management
+- **Load More Pagination**: Implemented pagination system showing 3 cards initially with "Load More" functionality
+- **Smooth Animations**: Added CSS animations and transitions for better user experience
 - **Blog Featured Article System**: Implemented a system to allow admins to select a featured article for the blog homepage
 - **Article Rating Functionality**: Added Livewire-based rating system for blog articles
 - **Cookie Consent**: Integrated Spatie's cookie consent package for GDPR compliance
 - **Admin Interface Improvements**: Enhanced usability across the admin interface
 - **Performance Optimizations**: Improved database queries and page loading time
+
+## Toolkit System Features
+
+The Toolkit page includes the following key features:
+
+### 🔍 **Dynamic Search & Filtering**
+- Real-time search across title, description, category, and tool fields
+- Category filtering (Project Design, Communication Design, Campaign Design)
+- Design tool filtering (Mailchimp, SEO, Figma, Canva, etc.)
+- Debounced search input (300ms delay for optimal performance)
+- URL parameter management for bookmarkable searches
+
+### 📄 **Pagination System**
+- Shows 3 toolkit cards by default
+- "Load More" button loads 3 additional cards per click
+- Button automatically hides when all cards are loaded
+- Smooth scrolling to newly loaded content
+- Loading state with visual feedback
+
+### ✨ **Enhanced User Experience**
+- Smooth CSS animations and transitions
+- Results counter showing "X of Y tools"
+- "No results found" state with clear filters option
+- Browser back/forward button support
+- Mobile-responsive design
+- Staggered card animations for visual appeal
+
+### 🔗 **Technical Features**
+- JavaScript class-based architecture (`ToolkitFilter`)
+- Component integration with existing Blade components
+- Vite-based asset compilation
+- Error handling and debugging features
+- Performance optimizations with requestAnimationFrame
 
 ## Routes Structure
 
@@ -156,6 +203,25 @@ Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('contact.
 Route::get('/privacy', [UtilityController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [UtilityController::class, 'terms'])->name('terms');
 Route::get('/sitemap', [UtilityController::class, 'sitemap'])->name('sitemap');
+
+// API Route for retrieving SDG information
+Route::get('/api/sdg/{id}', function($id) {
+    $sdg = \App\Models\SdgAlignment::find($id);
+    if (!$sdg) {
+        return response()->json(['error' => 'SDG not found'], 404);
+    }
+    return response()->json(['id' => $sdg->id, 'name' => $sdg->name, 'code' => $sdg->code]);
+});
+
+// Components Showcase
+Route::get('/components-showcase', function () {
+    return view('components-showcase');
+})->name('components.showcase');
+
+// Special test route for thank-you page
+Route::get('/test-thank-you', function () {
+    return view('contact.thank-you');
+})->name('test.thank-you');
 ```
 
 ## Admin Routes
@@ -269,7 +335,7 @@ The application logic is organized into controller groups:
 - `ServicesController`: Manages service pages and sector specializations
 - `WorkController`: Manages portfolio and case studies
 - `AboutController`: Manages about pages including team, process and focus
-- `ResourcesController`: Handles blog listing, individual post views, and toolkit resources.
+- `ResourcesController`: Handles blog listing, individual post views, and toolkit resources with dynamic filtering
 - `ContactController`: Manages contact forms and inquiries
 - `UtilityController`: Handles utility pages like privacy policy and terms
 - `ClientController`: Manages client information display
@@ -287,6 +353,17 @@ The application logic is organized into controller groups:
 - `SectorController` (Admin): Manages sectors (CRUD)
 - `IndustryController` (Admin): Manages industries (CRUD)
 - `SdgAlignmentController` (Admin): Manages SDG alignments (CRUD)
+
+### Frontend Assets
+
+#### JavaScript
+- `resources/js/app.js`: Main application JavaScript
+- `resources/js/toolkit-filter.js`: Toolkit filtering and pagination functionality
+- `resources/js/mobile.js`: Mobile-specific interactions
+
+#### CSS
+- `resources/css/app.css`: Main application styles
+- `resources/css/toolkit-filters.css`: Toolkit-specific animations and styling
 
 ### Models
 
@@ -318,15 +395,34 @@ The blog system includes the following key features:
 - Category filtering
 - Responsive grid and list views
 
+## Component System
+
+### Toolkit Components
+- `x-toolkit.hero-section`: Hero section with newsletter signup
+- `x-toolkit.filter-section`: Dynamic filtering and search container
+- `x-toolkit.select`: Dropdown filter components
+- `x-toolkit.grid`: Responsive grid layout for toolkit cards
+- `x-toolkit.card`: Individual toolkit resource cards
+- `x-toolkit.tags`: Category and tool tags
+
+### Core Components
+- `x-core.breadcrumbs`: Navigation breadcrumbs
+- `x-core.button`: Reusable button component with variants
+- `x-core.text-input`: Form input with icon support
+- `x-core.header`: Site header and navigation
+- `x-core.footer`: Site footer
+
 ## Technologies Used
 
 - **Laravel 12**: PHP framework for backend
-- **Blade**: Templating engine
+- **Blade**: Templating engine with component system
 - **Tailwind CSS**: Utility-first CSS framework
 - **Alpine.js**: Lightweight JavaScript framework
 - **Livewire**: Laravel package for dynamic interfaces
+- **Vite**: Modern build tool and development server
+- **JavaScript ES6+**: Modern JavaScript features
+- **CSS3**: Advanced animations and transitions
 - **MySQL/PostgreSQL**: Database
-- **Vite**: Build tool and development server
 
 ## Development Guidelines
 
@@ -335,6 +431,19 @@ The project follows Laravel's coding standards and PSR-12. You can use Laravel P
 
 ```bash
 ./vendor/bin/pint
+```
+
+### Asset Compilation
+Build assets for production:
+
+```bash
+npm run build
+```
+
+Development mode with hot reloading:
+
+```bash
+npm run dev
 ```
 
 ### Testing
@@ -348,7 +457,27 @@ php artisan test
 1. Create a feature branch
 2. Make your changes
 3. Run tests and ensure they pass
-4. Submit a pull request
+4. Build assets and verify functionality
+5. Submit a pull request
+
+## Deployment
+
+### Production Build
+Before deploying, ensure you build the assets:
+
+```bash
+npm run build
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+### Environment Setup
+Ensure your production environment has:
+- PHP 8.2+
+- Node.js 16+ (for asset compilation)
+- Proper database configuration
+- Storage directory permissions
 
 ## License
 
