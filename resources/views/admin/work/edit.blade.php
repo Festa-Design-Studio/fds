@@ -5,7 +5,7 @@
 @section('header_title', 'Edit Work')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/festa-editor.css') }}">
+@vite('resources/css/festa-rich-text-editor.css')
 @endsection
 
 @section('action_button')
@@ -240,11 +240,13 @@
 </div>
 @endsection
 
-@section('scripts')
-<script src="{{ asset('js/festa-rich-text-editor.js') }}"></script>
-<script src="{{ asset('js/festa-editor-init.js') }}"></script>
-<script src="{{ asset('js/add-video-button.js') }}"></script>
-<script src="{{ asset('js/force-video-button.js') }}"></script>
+@push('scripts')
+@vite('resources/js/festa-rich-text-editor.js')
+@vite([
+    'resources/js/festa-editor-init.js',
+    'resources/js/add-video-button.js',
+    'resources/js/force-video-button.js'
+])
 <script>
 console.log('Admin edit work page loaded');
 
@@ -310,40 +312,25 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+  
+  // Initialize rich text editor
+  setTimeout(function() {
+    console.log('Attempting to initialize editor...');
+    console.log('typeof initFestaEditor:', typeof initFestaEditor);
+    console.log('typeof FestaRichTextEditor:', typeof FestaRichTextEditor);
+    
+    if (typeof initFestaEditor === 'function') {
+      initFestaEditor('festa-editor', 'content-hidden');
+    } else {
+      console.error('initFestaEditor function not found');
+      // Try again after more time
+      setTimeout(() => {
+        if (typeof initFestaEditor === 'function') {
+          initFestaEditor('festa-editor', 'content-hidden');
+        }
+      }, 1000);
+    }
+  }, 300);
 });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing editor');
-    initFestaEditor('festa-editor', 'content-hidden');
-    
-    // Debug script to verify editor is fully initialized
-    setTimeout(function() {
-      console.log('Debug check: Editor initialized?', !!window.FestaRichTextEditor);
-      
-      const editorWrapper = document.querySelector('.festa-editor-wrapper');
-      if (editorWrapper) {
-        console.log('Editor wrapper found:', editorWrapper);
-        
-        // Check if toolbar was created correctly
-        const toolbar = document.querySelector('.festa-editor-toolbar');
-        if (toolbar) {
-          console.log('Toolbar found with children:', toolbar.children.length);
-          console.log('Toolbar buttons:', Array.from(toolbar.querySelectorAll('button')).map(b => b.title));
-          
-          // Force add video button after 500ms
-          setTimeout(function() {
-            if (typeof addVideoButtonToEditors === 'function') {
-              addVideoButtonToEditors();
-            }
-          }, 500);
-        } else {
-          console.error('Toolbar not found!');
-        }
-      } else {
-        console.error('Editor wrapper not found!');
-      }
-    }, 1000);
-  });
-</script>
-@endsection 
+@endpush 

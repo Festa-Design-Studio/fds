@@ -6,66 +6,320 @@
 .festa-editor-wrapper {
     position: relative;
     margin-bottom: 1.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: white;
 }
 
 .festa-editor-toolbar {
     position: sticky;
     top: 0;
     z-index: 10;
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0.75rem;
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    min-height: 48px;
+}
+
+.festa-editor-toolbar button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    background-color: transparent;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.festa-editor-toolbar button:hover {
+    background-color: #e5e7eb;
+    border-color: #d1d5db;
+    color: #111827;
+}
+
+.festa-editor-toolbar button.active {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+.festa-editor-toolbar select {
+    display: inline-flex !important;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #e5e7eb;
+    background-color: white;
+    color: #374151;
+    font-size: 0.875rem;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.festa-editor-toolbar select:hover {
+    border-color: #d1d5db;
+    background-color: #f9fafb;
+}
+
+.festa-editor-toolbar .festa-toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background-color: #e5e7eb;
+    margin: 0 0.25rem;
 }
 
 .festa-editor-content {
     outline: none;
+    padding: 1rem;
+    min-height: 300px;
+    background: white;
+    color: #374151;
+    line-height: 1.6;
 }
 
-/* Apply typography styles to editor content */
+.festa-editor-content:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px #3b82f6;
+}
+
+/* Apply typography styles to editor content using Tailwind config values */
+.festa-editor-content h1.text-display {
+    font-size: clamp(3rem, 8vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: bold;
+    color: #007f4e; /* pepper-green DEFAULT */
+    margin: 1.5rem 0 0.75rem 0;
+}
+
+.festa-editor-content h1.text-h1 {
+    font-size: clamp(2.25rem, 6vw, 3rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-weight: bold;
+    color: #007f4e; /* pepper-green DEFAULT */
+    margin: 1.5rem 0 0.75rem 0;
+}
+
 .festa-editor-content h2.text-h2 {
     font-size: clamp(1.875rem, 5vw, 2.25rem);
     line-height: 1.3;
     letter-spacing: -0.01em;
+    font-weight: bold;
+    color: #007f4e; /* pepper-green DEFAULT */
+    margin: 1.5rem 0 0.75rem 0;
 }
 
-.festa-editor-content h3.text-h4 {
+.festa-editor-content h3.text-h3 {
+    font-size: clamp(1.5rem, 4vw, 1.875rem);
+    line-height: 1.4;
+    letter-spacing: 0;
+    font-weight: 600;
+    color: #2a2a2a; /* the-end DEFAULT */
+    margin: 1.25rem 0 0.5rem 0;
+}
+
+.festa-editor-content h4.text-h4 {
     font-size: clamp(1.25rem, 3.5vw, 1.5rem);
     line-height: 1.4;
     letter-spacing: 0;
+    font-weight: 600;
+    color: #2a2a2a; /* the-end DEFAULT */
+    margin: 1.25rem 0 0.5rem 0;
 }
 
-.festa-editor-content h4.text-h6 {
+.festa-editor-content h5.text-h5 {
+    font-size: clamp(1.125rem, 3vw, 1.25rem);
+    line-height: 1.5;
+    letter-spacing: 0;
+    font-weight: 500;
+    color: #e12729; /* chicken-comb DEFAULT */
+    margin: 1rem 0 0.5rem 0;
+}
+
+.festa-editor-content h6.text-h6 {
     font-size: clamp(1rem, 2.5vw, 1.125rem);
     line-height: 1.5;
     letter-spacing: 0;
+    font-weight: 500;
+    color: #e12729; /* chicken-comb DEFAULT */
+    margin: 1rem 0 0.5rem 0;
 }
 
 .festa-editor-content p.text-body-lg {
     font-size: clamp(1rem, 2.5vw, 1.125rem);
     line-height: 1.7;
     letter-spacing: -0.01em;
+    color: #434343; /* the-end-700 */
+    margin-bottom: 1rem;
 }
 
 .festa-editor-content p.text-body {
     font-size: 1rem;
     line-height: 1.6;
     letter-spacing: 0;
+    color: #434343; /* the-end-700 */
+    margin-bottom: 1rem;
 }
 
 .festa-editor-content p.text-body-sm {
     font-size: 0.875rem;
     line-height: 1.5;
     letter-spacing: 0.01em;
+    color: #4d4d4d; /* the-end-600 */
+    margin-bottom: 1rem;
 }
 
-/* Figure and caption styles */
+/* Video container styles matching video-container.blade.php */
 .festa-editor-content figure {
     margin: 1.5rem 0;
+    width: 100%;
+    max-width: none;
+    display: block;
 }
 
-.festa-editor-content figcaption {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    color: #4b5563;
-    text-align: center;
+/* Festa color definitions for editor content */
+.festa-editor-content .bg-white-smoke-50 {
+    background-color: #ffffff !important; /* white-smoke-50 from tailwind.config.js */
+}
+
+.festa-editor-content .border-white-smoke-300 {
+    border-color: #e5e5e5 !important; /* white-smoke-300 from tailwind.config.js */
+}
+
+.festa-editor-content .text-pepper-green-700 {
+    color: #008f54 !important; /* pepper-green-700 from tailwind.config.js */
+}
+
+.festa-editor-content .text-body-sm {
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+    letter-spacing: 0.01em !important;
+}
+
+/* Enhanced video container styling */
+.festa-editor-content figure.bg-white-smoke-50 {
+    background-color: #ffffff !important; /* white-smoke-50 */
+    border: 1px solid #e5e5e5 !important; /* white-smoke-300 */
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    margin: 1.5rem auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    display: block !important;
+}
+
+@media (min-width: 768px) {
+    .festa-editor-content figure.bg-white-smoke-50 {
+        padding: 2rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .festa-editor-content figure.bg-white-smoke-50 {
+        padding: 2rem !important;
+    }
+}
+
+.festa-editor-content .aspect-video {
+    position: relative !important;
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    overflow: hidden !important;
+    border-radius: 0.5rem !important;
+    background-color: #f5f5f4 !important; /* fallback background */
+}
+
+.festa-editor-content .aspect-video iframe {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    border-radius: 0.5rem !important;
+}
+
+.festa-editor-content figure figcaption {
+    margin-top: 1rem !important;
+    color: #008f54 !important; /* pepper-green-700 */
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    font-weight: normal !important;
+}
+
+/* Ensure all Tailwind utility classes work in editor */
+.festa-editor-content .w-full {
+    width: 100% !important;
+}
+
+.festa-editor-content .mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.festa-editor-content .my-6 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.festa-editor-content .mt-4 {
+    margin-top: 1rem !important;
+}
+
+.festa-editor-content .p-4 {
+    padding: 1rem !important;
+}
+
+.festa-editor-content .rounded-lg {
+    border-radius: 0.5rem !important;
+}
+
+.festa-editor-content .text-center {
+    text-align: center !important;
+}
+
+.festa-editor-content .relative {
+    position: relative !important;
+}
+
+.festa-editor-content .absolute {
+    position: absolute !important;
+}
+
+.festa-editor-content .inset-0 {
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+}
+
+.festa-editor-content .overflow-hidden {
+    overflow: hidden !important;
+}
+
+/* List styles */
+.festa-editor-content ul,
+.festa-editor-content ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.festa-editor-content li {
+    margin-bottom: 0.5rem;
 }
 
 /* Color preview in toolbar */
@@ -78,16 +332,64 @@
     border: 1px solid #e5e5e5;
 }
 
-/* Toolbar button styles */
-.festa-editor-toolbar button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.15s ease;
+/* Color palette styles */
+.festa-color-palette {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 20;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    min-width: 280px;
+    margin-top: 0.25rem;
 }
 
-.festa-editor-toolbar button.active {
-    background-color: rgba(0, 0, 0, 0.05);
+.festa-color-palette.hidden {
+    display: none;
+}
+
+/* Responsive video container styles */
+.responsive-video {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.responsive-video iframe,
+.responsive-video video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0.5rem;
+}
+
+/* Debug styles - remove in production */
+.festa-editor-wrapper {
+    border: 2px solid #10b981 !important;
+}
+
+.festa-editor-toolbar {
+    border: 2px solid #3b82f6 !important;
+    background: #dbeafe !important;
+}
+
+/* Ensure toolbar elements are visible */
+.festa-editor-toolbar * {
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* Dropdown menu styles */
@@ -103,51 +405,6 @@
     width: 100%;
     text-align: left;
     transition: background-color 0.15s ease;
-}
-
-/* Color palette */
-.festa-color-palette {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    padding: 8px;
-}
-
-.festa-color-swatch {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    transition: transform 0.15s ease;
-}
-
-.festa-color-swatch:hover {
-    transform: scale(1.1);
-}
-
-/* Editor content spacing */
-.festa-editor-content > * {
-    margin-bottom: 1rem;
-}
-
-.festa-editor-content > *:last-child {
-    margin-bottom: 0;
-}
-
-/* Lists styling */
-.festa-editor-content ul,
-.festa-editor-content ol {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.festa-editor-content li {
-    margin-bottom: 0.5rem;
-}
-
-.festa-editor-content li > p {
-    margin: 0;
 }
 
 /* Image gallery grid */
@@ -214,4 +471,248 @@
     max-height: 90vh;
     overflow-y: auto;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure proper video responsiveness */
+.festa-editor-content figure iframe {
+    border: none;
+    outline: none;
+}
+
+.festa-editor-content figure iframe:focus {
+    outline: 2px solid #16a34a; /* pepper-green-600 equivalent */
+    outline-offset: 2px;
+}
+
+/* Figure styles for video containers */
+.festa-editor-content figure.video-container {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: #fafaf9; /* white-smoke-50 equivalent */
+    border: 1px solid #e7e5e4; /* white-smoke-300 equivalent */
+    border-radius: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .festa-editor-content figure.video-container {
+        padding: 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .festa-editor-content figure.video-container {
+        padding: 2rem;
+    }
+}
+
+/* Video container specific figure styles */
+.festa-editor-content figure[class*="bg-white-smoke"] {
+    margin: 1.5rem 0;
+}
+
+.festa-editor-content figure[class*="bg-white-smoke"] figcaption {
+    color: #15803d; /* pepper-green-700 equivalent */
+    font-size: 0.875rem;
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* Ensure video aspect ratio is maintained */
+.festa-editor-content .aspect-video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.festa-editor-content .aspect-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Frontend content styles - for displaying rich text content outside the editor */
+.prose figure.bg-white-smoke-50,
+.prose figure[class*="bg-white-smoke"],
+article figure.bg-white-smoke-50,
+article figure[class*="bg-white-smoke"],
+main figure.bg-white-smoke-50,
+main figure[class*="bg-white-smoke"],
+.content figure.bg-white-smoke-50,
+.content figure[class*="bg-white-smoke"] {
+    background-color: #ffffff !important; /* white-smoke-50 */
+    border: 1px solid #e5e5e5 !important; /* white-smoke-300 */
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    margin: 1.5rem auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    display: block !important;
+}
+
+@media (min-width: 768px) {
+    .prose figure.bg-white-smoke-50,
+    .prose figure[class*="bg-white-smoke"],
+    article figure.bg-white-smoke-50,
+    article figure[class*="bg-white-smoke"],
+    main figure.bg-white-smoke-50,
+    main figure[class*="bg-white-smoke"],
+    .content figure.bg-white-smoke-50,
+    .content figure[class*="bg-white-smoke"] {
+        padding: 2rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .prose figure.bg-white-smoke-50,
+    .prose figure[class*="bg-white-smoke"],
+    article figure.bg-white-smoke-50,
+    article figure[class*="bg-white-smoke"],
+    main figure.bg-white-smoke-50,
+    main figure[class*="bg-white-smoke"],
+    .content figure.bg-white-smoke-50,
+    .content figure[class*="bg-white-smoke"] {
+        padding: 2rem !important;
+    }
+}
+
+.prose .aspect-video,
+article .aspect-video,
+main .aspect-video,
+.content .aspect-video {
+    position: relative !important;
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    overflow: hidden !important;
+    border-radius: 0.5rem !important;
+    background-color: #f5f5f4 !important; /* fallback background */
+}
+
+.prose .aspect-video iframe,
+article .aspect-video iframe,
+main .aspect-video iframe,
+.content .aspect-video iframe {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    border-radius: 0.5rem !important;
+}
+
+.prose figure figcaption,
+article figure figcaption,
+main figure figcaption,
+.content figure figcaption {
+    margin-top: 1rem !important;
+    color: #008f54 !important; /* pepper-green-700 */
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    font-weight: normal !important;
+}
+
+/* Ensure Tailwind utility classes work in frontend content */
+.prose .w-full,
+article .w-full,
+main .w-full,
+.content .w-full {
+    width: 100% !important;
+}
+
+.prose .mx-auto,
+article .mx-auto,
+main .mx-auto,
+.content .mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.prose .my-6,
+article .my-6,
+main .my-6,
+.content .my-6 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.prose .mt-4,
+article .mt-4,
+main .mt-4,
+.content .mt-4 {
+    margin-top: 1rem !important;
+}
+
+.prose .p-4,
+article .p-4,
+main .p-4,
+.content .p-4 {
+    padding: 1rem !important;
+}
+
+@media (min-width: 768px) {
+    .prose .md\\:p-8,
+    article .md\\:p-8,
+    main .md\\:p-8,
+    .content .md\\:p-8 {
+        padding: 2rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .prose .lg\\:p-8,
+    article .lg\\:p-8,
+    main .lg\\:p-8,
+    .content .lg\\:p-8 {
+        padding: 2rem !important;
+    }
+}
+
+.prose .rounded-lg,
+article .rounded-lg,
+main .rounded-lg,
+.content .rounded-lg {
+    border-radius: 0.5rem !important;
+}
+
+.prose .text-center,
+article .text-center,
+main .text-center,
+.content .text-center {
+    text-align: center !important;
+}
+
+.prose .relative,
+article .relative,
+main .relative,
+.content .relative {
+    position: relative !important;
+}
+
+.prose .absolute,
+article .absolute,
+main .absolute,
+.content .absolute {
+    position: absolute !important;
+}
+
+.prose .inset-0,
+article .inset-0,
+main .inset-0,
+.content .inset-0 {
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+}
+
+.prose .overflow-hidden,
+article .overflow-hidden,
+main .overflow-hidden,
+.content .overflow-hidden {
+    overflow: hidden !important;
 } 

@@ -5,7 +5,7 @@
 @section('header_title', 'Create New Work')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/festa-editor.css') }}">
+@vite('resources/css/festa-rich-text-editor.css')
 @endsection
 
 @section('action_button')
@@ -180,7 +180,7 @@
         Work content
       </label>
       <input id="content-hidden" type="hidden" name="content" value="{{ old('content') }}">
-      <div id="festa-editor" class="festa-rich-text-editor w-full min-h-[300px] bg-white-smoke-50 border border-the-end-200 rounded-md text-the-end-900 placeholder-the-end-400 @error('content') border-chicken-comb-600 @enderror"></div>
+      <div id="festa-editor" class="festa-rich-text-field w-full min-h-[300px] bg-white-smoke-50 border border-the-end-200 rounded-md text-the-end-900 placeholder-the-end-400 @error('content') border-chicken-comb-600 @enderror"></div>
       @error('content')
         <p class="mt-1 text-chicken-comb-600 text-sm">{{ $message }}</p>
       @enderror
@@ -200,13 +200,15 @@
 </div>
 @endsection
 
-@section('scripts')
-<script src="{{ asset('js/festa-rich-text-editor.js') }}"></script>
-<script src="{{ asset('js/festa-editor-init.js') }}"></script>
-<script src="{{ asset('js/add-video-button.js') }}"></script>
-<script src="{{ asset('js/force-video-button.js') }}"></script>
+@push('scripts')
+@vite(['resources/js/festa-rich-text-editor.js', 'resources/js/festa-editor-init.js', 'resources/js/add-video-button.js', 'resources/js/force-video-button.js'])
+
 <script>
 console.log('Admin create work page loaded');
+console.log('=== DEBUGGING SCRIPT LOADING ===');
+console.log('Scripts should be loaded now');
+console.log('typeof FestaRichTextEditor:', typeof FestaRichTextEditor);
+console.log('typeof initFestaEditor:', typeof initFestaEditor);
 
 // Script to handle the sector_id, industry_id, and sdg_alignment_id selects
 document.addEventListener('DOMContentLoaded', function() {
@@ -270,40 +272,51 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+  
+  // Enhanced editor initialization with multiple fallbacks
+  function tryInitializeEditor() {
+    console.log('=== TRYING TO INITIALIZE EDITOR ===');
+    console.log('typeof FestaRichTextEditor:', typeof FestaRichTextEditor);
+    console.log('typeof initFestaEditor:', typeof initFestaEditor);
+    
+    if (typeof FestaRichTextEditor !== 'undefined' && typeof initFestaEditor === 'function') {
+      console.log('Both classes available, initializing...');
+      try {
+        initFestaEditor('festa-editor', 'content-hidden');
+        return true;
+      } catch (error) {
+        console.error('Error in initFestaEditor:', error);
+        return false;
+      }
+    } else {
+      console.log('Classes not yet available:');
+      console.log('- FestaRichTextEditor:', typeof FestaRichTextEditor);
+      console.log('- initFestaEditor:', typeof initFestaEditor);
+      return false;
+    }
+  }
+  
+  // Try immediate initialization
+  if (tryInitializeEditor()) {
+    return;
+  }
+  
+  // Try with short delay
+  setTimeout(() => {
+    if (tryInitializeEditor()) {
+      return;
+    }
+    
+    // Try with longer delay
+    setTimeout(() => {
+      if (tryInitializeEditor()) {
+        return;
+      }
+      
+      console.error('Failed to initialize editor after multiple attempts');
+      console.log('All window objects:', Object.keys(window).slice(0, 20)); // Show first 20 for debugging
+    }, 1000);
+  }, 500);
 });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing editor');
-    initFestaEditor('festa-editor', 'content-hidden');
-    
-    // Debug script to verify editor is fully initialized
-    setTimeout(function() {
-      console.log('Debug check: Editor initialized?', !!window.FestaRichTextEditor);
-      
-      const editorWrapper = document.querySelector('.festa-editor-wrapper');
-      if (editorWrapper) {
-        console.log('Editor wrapper found:', editorWrapper);
-        
-        // Check if toolbar was created correctly
-        const toolbar = document.querySelector('.festa-editor-toolbar');
-        if (toolbar) {
-          console.log('Toolbar found with children:', toolbar.children.length);
-          console.log('Toolbar buttons:', Array.from(toolbar.querySelectorAll('button')).map(b => b.title));
-          
-          // Force add video button after 500ms
-          setTimeout(function() {
-            if (typeof addVideoButtonToEditors === 'function') {
-              addVideoButtonToEditors();
-            }
-          }, 500);
-        } else {
-          console.error('Toolbar not found!');
-        }
-      } else {
-        console.error('Editor wrapper not found!');
-      }
-    }, 1000);
-  });
-</script>
-@endsection 
+@endpush 

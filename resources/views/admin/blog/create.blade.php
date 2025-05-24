@@ -3,7 +3,7 @@
 @section('header_title', 'Create New Blog Article')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/festa-editor.css') }}">
+@vite('resources/css/festa-rich-text-editor.css')
 @endsection
 
 @section('action_button')
@@ -131,7 +131,7 @@
     <div>
       <label class="block text-body font-medium text-the-end-400 mb-2" for="content">Blog Content</label>
       <input id="content-hidden" type="hidden" name="content" value="{{ old('content') }}">
-      <div id="festa-editor" class="festa-rich-text-editor w-full min-h-[300px] bg-white-smoke-50 border border-the-end-200 rounded-md text-the-end-900 placeholder-the-end-400 @error('content') border-chicken-comb-600 @enderror"></div>
+      <div id="festa-editor" class="festa-rich-text-field w-full min-h-[300px] bg-white-smoke-50 border border-the-end-200 rounded-md text-the-end-900 placeholder-the-end-400 @error('content') border-chicken-comb-600 @enderror"></div>
       @error('content')
         <p class="mt-1 text-chicken-comb-600 text-sm">{{ $message }}</p>
       @enderror
@@ -149,38 +149,34 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/festa-rich-text-editor.js') }}"></script>
-<script src="{{ asset('js/festa-editor-init.js') }}"></script>
-<script src="{{ asset('js/add-video-button.js') }}"></script>
-<script src="{{ asset('js/force-video-button.js') }}"></script>
+@vite('resources/js/festa-rich-text-editor.js')
+@vite([
+    'resources/js/festa-editor-init.js',
+    'resources/js/add-video-button.js',
+    'resources/js/force-video-button.js'
+])
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing editor');
-    initFestaEditor('festa-editor', 'content-hidden');
-    // Debug script to verify editor is fully initialized
+    
+    // Use the retry mechanism built into initFestaEditor
     setTimeout(function() {
-      console.log('Debug check: Editor initialized?', !!window.FestaRichTextEditor);
-      const editorWrapper = document.querySelector('.festa-editor-wrapper');
-      if (editorWrapper) {
-        console.log('Editor wrapper found:', editorWrapper);
-        // Check if toolbar was created correctly
-        const toolbar = document.querySelector('.festa-editor-toolbar');
-        if (toolbar) {
-          console.log('Toolbar found with children:', toolbar.children.length);
-          console.log('Toolbar buttons:', Array.from(toolbar.querySelectorAll('button')).map(b => b.title));
-          // Force add video button after 500ms
-          setTimeout(function() {
-            if (typeof addVideoButtonToEditors === 'function') {
-              addVideoButtonToEditors();
-            }
-          }, 500);
-        } else {
-          console.error('Toolbar not found!');
-        }
+      console.log('Attempting to initialize editor...');
+      console.log('typeof initFestaEditor:', typeof initFestaEditor);
+      console.log('typeof FestaRichTextEditor:', typeof FestaRichTextEditor);
+      
+      if (typeof initFestaEditor === 'function') {
+        initFestaEditor('festa-editor', 'content-hidden');
       } else {
-        console.error('Editor wrapper not found!');
+        console.error('initFestaEditor function not found');
+        // Try again after more time
+        setTimeout(() => {
+          if (typeof initFestaEditor === 'function') {
+            initFestaEditor('festa-editor', 'content-hidden');
+          }
+        }, 1000);
       }
-    }, 1000);
+    }, 300);
   });
 </script>
 @endpush 

@@ -3,83 +3,22 @@
  * This file initializes the custom rich text editor for case study content
  */
 
+console.log('🚀 festa-editor-init.js is loading...');
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('📋 DOM loaded, checking for editors...');
+    
     // Initialize all editors on the page
     const editorContainers = document.querySelectorAll('.festa-rich-text-field');
+    console.log(`Found ${editorContainers.length} editor containers with class festa-rich-text-field`);
     
     if (editorContainers.length > 0) {
-        // Load required dependencies
-        loadDependencies()
-            .then(() => {
-                editorContainers.forEach(container => {
-                    initializeEditor(container);
-                });
-            })
-            .catch(error => {
-                console.error('Failed to load editor dependencies:', error);
-            });
+        editorContainers.forEach(container => {
+            console.log('Initializing editor for container:', container.id);
+            initializeEditor(container);
+        });
     }
 });
-
-/**
- * Load required external dependencies for the editor
- */
-function loadDependencies() {
-    return new Promise((resolve, reject) => {
-        // Check if dependencies are already loaded
-        if (window.Editor && window.TipTap) {
-            resolve();
-            return;
-        }
-        
-        // Load TipTap libraries
-        const scriptTipTap = document.createElement('script');
-        scriptTipTap.src = 'https://cdn.jsdelivr.net/npm/@tiptap/core@2.0.0-beta.218/dist/tiptap-core.umd.min.js';
-        scriptTipTap.onload = () => {
-            
-            // Load TipTap extensions
-            const scriptExtensions = document.createElement('script');
-            scriptExtensions.src = 'https://cdn.jsdelivr.net/npm/@tiptap/starter-kit@2.0.0-beta.218/dist/tiptap-starter-kit.umd.min.js';
-            scriptExtensions.onload = () => {
-                
-                // Load additional extensions
-                const scriptTextStyle = document.createElement('script');
-                scriptTextStyle.src = 'https://cdn.jsdelivr.net/npm/@tiptap/extension-text-style@2.0.0-beta.218/dist/tiptap-extension-text-style.umd.min.js';
-                scriptTextStyle.onload = () => {
-                    
-                    const scriptColor = document.createElement('script');
-                    scriptColor.src = 'https://cdn.jsdelivr.net/npm/@tiptap/extension-color@2.0.0-beta.218/dist/tiptap-extension-color.umd.min.js';
-                    scriptColor.onload = () => {
-                        
-                        const scriptImage = document.createElement('script');
-                        scriptImage.src = 'https://cdn.jsdelivr.net/npm/@tiptap/extension-image@2.0.0-beta.218/dist/tiptap-extension-image.umd.min.js';
-                        scriptImage.onload = () => {
-                            // All dependencies loaded
-                            window.TipTap = {
-                                StarterKit: window.StarterKit,
-                                TextStyle: window.TextStyle,
-                                Color: window.Color,
-                                Image: window.Image
-                            };
-                            
-                            resolve();
-                        };
-                        scriptImage.onerror = reject;
-                        document.head.appendChild(scriptImage);
-                    };
-                    scriptColor.onerror = reject;
-                    document.head.appendChild(scriptColor);
-                };
-                scriptTextStyle.onerror = reject;
-                document.head.appendChild(scriptTextStyle);
-            };
-            scriptExtensions.onerror = reject;
-            document.head.appendChild(scriptExtensions);
-        };
-        scriptTipTap.onerror = reject;
-        document.head.appendChild(scriptTipTap);
-    });
-}
 
 /**
  * Initialize an editor instance on a container element
@@ -89,10 +28,19 @@ function initializeEditor(container) {
     const uploadUrl = container.dataset.uploadUrl || '/admin/api/upload-image';
     const content = container.dataset.content || '';
     
+    console.log('📝 Initializing editor with:', { fieldName, uploadUrl, content });
+    
+    // Check if FestaRichTextEditor is available
+    if (typeof FestaRichTextEditor === 'undefined') {
+        console.error('❌ FestaRichTextEditor class not available');
+        return;
+    }
+    
     // Create editor instance
     const editor = new FestaRichTextEditor({
         selector: `#${container.id}`,
         uploadUrl: uploadUrl,
+        content: content,
         onChange: (html) => {
             // Create or update hidden input with editor content
             let hiddenInput = document.querySelector(`input[name="${fieldName}"]`);
@@ -121,6 +69,7 @@ function initializeEditor(container) {
  * This function can be called from outside to create an editor programmatically
  */
 window.createFestaEditor = function(options) {
+    console.log('🎯 createFestaEditor called with options:', options);
     return new FestaRichTextEditor(options);
 };
 
@@ -130,7 +79,103 @@ window.createFestaEditor = function(options) {
 window.getFestaEditorContent = function(containerId) {
     const container = document.getElementById(containerId);
     if (container && container.festaEditor) {
-        return container.festaEditor.editor.getHTML();
+        return container.festaEditor.getEditorHTML();
     }
     return null;
-}; 
+};
+
+/**
+ * Initialize Festa Editor for a specific element ID and hidden input ID
+ * This function is called from individual pages like blog edit
+ */
+window.initFestaEditor = function(editorId, hiddenInputId) {
+    console.log('🔧 initFestaEditor function called');
+    console.log('Initializing Festa Editor for:', editorId, hiddenInputId);
+    
+    // Function to check if FestaRichTextEditor is available and initialize editor
+    const tryInitialize = () => {
+        // Check if FestaRichTextEditor class is available
+        if (typeof FestaRichTextEditor === 'undefined') {
+            console.log('⏳ FestaRichTextEditor class not yet available, retrying...');
+            return false;
+        }
+        
+        const editorElement = document.getElementById(editorId);
+        const hiddenInput = document.getElementById(hiddenInputId);
+        
+        if (!editorElement) {
+            console.error('❌ Editor element not found:', editorId);
+            return true; // Don't retry for this error
+        }
+        
+        if (!hiddenInput) {
+            console.error('❌ Hidden input not found:', hiddenInputId);
+            return true; // Don't retry for this error
+        }
+        
+        try {
+            // Get initial content from hidden input
+            const initialContent = hiddenInput.value || '';
+            console.log('📄 Initial content:', initialContent);
+            
+            // Create the editor instance
+            const editor = new FestaRichTextEditor({
+                selector: `#${editorId}`,
+                content: initialContent,
+                uploadUrl: '/admin/api/upload-image',
+                onChange: (html) => {
+                    // Update hidden input with editor content
+                    hiddenInput.value = html;
+                    
+                    // Trigger change event on hidden input for form validation
+                    const event = new Event('change', { bubbles: true });
+                    hiddenInput.dispatchEvent(event);
+                }
+            });
+            
+            // Store editor instance on element for later reference
+            editorElement.festaEditor = editor;
+            
+            console.log('✅ Festa Editor initialized successfully');
+            
+            return true; // Success
+        } catch (error) {
+            console.error('❌ Error initializing Festa Editor:', error);
+            return true; // Don't retry for initialization errors
+        }
+    };
+    
+    // Try to initialize immediately
+    if (tryInitialize()) {
+        return;
+    }
+    
+    // If FestaRichTextEditor is not available, wait for it with exponential backoff
+    let retryCount = 0;
+    const maxRetries = 10;
+    
+    const retryInitialization = () => {
+        retryCount++;
+        
+        if (retryCount > maxRetries) {
+            console.error(`❌ Failed to initialize Festa Editor after ${maxRetries} attempts. FestaRichTextEditor class is not available.`);
+            console.log('Available window objects:', Object.keys(window).filter(key => key.includes('Festa')));
+            return;
+        }
+        
+        if (tryInitialize()) {
+            return;
+        }
+        
+        // Wait with exponential backoff (50ms, 100ms, 200ms, etc.)
+        const delay = Math.min(50 * Math.pow(2, retryCount - 1), 1000);
+        console.log(`⏳ Retrying in ${delay}ms (attempt ${retryCount}/${maxRetries})`);
+        setTimeout(retryInitialization, delay);
+    };
+    
+    // Start retrying after a short delay
+    setTimeout(retryInitialization, 50);
+};
+
+console.log('✅ initFestaEditor function defined:', typeof window.initFestaEditor);
+console.log('🎉 festa-editor-init.js finished loading!'); 

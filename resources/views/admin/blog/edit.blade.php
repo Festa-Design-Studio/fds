@@ -3,7 +3,7 @@
 @section('header_title', 'Edit Blog Article')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/festa-editor.css') }}">
+@vite('resources/css/festa-rich-text-editor.css')
 @endsection
 
 @section('action_button')
@@ -170,38 +170,64 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/festa-rich-text-editor.js') }}"></script>
-<script src="{{ asset('js/festa-editor-init.js') }}"></script>
-<script src="{{ asset('js/add-video-button.js') }}"></script>
-<script src="{{ asset('js/force-video-button.js') }}"></script>
+@vite(['resources/js/festa-rich-text-editor.js', 'resources/js/festa-editor-init.js', 'resources/js/add-video-button.js', 'resources/js/force-video-button.js'])
+
 <script>
+  console.log('=== DEBUGGING SCRIPT LOADING ===');
+  console.log('Scripts should be loaded now');
+  console.log('typeof FestaRichTextEditor:', typeof FestaRichTextEditor);
+  console.log('typeof initFestaEditor:', typeof initFestaEditor);
+  console.log('Available window objects with "Festa":', Object.keys(window).filter(key => key.includes('Festa')));
+  
   document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing editor');
-    initFestaEditor('festa-editor', 'content-hidden');
-    // Debug script to verify editor is fully initialized
-    setTimeout(function() {
-      console.log('Debug check: Editor initialized?', !!window.FestaRichTextEditor);
-      const editorWrapper = document.querySelector('.festa-editor-wrapper');
-      if (editorWrapper) {
-        console.log('Editor wrapper found:', editorWrapper);
-        // Check if toolbar was created correctly
-        const toolbar = document.querySelector('.festa-editor-toolbar');
-        if (toolbar) {
-          console.log('Toolbar found with children:', toolbar.children.length);
-          console.log('Toolbar buttons:', Array.from(toolbar.querySelectorAll('button')).map(b => b.title));
-          // Force add video button after 500ms
-          setTimeout(function() {
-            if (typeof addVideoButtonToEditors === 'function') {
-              addVideoButtonToEditors();
-            }
-          }, 500);
-        } else {
-          console.error('Toolbar not found!');
+    console.log('typeof FestaRichTextEditor:', typeof FestaRichTextEditor);
+    console.log('typeof initFestaEditor:', typeof initFestaEditor);
+    
+    // Enhanced initialization with multiple fallbacks
+    function tryInitializeEditor() {
+      console.log('=== TRYING TO INITIALIZE EDITOR ===');
+      console.log('typeof FestaRichTextEditor:', typeof FestaRichTextEditor);
+      console.log('typeof initFestaEditor:', typeof initFestaEditor);
+      
+      if (typeof FestaRichTextEditor !== 'undefined' && typeof initFestaEditor === 'function') {
+        console.log('Both classes available, initializing...');
+        try {
+          initFestaEditor('festa-editor', 'content-hidden');
+          return true;
+        } catch (error) {
+          console.error('Error in initFestaEditor:', error);
+          return false;
         }
       } else {
-        console.error('Editor wrapper not found!');
+        console.log('Classes not yet available:');
+        console.log('- FestaRichTextEditor:', typeof FestaRichTextEditor);
+        console.log('- initFestaEditor:', typeof initFestaEditor);
+        return false;
       }
-    }, 1000);
+    }
+    
+    // Try immediate initialization
+    if (tryInitializeEditor()) {
+      return;
+    }
+    
+    // Try with short delay
+    setTimeout(() => {
+      if (tryInitializeEditor()) {
+        return;
+      }
+      
+      // Try with longer delay
+      setTimeout(() => {
+        if (tryInitializeEditor()) {
+          return;
+        }
+        
+        console.error('Failed to initialize editor after multiple attempts');
+        console.log('All window objects:', Object.keys(window).slice(0, 20)); // Show first 20 for debugging
+      }, 1000);
+    }, 500);
   });
 </script>
 @endpush 

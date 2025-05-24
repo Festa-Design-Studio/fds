@@ -10,6 +10,7 @@
     @vite([
         'resources/css/app.css', 
         'resources/css/toolkit-filters.css',
+        'resources/css/festa-rich-text-editor.css',
         'resources/js/app.js', 
         'resources/js/toolkit-filter.js',
         'resources/js/mobile.js'
