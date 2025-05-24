@@ -8,11 +8,11 @@
 ])
 
 @php
-    // Base classes
-    $baseClasses = "transition-all duration-150 ease-in-out rounded-full flex items-center justify-center";
+    // Base classes - using inline-flex to prevent stretching
+    $baseClasses = "transition-all duration-150 ease-in-out rounded-full inline-flex items-center justify-center";
     
     // Full width class
-    $widthClass = $fullWidth ? "w-full" : "lg:w-auto md:w-auto w-full";
+    $widthClass = $fullWidth ? "w-full" : "w-full md:w-auto lg:w-auto md:max-w-fit lg:max-w-fit";
     
     // Size classes
     $sizeClasses = [

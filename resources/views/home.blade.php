@@ -5,7 +5,7 @@
 @section('content')
     <x-home.hero-section>
         <x-slot name="button">
-            <x-core.button variant="secondary" size="large">
+            <x-core.button variant="secondary" size="large" href="{{ route('about') }}">
                 Why We Design for Good
             </x-core.button>
         </x-slot>

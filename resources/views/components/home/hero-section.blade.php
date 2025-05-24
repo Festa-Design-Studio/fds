@@ -12,9 +12,13 @@
         through strategic, ethical design solutions.
       </p>
 
-      <x-core.button variant="secondary" size="large">
-        Learn more about us
-      </x-core.button>
+      @if(isset($button))
+        {{ $button }}
+      @else
+        <x-core.button variant="secondary" size="large">
+          Learn more about us
+        </x-core.button>
+      @endif
     </div>
     <div class="relative aspect-square rounded-2xl overflow-hidden">
       <!-- Interactive Demo Container -->

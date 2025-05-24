@@ -7,6 +7,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UtilityController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ImageController;
@@ -64,6 +65,26 @@ Route::prefix('admin/about/team')->middleware(['auth'])->group(function () {
     Route::post('/upload-logo', [TeamMemberController::class, 'uploadLogo'])->name('admin.about.team.upload-logo');
 });
 
+// Admin About SDG Management
+Route::prefix('admin/about/sdg')->middleware(['auth'])->group(function () {
+    Route::get('/', [\App\Http\Controllers\Admin\About\SdgController::class, 'index'])->name('admin.about.sdg.index');
+    Route::get('/create', [\App\Http\Controllers\Admin\About\SdgController::class, 'create'])->name('admin.about.sdg.create');
+    Route::post('/', [\App\Http\Controllers\Admin\About\SdgController::class, 'store'])->name('admin.about.sdg.store');
+    Route::get('/{aboutSdg}/edit', [\App\Http\Controllers\Admin\About\SdgController::class, 'edit'])->name('admin.about.sdg.edit');
+    Route::put('/{aboutSdg}', [\App\Http\Controllers\Admin\About\SdgController::class, 'update'])->name('admin.about.sdg.update');
+    Route::delete('/{aboutSdg}', [\App\Http\Controllers\Admin\About\SdgController::class, 'destroy'])->name('admin.about.sdg.destroy');
+});
+
+// Admin About Partners Management
+Route::prefix('admin/about/partners')->middleware(['auth'])->group(function () {
+    Route::get('/', [\App\Http\Controllers\Admin\About\PartnerController::class, 'index'])->name('admin.about.partners.index');
+    Route::get('/create', [\App\Http\Controllers\Admin\About\PartnerController::class, 'create'])->name('admin.about.partners.create');
+    Route::post('/', [\App\Http\Controllers\Admin\About\PartnerController::class, 'store'])->name('admin.about.partners.store');
+    Route::get('/{aboutPartner}/edit', [\App\Http\Controllers\Admin\About\PartnerController::class, 'edit'])->name('admin.about.partners.edit');
+    Route::put('/{aboutPartner}', [\App\Http\Controllers\Admin\About\PartnerController::class, 'update'])->name('admin.about.partners.update');
+    Route::delete('/{aboutPartner}', [\App\Http\Controllers\Admin\About\PartnerController::class, 'destroy'])->name('admin.about.partners.destroy');
+});
+
 // Resources
 Route::get('/resources/blog', [ResourcesController::class, 'blog'])->name('resources.blog');
 Route::get('/resources/blog/category/{categorySlug}', [ResourcesController::class, 'blogByCategory'])->name('resources.blog.category');
@@ -80,6 +101,12 @@ Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('contact.
 Route::get('/privacy', [UtilityController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [UtilityController::class, 'terms'])->name('terms');
 Route::get('/sitemap', [UtilityController::class, 'sitemap'])->name('sitemap');
+
+// XML Sitemaps for SEO
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.xml');
+Route::get('/sitemap-static.xml', [SitemapController::class, 'static'])->name('sitemap.static');
+Route::get('/sitemap-blog.xml', [SitemapController::class, 'blog'])->name('sitemap.blog');
+Route::get('/sitemap-work.xml', [SitemapController::class, 'work'])->name('sitemap.work');
 
 // API Route for retrieving SDG information
 Route::get('/api/sdg/{id}', function($id) {
