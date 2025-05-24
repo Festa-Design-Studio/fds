@@ -140,7 +140,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     
     // Other Admin Routes
     Route::get('/about', [AdminController::class, 'about'])->name('about');
-    Route::get('/toolkit', [AdminController::class, 'toolkit'])->name('toolkit');
     Route::get('/design-system', [AdminController::class, 'designSystem'])->name('design-system');
     Route::get('/contact', [AdminController::class, 'contact'])->name('contact');
     Route::get('/privacy', [AdminController::class, 'privacy'])->name('privacy');
@@ -182,6 +181,22 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::delete('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
     Route::get('/users/create', [\App\Http\Controllers\Admin\UserController::class, 'create'])->name('users.create');
     Route::post('/users', [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
+
+    // Toolkit management routes
+    Route::get('/toolkit', [App\Http\Controllers\Admin\ToolkitController::class, 'index'])->name('toolkit.index');
+    Route::get('/toolkit/create', [App\Http\Controllers\Admin\ToolkitController::class, 'create'])->name('toolkit.create');
+    Route::post('/toolkit', [App\Http\Controllers\Admin\ToolkitController::class, 'store'])->name('toolkit.store');
+    Route::get('/toolkit/{toolkit}/edit', [App\Http\Controllers\Admin\ToolkitController::class, 'edit'])->name('toolkit.edit');
+    Route::put('/toolkit/{toolkit}', [App\Http\Controllers\Admin\ToolkitController::class, 'update'])->name('toolkit.update');
+    Route::delete('/toolkit/{toolkit}', [App\Http\Controllers\Admin\ToolkitController::class, 'destroy'])->name('toolkit.destroy');
+    
+    // Toolkit category management routes
+    Route::get('/toolkit/categories', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'index'])->name('toolkit.categories.index');
+    Route::get('/toolkit/categories/create', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'create'])->name('toolkit.categories.create');
+    Route::post('/toolkit/categories', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'store'])->name('toolkit.categories.store');
+    Route::get('/toolkit/categories/{category}/edit', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'edit'])->name('toolkit.categories.edit');
+    Route::put('/toolkit/categories/{category}', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'update'])->name('toolkit.categories.update');
+    Route::delete('/toolkit/categories/{category}', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'destroy'])->name('toolkit.categories.destroy');
 });
 
 // Auth routes

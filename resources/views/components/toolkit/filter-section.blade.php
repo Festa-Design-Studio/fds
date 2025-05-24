@@ -11,9 +11,7 @@
         <!-- Search -->
         <div class="flex gap-2 items-center">
           {{ $search ?? '' }}
-          <button type="submit" class="lg:w-auto md:w-auto px-6 py-2 text-body-lg h-[48px] bg-chicken-comb-600 text-white-smoke-50 rounded-full hover:bg-chicken-comb-700 active:bg-chicken-comb-800 transition-all duration-150 ease-in-out focus:ring-2 focus:ring-chicken-comb-600 focus:ring-offset-2 inline-flex items-center justify-center">
-            Filter
-          </button>
+          
         </div>
       </div>
     </form>

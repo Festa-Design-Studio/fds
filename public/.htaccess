@@ -23,3 +23,8 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# SVG MIME Type
+<IfModule mod_mime.c>
+    AddType image/svg+xml .svg
+</IfModule>

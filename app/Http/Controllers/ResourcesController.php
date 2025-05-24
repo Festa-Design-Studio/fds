@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Toolkit;
+use App\Models\ToolkitCategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
@@ -143,7 +145,17 @@ class ResourcesController extends Controller
 
     public function toolkit()
     {
-        return view('resources.toolkit.index');
+        // Fetch published toolkit items with their categories
+        $toolkits = Toolkit::where('is_published', true)
+                          ->with('category')
+                          ->orderBy('sort_order')
+                          ->orderBy('created_at', 'desc')
+                          ->get();
+        
+        // Fetch all toolkit categories for filtering
+        $categories = ToolkitCategory::orderBy('name')->get();
+        
+        return view('resources.toolkit.index', compact('toolkits', 'categories'));
     }
 
     public function designSystem()

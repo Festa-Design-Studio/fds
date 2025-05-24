@@ -72,7 +72,7 @@
         </a>
 
         <!-- Admin Toolkit-->
-        <a href="{{ route('admin.toolkit') }}" class="flex items-center gap-2 text-the-end-600 hover:text-chicken-comb-600 transition-colors">
+        <a href="{{ route('admin.toolkit.index') }}" class="flex items-center gap-2 {{ request()->routeIs('admin.toolkit.*') ? 'text-chicken-comb-600' : 'text-the-end-600 hover:text-chicken-comb-600' }} transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v1h14V5a2 2 0 00-2-2H5zm12 4H3v8a2 2 0 002 2h10a2 2 0 002-2V7zM7 9a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zm0 4a1 1 0 100-2h.01a1 1 0 100 2H7z" clip-rule="evenodd" />
             </svg>
