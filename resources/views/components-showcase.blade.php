@@ -1737,5 +1737,77 @@ Expertise in developing innovative STEAM (Science, Tech, Engineering, Arts & Mat
                 </div>
             </div>
         </div>
+        
+        <!-- Video Components Section -->
+        <section class="mb-16">
+            <h2 class="text-h3 font-semibold text-the-end-900 mb-6">Video Components</h2>
+            
+            <div class="space-y-10">
+                <!-- Responsive Video Container -->
+                <div>
+                    <h3 class="text-h4 font-medium text-the-end-900 mb-4">Responsive Video Container</h3>
+                    <p class="text-body text-the-end-700 mb-6">
+                        Responsive video container for embedding videos with proper aspect ratio and accessibility features. 
+                        Uses Tailwind's aspect-video for 16:9 responsiveness and Festa brand styling.
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <!-- Example with Vimeo embed -->
+                        <div>
+                            <h4 class="text-h5 font-medium text-the-end-900 mb-3">With Vimeo Embed</h4>
+                            <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                                <x-core.video-container 
+                                    :embedCode="'<iframe src=\"https://player.vimeo.com/video/1036820501?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media\" allowfullscreen title=\"Horizontal: Empowering Youth Voices\" class=\"absolute inset-0 w-full h-full rounded-lg focus:outline-none focus:ring-2 focus:ring-pepper-green-600\" tabindex=\"0\" aria-label=\"Video player: Horizontal: Empowering Youth Voices\"></iframe>'"
+                                    caption="Brief accessible caption or description of the video content."
+                                />
+                            </div>
+                        </div>
+                        
+                        <!-- Example with YouTube embed -->
+                        <div>
+                            <h4 class="text-h5 font-medium text-the-end-900 mb-3">With YouTube Embed</h4>
+                            <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                                <x-core.video-container 
+                                    :embedCode="'<iframe src=\"https://www.youtube.com/embed/dQw4w9WgXcQ\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen title=\"Sample YouTube Video\" class=\"absolute inset-0 w-full h-full rounded-lg focus:outline-none focus:ring-2 focus:ring-pepper-green-600\" tabindex=\"0\" aria-label=\"Video player: Sample YouTube Video\"></iframe>'"
+                                    caption="YouTube video example with responsive container and accessibility features."
+                                />
+                            </div>
+                        </div>
+                        
+                        <!-- Example with placeholder (no embed code) -->
+                        <div>
+                            <h4 class="text-h5 font-medium text-the-end-900 mb-3">Placeholder State</h4>
+                            <div class="border border-white-smoke-300 rounded-xl overflow-hidden bg-white p-6">
+                                <x-core.video-container 
+                                    caption="Video placeholder when no embed code is provided"
+                                />
+                            </div>
+                        </div>
+                        
+                        <!-- Code Example -->
+                        <div>
+                            <h4 class="text-h5 font-medium text-the-end-900 mb-3">Usage Example</h4>
+                            <div class="p-4 bg-the-end-900 text-white-smoke-50 rounded-lg">
+                                <pre class="text-body-sm overflow-x-auto"><code>&lt;x-core.video-container 
+    :embedCode="'&lt;iframe src=&quot;https://player.vimeo.com/video/...&quot; ...&gt;&lt;/iframe&gt;'"
+    caption="Brief accessible caption or description of the video content."
+/&gt;</code></pre>
+                            </div>
+                        </div>
+                        
+                        <!-- Rich Text Editor Integration Note -->
+                        <div class="p-4 bg-pepper-green-50 border border-pepper-green-200 rounded-lg">
+                            <h4 class="text-h5 font-medium text-pepper-green-800 mb-2">Rich Text Editor Integration</h4>
+                            <p class="text-body-sm text-pepper-green-700">
+                                This component is integrated into Festa's custom rich text editor. Users can insert responsive video containers 
+                                through the editor toolbar when creating or editing blog articles and client work content.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Home Components Section -->
     </div>
 @endsection 
