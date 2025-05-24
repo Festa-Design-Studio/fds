@@ -1,0 +1,155 @@
+/* Toolkit filter animations */
+.toolkit-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toolkit-card-hidden {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+}
+
+.toolkit-card-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Pagination-specific hiding */
+.toolkit-card-pagination-hidden {
+    display: none !important;
+}
+
+/* Grid transition */
+.grid {
+    transition: all 0.3s ease;
+}
+
+/* No results message animation */
+#no-results-message {
+    transition: opacity 0.3s ease;
+}
+
+/* Load more button transitions */
+#load-more-section {
+    transition: opacity 0.3s ease;
+}
+
+/* Search input focus styles */
+[data-search-input]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(34 197 94); /* pepper-green-600 */
+}
+
+/* Filter dropdown focus styles */
+select[data-filter-type]:focus {
+    outline: none;
+    border-color: rgb(34 197 94); /* pepper-green-600 */
+    box-shadow: 0 0 0 1px rgb(34 197 94);
+}
+
+/* Loading state for load more button */
+#load-more-btn:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+/* Staggered animation for new cards */
+.toolkit-card-visible {
+    animation: slideInUp 0.4s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .toolkit-card {
+        transform: translateY(5px);
+    }
+    
+    .toolkit-card-hidden {
+        transform: translateY(5px);
+    }
+}
+
+/* Smooth scrolling enhancement */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Results count styling */
+#results-count {
+    transition: all 0.3s ease;
+}
+
+/* Loading state for cards */
+.toolkit-card.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Highlight matching text in search results */
+.search-highlight {
+    background-color: rgb(254 240 138); /* yellow-200 */
+    padding: 1px 2px;
+    border-radius: 2px;
+}
+
+/* Filter dropdown focus styles */
+select[data-filter-type]:focus {
+    outline: none;
+    border-color: rgb(34 197 94); /* pepper-green-600 */
+    ring: 1px;
+    ring-color: rgb(34 197 94);
+}
+
+/* Search input focus styles */
+[data-search-input]:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: rgb(34 197 94); /* pepper-green-600 */
+    ring-offset: 2px;
+}
+
+/* Filter dropdown focus styles */
+select[data-filter-type]:focus {
+    outline: none;
+    border-color: rgb(34 197 94); /* pepper-green-600 */
+    ring: 1px;
+    ring-color: rgb(34 197 94);
+}
+
+/* Loading state for cards */
+.toolkit-card.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Highlight matching text in search results */
+.search-highlight {
+    background-color: rgb(254 240 138); /* yellow-200 */
+    padding: 1px 2px;
+    border-radius: 2px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .toolkit-card {
+        transform: translateY(5px);
+    }
+    
+    .toolkit-card-hidden {
+        transform: translateY(5px);
+    }
+} 

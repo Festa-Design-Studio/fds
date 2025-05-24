@@ -7,7 +7,13 @@
     <title>@yield('title', 'Festa Design Studio')</title>
     <meta name="description" content="@yield('meta_description', 'Festa Design Studio')">
     @stack('meta')
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/mobile.js'])
+    @vite([
+        'resources/css/app.css', 
+        'resources/css/toolkit-filters.css',
+        'resources/js/app.js', 
+        'resources/js/toolkit-filter.js',
+        'resources/js/mobile.js'
+    ])
     @livewireStyles
 </head>
 <body class="bg-white-smoke-50">
@@ -25,8 +31,6 @@
     <!-- Footer -->
     <x-core.footer />
     
-    <!-- Alpine.js -->
-    {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
     @include('cookie-consent::index')
     <script>
         document.addEventListener('laravelCookieConsentAccepted', function () {
@@ -47,5 +51,6 @@
         });
     </script>
     @livewireScripts
+    @stack('scripts')
 </body>
 </html>
