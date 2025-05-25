@@ -29,8 +29,8 @@
                     <div class="space-y-4">
                         <h3 class="text-h5 font-semibold text-the-end-900">Sector we serve</h3>
                         <ul class="space-y-2">
-                            <li><a href="/sectors/nonprofit" class="text-body text-the-end-700 hover:text-pepper-green-600 transition-colors">Nonprofit</a></li>
-                            <li><a href="/sectors/startup" class="text-body text-the-end-700 hover:text-pepper-green-600 transition-colors">Startup</a></li>
+                            <li><a href="{{ route('sectors.nonprofit') }}" class="text-body text-the-end-700 hover:text-pepper-green-600 transition-colors">Nonprofit</a></li>
+                            <li><a href="{{ route('sectors.startup') }}" class="text-body text-the-end-700 hover:text-pepper-green-600 transition-colors">Startup</a></li>
                         </ul>
                     </div>
                     <div class="space-y-4">

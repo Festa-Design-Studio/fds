@@ -55,10 +55,14 @@
             <x-services.sector-card
                 title="Nonprofit"
                 description="Supporting missions that drive social change with impactful design solutions."
+                link="{{ route('services.sectors.nonprofits') }}"
+                linkText="Learn more about nonprofit services"
             />
             <x-services.sector-card
                 title="Startups"
                 description="Helping purpose-driven businesses scale their impact through effective design."
+                link="{{ route('services.sectors.startup') }}"
+                linkText="Learn more about startup services"
             />
         </x-services.sector-card-grid>
     </x-services.sectors-we-serve-section>

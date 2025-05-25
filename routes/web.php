@@ -35,6 +35,10 @@ Route::get('/services/campaign-design', [ServicesController::class, 'campaignDes
 Route::get('/services/sectors/nonprofits', [ServicesController::class, 'nonprofits'])->name('services.sectors.nonprofits');
 Route::get('/services/sectors/startup', [ServicesController::class, 'startup'])->name('services.sectors.startup');
 
+// Dedicated Sector Routes (for footer links)
+Route::get('/sectors/nonprofit', [ServicesController::class, 'nonprofits'])->name('sectors.nonprofit');
+Route::get('/sectors/startup', [ServicesController::class, 'startup'])->name('sectors.startup');
+
 // Work
 Route::get('/work', [WorkController::class, 'index'])->name('work');
 Route::get('/work/case-study', [WorkController::class, 'caseStudy'])->name('work.case-study');
