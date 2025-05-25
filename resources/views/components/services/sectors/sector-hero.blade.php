@@ -113,12 +113,21 @@
       {{ $description ?? 'Amplify your nonprofit\'s voice through purpose-driven design that speaks louder than words. We help you communicate complex missions effectively and enhance donor engagement.' }}
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <!-- Primary Button -->
-      <button
-        class="lg:w-auto md:w-auto w-full px-6 py-3 bg-chicken-comb-600 text-white-smoke-50 rounded-full hover:bg-chicken-comb-700 active:bg-chicken-comb-800 disabled:bg-chicken-comb-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-chicken-comb-600 focus:ring-offset-2"
-        aria-label="{{ $buttonAriaLabel ?? 'Start your impact journey with Festa Design Studio' }}">
-        {{ $buttonText ?? 'Start Your Impact Journey' }}
-      </button>
+      <!-- Primary Button/Link -->
+      @if(isset($buttonUrl) && $buttonUrl)
+        <a
+          href="{{ $buttonUrl }}"
+          class="lg:w-auto md:w-auto w-full px-6 py-3 bg-chicken-comb-600 text-white-smoke-50 rounded-full hover:bg-chicken-comb-700 active:bg-chicken-comb-800 disabled:bg-chicken-comb-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-chicken-comb-600 focus:ring-offset-2 inline-flex items-center justify-center text-center"
+          aria-label="{{ $buttonAriaLabel ?? 'Start your impact journey with Festa Design Studio' }}">
+          {{ $buttonText ?? 'Start Your Impact Journey' }}
+        </a>
+      @else
+        <button
+          class="lg:w-auto md:w-auto w-full px-6 py-3 bg-chicken-comb-600 text-white-smoke-50 rounded-full hover:bg-chicken-comb-700 active:bg-chicken-comb-800 disabled:bg-chicken-comb-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-chicken-comb-600 focus:ring-offset-2"
+          aria-label="{{ $buttonAriaLabel ?? 'Start your impact journey with Festa Design Studio' }}">
+          {{ $buttonText ?? 'Start Your Impact Journey' }}
+        </button>
+      @endif
     </div>
   </div>
 </section>

@@ -17,6 +17,7 @@
         title="Transform Your Mission Into Visual Impact"
         description="Amplify your nonprofit's voice through purpose-driven design that speaks louder than words. We help you communicate complex missions effectively and enhance donor engagement."
         buttonText="Start Your Impact Journey"
+        buttonUrl="{{ route('contact.talk-to-festa') }}"
         buttonAriaLabel="Start your impact journey with Festa Design Studio"
     />
 
