@@ -105,7 +105,7 @@
 
   <div class="absolute inset-0 pattern-grid opacity-10"></div>
   <div class="max-w-4xl mx-auto text-center relative z-10 space-y-8">
-    <span class="text-body-sm text-pepper-green-600 font-medium">{{ $eyebrow ?? 'Amplifying nonprofit organizations' }}</span>
+    <span class="text-body-sm text-pepper-green-600 uppercase tracking-wide">{{ $eyebrow ?? 'Amplifying nonprofit organizations' }}</span>
     <h1 class="text-h1 font-black text-the-end-900">
       {{ $title ?? 'Transform Your mission into visual impact' }}
     </h1>

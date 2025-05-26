@@ -9,32 +9,32 @@
     // Default challenges for nonprofits if none provided
     $defaultChallenges = [
         [
-            'icon' => '<path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2zM12 4c4.418 0 8 3.582 8 8s-3.582 8-8 8-8-3.582-8-8 3.582-8 8-8zm0 14c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6z"/>',
+            'icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2zM12 4c4.418 0 8 3.582 8 8s-3.582 8-8 8-8-3.582-8-8 3.582-8 8-8zm0 14c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6z"/></svg>',
             'title' => 'Resource Constraints',
             'description' => '67% of nonprofits face significant funding challenges, impacting their operational capacity and growth potential.',
             'source' => 'Nonprofit Finance Fund Survey 2023',
             'sourceUrl' => 'https://nff.org/survey'
         ],
         [
-            'icon' => '<path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+            'icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
             'title' => 'Brand Visibility',
             'description' => '73% of nonprofits struggle with effective brand communication, limiting their ability to reach potential supporters.',
             'source' => 'Nonprofit Brand Study 2023',
-            'sourceUrl' => '#'
+            'sourceUrl' => 'https://nonprofitbrandstudy.org/2023'
         ],
         [
-            'icon' => '<path d="M17 8h1a1 1 0 011 1v6.586a1 1 0 01-.293.707L12 23l-6.707-6.707A1 1 0 015 15.586V9a1 1 0 011-1h1m10 0V6a2 2 0 00-2-2H9a2 2 0 00-2 2v2m10 0H7"/>',
+            'icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h1a1 1 0 011 1v6.586a1 1 0 01-.293.707L12 23l-6.707-6.707A1 1 0 015 15.586V9a1 1 0 011-1h1m10 0V6a2 2 0 00-2-2H9a2 2 0 00-2 2v2m10 0H7"/></svg>',
             'title' => 'Digital Presence',
             'description' => '58% of nonprofits report challenges in maintaining an effective digital presence across multiple platforms.',
             'source' => 'Digital Nonprofit Report 2023',
-            'sourceUrl' => '#'
+            'sourceUrl' => 'https://digitalnonprofit.org/report-2023'
         ],
         [
-            'icon' => '<path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>',
+            'icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>',
             'title' => 'Stakeholder Engagement',
             'description' => '61% of nonprofits find it challenging to maintain consistent engagement with donors, volunteers, and beneficiaries.',
             'source' => 'Engagement Analytics Study 2023',
-            'sourceUrl' => '#'
+            'sourceUrl' => 'https://engagementanalytics.org/nonprofit-study-2023'
         ]
     ];
 
@@ -66,9 +66,17 @@
                 <div class="bg-white-smoke-50 border border-white-smoke-300 rounded-lg p-6">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-12 h-12 rounded-lg bg-pot-of-gold-100 flex items-center justify-center">
-                            <svg class="w-6 h-6 text-pot-of-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                {!! $challenge['icon'] !!}
-                            </svg>
+                            @if(str_contains($challenge['icon'], '<svg'))
+                                <!-- Full SVG code provided -->
+                                <div class="w-6 h-6 text-pot-of-gold-600 [&>svg]:w-full [&>svg]:h-full [&>svg]:text-current">
+                                    {!! $challenge['icon'] !!}
+                                </div>
+                            @else
+                                <!-- Legacy path data -->
+                                <svg class="w-6 h-6 text-pot-of-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    {!! $challenge['icon'] !!}
+                                </svg>
+                            @endif
                         </div>
                         <h3 class="text-h5 font-semibold text-the-end-900">{{ $challenge['title'] }}</h3>
                     </div>

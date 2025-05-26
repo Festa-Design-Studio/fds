@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Services - Admin')
+@section('title', 'Services Management')
 
 @section('header_title', 'Services Management')
 
@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Project Design -->
         <div class="bg-white border border-white-smoke-300 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
             <div class="flex items-center gap-3 mb-4">
@@ -25,14 +25,9 @@
                 <h3 class="text-h5 font-semibold text-the-end-900">Project Design</h3>
             </div>
             <p class="text-body text-the-end-700 mb-6">Manage project design service content and examples.</p>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <x-core.button variant="secondary" size="medium" href="{{ route('services.project-design') }}" target="_blank">
-                    View Page
-                </x-core.button>
-                <x-core.button variant="primary" size="medium" href="{{ route('admin.services.edit', 'project_design') }}">
-                    Edit Service
-                </x-core.button>
-            </div>
+            <x-core.button variant="primary" size="medium" href="{{ route('admin.services.edit', 'project_design') }}" fullWidth="true">
+                Edit Service
+            </x-core.button>
         </div>
 
         <!-- Communication Design -->
@@ -46,14 +41,9 @@
                 <h3 class="text-h5 font-semibold text-the-end-900">Communication Design</h3>
             </div>
             <p class="text-body text-the-end-700 mb-6">Manage communication design service content.</p>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <x-core.button variant="secondary" size="medium" href="{{ route('services.communication-design') }}" target="_blank">
-                    View Page
-                </x-core.button>
-                <x-core.button variant="primary" size="medium" href="{{ route('admin.services.edit', 'communication_design') }}">
-                    Edit Service
-                </x-core.button>
-            </div>
+            <x-core.button variant="primary" size="medium" href="{{ route('admin.services.edit', 'communication_design') }}" fullWidth="true">
+                Edit Service
+            </x-core.button>
         </div>
 
         <!-- Campaign Design -->
@@ -67,14 +57,9 @@
                 <h3 class="text-h5 font-semibold text-the-end-900">Campaign Design</h3>
             </div>
             <p class="text-body text-the-end-700 mb-6">Manage campaign design service content.</p>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <x-core.button variant="secondary" size="medium" href="{{ route('services.campaign-design') }}" target="_blank">
-                    View Page
-                </x-core.button>
-                <x-core.button variant="primary" size="medium" href="{{ route('admin.services.edit', 'campaign_design') }}">
-                    Edit Service
-                </x-core.button>
-            </div>
+            <x-core.button variant="primary" size="medium" href="{{ route('admin.services.edit', 'campaign_design') }}" fullWidth="true">
+                Edit Service
+            </x-core.button>
         </div>
 
         <!-- Nonprofits Sector -->
@@ -88,14 +73,9 @@
                 <h3 class="text-h5 font-semibold text-the-end-900">Nonprofits Sector</h3>
             </div>
             <p class="text-body text-the-end-700 mb-6">Manage nonprofit sector content and case studies.</p>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <x-core.button variant="secondary" size="medium" href="{{ route('services.sectors.nonprofits') }}" target="_blank">
-                    View Page
-                </x-core.button>
-                <x-core.button variant="primary" size="medium" href="{{ route('admin.services.sectors.edit', 'nonprofit') }}">
-                    Edit Sector
-                </x-core.button>
-            </div>
+            <x-core.button variant="primary" size="medium" href="{{ route('admin.services.sectors.edit', 'nonprofit') }}" fullWidth="true">
+                Edit Sector
+            </x-core.button>
         </div>
 
         <!-- Startup Sector -->
@@ -109,14 +89,9 @@
                 <h3 class="text-h5 font-semibold text-the-end-900">Startup Sector</h3>
             </div>
             <p class="text-body text-the-end-700 mb-6">Manage startup sector content and case studies.</p>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <x-core.button variant="secondary" size="medium" href="{{ route('services.sectors.startup') }}" target="_blank">
-                    View Page
-                </x-core.button>
-                <x-core.button variant="primary" size="medium" href="{{ route('admin.services.sectors.edit', 'startup') }}">
-                    Edit Sector
-                </x-core.button>
-            </div>
+            <x-core.button variant="primary" size="medium" href="{{ route('admin.services.sectors.edit', 'startup') }}" fullWidth="true">
+                Edit Sector
+            </x-core.button>
         </div>
 
         <!-- Main Services -->
@@ -129,17 +104,15 @@
                 </div>
                 <h3 class="text-h5 font-semibold text-the-end-900">Main Services Page</h3>
             </div>
-            <p class="text-body text-the-end-700 mb-6">Manage the main services overview page.</p>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <x-core.button variant="secondary" size="medium" href="{{ route('services') }}" target="_blank">
-                    View Page
-                </x-core.button>
-            </div>
+            <p class="text-body text-the-end-700 mb-6">View the main services overview page.</p>
+            <x-core.button variant="secondary" size="medium" href="{{ route('services') }}" target="_blank" fullWidth="true">
+                View Page
+            </x-core.button>
         </div>
     </div>
 
     <!-- Service Stats -->
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
         <div class="bg-pepper-green-50 p-6 rounded-xl border border-white-smoke-300">
             <span class="text-body-sm text-pepper-green-600/50">Services</span>
             <h3 class="text-h4 font-semibold text-the-end-900 mb-2">Service Types</h3>

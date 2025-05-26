@@ -11,18 +11,20 @@ Festa Design Studio is a comprehensive website for a design agency specializing 
 - **Component-based architecture** using Blade components
 - **Custom design system** with Tailwind CSS
 - **Responsive layouts** for all device sizes
-- **Admin panel** for content management
-- **Blog platform** for sharing insights
+- **Admin panel** for content management with modern Festa design system
+- **Blog platform** for sharing insights with featured articles and rating system
 - **Portfolio showcase** for displaying work
-- **Services section** highlighting capabilities
+- **Services section** highlighting capabilities with dynamic sector-specific content
+- **Advanced Services Management** with comprehensive admin interface
 - **Contact system** for client inquiries
 
 ## Tech Stack
 
-- **Backend**: Laravel 10+
+- **Backend**: Laravel 12+
 - **Frontend**: Blade templates, Tailwind CSS
 - **Database**: MySQL
 - **Asset Management**: Vite
+- **Admin Interface**: Modern Festa design system components
 - **Deployment**: To be determined
 
 ## Project Structure
@@ -32,12 +34,12 @@ Festa Design Studio is a comprehensive website for a design agency specializing 
 The application follows RESTful routing practices with the following main sections:
 
 - **Home**: Primary landing page
-- **Services**: Design offerings and sector specializations
+- **Services**: Design offerings and sector specializations with dynamic content management
 - **Work**: Portfolio and case studies
 - **About**: Team, process, and mission information
 - **Resources**: Blog and design toolkit resources
 - **Contact**: Client inquiry forms
-- **Admin**: Content management system
+- **Admin**: Comprehensive content management system with modern UI
 
 ### Component Library
 
@@ -45,10 +47,10 @@ The project follows a component-driven approach with a comprehensive set of reus
 
 Component categories include:
 
-- **Core**: Fundamental UI elements (buttons, inputs, etc.)
-- **Blog**: Blog-specific components
+- **Core**: Fundamental UI elements (buttons, inputs, etc.) with Festa design system
+- **Blog**: Blog-specific components with featured article support
 - **Work**: Portfolio and case study components
-- **Services**: Service presentation components
+- **Services**: Service presentation components with sector-specific layouts
 - **Toolkit**: Resource toolkit components
 - **About**: Team and company information components
 - **Home**: Homepage-specific components
@@ -60,14 +62,16 @@ Key data models include:
 
 - **Project**: Portfolio projects and case studies
 - **Client**: Client information and relationships
+- **Service**: Service information with deliverables and expertise content
+- **ServiceSector**: Sector-specific content with JSON-based storage for dynamic content
 - **User**: Authentication and admin user management
 
 ### Controllers
 
 The application logic is organized into controller groups:
 
-- **Public Controllers**: Handle frontend page rendering
-- **Admin Controllers**: Manage content and settings in the admin panel
+- **Public Controllers**: Handle frontend page rendering with dynamic content
+- **Admin Controllers**: Manage content and settings in the modern admin panel
 
 ## Development Setup
 
@@ -635,6 +639,60 @@ The testimonial components support:
         </svg>
     </x-slot>
 </x-services.sector-card>
+```
+
+### Sector Hero Component
+
+```blade
+<x-services.sectors.sector-hero 
+    eyebrow="Empowering nonprofits"
+    title="Transform your mission Into visual impact"
+    description="Amplify your nonprofit's voice through purpose-driven design that speaks louder than words."
+    buttonText="Start Your Impact Journey"
+    buttonUrl="{{ route('contact.talk-to-festa') }}"
+    buttonAriaLabel="Start your impact journey with Festa Design Studio"
+/>
+```
+
+### Sector Challenge Component
+
+```blade
+<x-services.sectors.sector-challenge 
+    eyebrow="Sector challenges"
+    title="Navigating Limited Resources with Purpose-Driven Design"
+    description="Understanding the real barriers nonprofits face—and how Festa empowers impact through design."
+    :challenges="[
+        [
+            'icon' => '<path d=\"M12 8V4l8 8-8 8v-4H4v-8z\"/>',
+            'title' => 'Limited Resources',
+            'description' => '73% of nonprofits report struggling with limited budgets for professional design and marketing materials.',
+            'source' => 'Nonprofit Marketing Report 2023',
+            'sourceUrl' => 'https://nonprofitmarketing.org/report-2023'
+        ]
+    ]"
+/>
+```
+
+### Sector Expertise Component
+
+```blade
+<x-services.sectors.sector-expertise 
+    eyebrow="Sector expertise"
+    title="Strategic Design Solutions for Nonprofits"
+    description="Our specialized expertise helps nonprofits maximize their impact through strategic design."
+    :expertise="[
+        [
+            'title' => 'Theory of Change Development',
+            'intro' => 'Transform your organization\'s vision into actionable strategy with expert guidance in:',
+            'points' => [
+                'Logic model creation and refinement',
+                'Impact measurement framework design',
+                'Outcome mapping and visualization'
+            ],
+            'conclusion' => 'Using Festa\'s design system, we create clear, engaging visualizations that make your theory of change accessible.'
+        ]
+    ]"
+/>
 ```
 
 ### Sector Card Grid Component

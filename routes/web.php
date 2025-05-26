@@ -35,10 +35,6 @@ Route::get('/services/campaign-design', [ServicesController::class, 'campaignDes
 Route::get('/services/sectors/nonprofits', [ServicesController::class, 'nonprofits'])->name('services.sectors.nonprofits');
 Route::get('/services/sectors/startup', [ServicesController::class, 'startup'])->name('services.sectors.startup');
 
-// Dedicated Sector Routes (for footer links)
-Route::get('/sectors/nonprofit', [ServicesController::class, 'nonprofits'])->name('sectors.nonprofit');
-Route::get('/sectors/startup', [ServicesController::class, 'startup'])->name('sectors.startup');
-
 // Work
 Route::get('/work', [WorkController::class, 'index'])->name('work');
 Route::get('/work/case-study', [WorkController::class, 'caseStudy'])->name('work.case-study');
@@ -136,6 +132,15 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Admin Dashboard
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     
+    // Services Management
+    Route::get('/services', [AdminController::class, 'services'])->name('services');
+    Route::get('/services/{type}/edit', [App\Http\Controllers\Admin\ServiceController::class, 'edit'])->name('services.edit');
+    Route::put('/services/{type}', [App\Http\Controllers\Admin\ServiceController::class, 'update'])->name('services.update');
+    
+    // Service Sectors
+    Route::get('/services/sectors/{type}/edit', [App\Http\Controllers\Admin\ServiceSectorController::class, 'edit'])->name('services.sectors.edit');
+    Route::put('/services/sectors/{type}', [App\Http\Controllers\Admin\ServiceSectorController::class, 'update'])->name('services.sectors.update');
+    
     // Work Management
     Route::prefix('work')->name('work.')->group(function () {
         Route::get('/', [\App\Http\Controllers\Admin\WorkController::class, 'index'])->name('index');
@@ -165,9 +170,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
             Route::delete('/{testimonial}', [TestimonialController::class, 'destroy'])->name('destroy');
         });
     });
-    
-    // Pages Management
-    Route::get('/services', [AdminController::class, 'services'])->name('services');
     
     // Other Admin Routes
     Route::get('/about', [AdminController::class, 'about'])->name('about');

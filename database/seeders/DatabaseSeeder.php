@@ -32,9 +32,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             TeamMemberSeeder::class,
+            SectorIndustrySDGSeeder::class,
+            ServiceExpertiseSeeder::class,
+            ServiceSectorContentSeeder::class,
         ]);
-
-        // Add our new seeder
-        $this->call(SectorIndustrySDGSeeder::class);
     }
 }

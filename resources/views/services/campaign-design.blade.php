@@ -14,40 +14,20 @@
     <!-- Campaign Design Hero Section -->
     <x-services.service-hero-section 
         serviceType="Campaign Design"
-        title="Driving purposeful engagement and action"
-        description="We design strategic campaigns that mobilize audiences, change behaviors, and create measurable impact for mission-driven organizations."
+        :title="$service->title"
+        :description="$service->description"
     />
     
     <!-- Campaign Design Core Services -->
     <x-services.service-core-section 
-        expertiseTitle="Campaign design expertise"
-        expertiseDescription="From awareness to action, we design comprehensive campaigns that connect with audiences and deliver results. Our campaign capabilities include:"
-        :deliverables="[
-            [
-                'title' => 'Campaign Strategy',
-                'description' => 'Define clear objectives, audience targeting, and measurement frameworks.'
-            ],
-            [
-                'title' => 'Multichannel Planning',
-                'description' => 'Create integrated experiences across digital, social, and traditional media.'
-            ],
-            [
-                'title' => 'Fundraising Campaigns',
-                'description' => 'Develop compelling appeals that inspire generosity and participation.'
-            ],
-            [
-                'title' => 'Behavior Change Design',
-                'description' => 'Apply behavioral insights to create campaigns that shift attitudes and actions.'
-            ],
-            [
-                'title' => 'Advocacy Campaigns',
-                'description' => 'Mobilize supporters to drive policy change and social progress.'
-            ],
-            [
-                'title' => 'Impact Reporting',
-                'description' => 'Share campaign results through compelling visuals and storytelling.'
-            ]
-        ]"
+        :expertiseTitle="$service->expertise_title ?: 'Campaign design expertise'"
+        :expertiseDescription="$service->expertise_description ?: 'From awareness to action, we design comprehensive campaigns that connect with audiences and deliver results. Our campaign capabilities include:'"
+        :deliverables="$service->deliverables->map(function($deliverable) {
+            return [
+                'title' => $deliverable->title,
+                'description' => $deliverable->description
+            ];
+        })->toArray()"
     />
     
     <!-- Core Services CTA -->

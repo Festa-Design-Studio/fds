@@ -5,18 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sector extends Model
+class ServiceSector extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
-        'slug',
+        'type',
         'title',
         'description',
         'is_active',
@@ -30,6 +24,7 @@ class Sector extends Model
         'challenge_eyebrow',
         'challenge_title',
         'challenge_description',
+        'challenge_items',
         // Expertise Section
         'expertise_eyebrow',
         'expertise_title',
@@ -37,21 +32,9 @@ class Sector extends Model
         'expertise_items'
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'is_active' => 'boolean',
+        'challenge_items' => 'array',
         'expertise_items' => 'array'
     ];
-
-    /**
-     * Get the projects for this sector.
-     */
-    public function projects()
-    {
-        return $this->hasMany(Project::class);
-    }
 }

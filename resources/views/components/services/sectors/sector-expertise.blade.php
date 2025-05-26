@@ -29,9 +29,22 @@
                     <!-- Card Header with Service Icon -->
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-14 h-14 rounded-xl bg-pepper-green-100 flex items-center justify-center">
-                            <svg class="w-8 h-8 text-pepper-green-600">
-                                <path d="{{ $item['icon'] ?? 'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7' }}"/>
-                            </svg>
+                            @if(isset($item['icon']) && str_contains($item['icon'], '<svg'))
+                                <!-- Full SVG code provided -->
+                                <div class="w-8 h-8 text-pepper-green-600 [&>svg]:w-full [&>svg]:h-full [&>svg]:text-current">
+                                    {!! $item['icon'] !!}
+                                </div>
+                            @elseif(isset($item['icon']))
+                                <!-- Legacy path data -->
+                                <svg class="w-8 h-8 text-pepper-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $item['icon'] }}"/>
+                                </svg>
+                            @else
+                                <!-- Default icon -->
+                                <svg class="w-8 h-8 text-pepper-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                                </svg>
+                            @endif
                         </div>
                         <h3 class="text-h5 font-semibold text-the-end-900">{{ $item['title'] }}</h3>
                     </div>

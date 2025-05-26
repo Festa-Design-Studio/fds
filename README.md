@@ -1,6 +1,10 @@
 # Festa Design Studio
 
-![Festa Design Studio](public/assets/images/logo.svg)
+<svg class="h-40 w-auto" viewBox="0 0 27 40" preserveAspectRatio="xMidYMid meet">
+  <g>
+    <path class="cls-2" d="M26,5.66V1.12H1v22.73h4.55v-9.09h2.27v9.09h18.18v-13.64h-4.55v-4.55h4.55ZM7.82,10.21h-2.27v-4.55h2.27v4.55ZM15.2,10.21v9.09h-2.84V5.66h2.84v4.55ZM21.45,19.3h-1.7v-4.55h1.7v4.55Z" fill="#e02829"/>
+  </g>
+</svg>
 
 ## Project Overview
 
@@ -22,6 +26,11 @@ Festa Design Studio is a design agency website built with Laravel, Blade, and Ta
   - **Category and tool filtering** with URL parameter management
   - **Pagination system** with "Load More" functionality
   - **Smooth animations** and responsive design
+- **Advanced Services Management** with sector-specific content
+  - **Dynamic Service Pages** for Project Design, Communication Design, and Campaign Design
+  - **Sector-Specific Pages** for Nonprofits and Startups with dynamic content
+  - **Admin Interface** for managing service content, deliverables, and sector information
+  - **ServiceSector Model** with JSON-based content management for hero sections, challenges, and expertise
 - **Contact system** for client inquiries
 - **Metrics display** with animated counters
 - **Testimonials system** for client feedback
@@ -104,6 +113,14 @@ Festa Design Studio is a design agency website built with Laravel, Blade, and Ta
 
 ## Recent Updates
 
+- **Admin Services Management Overhaul**: Completely redesigned admin interface for managing services with modern Festa design system
+- **ServiceSector Model Implementation**: Created comprehensive sector management with dynamic content for hero sections, challenges, and expertise areas
+- **Layout Improvements**: Updated all admin edit pages with consistent styling, proper form validation, and enhanced user experience
+- **Dynamic Sector Content**: Implemented database-driven content for startup and nonprofit sector pages, replacing hardcoded content
+- **Enhanced Form Validation**: Fixed checkbox handling, deliverables validation, and improved error messaging across admin forms
+- **JavaScript Improvements**: Fixed expertise card management, proper container targeting, and improved form submission handling
+- **Database Migrations**: Added comprehensive content fields to service sectors with proper JSON casting for complex data structures
+- **Seeder Updates**: Created detailed content seeders for both nonprofit and startup sectors with realistic challenge and expertise data
 - **Dynamic Toolkit Page**: Implemented a fully interactive toolkit page with filtering, search, and pagination functionality
 - **Real-time Filtering**: Added dynamic filtering by category and design tool with URL parameter management
 - **Load More Pagination**: Implemented pagination system showing 3 cards initially with "Load More" functionality
@@ -111,8 +128,34 @@ Festa Design Studio is a design agency website built with Laravel, Blade, and Ta
 - **Blog Featured Article System**: Implemented a system to allow admins to select a featured article for the blog homepage
 - **Article Rating Functionality**: Added Livewire-based rating system for blog articles
 - **Cookie Consent**: Integrated Spatie's cookie consent package for GDPR compliance
-- **Admin Interface Improvements**: Enhanced usability across the admin interface
 - **Performance Optimizations**: Improved database queries and page loading time
+
+## Services Management System
+
+The application now features a comprehensive services management system with the following capabilities:
+
+### 🎯 **Service Types**
+- **Project Design**: Strategic design solutions for purpose-driven projects
+- **Communication Design**: Clear messaging and visual communication strategies  
+- **Campaign Design**: Comprehensive campaign development and execution
+
+### 🏢 **Sector Specializations**
+- **Nonprofit Sector**: Tailored solutions for mission-driven organizations
+- **Startup Sector**: Strategic design for emerging purpose-driven businesses
+
+### ⚙️ **Admin Management Features**
+- **Dynamic Content Management**: Edit hero sections, challenge descriptions, and expertise areas
+- **Deliverables Management**: Add, edit, and remove service deliverables with validation
+- **Expertise Cards**: Manage expertise items with titles, descriptions, icons, and bullet points
+- **Challenge Cards**: Define sector-specific challenges with supporting data and sources
+- **Form Validation**: Comprehensive validation for all content types with proper error handling
+- **Modern UI**: Consistent Festa design system implementation across all admin interfaces
+
+### 🗄️ **Database Architecture**
+- **ServiceSector Model**: JSON-based content storage with proper casting for complex data
+- **Service Model**: Relationship management with deliverables and expertise content
+- **Migration System**: Comprehensive database structure for content management
+- **Seeder System**: Realistic content population for development and testing
 
 ## Toolkit System Features
 
@@ -233,6 +276,15 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Admin Dashboard
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     
+    // Services Management
+    Route::get('/services', [AdminController::class, 'services'])->name('services');
+    Route::get('/services/{type}/edit', [App\Http\Controllers\Admin\ServiceController::class, 'edit'])->name('services.edit');
+    Route::put('/services/{type}', [App\Http\Controllers\Admin\ServiceController::class, 'update'])->name('services.update');
+    
+    // Service Sectors Management
+    Route::get('/services/sectors/{type}/edit', [App\Http\Controllers\Admin\ServiceSectorController::class, 'edit'])->name('services.sectors.edit');
+    Route::put('/services/sectors/{type}', [App\Http\Controllers\Admin\ServiceSectorController::class, 'update'])->name('services.sectors.update');
+    
     // Blog Management
     Route::get('/blog/posts', [BlogController::class, 'posts'])->name('blog.posts');
     Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
@@ -302,7 +354,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     });
     
     // Pages Management
-    Route::get('/services', [AdminController::class, 'services'])->name('services');
     Route::get('/about', [AdminController::class, 'about'])->name('about');
     Route::get('/toolkit', [AdminController::class, 'toolkit'])->name('toolkit');
     Route::get('/design-system', [AdminController::class, 'designSystem'])->name('design-system');
@@ -377,6 +428,8 @@ The application uses the following data models:
 - `Testimonial`: Client testimonials with attributes like author name, title, quote, avatar, published status, and display order
 - `Article`: Stores blog articles, including title, slug, excerpt, content, image, author and category relationships, publication status, featured article flag, and timestamps.
 - `Category`: Stores blog categories, including name, slug, and description.
+- `Service`: Service information with deliverables relationship and expertise content
+- `ServiceSector`: Sector-specific content with JSON-based storage for hero sections, challenges, and expertise items
 - `Sector`: Sectors for project categorization
 - `Industry`: Industries for project categorization
 - `SdgAlignment`: Sustainable Development Goal alignments for projects

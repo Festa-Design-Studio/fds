@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
+use App\Models\ServiceSector;
 use Illuminate\Http\Request;
 
 class ServicesController extends Controller
@@ -13,26 +15,37 @@ class ServicesController extends Controller
 
     public function projectDesign()
     {
-        return view('services.project-design');
+        $service = Service::where('type', 'project_design')
+            ->with('deliverables')
+            ->firstOrFail();
+        return view('services.project-design', compact('service'));
     }
 
     public function communicationDesign()
     {
-        return view('services.communication-design');
+        $service = Service::where('type', 'communication_design')
+            ->with('deliverables')
+            ->firstOrFail();
+        return view('services.communication-design', compact('service'));
     }
 
     public function campaignDesign()
     {
-        return view('services.campaign-design');
+        $service = Service::where('type', 'campaign_design')
+            ->with('deliverables')
+            ->firstOrFail();
+        return view('services.campaign-design', compact('service'));
     }
 
     public function nonprofits()
     {
-        return view('services.sectors.nonprofits');
+        $sector = ServiceSector::where('type', 'nonprofit')->firstOrFail();
+        return view('services.sectors.nonprofits', compact('sector'));
     }
 
     public function startup()
     {
-        return view('services.sectors.startup');
+        $sector = ServiceSector::where('type', 'startup')->firstOrFail();
+        return view('services.sectors.startup', compact('sector'));
     }
 } 
