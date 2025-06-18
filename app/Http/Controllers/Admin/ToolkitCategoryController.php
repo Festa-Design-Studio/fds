@@ -12,6 +12,7 @@ class ToolkitCategoryController extends Controller
     public function index()
     {
         $categories = ToolkitCategory::ordered()->paginate(15);
+
         return view('admin.toolkit.categories.index', compact('categories'));
     }
 
@@ -31,12 +32,12 @@ class ToolkitCategoryController extends Controller
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
-        
+
         // Ensure unique slug
         $originalSlug = $validated['slug'];
         $count = 1;
         while (ToolkitCategory::where('slug', $validated['slug'])->exists()) {
-            $validated['slug'] = $originalSlug . '-' . $count++;
+            $validated['slug'] = $originalSlug.'-'.$count++;
         }
 
         ToolkitCategory::create($validated);
@@ -61,12 +62,12 @@ class ToolkitCategoryController extends Controller
 
         if ($category->name !== $validated['name']) {
             $validated['slug'] = Str::slug($validated['name']);
-            
+
             // Ensure unique slug
             $originalSlug = $validated['slug'];
             $count = 1;
             while (ToolkitCategory::where('slug', $validated['slug'])->where('id', '!=', $category->id)->exists()) {
-                $validated['slug'] = $originalSlug . '-' . $count++;
+                $validated['slug'] = $originalSlug.'-'.$count++;
             }
         }
 
@@ -86,4 +87,4 @@ class ToolkitCategoryController extends Controller
 
         return redirect()->route('admin.toolkit.categories.index')->with('success', 'Category deleted successfully.');
     }
-} 
+}

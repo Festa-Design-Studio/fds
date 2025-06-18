@@ -15,6 +15,7 @@ class WorkMetricController extends Controller
     public function index()
     {
         $metrics = WorkMetric::orderBy('display_order')->get();
+
         return view('admin.work.metrics.index', compact('metrics'));
     }
 
@@ -36,7 +37,7 @@ class WorkMetricController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'color_class' => 'required|string|max:255',
-            'display_order' => 'nullable|integer'
+            'display_order' => 'nullable|integer',
         ]);
 
         WorkMetric::create($validated);
@@ -59,6 +60,7 @@ class WorkMetricController extends Controller
     public function edit(WorkMetric $metric)
     {
         Log::info('Editing metric', ['metric_id' => $metric->id, 'metric' => $metric->toArray()]);
+
         return view('admin.work.metrics.edit', compact('metric'));
     }
 
@@ -68,24 +70,24 @@ class WorkMetricController extends Controller
     public function update(Request $request, WorkMetric $metric)
     {
         Log::info('Updating metric', [
-            'metric_id' => $metric->id, 
-            'request_data' => $request->all()
+            'metric_id' => $metric->id,
+            'request_data' => $request->all(),
         ]);
-        
+
         $validated = $request->validate([
             'value' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'color_class' => 'required|string|max:255',
-            'display_order' => 'nullable|integer'
+            'display_order' => 'nullable|integer',
         ]);
 
         $result = $metric->update($validated);
-        
+
         Log::info('Metric update result', [
-            'metric_id' => $metric->id, 
+            'metric_id' => $metric->id,
             'success' => $result,
-            'updated_metric' => $metric->fresh()->toArray()
+            'updated_metric' => $metric->fresh()->toArray(),
         ]);
 
         return redirect()->route('admin.work.metrics.index')

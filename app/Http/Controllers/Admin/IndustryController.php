@@ -15,6 +15,7 @@ class IndustryController extends Controller
     public function index()
     {
         $industries = Industry::withCount('projects')->paginate(10);
+
         return view('admin.industries.index', compact('industries'));
     }
 
@@ -34,11 +35,11 @@ class IndustryController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:industries,name',
         ]);
-        
+
         $validated['slug'] = Str::slug($validated['name']);
-        
+
         Industry::create($validated);
-        
+
         return redirect()->route('admin.industries.index')
             ->with('success', 'Industry created successfully.');
     }
@@ -65,13 +66,13 @@ class IndustryController extends Controller
     public function update(Request $request, Industry $industry)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:industries,name,' . $industry->id,
+            'name' => 'required|string|max:255|unique:industries,name,'.$industry->id,
         ]);
-        
+
         $validated['slug'] = Str::slug($validated['name']);
-        
+
         $industry->update($validated);
-        
+
         return redirect()->route('admin.industries.index')
             ->with('success', 'Industry updated successfully.');
     }
@@ -86,9 +87,9 @@ class IndustryController extends Controller
             return redirect()->route('admin.industries.index')
                 ->with('error', 'Cannot delete industry because it is being used by one or more projects.');
         }
-        
+
         $industry->delete();
-        
+
         return redirect()->route('admin.industries.index')
             ->with('success', 'Industry deleted successfully.');
     }

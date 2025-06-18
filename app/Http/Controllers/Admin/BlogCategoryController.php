@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Http\Requests\Admin\StoreBlogCategoryRequest;
 use App\Http\Requests\Admin\UpdateBlogCategoryRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Models\Category;
 use Illuminate\Support\Facades\Log;
 
 class BlogCategoryController extends Controller
@@ -18,6 +16,7 @@ class BlogCategoryController extends Controller
     public function index()
     {
         $categories = Category::latest()->paginate(15);
+
         return view('admin.blog.categories.index', compact('categories'));
     }
 
@@ -38,6 +37,7 @@ class BlogCategoryController extends Controller
         Log::info('Category store validated data', $data);
         $category = Category::create($data);
         Log::info('Category after create', $category->toArray());
+
         return redirect()->route('admin.blog.categories.index')->with('success', 'Category created successfully.');
     }
 
@@ -67,6 +67,7 @@ class BlogCategoryController extends Controller
         Log::info('Category update validated data', $data);
         $category->update($data);
         Log::info('Category after update', $category->fresh()->toArray());
+
         return redirect()->route('admin.blog.categories.index')->with('success', 'Category updated successfully.');
     }
 
@@ -80,6 +81,7 @@ class BlogCategoryController extends Controller
             return redirect()->route('admin.blog.categories.index')->with('error', 'Category cannot be deleted because it has articles associated with it.');
         }
         $category->delete();
+
         return redirect()->route('admin.blog.categories.index')->with('success', 'Category deleted successfully.');
     }
 }

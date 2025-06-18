@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Testimonial;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class TestimonialsTableSeeder extends Seeder
@@ -16,7 +15,7 @@ class TestimonialsTableSeeder extends Seeder
     {
         // Clear existing testimonials
         DB::table('testimonials')->truncate();
-        
+
         // Add sample testimonials
         $testimonials = [
             [
@@ -47,7 +46,7 @@ class TestimonialsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ];
-        
+
         // Insert the testimonials
         foreach ($testimonials as $testimonial) {
             Testimonial::create($testimonial);

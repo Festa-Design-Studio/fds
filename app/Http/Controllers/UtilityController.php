@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Models\Project;
 use App\Models\Category;
 use App\Models\Client;
-use Illuminate\Http\Request;
+use App\Models\Project;
 use Illuminate\Support\Facades\Cache;
 
 class UtilityController extends Controller
@@ -38,16 +37,16 @@ class UtilityController extends Controller
                 'blog_categories' => Category::withCount(['articles' => function ($query) {
                     $query->where('status', 'published')->where('published_at', '<=', now());
                 }])
-                ->where('articles_count', '>', 0)
-                ->orderBy('name')
-                ->get()
-                ->map(function ($category) {
-                    return [
-                        'name' => $category->name,
-                        'url' => route('resources.blog.category', $category->slug),
-                        'count' => $category->articles_count
-                    ];
-                }),
+                    ->where('articles_count', '>', 0)
+                    ->orderBy('name')
+                    ->get()
+                    ->map(function ($category) {
+                        return [
+                            'name' => $category->name,
+                            'url' => route('resources.blog.category', $category->slug),
+                            'count' => $category->articles_count,
+                        ];
+                    }),
                 'recent_articles' => Article::where('status', 'published')
                     ->where('published_at', '<=', now())
                     ->orderBy('published_at', 'desc')
@@ -57,7 +56,7 @@ class UtilityController extends Controller
                         return [
                             'title' => $article->title,
                             'url' => route('blog.show', $article->slug),
-                            'published_at' => $article->published_at
+                            'published_at' => $article->published_at,
                         ];
                     }),
                 'featured_projects' => Project::whereNotNull('published_at')
@@ -69,7 +68,7 @@ class UtilityController extends Controller
                         return [
                             'title' => $project->title,
                             'url' => route('work.show', $project->slug),
-                            'client' => $project->client->name ?? null
+                            'client' => $project->client->name ?? null,
                         ];
                     }),
                 'all_projects' => Project::whereNotNull('published_at')
@@ -82,24 +81,24 @@ class UtilityController extends Controller
                             'title' => $project->title,
                             'url' => route('work.show', $project->slug),
                             'client' => $project->client->name ?? null,
-                            'is_featured' => $project->is_featured
+                            'is_featured' => $project->is_featured,
                         ];
                     }),
                 'clients' => Client::whereHas('projects', function ($query) {
                     $query->whereNotNull('published_at')->where('published_at', '<=', now());
                 })
-                ->orderBy('name')
-                ->get()
-                ->map(function ($client) {
-                    return [
-                        'name' => $client->name,
-                        'url' => route('client.show', $client->slug),
-                        'projects_count' => $client->projects()->whereNotNull('published_at')->where('published_at', '<=', now())->count()
-                    ];
-                }),
+                    ->orderBy('name')
+                    ->get()
+                    ->map(function ($client) {
+                        return [
+                            'name' => $client->name,
+                            'url' => route('client.show', $client->slug),
+                            'projects_count' => $client->projects()->whereNotNull('published_at')->where('published_at', '<=', now())->count(),
+                        ];
+                    }),
             ];
         });
 
         return view('utility.sitemap', $data);
     }
-} 
+}

@@ -13,6 +13,7 @@ class TestimonialController extends Controller
     public function index()
     {
         $testimonials = Testimonial::orderBy('display_order', 'asc')->paginate(10);
+
         return view('admin.work.testimonial.index', compact('testimonials'));
     }
 
@@ -25,7 +26,7 @@ class TestimonialController extends Controller
     {
         Log::info('Testimonial store method called', [
             'has_file' => $request->hasFile('author_avatar'),
-            'all_inputs' => $request->all()
+            'all_inputs' => $request->all(),
         ]);
 
         $validated = $request->validate([
@@ -34,7 +35,7 @@ class TestimonialController extends Controller
             'quote' => 'required|string',
             'author_avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'published' => 'boolean',
-            'display_order' => 'integer'
+            'display_order' => 'integer',
         ]);
 
         if ($request->hasFile('author_avatar')) {
@@ -43,19 +44,20 @@ class TestimonialController extends Controller
                 Log::info('Processing uploaded file', [
                     'original_name' => $file->getClientOriginalName(),
                     'mime_type' => $file->getMimeType(),
-                    'size' => $file->getSize()
+                    'size' => $file->getSize(),
                 ]);
-                
+
                 $path = $file->store('testimonials', 'public');
                 Log::info('File stored successfully', ['path' => $path]);
-                
+
                 $validated['author_avatar'] = $path;
             } catch (\Exception $e) {
                 Log::error('Error storing file', [
                     'message' => $e->getMessage(),
-                    'trace' => $e->getTraceAsString()
+                    'trace' => $e->getTraceAsString(),
                 ]);
-                return back()->withInput()->withErrors(['author_avatar' => 'Error uploading image: ' . $e->getMessage()]);
+
+                return back()->withInput()->withErrors(['author_avatar' => 'Error uploading image: '.$e->getMessage()]);
             }
         }
 
@@ -76,7 +78,7 @@ class TestimonialController extends Controller
         Log::info('Testimonial update method called', [
             'id' => $testimonial->id,
             'has_file' => $request->hasFile('author_avatar'),
-            'all_inputs' => $request->all()
+            'all_inputs' => $request->all(),
         ]);
 
         $validated = $request->validate([
@@ -85,7 +87,7 @@ class TestimonialController extends Controller
             'quote' => 'required|string',
             'author_avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'published' => 'boolean',
-            'display_order' => 'integer'
+            'display_order' => 'integer',
         ]);
 
         if ($request->hasFile('author_avatar')) {
@@ -95,24 +97,25 @@ class TestimonialController extends Controller
                     Storage::disk('public')->delete($testimonial->author_avatar);
                     Log::info('Deleted old avatar', ['path' => $testimonial->author_avatar]);
                 }
-                
+
                 $file = $request->file('author_avatar');
                 Log::info('Processing uploaded file for update', [
                     'original_name' => $file->getClientOriginalName(),
                     'mime_type' => $file->getMimeType(),
-                    'size' => $file->getSize()
+                    'size' => $file->getSize(),
                 ]);
-                
+
                 $path = $file->store('testimonials', 'public');
                 Log::info('File stored successfully for update', ['path' => $path]);
-                
+
                 $validated['author_avatar'] = $path;
             } catch (\Exception $e) {
                 Log::error('Error storing file during update', [
                     'message' => $e->getMessage(),
-                    'trace' => $e->getTraceAsString()
+                    'trace' => $e->getTraceAsString(),
                 ]);
-                return back()->withInput()->withErrors(['author_avatar' => 'Error uploading image: ' . $e->getMessage()]);
+
+                return back()->withInput()->withErrors(['author_avatar' => 'Error uploading image: '.$e->getMessage()]);
             }
         }
 
@@ -130,11 +133,11 @@ class TestimonialController extends Controller
             Storage::disk('public')->delete($testimonial->author_avatar);
             Log::info('Deleted avatar during testimonial deletion', ['path' => $testimonial->author_avatar]);
         }
-        
+
         $testimonial->delete();
         Log::info('Testimonial deleted successfully', ['id' => $testimonial->id]);
 
         return redirect()->route('admin.work.testimonials.index')
             ->with('success', 'Testimonial deleted successfully.');
     }
-} 
+}

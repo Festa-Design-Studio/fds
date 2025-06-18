@@ -18,6 +18,7 @@ class ClientController extends Controller
     public function index()
     {
         $clients = Client::withCount('projects')->paginate(10);
+
         return view('admin.clients.index', compact('clients'));
     }
 
@@ -34,7 +35,6 @@ class ClientController extends Controller
     /**
      * Store a newly created client in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -43,19 +43,19 @@ class ClientController extends Controller
             'name' => 'required|max:255',
             'website_url' => 'nullable|url|max:255',
             'description' => 'nullable',
-            'logo' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,gif,svg'
+            'logo' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
         ]);
-        
+
         // Generate slug from name
         $validated['slug'] = Str::slug($validated['name']);
-        
+
         // Handle logo upload
         if ($request->hasFile('logo')) {
             $validated['logo'] = $request->file('logo')->store('clients', 'public');
         }
-        
+
         Client::create($validated);
-        
+
         return redirect()->route('admin.clients.index')
             ->with('success', 'Client created successfully.');
     }
@@ -63,19 +63,18 @@ class ClientController extends Controller
     /**
      * Display the specified client.
      *
-     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
     public function show(Client $client)
     {
         $client->load('projects');
+
         return view('admin.clients.show', compact('client'));
     }
 
     /**
      * Show the form for editing the specified client.
      *
-     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
     public function edit(Client $client)
@@ -86,8 +85,6 @@ class ClientController extends Controller
     /**
      * Update the specified client in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Client $client)
@@ -96,9 +93,9 @@ class ClientController extends Controller
             'name' => 'required|max:255',
             'website_url' => 'nullable|url|max:255',
             'description' => 'nullable',
-            'logo' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,gif,svg'
+            'logo' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
         ]);
-        
+
         // Handle logo upload
         if ($request->hasFile('logo')) {
             // Delete old logo if exists
@@ -107,9 +104,9 @@ class ClientController extends Controller
             }
             $validated['logo'] = $request->file('logo')->store('clients', 'public');
         }
-        
+
         $client->update($validated);
-        
+
         return redirect()->route('admin.clients.index')
             ->with('success', 'Client updated successfully.');
     }
@@ -117,7 +114,6 @@ class ClientController extends Controller
     /**
      * Remove the specified client from storage.
      *
-     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
     public function destroy(Client $client)
@@ -126,10 +122,10 @@ class ClientController extends Controller
         if ($client->logo) {
             Storage::disk('public')->delete($client->logo);
         }
-        
+
         $client->delete();
-        
+
         return redirect()->route('admin.clients.index')
             ->with('success', 'Client deleted successfully.');
     }
-} 
+}

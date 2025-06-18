@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
@@ -15,6 +14,7 @@ class ClientController extends Controller
     public function index()
     {
         $clients = Client::all();
+
         return view('client.index', compact('clients'));
     }
 
@@ -27,6 +27,7 @@ class ClientController extends Controller
     public function show($slug)
     {
         $client = Client::where('slug', $slug)->firstOrFail();
+
         return view('client.show', compact('client'));
     }
-} 
+}

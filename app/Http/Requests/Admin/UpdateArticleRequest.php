@@ -60,7 +60,7 @@ class UpdateArticleRequest extends FormRequest
     {
         // Auto-generate slug if 'slug' is not provided or if title changed and slug should be updated
         // Be careful with auto-updating slugs for published articles due to SEO.
-        if (empty($this->slug) && !empty($this->title)) {
+        if (empty($this->slug) && ! empty($this->title)) {
             $this->merge([
                 'slug' => \Illuminate\Support\Str::slug($this->title),
             ]);

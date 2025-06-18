@@ -19,4 +19,4 @@ return [
     ],
     // Add more as needed
     // To add a new category, use the color class from the showcase (e.g., bg-pot-of-gold-50 text-pot-of-gold-700 border border-pot-of-gold-200 hover:bg-pot-of-gold-100)
-]; 
+];

@@ -16,11 +16,11 @@ class AboutSdg extends Model
      */
     protected $fillable = [
         'number',
-        'title', 
+        'title',
         'description',
         'svg_path',
         'is_active',
-        'display_order'
+        'display_order',
     ];
 
     /**
@@ -31,7 +31,7 @@ class AboutSdg extends Model
     protected $casts = [
         'is_active' => 'boolean',
         'display_order' => 'integer',
-        'number' => 'integer'
+        'number' => 'integer',
     ];
 
     /**
@@ -43,4 +43,4 @@ class AboutSdg extends Model
     {
         return 'id';
     }
-} 
+}

@@ -13,19 +13,21 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::with('deliverables')->orderBy('display_order')->get();
+
         return view('admin.services.index', compact('services'));
     }
 
     public function edit($type)
     {
         $service = Service::where('type', $type)->firstOrFail();
+
         return view('admin.services.edit', compact('service'));
     }
 
     public function update(Request $request, $type)
     {
         $service = Service::where('type', $type)->firstOrFail();
-        
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -36,7 +38,7 @@ class ServiceController extends Controller
             'display_order' => 'nullable|integer',
             'deliverables' => 'nullable|array',
             'deliverables.*.title' => 'nullable|string|max:255',
-            'deliverables.*.description' => 'nullable|string'
+            'deliverables.*.description' => 'nullable|string',
         ]);
 
         try {
@@ -47,7 +49,7 @@ class ServiceController extends Controller
 
             // Remove deliverables from validated data as it's handled separately
             $serviceData = collect($validated)->except('deliverables')->toArray();
-            
+
             // Update service
             $service->update($serviceData);
 
@@ -55,30 +57,30 @@ class ServiceController extends Controller
             if ($request->has('deliverables') && is_array($request->deliverables)) {
                 // Delete existing deliverables
                 $service->deliverables()->delete();
-                
+
                 // Create new deliverables
                 foreach ($request->deliverables as $index => $deliverable) {
                     // Only create deliverable if both title and description are provided
-                    if (!empty($deliverable['title']) && !empty($deliverable['description'])) {
+                    if (! empty($deliverable['title']) && ! empty($deliverable['description'])) {
                         $service->deliverables()->create([
                             'title' => $deliverable['title'],
                             'description' => $deliverable['description'],
-                            'display_order' => $index
+                            'display_order' => $index,
                         ]);
                     }
                 }
             }
 
             DB::commit();
-            
+
             return redirect()->route('admin.services')
                 ->with('success', 'Service updated successfully');
-                
+
         } catch (\Exception $e) {
             DB::rollBack();
-            
-            Log::error('Error updating service: ' . $e->getMessage());
-            
+
+            Log::error('Error updating service: '.$e->getMessage());
+
             return back()
                 ->withInput()
                 ->withErrors(['error' => 'Failed to update service. Please try again.']);

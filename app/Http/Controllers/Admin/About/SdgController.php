@@ -15,6 +15,7 @@ class SdgController extends Controller
     public function index()
     {
         $sdgs = AboutSdg::orderBy('display_order')->orderBy('number')->get();
+
         return view('admin.about.sdg.index', compact('sdgs'));
     }
 
@@ -37,7 +38,7 @@ class SdgController extends Controller
             'description' => 'nullable|string',
             'svg_file' => 'required|file|mimes:svg|max:2048',
             'is_active' => 'boolean',
-            'display_order' => 'nullable|integer'
+            'display_order' => 'nullable|integer',
         ]);
 
         // Handle SVG file upload
@@ -80,12 +81,12 @@ class SdgController extends Controller
     public function update(Request $request, AboutSdg $aboutSdg)
     {
         $validated = $request->validate([
-            'number' => 'required|integer|min:1|max:17|unique:about_sdgs,number,' . $aboutSdg->id,
+            'number' => 'required|integer|min:1|max:17|unique:about_sdgs,number,'.$aboutSdg->id,
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'svg_file' => 'nullable|file|mimes:svg|max:2048',
             'is_active' => 'boolean',
-            'display_order' => 'nullable|integer'
+            'display_order' => 'nullable|integer',
         ]);
 
         // Handle SVG file upload
@@ -94,7 +95,7 @@ class SdgController extends Controller
             if ($aboutSdg->svg_path && Storage::disk('public')->exists($aboutSdg->svg_path)) {
                 Storage::disk('public')->delete($aboutSdg->svg_path);
             }
-            
+
             $validated['svg_path'] = $request->file('svg_file')->store('sdg-icons', 'public');
         }
 
@@ -126,4 +127,4 @@ class SdgController extends Controller
         return redirect()->route('admin.about.sdg.index')
             ->with('success', 'SDG goal deleted successfully.');
     }
-} 
+}

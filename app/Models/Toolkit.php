@@ -55,27 +55,27 @@ class Toolkit extends Model
     protected static function boot()
     {
         parent::boot();
-        
+
         static::creating(function ($toolkit) {
             if (empty($toolkit->slug)) {
                 $toolkit->slug = Str::slug($toolkit->title);
                 $originalSlug = $toolkit->slug;
                 $count = 1;
                 while (static::where('slug', $toolkit->slug)->exists()) {
-                    $toolkit->slug = $originalSlug . '-' . $count++;
+                    $toolkit->slug = $originalSlug.'-'.$count++;
                 }
             }
         });
-        
+
         static::updating(function ($toolkit) {
             if ($toolkit->isDirty('title') && empty($toolkit->getOriginal('slug'))) {
                 $toolkit->slug = Str::slug($toolkit->title);
                 $originalSlug = $toolkit->slug;
                 $count = 1;
                 while (static::where('slug', $toolkit->slug)->where('id', '!=', $toolkit->id)->exists()) {
-                    $toolkit->slug = $originalSlug . '-' . $count++;
+                    $toolkit->slug = $originalSlug.'-'.$count++;
                 }
             }
         });
     }
-} 
+}

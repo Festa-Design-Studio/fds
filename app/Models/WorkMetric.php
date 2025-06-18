@@ -14,6 +14,6 @@ class WorkMetric extends Model
         'title',
         'description',
         'color_class',
-        'display_order'
+        'display_order',
     ];
 }

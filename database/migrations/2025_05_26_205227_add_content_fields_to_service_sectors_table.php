@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('hero_title')->nullable();
             $table->text('hero_description')->nullable();
             $table->string('hero_button_text')->nullable();
-            
+
             // Challenge Section
             $table->string('challenge_eyebrow')->nullable();
             $table->string('challenge_title')->nullable();
             $table->text('challenge_description')->nullable();
-            
+
             // Expertise Section
             $table->string('expertise_eyebrow')->nullable();
             $table->string('expertise_title')->nullable();
@@ -48,7 +48,7 @@ return new class extends Migration
                 'expertise_eyebrow',
                 'expertise_title',
                 'expertise_description',
-                'expertise_items'
+                'expertise_items',
             ]);
         });
     }

@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Toolkit;
 use App\Models\ToolkitCategory;
+use Illuminate\Database\Seeder;
 
 class ToolkitSeeder extends Seeder
 {

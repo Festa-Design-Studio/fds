@@ -1,22 +1,22 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\WorkController;
+use App\Http\Controllers\About\Team\TeamMemberController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\ResourcesController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\UtilityController;
-use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ImageController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\About\Team\TeamMemberController;
-use App\Http\Controllers\Admin\WorkMetricController;
 use App\Http\Controllers\Admin\TestimonialController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\WorkMetricController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ResourcesController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\UtilityController;
+use App\Http\Controllers\WorkController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
 // Home
@@ -109,11 +109,12 @@ Route::get('/sitemap-blog.xml', [SitemapController::class, 'blog'])->name('sitem
 Route::get('/sitemap-work.xml', [SitemapController::class, 'work'])->name('sitemap.work');
 
 // API Route for retrieving SDG information
-Route::get('/api/sdg/{id}', function($id) {
+Route::get('/api/sdg/{id}', function ($id) {
     $sdg = \App\Models\SdgAlignment::find($id);
-    if (!$sdg) {
+    if (! $sdg) {
         return response()->json(['error' => 'SDG not found'], 404);
     }
+
     return response()->json(['id' => $sdg->id, 'name' => $sdg->name, 'code' => $sdg->code]);
 });
 
@@ -131,16 +132,16 @@ Route::get('/test-thank-you', function () {
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     // Admin Dashboard
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-    
+
     // Services Management
     Route::get('/services', [AdminController::class, 'services'])->name('services');
     Route::get('/services/{type}/edit', [App\Http\Controllers\Admin\ServiceController::class, 'edit'])->name('services.edit');
     Route::put('/services/{type}', [App\Http\Controllers\Admin\ServiceController::class, 'update'])->name('services.update');
-    
+
     // Service Sectors
     Route::get('/services/sectors/{type}/edit', [App\Http\Controllers\Admin\ServiceSectorController::class, 'edit'])->name('services.sectors.edit');
     Route::put('/services/sectors/{type}', [App\Http\Controllers\Admin\ServiceSectorController::class, 'update'])->name('services.sectors.update');
-    
+
     // Work Management
     Route::prefix('work')->name('work.')->group(function () {
         Route::get('/', [\App\Http\Controllers\Admin\WorkController::class, 'index'])->name('index');
@@ -149,7 +150,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         Route::get('/{id}/edit', [\App\Http\Controllers\Admin\WorkController::class, 'edit'])->name('edit');
         Route::put('/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'update'])->name('update');
         Route::delete('/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'destroy'])->name('destroy');
-        
+
         // Metrics Routes
         Route::prefix('metrics')->name('metrics.')->group(function () {
             Route::get('/', [WorkMetricController::class, 'index'])->name('index');
@@ -170,26 +171,26 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
             Route::delete('/{testimonial}', [TestimonialController::class, 'destroy'])->name('destroy');
         });
     });
-    
+
     // Other Admin Routes
     Route::get('/about', [AdminController::class, 'about'])->name('about');
     Route::get('/design-system', [AdminController::class, 'designSystem'])->name('design-system');
     Route::get('/contact', [AdminController::class, 'contact'])->name('contact');
     Route::get('/privacy', [AdminController::class, 'privacy'])->name('privacy');
     Route::get('/terms', [AdminController::class, 'terms'])->name('terms');
-    
+
     // Client Management
     Route::resource('clients', \App\Http\Controllers\Admin\ClientController::class);
-    
+
     // Sector Management
     Route::resource('sectors', \App\Http\Controllers\Admin\SectorController::class);
-    
+
     // Industry Management
     Route::resource('industries', \App\Http\Controllers\Admin\IndustryController::class);
-    
+
     // SDG Alignment Management
     Route::resource('sdg-alignments', \App\Http\Controllers\Admin\SdgAlignmentController::class);
-    
+
     // Blog Management
     Route::get('/blog/posts', [BlogController::class, 'posts'])->name('blog.posts');
     Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
@@ -200,12 +201,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('blog/categories', \App\Http\Controllers\Admin\BlogCategoryController::class)
         ->names('blog.categories')
         ->except([
-            'show'
+            'show',
         ]);
-    
+
     // Image Upload for Editor
     Route::post('/api/upload-image', [ImageController::class, 'upload'])->name('admin.api.upload-image');
-    
+
     // Admin Settings
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
     Route::get('/users', [AdminController::class, 'users'])->name('users');
@@ -222,7 +223,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/toolkit/{toolkit}/edit', [App\Http\Controllers\Admin\ToolkitController::class, 'edit'])->name('toolkit.edit');
     Route::put('/toolkit/{toolkit}', [App\Http\Controllers\Admin\ToolkitController::class, 'update'])->name('toolkit.update');
     Route::delete('/toolkit/{toolkit}', [App\Http\Controllers\Admin\ToolkitController::class, 'destroy'])->name('toolkit.destroy');
-    
+
     // Toolkit category management routes
     Route::get('/toolkit/categories', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'index'])->name('toolkit.categories.index');
     Route::get('/toolkit/categories/create', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'create'])->name('toolkit.categories.create');
@@ -230,6 +231,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/toolkit/categories/{category}/edit', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'edit'])->name('toolkit.categories.edit');
     Route::put('/toolkit/categories/{category}', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'update'])->name('toolkit.categories.update');
     Route::delete('/toolkit/categories/{category}', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'destroy'])->name('toolkit.categories.destroy');
+});
+
+// Profile routes
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 // Auth routes
@@ -243,12 +251,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 // Test route for isolated Livewire component testing
 Route::get('/test-rating', function () {
-    if (!\App\Models\Article::find(1)) {
+    if (! \App\Models\Article::find(1)) {
         // Ensure at least one article, user, and category exist for the test
-        if (!\App\Models\User::find(1)) {
+        if (! \App\Models\User::find(1)) {
             \App\Models\User::create(['name' => 'Test User', 'email' => 'testuser@example.com', 'password' => bcrypt('password')]);
         }
-        if (!\App\Models\Category::find(1)) {
+        if (! \App\Models\Category::find(1)) {
             \App\Models\Category::create(['name' => 'Test Category', 'slug' => 'test-category']);
         }
         \App\Models\Article::create([
@@ -259,53 +267,56 @@ Route::get('/test-rating', function () {
             'user_id' => 1,
             'category_id' => 1,
             'published_at' => now(),
-            'status' => 'published'
+            'status' => 'published',
         ]);
     }
+
     return view('test-rating-page');
 })->name('test-rating');
 
 // Direct Livewire asset routes
-Route::get('/livewire/livewire.js', function() {
+Route::get('/livewire/livewire.js', function () {
     $path = public_path('vendor/livewire/livewire.js');
     if (file_exists($path)) {
         return response()->file($path);
     }
+
     return response('// Livewire asset not found', 404)->header('Content-Type', 'application/javascript');
 });
 
-Route::get('/livewire/livewire.min.js', function() {
+Route::get('/livewire/livewire.min.js', function () {
     $path = public_path('vendor/livewire/livewire.min.js');
     if (file_exists($path)) {
         return response()->file($path);
     }
+
     return response('// Livewire asset not found', 404)->header('Content-Type', 'application/javascript');
 });
 
 // Fallback for any other Livewire assets
-Route::get('/livewire/{asset}', function($asset) {
+Route::get('/livewire/{asset}', function ($asset) {
     $path = public_path("vendor/livewire/{$asset}");
     if (file_exists($path)) {
         $contentType = 'application/octet-stream';
         $extension = pathinfo($path, PATHINFO_EXTENSION);
-        
+
         $contentTypes = [
             'js' => 'application/javascript',
             'css' => 'text/css',
             'map' => 'application/json',
-            'json' => 'application/json'
+            'json' => 'application/json',
         ];
-        
+
         if (isset($contentTypes[$extension])) {
             $contentType = $contentTypes[$extension];
         }
-        
+
         return response()->file($path, ['Content-Type' => $contentType]);
     }
     abort(404);
 });
 
 // Livewire debug test route
-Route::get('/debug-livewire', function() {
+Route::get('/debug-livewire', function () {
     return view('livewire-debug');
 });

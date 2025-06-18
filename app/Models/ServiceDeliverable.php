@@ -13,7 +13,7 @@ class ServiceDeliverable extends Model
         'service_id',
         'title',
         'description',
-        'display_order'
+        'display_order',
     ];
 
     public function service()

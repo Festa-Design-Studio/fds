@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('sector_id')->nullable()->after('featured_image');
             $table->foreignId('industry_id')->nullable()->after('sector_id');
             $table->foreignId('sdg_alignment_id')->nullable()->after('industry_id');
-            
+
             // Transfer data (will need to be handled manually or in a seeder)
-            
+
             // Then remove old string columns (only if you've transferred data)
             // We'll leave the original columns for now to maintain backward compatibility
             // $table->dropColumn(['sector', 'industry', 'sdg_alignment']);

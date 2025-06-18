@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\TeamMember;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TeamMemberSeeder extends Seeder
@@ -15,7 +14,7 @@ class TeamMemberSeeder extends Seeder
     {
         // Create 10 random team members
         TeamMember::factory()->count(10)->create();
-        
+
         // Create a specific team member with real data
         TeamMember::create([
             'name' => 'Abayomi Ogundipe',
@@ -38,7 +37,7 @@ class TeamMemberSeeder extends Seeder
                     'period' => '2013 – 2023',
                     'description' => 'Designed digital experiences and optimized interfaces for multiple nonprofit organizations, boosting user engagement.',
                     'logo' => '/src/img/tekedu.png',
-                ]
+                ],
             ]),
             'volunteer_experience' => json_encode([
                 [
@@ -68,7 +67,7 @@ class TeamMemberSeeder extends Seeder
                     'period' => '2010 – 2013',
                     'description' => 'Led exchange programs, leadership development initiatives, and international partnerships impacting youth across two countries.',
                     'logo' => '/src/img/aiesec.png',
-                ]
+                ],
             ]),
             'education' => json_encode([
                 [
@@ -78,7 +77,7 @@ class TeamMemberSeeder extends Seeder
                 [
                     'degree' => 'B.Sc. in Business Administration',
                     'institution' => 'University of Lagos, Nigeria',
-                ]
+                ],
             ]),
             'certifications' => json_encode([
                 [
@@ -90,7 +89,7 @@ class TeamMemberSeeder extends Seeder
                     'name' => 'Professional Diploma in Front-end Web Development',
                     'institution' => 'General Assembly, Washington D.C.',
                     'logo' => '/src/img/general-assembly.png',
-                ]
+                ],
             ]),
             'skills' => json_encode([
                 'UX research & design' => ['UX Research', 'Interaction Design', 'Design Systems', 'Figma'],
@@ -131,7 +130,7 @@ class TeamMemberSeeder extends Seeder
                     'title' => 'National Coordinators in Europe and beyond',
                     'source' => 'EU Robotics Week',
                     'url' => 'https://codeweek.eu/blog/meet-the-ambassadors-abayomi-ogundipe-moldova/',
-                ]
+                ],
             ]),
         ]);
     }

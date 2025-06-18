@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\TeamMember;
-use Illuminate\Http\Request;
 
 class AboutController extends Controller
 {
     public function index()
     {
         $teamMembers = TeamMember::orderBy('name')->take(3)->get();
+
         return view('about.index', compact('teamMembers'));
     }
 
     public function team()
     {
         $teamMembers = TeamMember::orderBy('name')->get();
+
         return view('about.team', compact('teamMembers'));
     }
 
@@ -33,4 +34,4 @@ class AboutController extends Controller
     {
         return view('about.we-design-for-good');
     }
-} 
+}

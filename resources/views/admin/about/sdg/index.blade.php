@@ -2,6 +2,10 @@
 
 @section('title', 'Manage SDG Goals')
 
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
+
 @section('content')
 <div class="p-6">
     <div class="flex justify-between items-center mb-6">
@@ -50,10 +54,9 @@
                     </div>
 
                     <div class="text-center mb-4">
-                        @if($sdg->svg_path)
-                            <img src="{{ asset('storage/' . $sdg->svg_path) }}" alt="SDG {{ $sdg->number }}" class="w-16 h-16 mx-auto mb-2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="w-16 h-16 mx-auto mb-2 bg-white-smoke-200 rounded-lg items-center justify-center hidden">
-                                <span class="text-white-smoke-400 text-xs">No Icon</span>
+                        @if($sdg->svg_path && \Storage::disk('public')->exists($sdg->svg_path))
+                            <div class="w-16 h-16 mx-auto mb-2">
+                                <img src="{{ asset('storage/' . $sdg->svg_path) }}" alt="SDG {{ $sdg->number }}" class="w-full h-full object-contain">
                             </div>
                         @else
                             <div class="w-16 h-16 mx-auto mb-2 bg-white-smoke-200 rounded-lg flex items-center justify-center">

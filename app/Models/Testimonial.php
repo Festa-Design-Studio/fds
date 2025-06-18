@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Testimonial extends Model
 {
@@ -15,16 +15,16 @@ class Testimonial extends Model
         'quote',
         'author_avatar',
         'published',
-        'display_order'
+        'display_order',
     ];
 
     protected $casts = [
         'published' => 'boolean',
-        'display_order' => 'integer'
+        'display_order' => 'integer',
     ];
 
     public function scopePublished($query)
     {
         return $query->where('published', true)->orderBy('display_order', 'asc');
     }
-} 
+}

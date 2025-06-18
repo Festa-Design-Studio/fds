@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\ServiceSector;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ServiceSectorContentSeeder extends Seeder
@@ -20,12 +19,12 @@ class ServiceSectorContentSeeder extends Seeder
             'hero_title' => 'Transform your mission Into visual impact',
             'hero_description' => 'Amplify your nonprofit\'s voice through purpose-driven design that speaks louder than words. We help you communicate complex missions effectively and enhance donor engagement.',
             'hero_button_text' => 'Start Your Impact Journey',
-            
+
             // Challenge Section
             'challenge_eyebrow' => 'Sector challenges',
             'challenge_title' => 'Navigating Limited Resources with Purpose-Driven Design',
             'challenge_description' => 'Understanding the real barriers nonprofits face—and how Festa empowers impact through design, branding, and digital strategy.',
-            
+
             // Expertise Section
             'expertise_eyebrow' => 'Sector expertise',
             'expertise_title' => 'Strategic Design Solutions for Nonprofits',
@@ -38,9 +37,9 @@ class ServiceSectorContentSeeder extends Seeder
                         'Logic model creation and refinement',
                         'Impact measurement framework design',
                         'Outcome mapping and visualization',
-                        'Stakeholder engagement planning'
+                        'Stakeholder engagement planning',
                     ],
-                    'conclusion' => 'Using Festa\'s design system, we create clear, engaging visualizations that make your theory of change accessible and actionable for all stakeholders.'
+                    'conclusion' => 'Using Festa\'s design system, we create clear, engaging visualizations that make your theory of change accessible and actionable for all stakeholders.',
                 ],
                 [
                     'title' => 'UI Design System Implementation',
@@ -49,11 +48,11 @@ class ServiceSectorContentSeeder extends Seeder
                         'Custom UI component libraries',
                         'Accessible color systems',
                         'Typography hierarchies for impact',
-                        'Responsive layout frameworks'
+                        'Responsive layout frameworks',
                     ],
-                    'conclusion' => 'We craft design systems that reflect your organization\'s values while ensuring consistency and accessibility across all digital touchpoints.'
-                ]
-            ])
+                    'conclusion' => 'We craft design systems that reflect your organization\'s values while ensuring consistency and accessibility across all digital touchpoints.',
+                ],
+            ]),
         ]);
 
         // Update Startup Sector
@@ -63,7 +62,7 @@ class ServiceSectorContentSeeder extends Seeder
             'hero_title' => 'Scale Your Impact Through Strategic Design',
             'hero_description' => 'Transform your startup vision into compelling visual narratives that attract investors, engage customers, and drive sustainable growth. We help purpose-driven startups communicate their value effectively.',
             'hero_button_text' => 'Launch Your Vision',
-            
+
             // Challenge Section
             'challenge_eyebrow' => 'Startup sector challenges',
             'challenge_title' => 'Building Credibility While Scaling Fast',
@@ -74,31 +73,31 @@ class ServiceSectorContentSeeder extends Seeder
                     'title' => 'Market Differentiation',
                     'description' => '78% of startups struggle to clearly communicate their unique value proposition in crowded markets.',
                     'source' => 'Startup Marketing Report 2023',
-                    'sourceUrl' => 'https://startupmarketing.org/report-2023'
+                    'sourceUrl' => 'https://startupmarketing.org/report-2023',
                 ],
                 [
                     'icon' => '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>',
                     'title' => 'Investor Confidence',
                     'description' => '65% of early-stage startups cite difficulty in creating compelling pitch materials that build investor trust.',
                     'source' => 'Venture Capital Study 2023',
-                    'sourceUrl' => 'https://vcinsights.org/startup-study-2023'
+                    'sourceUrl' => 'https://vcinsights.org/startup-study-2023',
                 ],
                 [
                     'icon' => '<path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>',
                     'title' => 'Customer Acquisition',
                     'description' => '71% of purpose-driven startups find it challenging to convert their mission into customer engagement and retention.',
                     'source' => 'Purpose Business Study 2023',
-                    'sourceUrl' => 'https://purposebusiness.org/study-2023'
+                    'sourceUrl' => 'https://purposebusiness.org/study-2023',
                 ],
                 [
                     'icon' => '<path d="M13 10V3L4 14h7v7l9-11h-7z"/>',
                     'title' => 'Rapid Scaling',
                     'description' => '59% of growing startups struggle to maintain brand consistency and quality while scaling operations quickly.',
                     'source' => 'Scale-up Challenges Report 2023',
-                    'sourceUrl' => 'https://scaleupinsights.org/challenges-2023'
-                ]
+                    'sourceUrl' => 'https://scaleupinsights.org/challenges-2023',
+                ],
             ]),
-            
+
             // Expertise Section
             'expertise_eyebrow' => 'Startup expertise',
             'expertise_title' => 'Strategic Design Solutions for Startups',
@@ -111,9 +110,9 @@ class ServiceSectorContentSeeder extends Seeder
                         'Visual identity system creation',
                         'Brand voice and messaging strategy',
                         'Brand guidelines documentation',
-                        'Marketing collateral design'
+                        'Marketing collateral design',
                     ],
-                    'conclusion' => 'We help startups create distinctive, scalable brand identities that stand out in competitive markets and build lasting connections with customers.'
+                    'conclusion' => 'We help startups create distinctive, scalable brand identities that stand out in competitive markets and build lasting connections with customers.',
                 ],
                 [
                     'title' => 'Investor Pitch Design',
@@ -122,11 +121,11 @@ class ServiceSectorContentSeeder extends Seeder
                         'Pitch deck design and storytelling',
                         'Financial visualization design',
                         'Impact metrics presentation',
-                        'Interactive presentation tools'
+                        'Interactive presentation tools',
                     ],
-                    'conclusion' => 'Our pitch design expertise helps startups communicate their value proposition effectively and build trust with potential investors.'
-                ]
-            ])
+                    'conclusion' => 'Our pitch design expertise helps startups communicate their value proposition effectively and build trust with potential investors.',
+                ],
+            ]),
         ]);
     }
 }

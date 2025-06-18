@@ -31,7 +31,7 @@ class Client extends Model
     {
         return 'slug';
     }
-    
+
     /**
      * Get the projects for the client.
      */
@@ -39,4 +39,4 @@ class Client extends Model
     {
         return $this->hasMany(Project::class);
     }
-} 
+}

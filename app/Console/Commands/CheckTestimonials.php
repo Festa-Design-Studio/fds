@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\Testimonial;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
 class CheckTestimonials extends Command
@@ -33,7 +33,7 @@ class CheckTestimonials extends Command
         try {
             $count = DB::table('testimonials')->count();
             $this->info("DB Query - Total testimonials: {$count}");
-            
+
             // Show all testimonials
             $testimonials = DB::table('testimonials')->get();
             $this->table(
@@ -43,34 +43,34 @@ class CheckTestimonials extends Command
                         'id' => $item->id,
                         'author' => $item->author_name,
                         'title' => $item->author_title,
-                        'published' => $item->published ? 'Yes' : 'No'
+                        'published' => $item->published ? 'Yes' : 'No',
                     ];
                 })
             );
         } catch (\Exception $e) {
-            $this->error("DB Query Error: " . $e->getMessage());
+            $this->error('DB Query Error: '.$e->getMessage());
         }
 
         // Try using Eloquent
         try {
             $count = Testimonial::count();
             $this->info("Eloquent - Total testimonials: {$count}");
-            
+
             // Create a test testimonial
-            $this->info("Creating a test testimonial...");
-            $testimonial = new Testimonial();
+            $this->info('Creating a test testimonial...');
+            $testimonial = new Testimonial;
             $testimonial->author_name = 'Test Author';
             $testimonial->author_title = 'Test Position';
             $testimonial->quote = 'This is a test testimonial created through the diagnostic command.';
             $testimonial->published = true;
             $testimonial->display_order = 99;
             $testimonial->save();
-            
+
             $this->info("Test testimonial created with ID: {$testimonial->id}");
         } catch (\Exception $e) {
-            $this->error("Eloquent Error: " . $e->getMessage());
+            $this->error('Eloquent Error: '.$e->getMessage());
         }
 
         return 0;
     }
-} 
+}

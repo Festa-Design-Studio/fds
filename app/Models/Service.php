@@ -18,12 +18,12 @@ class Service extends Model
         'expertise_title',
         'expertise_description',
         'is_active',
-        'display_order'
+        'display_order',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'display_order' => 'integer'
+        'display_order' => 'integer',
     ];
 
     public function deliverables(): HasMany

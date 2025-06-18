@@ -37,6 +37,7 @@ class CreateAdminUser extends Command
         $existingUser = User::where('email', $email)->first();
         if ($existingUser) {
             $this->error("User with email {$email} already exists!");
+
             return 1;
         }
 
@@ -50,7 +51,7 @@ class CreateAdminUser extends Command
             'profile_photo_path' => $profilePhotoPath,
         ]);
 
-        $this->info("Admin user created successfully!");
+        $this->info('Admin user created successfully!');
         $this->table(
             ['Name', 'Email', 'Password', 'Title', 'Profile Photo Path'],
             [[$user->name, $user->email, $password, $user->title, $user->profile_photo_path]]
@@ -58,4 +59,4 @@ class CreateAdminUser extends Command
 
         return 0;
     }
-} 
+}

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Article;
-use App\Models\Category;
-use App\Models\User; // For author selection
 use App\Http\Requests\Admin\StoreArticleRequest;
 use App\Http\Requests\Admin\UpdateArticleRequest;
+use App\Models\Article; // For author selection
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -32,6 +32,7 @@ class BlogController extends Controller
     public function posts()
     {
         $articles = Article::with('category', 'author')->latest()->paginate(15);
+
         return view('admin.blog.posts', compact('articles'));
     }
 
@@ -44,6 +45,7 @@ class BlogController extends Controller
     {
         $categories = Category::orderBy('name')->get();
         $authors = User::orderBy('name')->get(); // Assuming you want to select from Users table
+
         return view('admin.blog.create', compact('categories', 'authors'));
     }
 
@@ -62,12 +64,12 @@ class BlogController extends Controller
         }
 
         // Auto-generate slug if not provided and not handled by prepareForValidation
-        if (empty($data['slug']) && !empty($data['title'])) {
+        if (empty($data['slug']) && ! empty($data['title'])) {
             $data['slug'] = Str::slug($data['title']);
             $originalSlug = $data['slug'];
             $count = 1;
             while (Article::where('slug', $data['slug'])->exists()) {
-                $data['slug'] = $originalSlug . '-' . $count++;
+                $data['slug'] = $originalSlug.'-'.$count++;
             }
         }
 
@@ -77,7 +79,7 @@ class BlogController extends Controller
         $data['reading_time'] = max(1, ceil($wordCount / 200));
 
         // If this article is being featured, unfeature any other articles
-        if (!empty($data['is_featured']) && $data['is_featured']) {
+        if (! empty($data['is_featured']) && $data['is_featured']) {
             Article::where('is_featured', true)->update(['is_featured' => false]);
         }
 
@@ -97,6 +99,7 @@ class BlogController extends Controller
         $article = Article::findOrFail($id);
         $categories = Category::orderBy('name')->get();
         $authors = User::orderBy('name')->get();
+
         return view('admin.blog.edit', compact('article', 'categories', 'authors'));
     }
 
@@ -119,13 +122,13 @@ class BlogController extends Controller
             $data['image_path'] = $request->file('image')->store('blog_images', 'public');
         }
 
-        if (empty($data['slug']) && !empty($data['title']) && $article->title !== $data['title']) {
-             $data['slug'] = Str::slug($data['title']);
-             $originalSlug = $data['slug'];
-             $count = 1;
-             while (Article::where('slug', $data['slug'])->where('id', '!=', $article->id)->exists()) {
-                 $data['slug'] = $originalSlug . '-' . $count++;
-             }
+        if (empty($data['slug']) && ! empty($data['title']) && $article->title !== $data['title']) {
+            $data['slug'] = Str::slug($data['title']);
+            $originalSlug = $data['slug'];
+            $count = 1;
+            while (Article::where('slug', $data['slug'])->where('id', '!=', $article->id)->exists()) {
+                $data['slug'] = $originalSlug.'-'.$count++;
+            }
         }
 
         // Automatically calculate reading_time from content
@@ -134,7 +137,7 @@ class BlogController extends Controller
         $data['reading_time'] = max(1, ceil($wordCount / 200));
 
         // If this article is being featured, unfeature any other articles
-        if (!empty($data['is_featured']) && $data['is_featured'] && !$article->is_featured) {
+        if (! empty($data['is_featured']) && $data['is_featured'] && ! $article->is_featured) {
             Article::where('is_featured', true)->where('id', '!=', $article->id)->update(['is_featured' => false]);
         }
 
@@ -170,7 +173,8 @@ class BlogController extends Controller
     public function categories()
     {
         $categories = Category::latest()->paginate(15);
+
         // For now, just listing. CRUD operations for categories would require more views and methods.
         return view('admin.blog.categories', compact('categories'));
     }
-} 
+}

@@ -34,7 +34,7 @@ class Sector extends Model
         'expertise_eyebrow',
         'expertise_title',
         'expertise_description',
-        'expertise_items'
+        'expertise_items',
     ];
 
     /**
@@ -44,7 +44,7 @@ class Sector extends Model
      */
     protected $casts = [
         'is_active' => 'boolean',
-        'expertise_items' => 'array'
+        'expertise_items' => 'array',
     ];
 
     /**

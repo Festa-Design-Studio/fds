@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,4 +19,4 @@ class ArticleRating extends Model
     {
         return $this->belongsTo(Article::class);
     }
-} 
+}

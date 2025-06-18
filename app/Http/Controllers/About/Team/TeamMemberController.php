@@ -17,6 +17,7 @@ class TeamMemberController extends Controller
     public function index()
     {
         $teamMembers = TeamMember::orderBy('name')->get();
+
         return view('admin.about.team.index', compact('teamMembers'));
     }
 
@@ -47,44 +48,44 @@ class TeamMemberController extends Controller
             'skills' => 'nullable|array',
             'press' => 'nullable|array',
         ]);
-        
+
         // Process skills data to ensure proper structure
         if (isset($validated['skills']) && is_array($validated['skills'])) {
             $processedSkills = [];
-            
+
             foreach ($validated['skills'] as $skillCategory) {
-                if (is_array($skillCategory) && isset($skillCategory['category']) && !empty($skillCategory['category'])) {
+                if (is_array($skillCategory) && isset($skillCategory['category']) && ! empty($skillCategory['category'])) {
                     $category = $skillCategory['category'];
                     $skills = isset($skillCategory['skills']) && is_array($skillCategory['skills']) ? $skillCategory['skills'] : [];
-                    
+
                     // Filter out empty skills
-                    $skills = array_filter($skills, function($skill) {
-                        return !empty($skill);
+                    $skills = array_filter($skills, function ($skill) {
+                        return ! empty($skill);
                     });
-                    
-                    if (!empty($skills)) {
+
+                    if (! empty($skills)) {
                         $processedSkills[] = [
                             'category' => $category,
-                            'skills' => array_values($skills) // Reset array keys
+                            'skills' => array_values($skills), // Reset array keys
                         ];
                     }
                 }
             }
-            
+
             $validated['skills'] = $processedSkills;
         }
-        
+
         // Generate slug from name
         $validated['slug'] = Str::slug($validated['name']);
-        
+
         // Handle avatar upload
         if ($request->hasFile('avatar')) {
             $validated['avatar'] = $request->file('avatar')->store('team-members', 'public');
         }
-        
+
         // Create the team member record
         TeamMember::create($validated);
-        
+
         return redirect()->route('admin.about.team.index')
             ->with('success', 'Team member created successfully.');
     }
@@ -124,51 +125,51 @@ class TeamMemberController extends Controller
             'skills' => 'nullable|array',
             'press' => 'nullable|array',
         ]);
-        
+
         // Process skills data to ensure proper structure
         if (isset($validated['skills']) && is_array($validated['skills'])) {
             $processedSkills = [];
-            
+
             foreach ($validated['skills'] as $skillCategory) {
-                if (is_array($skillCategory) && isset($skillCategory['category']) && !empty($skillCategory['category'])) {
+                if (is_array($skillCategory) && isset($skillCategory['category']) && ! empty($skillCategory['category'])) {
                     $category = $skillCategory['category'];
                     $skills = isset($skillCategory['skills']) && is_array($skillCategory['skills']) ? $skillCategory['skills'] : [];
-                    
+
                     // Filter out empty skills
-                    $skills = array_filter($skills, function($skill) {
-                        return !empty($skill);
+                    $skills = array_filter($skills, function ($skill) {
+                        return ! empty($skill);
                     });
-                    
-                    if (!empty($skills)) {
+
+                    if (! empty($skills)) {
                         $processedSkills[] = [
                             'category' => $category,
-                            'skills' => array_values($skills) // Reset array keys
+                            'skills' => array_values($skills), // Reset array keys
                         ];
                     }
                 }
             }
-            
+
             $validated['skills'] = $processedSkills;
         }
-        
+
         // Update slug only if name changes
         if ($team_member->name !== $validated['name']) {
             $validated['slug'] = Str::slug($validated['name']);
         }
-        
+
         // Handle avatar upload
         if ($request->hasFile('avatar')) {
             // Delete old avatar if exists
             if ($team_member->avatar && Storage::disk('public')->exists($team_member->avatar)) {
                 Storage::disk('public')->delete($team_member->avatar);
             }
-            
+
             $validated['avatar'] = $request->file('avatar')->store('team-members', 'public');
         }
-        
+
         // Update the team member record
         $team_member->update($validated);
-        
+
         return redirect()->route('admin.about.team.index')
             ->with('success', 'Team member updated successfully.');
     }
@@ -182,17 +183,16 @@ class TeamMemberController extends Controller
         if ($team_member->avatar && Storage::disk('public')->exists($team_member->avatar)) {
             Storage::disk('public')->delete($team_member->avatar);
         }
-        
+
         $team_member->delete();
-        
+
         return redirect()->route('admin.about.team.index')
             ->with('success', 'Team member deleted successfully.');
     }
 
     /**
      * Upload a logo image for company experiences, volunteer organizations, certifications, etc.
-     * 
-     * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadLogo(Request $request)
@@ -204,63 +204,63 @@ class TeamMemberController extends Controller
                 'file_name' => $request->hasFile('logo') ? $request->file('logo')->getClientOriginalName() : null,
                 'file_size' => $request->hasFile('logo') ? $request->file('logo')->getSize() : null,
             ]);
-            
+
             $request->validate([
                 'logo' => 'required|image|max:2048',
                 'section' => 'required|string|in:professional_experience,volunteer_experience,education,certifications',
             ]);
-            
+
             if ($request->hasFile('logo')) {
                 // Store the logo in the appropriate directory based on section
                 $section = $request->input('section');
                 $file = $request->file('logo');
-                
+
                 // Create directory if it doesn't exist
                 $directory = "team-members/{$section}-logos";
-                if (!Storage::disk('public')->exists($directory)) {
+                if (! Storage::disk('public')->exists($directory)) {
                     Storage::disk('public')->makeDirectory($directory);
                 }
-                
+
                 try {
                     $path = $file->store($directory, 'public');
-                    
+
                     // Return the path for use in the form
                     return response()->json([
                         'success' => true,
                         'path' => $path,
-                        'url' => asset('storage/' . $path),
+                        'url' => asset('storage/'.$path),
                         'message' => 'Logo uploaded successfully.',
                     ]);
                 } catch (\Exception $e) {
-                    Log::error('Error storing file: ' . $e->getMessage(), [
+                    Log::error('Error storing file: '.$e->getMessage(), [
                         'exception' => get_class($e),
                         'file' => $e->getFile(),
                         'line' => $e->getLine(),
                     ]);
-                    
+
                     return response()->json([
                         'success' => false,
-                        'message' => 'Error storing file: ' . $e->getMessage(),
+                        'message' => 'Error storing file: '.$e->getMessage(),
                     ], 500);
                 }
             }
-            
+
             return response()->json([
                 'success' => false,
                 'message' => 'No logo file provided.',
             ], 400);
         } catch (\Exception $e) {
             // Log the error
-            Log::error('Logo upload error: ' . $e->getMessage(), [
+            Log::error('Logo upload error: '.$e->getMessage(), [
                 'exception' => get_class($e),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString(),
             ]);
-            
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error uploading logo: ' . $e->getMessage(),
+                'message' => 'Error uploading logo: '.$e->getMessage(),
             ], 500);
         }
     }

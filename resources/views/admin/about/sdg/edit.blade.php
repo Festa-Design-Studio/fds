@@ -2,6 +2,10 @@
 
 @section('title', 'Edit SDG Goal')
 
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
+
 @section('content')
 <div class="p-6">
     <div class="flex items-center justify-between mb-6">
@@ -108,7 +112,15 @@
                 <label class="block text-body font-medium text-the-end-900 mb-3">Current SDG Icon</label>
                 <div class="flex items-center space-x-4">
                     <div class="w-16 h-16 bg-white rounded-lg flex items-center justify-center border border-white-smoke-200">
-                        <img src="{{ asset('storage/' . $aboutSdg->svg_path) }}" alt="Current SDG {{ $aboutSdg->number }} icon" class="w-12 h-12">
+                        @if(Storage::disk('public')->exists($aboutSdg->svg_path))
+                            <div class="w-12 h-12">
+                                <img src="{{ asset('storage/' . $aboutSdg->svg_path) }}" alt="SDG {{ $aboutSdg->number }}" class="w-full h-full object-contain">
+                            </div>
+                        @else
+                            <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                                <span class="text-gray-500 text-xs">No icon</span>
+                            </div>
+                        @endif
                     </div>
                     <div>
                         <p class="text-the-end-700 font-medium">{{ basename($aboutSdg->svg_path) }}</p>
@@ -204,13 +216,38 @@
 function previewSVG(input) {
     if (input.files && input.files[0]) {
         const file = input.files[0];
+        
+        // Validate file type
+        if (!file.type.includes('svg') && !file.name.toLowerCase().endsWith('.svg')) {
+            alert('Please select a valid SVG file.');
+            input.value = '';
+            return;
+        }
+        
         const reader = new FileReader();
         
         reader.onload = function(e) {
-            document.getElementById('upload-area').classList.add('hidden');
-            document.getElementById('preview-area').classList.remove('hidden');
-            document.getElementById('svg-preview').innerHTML = e.target.result;
-            document.getElementById('file-name').textContent = file.name;
+            try {
+                document.getElementById('upload-area').classList.add('hidden');
+                document.getElementById('preview-area').classList.remove('hidden');
+                
+                // Clean and validate SVG content
+                let svgContent = e.target.result;
+                if (svgContent.includes('<svg')) {
+                    document.getElementById('svg-preview').innerHTML = svgContent;
+                    document.getElementById('file-name').textContent = file.name;
+                } else {
+                    throw new Error('Invalid SVG content');
+                }
+            } catch (error) {
+                alert('Error reading SVG file. Please try a different file.');
+                clearPreview();
+            }
+        };
+        
+        reader.onerror = function() {
+            alert('Error reading file. Please try again.');
+            clearPreview();
         };
         
         reader.readAsText(file);

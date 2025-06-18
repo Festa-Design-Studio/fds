@@ -20,7 +20,7 @@ class AboutPartner extends Model
         'logo_path',
         'website_url',
         'is_active',
-        'display_order'
+        'display_order',
     ];
 
     /**
@@ -30,7 +30,7 @@ class AboutPartner extends Model
      */
     protected $casts = [
         'is_active' => 'boolean',
-        'display_order' => 'integer'
+        'display_order' => 'integer',
     ];
 
     /**
@@ -42,4 +42,4 @@ class AboutPartner extends Model
     {
         return 'id';
     }
-} 
+}

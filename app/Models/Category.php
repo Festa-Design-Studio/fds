@@ -23,7 +23,7 @@ class Category extends Model
     {
         return $this->hasMany(Article::class);
     }
-    
+
     /**
      * Get the toolkits associated with the category.
      */
@@ -42,7 +42,7 @@ class Category extends Model
     //         }
     //     });
     //      static::updating(function ($category) {
-    //         if ($category->isDirty('name') && empty($category->slug_override)) { 
+    //         if ($category->isDirty('name') && empty($category->slug_override)) {
     //             $category->slug = \Illuminate\Support\Str::slug($category->name);
     //         }
     //     });

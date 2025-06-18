@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Industry;
+use App\Models\Project;
+use App\Models\SdgAlignment;
+use App\Models\Sector;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-use App\Models\Sector;
-use App\Models\Industry;
-use App\Models\SdgAlignment;
-use App\Models\Project;
 
 class SectorIndustrySDGSeeder extends Seeder
 {
@@ -89,7 +89,7 @@ class SectorIndustrySDGSeeder extends Seeder
     private function updateExistingProjects(): void
     {
         $projects = Project::all();
-        
+
         foreach ($projects as $project) {
             // Map sector
             if ($project->sector) {
@@ -99,7 +99,7 @@ class SectorIndustrySDGSeeder extends Seeder
                     $project->sector_id = $sector->id;
                 }
             }
-            
+
             // Map industry
             if ($project->industry) {
                 $industryName = str_replace('-', ' ', $project->industry);
@@ -109,7 +109,7 @@ class SectorIndustrySDGSeeder extends Seeder
                     $project->industry_id = $industry->id;
                 }
             }
-            
+
             // Map SDG alignment
             if ($project->sdg_alignment) {
                 $sdgAlignment = SdgAlignment::where('code', $project->sdg_alignment)->first();
@@ -117,8 +117,8 @@ class SectorIndustrySDGSeeder extends Seeder
                     $project->sdg_alignment_id = $sdgAlignment->id;
                 }
             }
-            
+
             $project->save();
         }
     }
-} 
+}

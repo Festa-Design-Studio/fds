@@ -2,14 +2,16 @@
 
 namespace App\Livewire\Blog;
 
-use Livewire\Component;
 use App\Models\ArticleRating;
 use Illuminate\Support\Facades\Log;
+use Livewire\Component;
 
 class RateArticle extends Component
 {
     public $articleId;
+
     public $selectedRating = null;
+
     public $hasRated = false;
 
     public function mount($articleId)
@@ -28,7 +30,9 @@ class RateArticle extends Component
             'hasRated' => $this->hasRated,
             'ip' => request()->ip(),
         ]);
-        if ($this->hasRated) return;
+        if ($this->hasRated) {
+            return;
+        }
 
         ArticleRating::create([
             'article_id' => $this->articleId,
@@ -51,6 +55,7 @@ class RateArticle extends Component
             'selectedRating' => $this->selectedRating,
             'hasRated' => $this->hasRated,
         ]);
+
         return view('livewire.blog.rate-article', [
             'average' => $average,
             'count' => $count,

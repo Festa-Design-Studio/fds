@@ -49,13 +49,21 @@
         {{-- Use database-driven SDGs --}}
         @foreach($aboutSdgs as $sdg)
           <div class="flex items-center justify-center">
-            <img
-              src="{{ $sdg->svg_path ? asset('storage/' . $sdg->svg_path) : '/img/sdg/sdg-' . $sdg->number . '.svg' }}"
-              alt="SDG {{ $sdg->number }}: {{ $sdg->title }}"
-              class="w-24 h-24"
-              title="{{ $sdg->description ?: $sdg->title }}"
-              onerror="this.src='/img/sdg/sdg-{{ $sdg->number }}.svg'"
-            />
+            @if($sdg->svg_path && \Storage::disk('public')->exists($sdg->svg_path))
+              <img
+                src="{{ asset('storage/' . $sdg->svg_path) }}"
+                alt="SDG {{ $sdg->number }}: {{ $sdg->title }}"
+                class="w-24 h-24"
+                title="{{ $sdg->description ?: $sdg->title }}"
+              />
+            @else
+              <img
+                src="/img/sdg/sdg-{{ $sdg->number }}.svg"
+                alt="SDG {{ $sdg->number }}: {{ $sdg->title }}"
+                class="w-24 h-24"
+                title="{{ $sdg->description ?: $sdg->title }}"
+              />
+            @endif
           </div>
         @endforeach
       @else
@@ -88,4 +96,6 @@
       </x-core.button>
     </div>
   </div>
-</section> 
+</section>
+
+ 

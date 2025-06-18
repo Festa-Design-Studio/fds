@@ -15,6 +15,7 @@ class SdgAlignmentController extends Controller
     public function index()
     {
         $sdgAlignments = SdgAlignment::withCount('projects')->paginate(10);
+
         return view('admin.sdg-alignments.index', compact('sdgAlignments'));
     }
 
@@ -35,11 +36,11 @@ class SdgAlignmentController extends Controller
             'name' => 'required|string|max:255|unique:sdg_alignments,name',
             'code' => 'nullable|string|max:10|unique:sdg_alignments,code',
         ]);
-        
+
         $validated['slug'] = Str::slug($validated['name']);
-        
+
         SdgAlignment::create($validated);
-        
+
         return redirect()->route('admin.sdg-alignments.index')
             ->with('success', 'SDG Alignment created successfully.');
     }
@@ -66,14 +67,14 @@ class SdgAlignmentController extends Controller
     public function update(Request $request, SdgAlignment $sdgAlignment)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:sdg_alignments,name,' . $sdgAlignment->id,
-            'code' => 'nullable|string|max:10|unique:sdg_alignments,code,' . $sdgAlignment->id,
+            'name' => 'required|string|max:255|unique:sdg_alignments,name,'.$sdgAlignment->id,
+            'code' => 'nullable|string|max:10|unique:sdg_alignments,code,'.$sdgAlignment->id,
         ]);
-        
+
         $validated['slug'] = Str::slug($validated['name']);
-        
+
         $sdgAlignment->update($validated);
-        
+
         return redirect()->route('admin.sdg-alignments.index')
             ->with('success', 'SDG Alignment updated successfully.');
     }
@@ -88,9 +89,9 @@ class SdgAlignmentController extends Controller
             return redirect()->route('admin.sdg-alignments.index')
                 ->with('error', 'Cannot delete SDG Alignment because it is being used by one or more projects.');
         }
-        
+
         $sdgAlignment->delete();
-        
+
         return redirect()->route('admin.sdg-alignments.index')
             ->with('success', 'SDG Alignment deleted successfully.');
     }

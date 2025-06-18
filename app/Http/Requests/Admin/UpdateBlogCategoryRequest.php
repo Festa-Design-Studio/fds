@@ -22,9 +22,10 @@ class UpdateBlogCategoryRequest extends FormRequest
     public function rules(): array
     {
         $categoryId = $this->route('category') ? $this->route('category')->id : null;
+
         return [
-            'name' => 'required|string|max:255|unique:categories,name,' . $categoryId,
-            'slug' => 'nullable|string|max:255|unique:categories,slug,' . $categoryId . '|alpha_dash',
+            'name' => 'required|string|max:255|unique:categories,name,'.$categoryId,
+            'slug' => 'nullable|string|max:255|unique:categories,slug,'.$categoryId.'|alpha_dash',
             'description' => 'nullable|string',
             'color_class' => 'nullable|string|max:255',
         ];
@@ -41,7 +42,7 @@ class UpdateBlogCategoryRequest extends FormRequest
             $this->merge([
                 'slug' => \Illuminate\Support\Str::slug($this->input('slug')),
             ]);
-        } elseif ($this->filled('name') && !$this->filled('slug')) {
+        } elseif ($this->filled('name') && ! $this->filled('slug')) {
             // Check if the name is actually being changed if the category model is available
             $category = $this->route('category');
             if ($category && $this->input('name') !== $category->name) {

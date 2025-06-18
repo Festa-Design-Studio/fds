@@ -7,7 +7,6 @@ use App\Models\Toolkit;
 use App\Models\ToolkitCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ToolkitController extends Controller
 {
@@ -16,15 +15,16 @@ class ToolkitController extends Controller
         $toolkits = Toolkit::with('category')
             ->latest()
             ->paginate(15);
-        
+
         $categories = ToolkitCategory::active()->ordered()->get();
-        
+
         return view('admin.toolkit.index', compact('toolkits', 'categories'));
     }
 
     public function create()
     {
         $categories = ToolkitCategory::active()->ordered()->get();
+
         return view('admin.toolkit.create', compact('categories'));
     }
 
@@ -45,11 +45,11 @@ class ToolkitController extends Controller
         $validated['is_published'] = $request->has('is_published');
 
         // Process tags: convert comma-separated string to array
-        if (!empty($validated['tags'])) {
+        if (! empty($validated['tags'])) {
             $validated['tags'] = array_map('trim', explode(',', $validated['tags']));
             // Remove empty tags
-            $validated['tags'] = array_filter($validated['tags'], function($tag) {
-                return !empty($tag);
+            $validated['tags'] = array_filter($validated['tags'], function ($tag) {
+                return ! empty($tag);
             });
             // Reset array keys
             $validated['tags'] = array_values($validated['tags']);
@@ -74,6 +74,7 @@ class ToolkitController extends Controller
     public function edit(Toolkit $toolkit)
     {
         $categories = ToolkitCategory::active()->ordered()->get();
+
         return view('admin.toolkit.edit', compact('toolkit', 'categories'));
     }
 
@@ -94,11 +95,11 @@ class ToolkitController extends Controller
         $validated['is_published'] = $request->has('is_published');
 
         // Process tags: convert comma-separated string to array
-        if (!empty($validated['tags'])) {
+        if (! empty($validated['tags'])) {
             $validated['tags'] = array_map('trim', explode(',', $validated['tags']));
             // Remove empty tags
-            $validated['tags'] = array_filter($validated['tags'], function($tag) {
-                return !empty($tag);
+            $validated['tags'] = array_filter($validated['tags'], function ($tag) {
+                return ! empty($tag);
             });
             // Reset array keys
             $validated['tags'] = array_values($validated['tags']);
@@ -131,4 +132,4 @@ class ToolkitController extends Controller
 
         return redirect()->route('admin.toolkit.index')->with('success', 'Toolkit deleted successfully.');
     }
-} 
+}

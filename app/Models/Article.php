@@ -88,18 +88,18 @@ class Article extends Model
             'category' => $this->category->name ?? null,
             'categoryType' => $this->category->slug ?? 'default',
             'colorClass' => $this->category->color_class ?? null,
-            'image' => $this->image_path ? asset('storage/' . $this->image_path) : null, // Or a placeholder
+            'image' => $this->image_path ? asset('storage/'.$this->image_path) : null, // Or a placeholder
             'published_at' => $this->published_at,
             'reading_time' => $this->reading_time,
             'author' => $this->author ? [
                 'name' => $this->author->name,
                 // Assuming User model has 'profile_photo_path' or similar, adjust as needed
-                'avatar' => $this->author->profile_photo_path ? asset('storage/' . $this->author->profile_photo_path) : 'https://ui-avatars.com/api/?name=' . urlencode($this->author->name),
-                'title' => $this->author->job_title ?? 'Contributor' // Assuming User model might have a job_title
+                'avatar' => $this->author->profile_photo_path ? asset('storage/'.$this->author->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($this->author->name),
+                'title' => $this->author->job_title ?? 'Contributor', // Assuming User model might have a job_title
             ] : [
                 'name' => 'Unknown Author',
                 'avatar' => 'https://ui-avatars.com/api/?name=Unknown',
-                'title' => 'Contributor'
+                'title' => 'Contributor',
             ],
         ];
     }

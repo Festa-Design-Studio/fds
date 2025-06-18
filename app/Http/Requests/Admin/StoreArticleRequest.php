@@ -52,7 +52,7 @@ class StoreArticleRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
-        if (empty($this->slug) && !empty($this->title)) {
+        if (empty($this->slug) && ! empty($this->title)) {
             $this->merge([
                 'slug' => \Illuminate\Support\Str::slug($this->title),
             ]);

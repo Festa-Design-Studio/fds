@@ -15,6 +15,7 @@ class PartnerController extends Controller
     public function index()
     {
         $partners = AboutPartner::orderBy('display_order')->orderBy('name')->get();
+
         return view('admin.about.partners.index', compact('partners'));
     }
 
@@ -37,7 +38,7 @@ class PartnerController extends Controller
             'logo_file' => 'required|file|mimes:svg,png,jpg,jpeg|max:2048',
             'website_url' => 'nullable|url|max:255',
             'is_active' => 'boolean',
-            'display_order' => 'nullable|integer'
+            'display_order' => 'nullable|integer',
         ]);
 
         // Handle logo file upload
@@ -85,7 +86,7 @@ class PartnerController extends Controller
             'logo_file' => 'nullable|file|mimes:svg,png,jpg,jpeg|max:2048',
             'website_url' => 'nullable|url|max:255',
             'is_active' => 'boolean',
-            'display_order' => 'nullable|integer'
+            'display_order' => 'nullable|integer',
         ]);
 
         // Handle logo file upload
@@ -94,7 +95,7 @@ class PartnerController extends Controller
             if ($aboutPartner->logo_path && Storage::disk('public')->exists($aboutPartner->logo_path)) {
                 Storage::disk('public')->delete($aboutPartner->logo_path);
             }
-            
+
             $validated['logo_path'] = $request->file('logo_file')->store('partner-logos', 'public');
         }
 
@@ -126,4 +127,4 @@ class PartnerController extends Controller
         return redirect()->route('admin.about.partners.index')
             ->with('success', 'Partner organization deleted successfully.');
     }
-} 
+}

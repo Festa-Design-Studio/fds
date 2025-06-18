@@ -19,7 +19,7 @@ class WorkController extends Controller
         // We'll handle filtering in JavaScript now, so just load all projects
         // For backward compatibility, maintain the query parameters but don't apply them server-side
         $projects = Project::query()->orderBy('created_at', 'desc')->get();
-        
+
         return view('admin.work.index', compact('projects'));
     }
 
@@ -34,14 +34,13 @@ class WorkController extends Controller
         $sectors = \App\Models\Sector::orderBy('name')->get();
         $industries = \App\Models\Industry::orderBy('name')->get();
         $sdgAlignments = \App\Models\SdgAlignment::orderBy('name')->get();
-        
+
         return view('admin.work.create', compact('clients', 'sectors', 'industries', 'sdgAlignments'));
     }
 
     /**
      * Store a newly created work/project in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -51,7 +50,7 @@ class WorkController extends Controller
             'excerpt' => 'required|string',
             'content' => 'required|string',
             'sector' => 'nullable|string',
-            'industry' => 'nullable|string', 
+            'industry' => 'nullable|string',
             'sdg_alignment' => 'nullable|string',
             'sector_id' => 'required|exists:sectors,id',
             'industry_id' => 'required|exists:industries,id',
@@ -62,12 +61,12 @@ class WorkController extends Controller
             'client_id' => 'nullable|exists:clients,id',
         ]);
 
-        $project = new Project();
+        $project = new Project;
         $project->title = $request->title;
         $project->slug = Str::slug($request->title);
         $project->excerpt = $request->excerpt;
         $project->content = $request->content;
-        
+
         // Set both the old string fields and new relationship IDs
         $project->sector = $request->sector ?? '';
         $project->industry = $request->industry ?? '';
@@ -75,7 +74,7 @@ class WorkController extends Controller
         $project->sector_id = $request->sector_id;
         $project->industry_id = $request->industry_id;
         $project->sdg_alignment_id = $request->sdg_alignment_id;
-        
+
         $project->is_featured = $request->has('is_featured') ? 1 : 0;
         $project->published_at = $request->published_at;
         $project->client_id = $request->client_id;
@@ -83,7 +82,7 @@ class WorkController extends Controller
         // Handle file upload
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $filename = time().'.'.$image->getClientOriginalExtension();
             $path = $image->storeAs('uploads/projects', $filename, 'public');
             $project->featured_image = $path; // Store the relative path without 'public/'
         }
@@ -106,14 +105,13 @@ class WorkController extends Controller
         $sectors = \App\Models\Sector::orderBy('name')->get();
         $industries = \App\Models\Industry::orderBy('name')->get();
         $sdgAlignments = \App\Models\SdgAlignment::orderBy('name')->get();
-        
+
         return view('admin.work.edit', compact('project', 'clients', 'sectors', 'industries', 'sdgAlignments'));
     }
 
     /**
      * Update the specified work/project in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -137,15 +135,15 @@ class WorkController extends Controller
 
         $project = Project::findOrFail($id);
         $project->title = $request->title;
-        
+
         // Only update slug if title changed
         if ($project->title != $request->title) {
             $project->slug = Str::slug($request->title);
         }
-        
+
         $project->excerpt = $request->excerpt;
         $project->content = $request->content;
-        
+
         // Set both the old string fields and new relationship IDs
         $project->sector = $request->sector ?? '';
         $project->industry = $request->industry ?? '';
@@ -153,7 +151,7 @@ class WorkController extends Controller
         $project->sector_id = $request->sector_id;
         $project->industry_id = $request->industry_id;
         $project->sdg_alignment_id = $request->sdg_alignment_id;
-        
+
         $project->is_featured = $request->has('is_featured') ? 1 : 0;
         $project->published_at = $request->published_at;
         $project->client_id = $request->client_id;
@@ -161,7 +159,7 @@ class WorkController extends Controller
         // Handle file upload
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $filename = time().'.'.$image->getClientOriginalExtension();
             $path = $image->storeAs('uploads/projects', $filename, 'public');
             $project->featured_image = $path; // Store the relative path without 'public/'
         }
@@ -184,4 +182,4 @@ class WorkController extends Controller
 
         return redirect()->route('admin.work.index')->with('success', 'Work case study deleted successfully.');
     }
-} 
+}

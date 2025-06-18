@@ -25,7 +25,7 @@
             <x-about.team-card
                 name="{{ $member->name }}"
                 position="{{ $member->title }}"
-                image="{{ $member->avatar ? asset('storage/' . $member->avatar) : asset('src/img/fds-logomark.png') }}"
+                image="{{ $member->avatar ? asset('storage/' . $member->avatar) : asset('src/img/fds-logomark.svg') }}"
                 linkedin="{{ $member->linkedin }}"
             >
                 <x-core.button 

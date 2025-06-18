@@ -181,13 +181,38 @@
 function previewSVG(input) {
     if (input.files && input.files[0]) {
         const file = input.files[0];
+        
+        // Validate file type
+        if (!file.type.includes('svg') && !file.name.toLowerCase().endsWith('.svg')) {
+            alert('Please select a valid SVG file.');
+            input.value = '';
+            return;
+        }
+        
         const reader = new FileReader();
         
         reader.onload = function(e) {
-            document.getElementById('upload-area').classList.add('hidden');
-            document.getElementById('preview-area').classList.remove('hidden');
-            document.getElementById('svg-preview').innerHTML = e.target.result;
-            document.getElementById('file-name').textContent = file.name;
+            try {
+                document.getElementById('upload-area').classList.add('hidden');
+                document.getElementById('preview-area').classList.remove('hidden');
+                
+                // Clean and validate SVG content
+                let svgContent = e.target.result;
+                if (svgContent.includes('<svg')) {
+                    document.getElementById('svg-preview').innerHTML = svgContent;
+                    document.getElementById('file-name').textContent = file.name;
+                } else {
+                    throw new Error('Invalid SVG content');
+                }
+            } catch (error) {
+                alert('Error reading SVG file. Please try a different file.');
+                clearPreview();
+            }
+        };
+        
+        reader.onerror = function() {
+            alert('Error reading file. Please try again.');
+            clearPreview();
         };
         
         reader.readAsText(file);

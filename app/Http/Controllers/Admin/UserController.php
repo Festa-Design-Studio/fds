@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'title' => ['nullable', 'string', 'max:255'],
             'profile_photo_path' => ['nullable', 'image', 'max:2048'],
         ]);
@@ -44,6 +44,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
         return redirect()->route('admin.users')->with('status', 'User deleted successfully.');
     }
 
@@ -72,4 +73,4 @@ class UserController extends Controller
 
         return redirect()->route('admin.users')->with('status', 'User created successfully.');
     }
-} 
+}

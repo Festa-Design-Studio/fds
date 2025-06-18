@@ -29,12 +29,12 @@ class ServiceSector extends Model
         'expertise_eyebrow',
         'expertise_title',
         'expertise_description',
-        'expertise_items'
+        'expertise_items',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
         'challenge_items' => 'array',
-        'expertise_items' => 'array'
+        'expertise_items' => 'array',
     ];
 }

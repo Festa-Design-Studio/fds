@@ -58,7 +58,7 @@ class Project extends Model
     {
         return $this->belongsTo(Client::class);
     }
-    
+
     /**
      * Get the sector associated with the project.
      */
@@ -66,7 +66,7 @@ class Project extends Model
     {
         return $this->belongsTo(Sector::class);
     }
-    
+
     /**
      * Get the industry associated with the project.
      */
@@ -74,7 +74,7 @@ class Project extends Model
     {
         return $this->belongsTo(Industry::class);
     }
-    
+
     /**
      * Get the SDG alignment associated with the project.
      */
@@ -82,4 +82,4 @@ class Project extends Model
     {
         return $this->belongsTo(SdgAlignment::class, 'sdg_alignment_id');
     }
-} 
+}
