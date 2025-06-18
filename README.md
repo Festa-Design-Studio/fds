@@ -8,19 +8,26 @@
 
 ## Project Overview
 
-Festa Design Studio is a design agency website built with Laravel, Blade, and Tailwind CSS. The project showcases Festa's services, work portfolio, blog, and resources while implementing a comprehensive design system with a fully functional admin panel.
+Festa Design Studio is a purpose-driven design agency website built with Laravel, Blade, and Tailwind CSS. The project showcases Festa's services, work portfolio, blog, and resources while implementing a comprehensive design system with a fully functional admin panel.
 
 ## Key Features
 
-- **Component-based architecture** using Blade components
-- **Custom design system** with Tailwind CSS
+- **Component-based architecture** using Blade components with a comprehensive design system
+- **Custom design system** with Tailwind CSS and reusable components
 - **Responsive layouts** for all device sizes
-- **Admin panel** for content management
+- **Admin panel** for content management with modern Festa design system
 - **Blog platform** with full CRUD functionality for articles and categories
   - **Featured Article** selection system for highlighting important content
   - **Article rating** functionality for user feedback
-- **Portfolio showcase** for displaying work
+- **Portfolio showcase** for displaying work with advanced filtering
+  - **Client management** system with logo and project associations
+  - **Sector and Industry** categorization
+  - **SDG Alignment** tracking for impact measurement
 - **Services section** highlighting capabilities
+  - **Project Design** services
+  - **Communication Design** services
+  - **Campaign Design** services
+  - **Sector-specific** content for Nonprofits and Startups
 - **Interactive Toolkit page** with dynamic filtering and pagination
   - **Real-time search** across toolkit resources
   - **Category and tool filtering** with URL parameter management
@@ -36,6 +43,11 @@ Festa Design Studio is a design agency website built with Laravel, Blade, and Ta
 - **Testimonials system** for client feedback
 - **Sectors, Industries, and SDG Alignments** for advanced project categorization
 - **Cookie consent** integration with Spatie package
+- **SEO Optimization** with comprehensive sitemap implementation
+  - XML sitemaps for search engines
+  - Human-readable sitemap
+  - Proper caching strategy
+  - robots.txt integration
 
 ## Installation & Setup
 
@@ -377,6 +389,61 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
 ## Project Structure
 
+### Directory Structure
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Admin/           # Admin panel controllers
+│   │   └── ...             # Public controllers
+│   └── Livewire/           # Livewire components
+├── Models/                  # Eloquent models
+└── View/
+    └── Components/         # Blade component classes
+
+resources/
+├── js/
+│   ├── app.js             # Main application JavaScript
+│   ├── toolkit-filter.js  # Toolkit filtering functionality
+│   └── mobile.js          # Mobile-specific interactions
+├── css/
+│   ├── app.css            # Main application styles
+│   └── toolkit-filters.css # Toolkit-specific styles
+└── views/
+    ├── components/        # Blade components
+    │   ├── core/         # Core UI components
+    │   ├── blog/         # Blog components
+    │   ├── work/         # Portfolio components
+    │   ├── services/     # Service components
+    │   ├── toolkit/      # Toolkit components
+    │   ├── about/        # About page components
+    │   ├── home/         # Homepage components
+    │   └── contact/      # Contact components
+    ├── layouts/          # Layout templates
+    ├── admin/           # Admin panel views
+    └── ...              # Public views
+```
+
+### Models
+
+The application uses the following data models:
+
+- `User`: Authentication and admin user management
+- `Project`: Portfolio projects and case studies with attributes like title, description, client, images
+- `Client`: Client information and relationships with attributes like name, logo, website
+- `TeamMember`: Team member information with attributes like name, position, bio, and social links
+- `WorkMetric`: Metrics displayed in the work section with attributes like value, title, description, color class, and display order
+- `Testimonial`: Client testimonials with attributes like author name, title, quote, avatar, published status, and display order
+- `Article`: Stores blog articles, including title, slug, excerpt, content, image, author and category relationships, publication status, featured article flag, and timestamps
+- `Category`: Stores blog categories, including name, slug, and description
+- `Service`: Service information with deliverables relationship and expertise content
+- `ServiceSector`: Sector-specific content with JSON-based storage for hero sections, challenges, and expertise items
+- `Sector`: Sectors for project categorization
+- `Industry`: Industries for project categorization
+- `SdgAlignment`: Sustainable Development Goal alignments for projects
+- `ArticleRating`: Stores user ratings for blog articles
+
 ### Controllers
 
 The application logic is organized into controller groups:
@@ -391,13 +458,14 @@ The application logic is organized into controller groups:
 - `UtilityController`: Handles utility pages like privacy policy and terms
 - `ClientController`: Manages client information display
 - `TeamMemberController`: Handles team member profile display
+- `SitemapController`: Manages XML and human-readable sitemaps
 
 #### Admin Controllers
 - `AdminController`: Manages the admin dashboard and settings
 - `WorkController` (Admin): Manages project portfolio content
 - `WorkMetricController`: Manages metrics for the work section
 - `ClientController` (Admin): Handles client data management
-- `BlogController`: Manages blog posts (CRUD operations) and categories.
+- `BlogController`: Manages blog posts (CRUD operations) and categories
 - `TeamMemberController` (Admin): Manages team member information
 - `ImageController`: Handles image uploads for content
 - `TestimonialController` (Admin): Manages client testimonials (CRUD)
@@ -405,65 +473,24 @@ The application logic is organized into controller groups:
 - `IndustryController` (Admin): Manages industries (CRUD)
 - `SdgAlignmentController` (Admin): Manages SDG alignments (CRUD)
 
-### Frontend Assets
+### Component System
 
-#### JavaScript
-- `resources/js/app.js`: Main application JavaScript
-- `resources/js/toolkit-filter.js`: Toolkit filtering and pagination functionality
-- `resources/js/mobile.js`: Mobile-specific interactions
+The application uses a comprehensive component system built with Blade and Tailwind CSS:
 
-#### CSS
-- `resources/css/app.css`: Main application styles
-- `resources/css/toolkit-filters.css`: Toolkit-specific animations and styling
+#### Core Components
+- `x-core.breadcrumbs`: Navigation breadcrumbs
+- `x-core.button`: Reusable button component with variants
+- `x-core.text-input`: Form input with icon support
+- `x-core.header`: Site header and navigation
+- `x-core.footer`: Site footer
 
-### Models
-
-The application uses the following data models:
-
-- `User`: Authentication and admin user management
-- `Project`: Portfolio projects and case studies with attributes like title, description, client, images
-- `Client`: Client information and relationships with attributes like name, logo, website
-- `TeamMember`: Team member information with attributes like name, position, bio, and social links
-- `WorkMetric`: Metrics displayed in the work section with attributes like value, title, description, color class, and display order
-- `Testimonial`: Client testimonials with attributes like author name, title, quote, avatar, published status, and display order
-- `Article`: Stores blog articles, including title, slug, excerpt, content, image, author and category relationships, publication status, featured article flag, and timestamps.
-- `Category`: Stores blog categories, including name, slug, and description.
-- `Service`: Service information with deliverables relationship and expertise content
-- `ServiceSector`: Sector-specific content with JSON-based storage for hero sections, challenges, and expertise items
-- `Sector`: Sectors for project categorization
-- `Industry`: Industries for project categorization
-- `SdgAlignment`: Sustainable Development Goal alignments for projects
-- `ArticleRating`: Stores user ratings for blog articles
-
-### Blog System Features
-
-The blog system includes the following key features:
-
-- Complete article CRUD functionality
-- Category management
-- Featured article selection (only one can be featured at a time)
-- Article rating system using Livewire
-- Rich text editor with image upload
-- Search functionality
-- Category filtering
-- Responsive grid and list views
-
-## Component System
-
-### Toolkit Components
+#### Toolkit Components
 - `x-toolkit.hero-section`: Hero section with newsletter signup
 - `x-toolkit.filter-section`: Dynamic filtering and search container
 - `x-toolkit.select`: Dropdown filter components
 - `x-toolkit.grid`: Responsive grid layout for toolkit cards
 - `x-toolkit.card`: Individual toolkit resource cards
 - `x-toolkit.tags`: Category and tool tags
-
-### Core Components
-- `x-core.breadcrumbs`: Navigation breadcrumbs
-- `x-core.button`: Reusable button component with variants
-- `x-core.text-input`: Form input with icon support
-- `x-core.header`: Site header and navigation
-- `x-core.footer`: Site footer
 
 ## Technologies Used
 
@@ -475,7 +502,11 @@ The blog system includes the following key features:
 - **Vite**: Modern build tool and development server
 - **JavaScript ES6+**: Modern JavaScript features
 - **CSS3**: Advanced animations and transitions
-- **MySQL/PostgreSQL**: Database
+- **Database**: Supports multiple database systems:
+  - SQLite (default for development)
+  - MySQL/MariaDB
+  - PostgreSQL
+  - SQL Server
 
 ## Development Guidelines
 
