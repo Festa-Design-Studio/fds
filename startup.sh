@@ -30,12 +30,16 @@ if [ ! -L public/storage ]; then
 fi
 
 # Copy nginx config to proper location
-cp -f nginx.conf /etc/nginx/sites-available/default 2>/dev/null || echo "Warning: Could not copy nginx config"
+echo "Copying nginx configuration..."
+cp -f /home/site/wwwroot/nginx.conf /etc/nginx/sites-enabled/default || echo "Warning: Could not copy nginx config"
+
+# Test nginx configuration
+nginx -t
 
 # Start PHP-FPM
 echo "Starting PHP-FPM..."
-php-fpm -D
+service php8.2-fpm start || php-fpm -D
 
-# Start Nginx
+# Start Nginx with our config
 echo "Starting Nginx..."
-nginx -g "daemon off;"
+nginx -c /home/site/wwwroot/nginx.conf -g "daemon off;"
