@@ -1,36 +1,32 @@
 #!/bin/bash
 
-# Azure App Service Deployment Script for Laravel
-echo "Starting Azure deployment for Laravel application..."
+# Azure App Service Post-Deployment Script for Laravel
+echo "Running Azure post-deployment script..."
 
-# Install dependencies
-echo "Installing Composer dependencies..."
-composer install --optimize-autoloader --no-dev
+# Navigate to application directory
+cd /home/site/wwwroot || exit 1
 
-echo "Installing Node.js dependencies..."
-npm ci
+# Ensure proper permissions
+echo "Setting permissions..."
+chmod -R 775 storage bootstrap/cache
+chown -R www-data:www-data storage bootstrap/cache
 
-# Build assets
-echo "Building frontend assets..."
-npm run build
+# Run database migrations (if enabled)
+if [[ "${RUN_MIGRATIONS}" == "true" ]]; then
+    echo "Running database migrations..."
+    php artisan migrate --force
+fi
 
-# Laravel optimizations for production
-echo "Optimizing Laravel for production..."
+# Clear and rebuild caches
+echo "Optimizing application..."
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Create storage link
-echo "Creating storage link..."
-php artisan storage:link
+# Create symbolic link for storage (if not exists)
+if [ ! -L public/storage ]; then
+    echo "Creating storage link..."
+    php artisan storage:link
+fi
 
-# Run database migrations
-echo "Running database migrations..."
-php artisan migrate --force
-
-# Set correct permissions
-echo "Setting correct permissions..."
-chmod -R 755 storage
-chmod -R 755 bootstrap/cache
-
-echo "Deployment completed successfully!"
+echo "Post-deployment script completed successfully!"

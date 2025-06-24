@@ -42,19 +42,40 @@ jobs:
     - name: Build Assets
       run: npm run build
 
-    - name: Remove dev dependencies
+    - name: Run Laravel production optimizations
       run: |
-        rm -rf node_modules
-        rm -rf tests
-        rm -rf .git
-        rm -rf .github
-        find . -name ".gitignore" -type f -delete
-        find . -name ".env.example" -type f -delete
+        php artisan config:cache
+        php artisan route:cache
+        php artisan view:cache
+
+    - name: Create deployment package
+      run: |
+        # Create a deployment directory
+        mkdir -p deploy
+        
+        # Copy all necessary files to deployment directory
+        cp -r app bootstrap config database public resources routes storage deploy/
+        cp -r vendor deploy/
+        cp .env artisan composer.json composer.lock deploy/
+        cp nginx.conf startup.sh .deployment deploy/
+        
+        # Copy built assets
+        cp -r public/build deploy/public/
+        
+        # Set proper permissions
+        chmod -R 755 deploy/storage deploy/bootstrap/cache
+        chmod +x deploy/startup.sh
+        
+        # Create zip package
+        cd deploy
+        zip -r ../deployment.zip .
+        cd ..
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: .
+        package: deployment.zip
+        startup-command: 'bash /home/site/wwwroot/startup.sh'
 
