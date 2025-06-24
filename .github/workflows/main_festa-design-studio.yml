@@ -61,7 +61,7 @@ jobs:
         
         # Copy configuration files for both Windows and Linux
         cp -r public/web.config deploy/public/  # For Windows/IIS
-        cp nginx.conf startup.sh deploy/  # For Linux
+        cp nginx.conf startup.sh startup-simple.sh deploy/  # For Linux
         
         # Copy built assets
         cp -r public/build deploy/public/
