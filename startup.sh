@@ -36,9 +36,16 @@ cp -f /home/site/wwwroot/nginx.conf /etc/nginx/sites-enabled/default || echo "Wa
 # Test nginx configuration
 nginx -t
 
+# Kill any existing PHP-FPM processes
+echo "Stopping any existing PHP-FPM processes..."
+pkill -f php-fpm || true
+
 # Start PHP-FPM
 echo "Starting PHP-FPM..."
-service php8.2-fpm start || php-fpm -D
+php-fpm -D -y /etc/php/8.2/fpm/php-fpm.conf || php-fpm -D
+
+# Wait for PHP-FPM to start
+sleep 2
 
 # Start Nginx with our config
 echo "Starting Nginx..."
