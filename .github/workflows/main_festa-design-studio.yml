@@ -56,7 +56,7 @@ jobs:
         # Copy all necessary files to deployment directory
         cp -r app bootstrap config database public resources routes storage deploy/
         cp -r vendor deploy/
-        cp .env artisan composer.json composer.lock deploy/
+        cp .env artisan composer.json composer.lock index.php deploy/
         cp .deployment deploy/
         
         # Copy configuration files for both Windows and Linux
