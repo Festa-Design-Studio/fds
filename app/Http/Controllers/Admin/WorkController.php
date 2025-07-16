@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class WorkController extends Controller
@@ -89,6 +90,9 @@ class WorkController extends Controller
 
         $project->save();
 
+        // Clear sitemap cache when work content changes
+        $this->clearSitemapCache();
+
         return redirect()->route('admin.work.index')->with('success', 'Work case study created successfully.');
     }
 
@@ -166,6 +170,9 @@ class WorkController extends Controller
 
         $project->save();
 
+        // Clear sitemap cache when work content changes
+        $this->clearSitemapCache();
+
         return redirect()->route('admin.work.index')->with('success', 'Work case study updated successfully.');
     }
 
@@ -180,6 +187,18 @@ class WorkController extends Controller
         $project = Project::findOrFail($id);
         $project->delete();
 
+        // Clear sitemap cache when work content changes
+        $this->clearSitemapCache();
+
         return redirect()->route('admin.work.index')->with('success', 'Work case study deleted successfully.');
+    }
+
+    /**
+     * Clear sitemap cache when work content changes
+     */
+    private function clearSitemapCache()
+    {
+        Cache::forget('sitemap_work');
+        Cache::forget('sitemap_static');
     }
 }

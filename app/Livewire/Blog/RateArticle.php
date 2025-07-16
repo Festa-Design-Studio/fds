@@ -14,12 +14,19 @@ class RateArticle extends Component
 
     public $hasRated = false;
 
+    public $isLoading = false;
+
     public function mount($articleId)
     {
         $this->articleId = $articleId;
-        $this->hasRated = ArticleRating::where('article_id', $articleId)
+        $existingRating = ArticleRating::where('article_id', $articleId)
             ->where('ip_address', request()->ip())
-            ->exists();
+            ->first();
+        
+        if ($existingRating) {
+            $this->hasRated = true;
+            $this->selectedRating = $existingRating->rating;
+        }
     }
 
     public function rate($rating)
@@ -30,18 +37,30 @@ class RateArticle extends Component
             'hasRated' => $this->hasRated,
             'ip' => request()->ip(),
         ]);
-        if ($this->hasRated) {
+        if ($this->hasRated || $this->isLoading) {
             return;
         }
 
-        ArticleRating::create([
-            'article_id' => $this->articleId,
-            'rating' => $rating,
-            'ip_address' => request()->ip(),
-        ]);
-        $this->selectedRating = $rating;
-        $this->hasRated = true;
-        $this->dispatch('rating-success');
+        $this->isLoading = true;
+
+        try {
+            ArticleRating::create([
+                'article_id' => $this->articleId,
+                'rating' => $rating,
+                'ip_address' => request()->ip(),
+            ]);
+            $this->selectedRating = $rating;
+            $this->hasRated = true;
+            $this->dispatch('rating-success');
+        } catch (\Exception $e) {
+            Log::error('Rating submission failed', [
+                'error' => $e->getMessage(),
+                'articleId' => $this->articleId,
+                'rating' => $rating,
+            ]);
+        } finally {
+            $this->isLoading = false;
+        }
     }
 
     public function render()

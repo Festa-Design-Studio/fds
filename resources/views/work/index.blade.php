@@ -2,6 +2,77 @@
 
 @section('title', 'Our Work - Festa Design Studio')
 
+@push('meta')
+    <meta name="description" content="Explore our portfolio of purpose-driven design projects that create meaningful change for nonprofits, startups, and social impact organizations worldwide.">
+    <meta name="keywords" content="design portfolio, social impact design, nonprofit design, startup design, purpose-driven projects, design for good">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Our Work - Festa Design Studio">
+    <meta property="og:description" content="Explore our portfolio of purpose-driven design projects that create meaningful change for nonprofits, startups, and social impact organizations worldwide.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('images/festa-og-image.jpg') }}">
+    <meta property="og:site_name" content="Festa Design Studio">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Our Work - Festa Design Studio">
+    <meta name="twitter:description" content="Explore our portfolio of purpose-driven design projects that create meaningful change for nonprofits, startups, and social impact organizations worldwide.">
+    <meta name="twitter:image" content="{{ asset('images/festa-og-image.jpg') }}">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Our Work - Festa Design Studio",
+        "description": "Explore our portfolio of purpose-driven design projects that create meaningful change for nonprofits, startups, and social impact organizations worldwide.",
+        "url": "{{ url()->current() }}",
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+                @foreach($projects as $index => $project)
+                {
+                    "@type": "ListItem",
+                    "position": {{ $index + 1 }},
+                    "item": {
+                        "@type": "CreativeWork",
+                        "name": "{{ $project->title }}",
+                        "description": "{{ $project->excerpt ? Str::limit($project->excerpt, 155) : Str::limit(strip_tags($project->content), 155) }}",
+                        "url": "{{ route('work.show', $project->slug) }}",
+                        "image": "{{ $project->featured_image ? asset('storage/' . $project->featured_image) : asset('images/festa-og-image.jpg') }}",
+                        "dateCreated": "{{ $project->created_at->toISOString() }}",
+                        "genre": "{{ $project->sector->name ?? $project->sector }}",
+                        "author": {
+                            "@type": "Organization",
+                            "name": "Festa Design Studio"
+                        }
+                    }
+                }@if(!$loop->last),@endif
+                @endforeach
+            ]
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "{{ url('/') }}"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Work",
+                    "item": "{{ url()->current() }}"
+                }
+            ]
+        }
+    }
+    </script>
+@endpush
+
 @section('breadcrumbs')
     <!-- Breadcrumb -->
     <x-core.breadcrumbs :items="[

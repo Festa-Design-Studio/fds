@@ -355,8 +355,8 @@
                                     <x-services.service-card 
                                         title="Project Design"
                                         description="From concept to completion, we design impactful projects that drive real change for communities and organizations."
-                                        link="/services/project-design"
-                                        linkText="Learn how we design projects"
+                                        icon="project-design"
+                                        slug="project-design"
                                     />
                                 </div>
                             </div>
@@ -368,6 +368,8 @@
                                     <x-services.service-mini-card 
                                         title="Communication Design"
                                         description="Clear, compelling communication that resonates with your audience."
+                                        icon="communication-design"
+                                        slug="communication-design"
                                     />
                                 </div>
                             </div>
@@ -392,8 +394,8 @@
                             <x-services.sector-card 
                                 title="Nonprofits"
                                 description="Empowering organizations that create positive social impact through strategic design solutions."
-                                link="/services/sectors/nonprofits"
-                                linkText="Learn more about nonprofit design"
+                                icon="nonprofit-icon"
+                                slug="nonprofits"
                             />
                         </div>
                     </div>
@@ -427,13 +429,6 @@
                                 title="Fundraising email marketing for nonprofits"
                                 description="Create detailed profiles of your ideal audience to craft messaging that resonates with their values and needs."
                             >
-                                <x-slot name="image">
-                                    <div class="w-12 h-12 bg-pepper-green-100 rounded-lg flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-pepper-green-600" viewBox="0 0 24 24">
-                                            <path fill="currentColor" d="M22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4H20A2,2 0 0,1 22,6M20,6L12,13L4,6M20,18V8L12,15L4,8V18H20Z" />
-                                        </svg>
-                                    </div>
-                                </x-slot>
                                 <x-slot name="tags">
                                     <div class="flex flex-wrap gap-2 mb-4">
                                         <x-toolkit.tags type="service" label="Project design" />
@@ -506,9 +501,10 @@
                         <h4 class="text-h5 font-semibold mb-2">Usage:</h4>
                         <pre class="text-body-sm bg-white-smoke-100 p-3 rounded overflow-x-auto"><code>&lt;x-about.team-card 
     name="Member Name"
-    position="Member Role"
+    role="Member Role"
     image="path/to/image.jpg"
     linkedin="https://linkedin.com/in/member"
+    slug="member-slug"
 /&gt;</code></pre>
                     </div>
                 </div>
@@ -527,11 +523,11 @@
                     </div>
                     <div class="p-4 bg-white-smoke-50 rounded border border-white-smoke-300">
                         <h4 class="text-h5 font-semibold mb-2">Usage:</h4>
-                        <pre class="text-body-sm bg-white-smoke-100 p-3 rounded overflow-x-auto"><code>&lt;x-about.partner-logo&gt;
-    &lt;a href="https://partner.com"&gt;
-        &lt;img src="path/to/logo.svg" alt="Partner Name" class="h-12 w-auto"&gt;
-    &lt;/a&gt;
-&lt;/x-about.partner-logo&gt;</code></pre>
+                        <pre class="text-body-sm bg-white-smoke-100 p-3 rounded overflow-x-auto"><code>&lt;x-about.partner-logo 
+    name="Partner Name"
+    logo="path/to/logo.svg"
+    url="https://partner.com"
+/&gt;</code></pre>
                     </div>
                 </div>
             </section>

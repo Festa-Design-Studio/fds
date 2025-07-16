@@ -11,7 +11,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Replace the default ValidatePostSize middleware with our custom one
+        $middleware->replace(
+            \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+            \App\Http\Middleware\ValidatePostSize::class
+        );
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

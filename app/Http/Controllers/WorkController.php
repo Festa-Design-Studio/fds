@@ -14,7 +14,8 @@ class WorkController extends Controller
 {
     public function index()
     {
-        $projects = Project::whereNotNull('published_at')
+        $projects = Project::with(['sector', 'industry', 'sdgAlignment', 'client'])
+            ->whereNotNull('published_at')
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 
@@ -154,15 +155,19 @@ class WorkController extends Controller
      */
     public function show($slug)
     {
-        $project = Project::where('slug', $slug)->firstOrFail();
+        $project = Project::with(['sector', 'industry', 'sdgAlignment', 'client'])
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         // Get previous and next projects for navigation (only published projects)
-        $previousProject = Project::whereNotNull('published_at')
+        $previousProject = Project::with(['sector', 'industry', 'sdgAlignment', 'client'])
+            ->whereNotNull('published_at')
             ->where('id', '<', $project->id)
             ->orderBy('id', 'desc')
             ->first();
 
-        $nextProject = Project::whereNotNull('published_at')
+        $nextProject = Project::with(['sector', 'industry', 'sdgAlignment', 'client'])
+            ->whereNotNull('published_at')
             ->where('id', '>', $project->id)
             ->orderBy('id', 'asc')
             ->first();

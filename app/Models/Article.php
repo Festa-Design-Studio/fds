@@ -78,6 +78,37 @@ class Article extends Model
     // }
 
     /**
+     * Get the average rating for this article.
+     */
+    public function getAverageRating(): float
+    {
+        return $this->ratings()->avg('rating') ?? 0;
+    }
+
+    /**
+     * Get the total number of ratings for this article.
+     */
+    public function getTotalRatings(): int
+    {
+        return $this->ratings()->count();
+    }
+
+    /**
+     * Get formatted rating display for admin.
+     */
+    public function getRatingDisplay(): string
+    {
+        $average = $this->getAverageRating();
+        $total = $this->getTotalRatings();
+        
+        if ($total === 0) {
+            return 'No ratings';
+        }
+        
+        return sprintf('%.1f (%d ratings)', $average, $total);
+    }
+
+    /**
      * Prepare the article data for the ArticleHeader component.
      */
     public function forArticleHeader(): array

@@ -15,7 +15,7 @@
 
 <article class="bg-white-smoke-100 rounded-lg overflow-hidden border border-white-smoke-300 h-full flex flex-col">
     <!-- Article Card Image Container -->
-    <div class="relative aspect-[16/9]">
+    <div class="relative w-full h-48 flex-shrink-0">
         @if ($image)
             <img class="w-full h-full object-cover" src="{{ $image }}" alt="{{ $title }}">
         @else
@@ -35,7 +35,8 @@
     </div>
 
     <!-- Article Card Content Container -->
-    <div class="p-4 space-y-3 flex-grow flex flex-col">
+    <div class="p-4 flex-grow flex flex-col">
+        <div class="space-y-3 flex-grow flex flex-col">
         <!-- Article Card Meta Information -->
         <div class="flex items-center space-x-4 text-body-sm text-the-end-600">
             @if ($date)
@@ -67,13 +68,13 @@
         </div>
 
         <!-- Article Card Title -->
-        <h3 class="text-h4 font-bold text-the-end-900 hover:text-pepper-green-600 transition-colors duration-200">
+        <h3 class="text-h4 font-bold text-the-end-900 hover:text-pepper-green-600 transition-colors duration-200 line-clamp-2">
             <a href="{{ $url }}" class="hover:underline">{{ $title }}</a>
         </h3>
 
         <!-- Article Card Excerpt -->
         @if ($excerpt)
-            <p class="text-body-sm text-the-end-700 line-clamp-2">
+            <p class="text-body-sm text-the-end-700 line-clamp-3 flex-grow">
                 {{ $excerpt }}
             </p>
         @endif
@@ -101,5 +102,6 @@
                 </div>
             </div>
         @endif
+        </div>
     </div>
 </article> 

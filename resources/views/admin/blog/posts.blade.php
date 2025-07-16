@@ -131,6 +131,10 @@
                 <p class="text-body-sm text-the-end-600 ml-auto">
                   {{ $article->views ?? 0 }} views
                 </p>
+                <!-- Show ratings if available -->
+                <p class="text-body-sm text-the-end-600">
+                  {{ $article->getRatingDisplay() }}
+                </p>
               </div>
             </div>
             <div class="flex gap-2">

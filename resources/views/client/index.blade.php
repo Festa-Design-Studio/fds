@@ -2,6 +2,82 @@
 
 @section('title', 'Our Clients - Festa Design Studio')
 
+@push('meta')
+    <meta name="description" content="Meet our clients - a diverse range of organizations committed to making positive social and environmental impact through purposeful design.">
+    <meta name="keywords" content="design clients, social impact organizations, nonprofit clients, startup clients, design partnerships">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Our Clients - Festa Design Studio">
+    <meta property="og:description" content="Meet our clients - a diverse range of organizations committed to making positive social and environmental impact through purposeful design.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('images/festa-og-image.jpg') }}">
+    <meta property="og:site_name" content="Festa Design Studio">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Our Clients - Festa Design Studio">
+    <meta name="twitter:description" content="Meet our clients - a diverse range of organizations committed to making positive social and environmental impact through purposeful design.">
+    <meta name="twitter:image" content="{{ asset('images/festa-og-image.jpg') }}">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Our Clients - Festa Design Studio",
+        "description": "Meet our clients - a diverse range of organizations committed to making positive social and environmental impact through purposeful design.",
+        "url": "{{ url()->current() }}",
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+                @foreach($clients as $index => $client)
+                {
+                    "@type": "ListItem",
+                    "position": {{ $index + 1 }},
+                    "item": {
+                        "@type": "Organization",
+                        "name": "{{ $client->name }}",
+                        "description": "{{ $client->description ? Str::limit($client->description, 155) : 'Client of Festa Design Studio' }}",
+                        "url": "{{ route('client.show', $client->slug) }}"
+                        @if($client->website_url)
+                        ,"sameAs": "{{ $client->website_url }}"
+                        @endif
+                        @if($client->logo)
+                        ,"logo": "{{ asset('storage/' . $client->logo) }}"
+                        @endif
+                    }
+                }@if(!$loop->last),@endif
+                @endforeach
+            ]
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "{{ url('/') }}"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Work",
+                    "item": "{{ route('work') }}"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "Clients",
+                    "item": "{{ url()->current() }}"
+                }
+            ]
+        }
+    }
+    </script>
+@endpush
+
 @section('breadcrumbs')
     <x-core.breadcrumbs :items="[
         ['label' => 'Work', 'url' => route('work')],

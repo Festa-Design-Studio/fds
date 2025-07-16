@@ -177,6 +177,54 @@
         }, 1000);
       }
     }, 300);
+    
+    // Add content size validation
+    const form = document.querySelector('form');
+    const contentInput = document.getElementById('content-hidden');
+    const maxSizeInMB = 90; // Leave some buffer below 100MB POST limit
+    const warningThresholdMB = 50;
+    
+    function checkContentSize() {
+      const content = contentInput.value;
+      const sizeInBytes = new Blob([content]).size;
+      const sizeInMB = sizeInBytes / (1024 * 1024);
+      
+      // Remove any existing warnings
+      const existingWarning = document.getElementById('content-size-warning');
+      if (existingWarning) {
+        existingWarning.remove();
+      }
+      
+      if (sizeInMB > warningThresholdMB) {
+        const warningDiv = document.createElement('div');
+        warningDiv.id = 'content-size-warning';
+        warningDiv.className = sizeInMB > maxSizeInMB 
+          ? 'mt-2 p-3 bg-chicken-comb-50 border border-chicken-comb-300 rounded-lg text-chicken-comb-700'
+          : 'mt-2 p-3 bg-pot-of-gold-50 border border-pot-of-gold-300 rounded-lg text-pot-of-gold-700';
+        
+        const message = sizeInMB > maxSizeInMB
+          ? `⚠️ Content size (${sizeInMB.toFixed(1)}MB) exceeds maximum allowed size (${maxSizeInMB}MB). Please reduce content size by removing some images or videos.`
+          : `⚠️ Content size (${sizeInMB.toFixed(1)}MB) is approaching the maximum limit. Consider optimizing images if you plan to add more content.`;
+        
+        warningDiv.innerHTML = `<p class="text-sm font-medium">${message}</p>`;
+        contentInput.closest('div').appendChild(warningDiv);
+        
+        return sizeInMB <= maxSizeInMB;
+      }
+      
+      return true;
+    }
+    
+    // Check content size on input change
+    contentInput.addEventListener('change', checkContentSize);
+    
+    // Validate before form submission
+    form.addEventListener('submit', function(e) {
+      if (!checkContentSize()) {
+        e.preventDefault();
+        alert('Content size exceeds the maximum allowed limit. Please reduce the size of your content.');
+      }
+    });
   });
 </script>
 @endpush 

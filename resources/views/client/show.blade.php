@@ -2,6 +2,81 @@
 
 @section('title', $client->name . ' - Festa Design Studio')
 
+@push('meta')
+    <meta name="description" content="{{ $client->description ? Str::limit(strip_tags($client->description), 155) : $client->name . ' - A valued client of Festa Design Studio, working together to create meaningful social impact through design.' }}">
+    <meta name="keywords" content="{{ $client->name }}, design client, social impact, {{ $client->name }} design, client partnership">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{ $client->name }} - Festa Design Studio">
+    <meta property="og:description" content="{{ $client->description ? Str::limit(strip_tags($client->description), 155) : $client->name . ' - A valued client of Festa Design Studio, working together to create meaningful social impact through design.' }}">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $client->logo ? asset('storage/' . $client->logo) : asset('images/festa-og-image.jpg') }}">
+    <meta property="og:site_name" content="Festa Design Studio">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $client->name }} - Festa Design Studio">
+    <meta name="twitter:description" content="{{ $client->description ? Str::limit(strip_tags($client->description), 155) : $client->name . ' - A valued client of Festa Design Studio, working together to create meaningful social impact through design.' }}">
+    <meta name="twitter:image" content="{{ $client->logo ? asset('storage/' . $client->logo) : asset('images/festa-og-image.jpg') }}">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "{{ $client->name }}",
+        "description": "{{ $client->description ? Str::limit(strip_tags($client->description), 155) : $client->name . ' - A valued client of Festa Design Studio' }}",
+        "url": "{{ url()->current() }}"
+        @if($client->website_url)
+        ,"sameAs": "{{ $client->website_url }}"
+        @endif
+        @if($client->logo)
+        ,"logo": "{{ asset('storage/' . $client->logo) }}"
+        @endif
+        ,"memberOf": {
+            "@type": "Organization",
+            "name": "Festa Design Studio",
+            "url": "{{ url('/') }}"
+        }
+    }
+    </script>
+    
+    <!-- Breadcrumb JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "{{ url('/') }}"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Work",
+                "item": "{{ route('work') }}"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Clients",
+                "item": "{{ route('clients') }}"
+            },
+            {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "{{ $client->name }}",
+                "item": "{{ url()->current() }}"
+            }
+        ]
+    }
+    </script>
+@endpush
+
 @section('breadcrumbs')
     <x-core.breadcrumbs-truncated
         :items="[

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ArticleRating;
 
 class AdminController extends Controller
 {
@@ -24,7 +25,10 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $totalRatings = ArticleRating::count();
+        $averageRating = ArticleRating::avg('rating') ?? 0;
+        
+        return view('admin.dashboard', compact('totalRatings', 'averageRating'));
     }
 
     /**

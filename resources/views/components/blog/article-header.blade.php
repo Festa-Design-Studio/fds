@@ -27,7 +27,7 @@
                 </div>
                 
                 <!-- Article title -->
-                <h1 class="text-h1 font-black text-the-end-900 mb-5">{{ $article['title'] }}</h1>
+                <h1 class="text-h1 font-black text-white-smoke-800/90 mb-5">{{ $article['title'] }}</h1>
                 
                 <!-- Article Excerpt -->
                 <p class="text-body-lg text-the-end-700 mb-6 lg:max-w-2xl">{{ $article['excerpt'] }}</p>

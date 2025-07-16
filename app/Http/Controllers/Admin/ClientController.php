@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -55,6 +56,9 @@ class ClientController extends Controller
         }
 
         Client::create($validated);
+
+        // Clear sitemap cache when client content changes
+        $this->clearSitemapCache();
 
         return redirect()->route('admin.clients.index')
             ->with('success', 'Client created successfully.');
@@ -107,6 +111,9 @@ class ClientController extends Controller
 
         $client->update($validated);
 
+        // Clear sitemap cache when client content changes
+        $this->clearSitemapCache();
+
         return redirect()->route('admin.clients.index')
             ->with('success', 'Client updated successfully.');
     }
@@ -125,7 +132,19 @@ class ClientController extends Controller
 
         $client->delete();
 
+        // Clear sitemap cache when client content changes
+        $this->clearSitemapCache();
+
         return redirect()->route('admin.clients.index')
             ->with('success', 'Client deleted successfully.');
+    }
+
+    /**
+     * Clear sitemap cache when client content changes
+     */
+    private function clearSitemapCache()
+    {
+        Cache::forget('sitemap_work');
+        Cache::forget('sitemap_static');
     }
 }

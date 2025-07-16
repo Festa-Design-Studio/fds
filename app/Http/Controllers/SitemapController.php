@@ -120,6 +120,12 @@ class SitemapController extends Controller
                     'priority' => '0.9',
                 ],
                 [
+                    'url' => route('clients'),
+                    'lastmod' => now()->toAtomString(),
+                    'changefreq' => 'weekly',
+                    'priority' => '0.7',
+                ],
+                [
                     'url' => route('resources.blog'),
                     'lastmod' => now()->toAtomString(),
                     'changefreq' => 'daily',
@@ -193,12 +199,19 @@ class SitemapController extends Controller
                 ->get();
 
             foreach ($articles as $article) {
-                $urls[] = [
+                $urlData = [
                     'url' => route('blog.show', $article->slug),
                     'lastmod' => $article->updated_at->toAtomString(),
                     'changefreq' => 'monthly',
                     'priority' => $article->is_featured ? '0.8' : '0.7',
                 ];
+                
+                // Add image if available
+                if ($article->image_path) {
+                    $urlData['image'] = asset('storage/' . $article->image_path);
+                }
+                
+                $urls[] = $urlData;
             }
 
             return $urls;

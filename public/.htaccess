@@ -28,3 +28,19 @@
 <IfModule mod_mime.c>
     AddType image/svg+xml .svg
 </IfModule>
+
+# PHP Upload and POST Size Configuration
+<IfModule mod_php.c>
+    php_value post_max_size 100M
+    php_value upload_max_filesize 50M
+    php_value max_input_time 300
+    php_value max_execution_time 300
+    php_value memory_limit 256M
+</IfModule>
+
+# For PHP-FPM/FastCGI (if mod_php is not available)
+<IfModule !mod_php.c>
+    <IfModule mod_fcgid.c>
+        FcgidMaxRequestLen 104857600
+    </IfModule>
+</IfModule>

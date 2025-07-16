@@ -9,6 +9,7 @@ use App\Models\Article; // For author selection
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class BlogController extends Controller
@@ -83,7 +84,15 @@ class BlogController extends Controller
             Article::where('is_featured', true)->update(['is_featured' => false]);
         }
 
+        // Set published_at to current timestamp if status is published and published_at is not set
+        if ($data['status'] === 'published' && empty($data['published_at'])) {
+            $data['published_at'] = now();
+        }
+
         Article::create($data);
+
+        // Clear sitemap cache when new article is created
+        $this->clearSitemapCache();
 
         return redirect()->route('admin.blog.posts')->with('success', 'Article created successfully.');
     }
@@ -141,7 +150,15 @@ class BlogController extends Controller
             Article::where('is_featured', true)->where('id', '!=', $article->id)->update(['is_featured' => false]);
         }
 
+        // Set published_at to current timestamp if status is being changed to published and published_at is not set
+        if ($data['status'] === 'published' && empty($data['published_at']) && $article->status !== 'published') {
+            $data['published_at'] = now();
+        }
+
         $article->update($data);
+
+        // Clear sitemap cache when article is updated
+        $this->clearSitemapCache();
 
         return redirect()->route('admin.blog.posts')->with('success', 'Article updated successfully.');
     }
@@ -162,6 +179,9 @@ class BlogController extends Controller
 
         $article->delete();
 
+        // Clear sitemap cache when article is deleted
+        $this->clearSitemapCache();
+
         return redirect()->route('admin.blog.posts')->with('success', 'Article deleted successfully.');
     }
 
@@ -176,5 +196,14 @@ class BlogController extends Controller
 
         // For now, just listing. CRUD operations for categories would require more views and methods.
         return view('admin.blog.categories', compact('categories'));
+    }
+
+    /**
+     * Clear sitemap cache when blog content changes
+     */
+    private function clearSitemapCache()
+    {
+        Cache::forget('sitemap_blog');
+        Cache::forget('sitemap_static');
     }
 }

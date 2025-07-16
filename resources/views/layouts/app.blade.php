@@ -7,6 +7,76 @@
     <title>@yield('title', 'Festa Design Studio')</title>
     <meta name="description" content="@yield('meta_description', 'Festa Design Studio')">
     @stack('meta')
+    
+    {{-- Organization Schema for Festa Design Studio --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Festa Design Studio",
+        "url": "{{ route('home') }}",
+        "logo": "{{ asset('images/festa-logo.png') }}",
+        "description": "Design studio specializing in nonprofit and social impact design solutions",
+        "email": "hello@festadesignstudio.com",
+        "foundingDate": "2020",
+        "knowsAbout": [
+            "Nonprofit Design",
+            "Social Impact Design", 
+            "Communication Design",
+            "Campaign Design",
+            "Project Design",
+            "Design for Good"
+        ],
+        "serviceArea": "Global",
+        "sameAs": [
+            "https://www.linkedin.com/company/festa-design-studio",
+            "https://www.behance.net/festadesignstudio",
+            "https://dribbble.com/festadesignstudio"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Global",
+            "addressCountry": "Worldwide"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-XXX-XXX-XXXX",
+            "contactType": "Customer Service",
+            "availableLanguage": "English"
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Design Services",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Project Design",
+                        "description": "Complete project design solutions for nonprofits and social enterprises"
+                    }
+                },
+                {
+                    "@type": "Offer", 
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Communication Design",
+                        "description": "Strategic communication design for social impact organizations"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service", 
+                        "name": "Campaign Design",
+                        "description": "Design campaigns that drive social change and engagement"
+                    }
+                }
+            ]
+        }
+    }
+    </script>
+    
     @vite([
         'resources/css/app.css', 
         'resources/css/toolkit-filters.css',
