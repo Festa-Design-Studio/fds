@@ -1,6 +1,40 @@
 @extends('layouts.app')
 
-@section('title', 'Toolkit - Festa Design Studio')
+@section('title', $pageSeo?->og_title ?: 'Toolkit - Festa Design Studio')
+
+@section('meta_description', $pageSeo?->meta_description ?: 'Discover free design tools and resources for nonprofits and social impact organizations. Access templates, guides, and design assets to enhance your mission.')
+
+@section('meta_keywords', $pageSeo?->meta_keywords ?: 'nonprofit design tools, free design resources, social impact toolkit, design templates, nonprofit resources')
+
+@section('og_title', $pageSeo?->og_title ?: 'Toolkit - Festa Design Studio')
+@section('og_description', $pageSeo?->og_description ?: 'Discover free design tools and resources for nonprofits and social impact organizations. Access templates, guides, and design assets.')
+@section('og_image', $pageSeo?->og_image ?: asset('images/toolkit-og-image.jpg'))
+@section('og_url', url()->current())
+
+@section('twitter_title', $pageSeo?->twitter_title ?: 'Toolkit - Festa Design Studio')
+@section('twitter_description', $pageSeo?->twitter_description ?: 'Discover free design tools and resources for nonprofits and social impact organizations.')
+@section('twitter_image', $pageSeo?->twitter_image ?: asset('images/toolkit-twitter-card.jpg'))
+
+@section('structured_data')
+@if($pageSeo?->structured_data)
+{!! json_encode($pageSeo->structured_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) !!}
+@else
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Toolkit - Festa Design Studio",
+    "description": "Free design tools and resources for nonprofits and social impact organizations",
+    "url": "{{ url()->current() }}",
+    "mainEntity": {
+        "@type": "ItemList",
+        "name": "Design Toolkit",
+        "description": "Curated collection of design tools and resources for social impact organizations"
+    }
+}
+</script>
+@endif
+@endsection
 
 @section('content')
     <!-- Breadcrumb (without "resources") -->

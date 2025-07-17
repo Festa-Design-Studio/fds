@@ -1,6 +1,40 @@
 @extends('layouts.app')
 
-@section('title', $pageTitle ?? 'Blog - Festa Design Studio')
+@section('title', $pageSeo?->og_title ?: ($pageTitle ?? 'Blog - Festa Design Studio'))
+
+@section('meta_description', $pageSeo?->meta_description ?: 'Explore insights, stories, and resources on design for social impact. Read our latest articles on nonprofit design, project design, and creating meaningful change.')
+
+@section('meta_keywords', $pageSeo?->meta_keywords ?: 'design blog, nonprofit design articles, social impact design, design for good resources, project design insights')
+
+@section('og_title', $pageSeo?->og_title ?: ($pageTitle ?? 'Blog - Festa Design Studio'))
+@section('og_description', $pageSeo?->og_description ?: 'Explore insights, stories, and resources on design for social impact. Read our latest articles on nonprofit design and creating meaningful change.')
+@section('og_image', $pageSeo?->og_image ?: asset('images/blog-og-image.jpg'))
+@section('og_url', url()->current())
+
+@section('twitter_title', $pageSeo?->twitter_title ?: ($pageTitle ?? 'Blog - Festa Design Studio'))
+@section('twitter_description', $pageSeo?->twitter_description ?: 'Explore insights, stories, and resources on design for social impact. Read our latest articles on nonprofit design.')
+@section('twitter_image', $pageSeo?->twitter_image ?: asset('images/blog-twitter-card.jpg'))
+
+@section('structured_data')
+@if($pageSeo?->structured_data)
+{!! json_encode($pageSeo->structured_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) !!}
+@else
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "{{ $pageTitle ?? 'Blog - Festa Design Studio' }}",
+    "description": "Explore insights, stories, and resources on design for social impact from Festa Design Studio",
+    "url": "{{ url()->current() }}",
+    "mainEntity": {
+        "@type": "Blog",
+        "name": "Festa Design Studio Blog",
+        "description": "Insights and resources on design for social impact"
+    }
+}
+</script>
+@endif
+@endsection
 
 @section('content')
     <x-core.breadcrumbs 

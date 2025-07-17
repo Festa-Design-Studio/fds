@@ -9,7 +9,7 @@
   </p>
   <!-- Primary Button -->
   <button
-    class="lg:w-auto md:w-auto w-full px-6 py-3 text-body-lg bg-chicken-comb-600 text-white-smoke-50 rounded-full hover:bg-chicken-comb-700 active:bg-chicken-comb-800 disabled:bg-chicken-comb-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-chicken-comb-600 focus:ring-offset-2"
+    class="w-auto px-6 py-3 text-body-lg bg-chicken-comb-600 text-white-smoke-50 rounded-full hover:bg-chicken-comb-700 active:bg-chicken-comb-800 disabled:bg-chicken-comb-200 disabled:cursor-not-allowed transition-all duration-150 ease-in-out focus:ring-2 focus:ring-chicken-comb-600 focus:ring-offset-2"
   >
     Talk to Festa
   </button>

@@ -8,7 +8,7 @@ use App\Models\SdgAlignment;
 use App\Models\Sector;
 use App\Models\Testimonial;
 use App\Models\WorkMetric;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class WorkController extends Controller
 {
@@ -19,123 +19,40 @@ class WorkController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 
-        $metrics = WorkMetric::orderBy('display_order', 'asc')->get();
+        // Cache metrics for 1 hour
+        $metrics = Cache::remember('work.metrics', 3600, function () {
+            return WorkMetric::orderBy('display_order', 'asc')->get();
+        });
 
-        // Get all testimonials and explicitly format them for the view
-        Log::info('Querying testimonials from database');
-        $dbTestimonials = Testimonial::all();
-        Log::info('Found '.$dbTestimonials->count().' testimonials in database');
+        // Cache testimonials for 1 hour
+        $testimonials = Cache::remember('work.testimonials', 3600, function () {
+            return Testimonial::all()->map(function ($testimonial) {
+                return [
+                    'quote' => $testimonial->quote,
+                    'author_name' => $testimonial->author_name,
+                    'author_title' => $testimonial->author_title,
+                    'author_avatar' => $testimonial->author_avatar,
+                    'published' => $testimonial->published,
+                    'display_order' => $testimonial->display_order,
+                ];
+            })->toArray();
+        });
 
-        $testimonials = $dbTestimonials->map(function ($testimonial) {
-            $mapped = [
-                'quote' => $testimonial->quote,
-                'author_name' => $testimonial->author_name,
-                'author_title' => $testimonial->author_title,
-                'author_avatar' => $testimonial->author_avatar,
-                'published' => $testimonial->published,
-                'display_order' => $testimonial->display_order,
-            ];
-            Log::info('Mapped testimonial: '.json_encode($mapped));
+        // Cache filter options for 2 hours
+        $sectorOptions = Cache::remember('filters.sectors', 7200, function () {
+            $sectors = Sector::orderBy('name')->get();
+            return $sectors->pluck('name', 'slug')->toArray() ?: ['nonprofit' => 'Nonprofit', 'startup' => 'Startup'];
+        });
 
-            return $mapped;
-        })->toArray(); // Convert to array - this is important!
+        $industryOptions = Cache::remember('filters.industries', 7200, function () {
+            $industries = Industry::orderBy('name')->get();
+            return $industries->pluck('name', 'slug')->toArray() ?: ['tech' => 'Technology', 'healthcare' => 'Healthcare'];
+        });
 
-        Log::info('Final testimonials data:', [
-            'count' => count($testimonials),
-            'testimonials' => $testimonials,
-        ]);
-
-        // Debugging: Let's print every single object individually
-        $sectors = Sector::orderBy('name')->get();
-        Log::info('Total sectors: '.$sectors->count());
-        foreach ($sectors as $index => $sector) {
-            Log::info("Sector #{$index}", [
-                'id' => $sector->id,
-                'name' => is_string($sector->name) ? 'VALID STRING: '.$sector->name : 'NOT A STRING: '.gettype($sector->name),
-                'slug' => is_string($sector->slug) ? 'VALID STRING: '.$sector->slug : 'NOT A STRING: '.gettype($sector->slug),
-                'whole_object' => json_encode($sector),
-            ]);
-        }
-
-        $industries = Industry::orderBy('name')->get();
-        Log::info('Total industries: '.$industries->count());
-        foreach ($industries as $index => $industry) {
-            Log::info("Industry #{$index}", [
-                'id' => $industry->id,
-                'name' => is_string($industry->name) ? 'VALID STRING: '.$industry->name : 'NOT A STRING: '.gettype($industry->name),
-                'slug' => is_string($industry->slug) ? 'VALID STRING: '.$industry->slug : 'NOT A STRING: '.gettype($industry->slug),
-                'whole_object' => json_encode($industry),
-            ]);
-        }
-
-        $sdgAlignments = SdgAlignment::orderBy('name')->get();
-        Log::info('Total SDG alignments: '.$sdgAlignments->count());
-        foreach ($sdgAlignments as $index => $sdg) {
-            Log::info("SDG #{$index}", [
-                'id' => $sdg->id,
-                'name' => is_string($sdg->name) ? 'VALID STRING: '.$sdg->name : 'NOT A STRING: '.gettype($sdg->name),
-                'code' => is_string($sdg->code) ? 'VALID STRING: '.$sdg->code : 'NOT A STRING: '.gettype($sdg->code),
-                'whole_object' => json_encode($sdg),
-            ]);
-        }
-
-        // Create sector options with defensive coding
-        $sectorOptions = [];
-        foreach ($sectors as $sector) {
-            if (is_object($sector) && isset($sector->slug) && isset($sector->name)) {
-                $key = (string) ($sector->slug ?? 'unknown');
-                $value = (string) ($sector->name ?? 'Unknown Sector');
-                $sectorOptions[$key] = $value;
-            } else {
-                Log::error('Invalid sector object', ['sector' => $sector]);
-            }
-        }
-
-        // Create industry options with defensive coding
-        $industryOptions = [];
-        foreach ($industries as $industry) {
-            if (is_object($industry) && isset($industry->slug) && isset($industry->name)) {
-                $key = (string) ($industry->slug ?? 'unknown');
-                $value = (string) ($industry->name ?? 'Unknown Industry');
-                $industryOptions[$key] = $value;
-            } else {
-                Log::error('Invalid industry object', ['industry' => $industry]);
-            }
-        }
-
-        // Create SDG alignment options with defensive coding
-        $sdgOptions = [];
-        foreach ($sdgAlignments as $sdg) {
-            if (is_object($sdg) && isset($sdg->code) && isset($sdg->name)) {
-                $key = (string) ($sdg->code ?? 'unknown');
-                $value = (string) ($sdg->name ?? 'Unknown SDG');
-                $sdgOptions[$key] = $value;
-            } else {
-                Log::error('Invalid SDG object', ['sdg' => $sdg]);
-            }
-        }
-
-        // If we have no data, provide some default options to prevent errors
-        if (empty($sectorOptions)) {
-            $sectorOptions = ['nonprofit' => 'Nonprofit', 'startup' => 'Startup'];
-            Log::warning('Using fallback sector options');
-        }
-
-        if (empty($industryOptions)) {
-            $industryOptions = ['tech' => 'Technology', 'healthcare' => 'Healthcare'];
-            Log::warning('Using fallback industry options');
-        }
-
-        if (empty($sdgOptions)) {
-            $sdgOptions = ['sdg1' => 'No Poverty', 'sdg13' => 'Climate Action'];
-            Log::warning('Using fallback SDG options');
-        }
-
-        Log::info('Final filter options:', [
-            'sectors' => $sectorOptions,
-            'industries' => $industryOptions,
-            'sdgs' => $sdgOptions,
-        ]);
+        $sdgOptions = Cache::remember('filters.sdg_alignments', 7200, function () {
+            $sdgAlignments = SdgAlignment::orderBy('name')->get();
+            return $sdgAlignments->pluck('name', 'code')->toArray() ?: ['sdg1' => 'No Poverty', 'sdg13' => 'Climate Action'];
+        });
 
         return view('work.index', compact(
             'projects',
@@ -177,11 +94,6 @@ class WorkController extends Controller
         $metrics = $metrics->map(function ($metric) {
             // Convert value to integer, removing any non-numeric characters
             $value = (int) preg_replace('/[^0-9]/', '', $metric->value);
-
-            Log::info("Processing metric for show page {$metric->id}:", [
-                'original_value' => $metric->value,
-                'processed_value' => $value,
-            ]);
 
             return [
                 'id' => $metric->id,

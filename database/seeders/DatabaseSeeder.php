@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TeamMemberSeeder::class,
             SectorIndustrySDGSeeder::class,
+            ServicesSeeder::class,
             ServiceExpertiseSeeder::class,
             ServiceSectorContentSeeder::class,
         ]);

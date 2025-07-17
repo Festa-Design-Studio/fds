@@ -30,11 +30,22 @@ class ServiceSector extends Model
         'expertise_title',
         'expertise_description',
         'expertise_items',
+        // SEO fields
+        'meta_description',
+        'meta_keywords',
+        'og_title',
+        'og_description',
+        'og_image',
+        'twitter_title',
+        'twitter_description',
+        'twitter_image',
+        'structured_data',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
         'challenge_items' => 'array',
         'expertise_items' => 'array',
+        'structured_data' => 'array',
     ];
 }

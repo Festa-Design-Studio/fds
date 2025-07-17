@@ -1,6 +1,42 @@
 @extends('layouts.app')
 
-@section('title', 'Festa Design Studio - Home')
+@section('title', $pageSeo?->og_title ?: 'Festa Design Studio - Design for Social Impact')
+
+@section('meta_description', $pageSeo?->meta_description ?: 'Strategic design studio specializing in nonprofit and social impact design. Transform your mission into visual impact with project design, communication design, and campaign design services.')
+
+@section('meta_keywords', $pageSeo?->meta_keywords ?: 'design for good, nonprofit design, social impact design, purpose-driven design, project design, communication design, campaign design')
+
+@section('og_title', $pageSeo?->og_title ?: 'Festa Design Studio - Design for Social Impact')
+@section('og_description', $pageSeo?->og_description ?: 'Strategic design studio specializing in nonprofit and social impact design. Transform your mission into visual impact with expert design solutions.')
+@section('og_image', $pageSeo?->og_image ?: asset('images/festa-og-image.jpg'))
+@section('og_url', url()->current())
+
+@section('twitter_title', $pageSeo?->twitter_title ?: 'Festa Design Studio - Design for Social Impact')
+@section('twitter_description', $pageSeo?->twitter_description ?: 'Strategic design studio specializing in nonprofit and social impact design. Transform your mission into visual impact.')
+@section('twitter_image', $pageSeo?->twitter_image ?: asset('images/festa-twitter-card.jpg'))
+
+@section('structured_data')
+@if($pageSeo?->structured_data)
+{!! json_encode($pageSeo->structured_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) !!}
+@else
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Festa Design Studio - Home",
+    "description": "Strategic design studio specializing in nonprofit and social impact design solutions",
+    "url": "{{ url()->current() }}",
+    "mainEntity": {
+        "@type": "Organization",
+        "name": "Festa Design Studio",
+        "url": "{{ route('home') }}",
+        "logo": "{{ asset('images/festa-logo.png') }}",
+        "description": "Strategic design studio specializing in nonprofit and social impact design solutions"
+    }
+}
+</script>
+@endif
+@endsection
 
 @section('content')
     <x-home.hero-section>

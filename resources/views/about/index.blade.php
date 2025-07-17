@@ -1,6 +1,41 @@
 @extends('layouts.app')
 
-@section('title', 'About Us - Festa Design Studio')
+@section('title', $pageSeo?->og_title ?: 'About Us - Festa Design Studio')
+
+@section('meta_description', $pageSeo?->meta_description ?: 'Meet the design team behind Festa Design Studio. We create strategic design solutions for nonprofits, startups, and social impact organizations worldwide.')
+
+@section('meta_keywords', $pageSeo?->meta_keywords ?: 'about festa design studio, design team, nonprofit design agency, social impact designers, design for good team')
+
+@section('og_title', $pageSeo?->og_title ?: 'About Us - Festa Design Studio')
+@section('og_description', $pageSeo?->og_description ?: 'Meet the design team behind Festa Design Studio. We create strategic design solutions for nonprofits, startups, and social impact organizations worldwide.')
+@section('og_image', $pageSeo?->og_image ?: asset('images/about-og-image.jpg'))
+@section('og_url', url()->current())
+
+@section('twitter_title', $pageSeo?->twitter_title ?: 'About Us - Festa Design Studio')
+@section('twitter_description', $pageSeo?->twitter_description ?: 'Meet the design team behind Festa Design Studio. Strategic design solutions for social impact organizations.')
+@section('twitter_image', $pageSeo?->twitter_image ?: asset('images/about-twitter-card.jpg'))
+
+@section('structured_data')
+@if($pageSeo?->structured_data)
+{!! json_encode($pageSeo->structured_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) !!}
+@else
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Festa Design Studio",
+    "description": "Meet the design team behind Festa Design Studio and learn about our mission to create strategic design solutions for social impact organizations",
+    "url": "{{ url()->current() }}",
+    "mainEntity": {
+        "@type": "Organization",
+        "name": "Festa Design Studio",
+        "url": "{{ route('home') }}",
+        "description": "Strategic design studio specializing in nonprofit and social impact design solutions"
+    }
+}
+</script>
+@endif
+@endsection
 
 @section('content')
     <!-- Breadcrumbs navigation -->

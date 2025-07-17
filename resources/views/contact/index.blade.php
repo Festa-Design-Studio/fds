@@ -1,6 +1,45 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Us - Festa Design Studio')
+@section('title', $pageSeo?->og_title ?: 'Contact Us - Festa Design Studio')
+
+@section('meta_description', $pageSeo?->meta_description ?: 'Get in touch with Festa Design Studio. Ready to transform your mission into visual impact? Contact our design team for nonprofit, startup, and social impact design projects.')
+
+@section('meta_keywords', $pageSeo?->meta_keywords ?: 'contact festa design studio, nonprofit design consultation, social impact design contact, design for good contact')
+
+@section('og_title', $pageSeo?->og_title ?: 'Contact Us - Festa Design Studio')
+@section('og_description', $pageSeo?->og_description ?: 'Get in touch with Festa Design Studio. Ready to transform your mission into visual impact? Contact our design team for social impact projects.')
+@section('og_image', $pageSeo?->og_image ?: asset('images/contact-og-image.jpg'))
+@section('og_url', url()->current())
+
+@section('twitter_title', $pageSeo?->twitter_title ?: 'Contact Us - Festa Design Studio')
+@section('twitter_description', $pageSeo?->twitter_description ?: 'Get in touch with Festa Design Studio. Ready to transform your mission into visual impact?')
+@section('twitter_image', $pageSeo?->twitter_image ?: asset('images/contact-twitter-card.jpg'))
+
+@section('structured_data')
+@if($pageSeo?->structured_data)
+{!! json_encode($pageSeo->structured_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) !!}
+@else
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Festa Design Studio",
+    "description": "Get in touch with Festa Design Studio for nonprofit, startup, and social impact design projects",
+    "url": "{{ url()->current() }}",
+    "mainEntity": {
+        "@type": "Organization",
+        "name": "Festa Design Studio",
+        "url": "{{ route('home') }}",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "Customer Service",
+            "email": "hello@festa.design"
+        }
+    }
+}
+</script>
+@endif
+@endsection
 
 @section('breadcrumbs')
     <!-- Breadcrumb navigation -->

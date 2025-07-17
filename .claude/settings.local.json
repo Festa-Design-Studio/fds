@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(php:*)",
+      "Bash(cp:*)",
+      "Bash(composer install:*)",
+      "Bash(touch:*)",
+      "Bash(rm:*)",
+      "Bash(composer dev:*)",
+      "Bash(./vendor/bin/pint:*)",
+      "Bash(composer test)",
+      "Bash(npm install)",
+      "Bash(npm run build:*)",
+      "Bash(npm audit:*)",
+      "Bash(./vendor/bin/pest --filter ProfileTest)",
+      "Bash(./vendor/bin/pest --filter AuthenticationTest)",
+      "Bash(./vendor/bin/pest)",
+      "Bash(kill:*)",
+      "Bash(curl:*)",
+      "Bash(chmod:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh run list:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm run dev:*)",
+      "Bash(time curl:*)",
+      "Bash(cat:*)",
+      "Bash(composer show:*)",
+      "Bash(composer:*)"
+    ],
+    "deny": []
+  }
+}

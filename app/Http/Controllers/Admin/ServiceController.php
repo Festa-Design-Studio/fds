@@ -39,6 +39,15 @@ class ServiceController extends Controller
             'deliverables' => 'nullable|array',
             'deliverables.*.title' => 'nullable|string|max:255',
             'deliverables.*.description' => 'nullable|string',
+            // SEO fields
+            'meta_description' => 'nullable|string|max:500',
+            'meta_keywords' => 'nullable|string|max:500',
+            'og_title' => 'nullable|string|max:255',
+            'og_description' => 'nullable|string|max:500',
+            'og_image' => 'nullable|url|max:500',
+            'twitter_title' => 'nullable|string|max:255',
+            'twitter_description' => 'nullable|string|max:500',
+            'twitter_image' => 'nullable|url|max:500',
         ]);
 
         try {

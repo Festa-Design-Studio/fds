@@ -1,6 +1,46 @@
 @extends('layouts.app')
 
-@section('title', $sector->title . ' - Festa Design Studio')
+@section('title', $sector->og_title ?: (($sector->title ?? 'Startup Services') . ' - Festa Design Studio'))
+
+@section('meta_description', $sector->meta_description ?: 'Design services for purpose-driven startups. Beat the 90% startup failure rate with investor-ready design, consistent branding, and revenue-driving visual systems.')
+
+@section('meta_keywords', $sector->meta_keywords ?: 'startup design services, startup branding, investor pitch design, purpose-driven startup, social enterprise design, startup visual identity')
+
+@section('og_title', $sector->og_title ?: (($sector->title ?? 'Startup Services') . ' - Festa Design Studio'))
+@section('og_description', $sector->og_description ?: 'Don\'t let poor branding cost you 23% of potential revenue. Investor-ready design systems that convert skeptics into supporters and scale revenue.')
+@section('og_image', $sector->og_image ?: asset('images/startup-services-og-image.jpg'))
+@section('og_url', url()->current())
+
+@section('twitter_title', $sector->twitter_title ?: (($sector->title ?? 'Startup Services') . ' - Festa Design Studio'))
+@section('twitter_description', $sector->twitter_description ?: 'Beat the 90% startup failure rate. Investor-ready design systems for purpose-driven startups.')
+@section('twitter_image', $sector->twitter_image ?: asset('images/startup-services-twitter-card.jpg'))
+
+@section('structured_data')
+@if($sector->structured_data)
+{!! json_encode($sector->structured_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) !!}
+@else
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "{{ $sector->title ?? 'Startup Design Services' }}",
+    "description": "{{ $sector->meta_description ?: $sector->description }}",
+    "provider": {
+        "@type": "Organization",
+        "name": "Festa Design Studio",
+        "url": "{{ config('app.url') }}"
+    },
+    "serviceType": "{{ $sector->title ?? 'Startup Design' }}",
+    "category": "Design Services",
+    "areaServed": "Global",
+    "audience": {
+        "@type": "Audience",
+        "audienceType": ["Startups", "Social Enterprises", "Purpose-driven Businesses"]
+    }
+}
+</script>
+@endif
+@endsection
 
 @section('content')
     <!-- Breadcrumbs navigation -->

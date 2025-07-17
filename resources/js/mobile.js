@@ -1,4 +1,4 @@
-ocument.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const navContent = document.getElementById('nav-content');
     const hamburgerIcon = document.getElementById('hamburger-icon');

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\WorkMetricController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\SitemapController;
@@ -97,6 +98,11 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contact/talktofesta', [ContactController::class, 'talkToFesta'])->name('contact.talk-to-festa');
 Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('contact.thank-you');
 
+// Newsletter
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+Route::post('/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+
+
 // Utility Pages
 Route::get('/privacy', [UtilityController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [UtilityController::class, 'terms'])->name('terms');
@@ -141,6 +147,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Service Sectors
     Route::get('/services/sectors/{type}/edit', [App\Http\Controllers\Admin\ServiceSectorController::class, 'edit'])->name('services.sectors.edit');
     Route::put('/services/sectors/{type}', [App\Http\Controllers\Admin\ServiceSectorController::class, 'update'])->name('services.sectors.update');
+
+    // Page SEO Management
+    Route::get('/page-seo', [App\Http\Controllers\Admin\PageSeoController::class, 'index'])->name('page-seo.index');
+    Route::get('/page-seo/{pageIdentifier}/edit', [App\Http\Controllers\Admin\PageSeoController::class, 'edit'])->name('page-seo.edit');
+    Route::put('/page-seo/{pageIdentifier}', [App\Http\Controllers\Admin\PageSeoController::class, 'update'])->name('page-seo.update');
 
     // Work Management
     Route::prefix('work')->name('work.')->group(function () {
@@ -231,6 +242,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/toolkit/categories/{category}/edit', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'edit'])->name('toolkit.categories.edit');
     Route::put('/toolkit/categories/{category}', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'update'])->name('toolkit.categories.update');
     Route::delete('/toolkit/categories/{category}', [App\Http\Controllers\Admin\ToolkitCategoryController::class, 'destroy'])->name('toolkit.categories.destroy');
+    
+    // Newsletter management routes
+    Route::get('/newsletter', [App\Http\Controllers\Admin\NewsletterController::class, 'index'])->name('newsletter.index');
+    Route::get('/newsletter/stats', [App\Http\Controllers\Admin\NewsletterController::class, 'stats'])->name('newsletter.stats');
 });
 
 // Profile routes

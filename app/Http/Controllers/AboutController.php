@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PageSeo;
 use App\Models\TeamMember;
 
 class AboutController extends Controller
@@ -9,8 +10,9 @@ class AboutController extends Controller
     public function index()
     {
         $teamMembers = TeamMember::orderBy('name')->take(3)->get();
+        $pageSeo = PageSeo::getForPage('about');
 
-        return view('about.index', compact('teamMembers'));
+        return view('about.index', compact('teamMembers', 'pageSeo'));
     }
 
     public function team()

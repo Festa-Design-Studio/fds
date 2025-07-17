@@ -152,6 +152,15 @@ class ServiceSectorController extends Controller
                 'expertise_description' => 'required|string',
                 'expertise_items' => 'required|array',
                 'display_order' => 'nullable|integer',
+                // SEO fields
+                'meta_description' => 'nullable|string|max:500',
+                'meta_keywords' => 'nullable|string|max:500',
+                'og_title' => 'nullable|string|max:255',
+                'og_description' => 'nullable|string|max:500',
+                'og_image' => 'nullable|url|max:500',
+                'twitter_title' => 'nullable|string|max:255',
+                'twitter_description' => 'nullable|string|max:500',
+                'twitter_image' => 'nullable|url|max:500',
             ]);
 
             if ($validator->fails()) {

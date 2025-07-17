@@ -1,0 +1,1 @@
+- When creating new pages, elements, functions for public viewing interface, always make sure you understand the components developed in the "component folder" particularly "core" components where all the atom-level components created for this project. You should also consider reading the "README" files in the project roots, pay attention to ones with components and layout.

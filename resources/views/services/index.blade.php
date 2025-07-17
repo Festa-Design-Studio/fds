@@ -2,6 +2,47 @@
 
 @section('title', 'Our Services - Festa Design Studio')
 
+@section('meta_description', 'Strategic design services for nonprofits and social impact organizations. Project design, communication design, and campaign design that transforms purpose into measurable impact.')
+
+@section('meta_keywords', 'nonprofit design services, social impact design, project design, communication design, campaign design, nonprofit branding, social enterprise design')
+
+@section('og_title', 'Our Services - Festa Design Studio')
+@section('og_description', 'Strategic design services for nonprofits and social impact organizations. Transform your purpose into measurable impact with our expert design solutions.')
+@section('og_image', asset('images/services-og-image.jpg'))
+@section('og_url', url()->current())
+
+@section('twitter_title', 'Our Services - Festa Design Studio')
+@section('twitter_description', 'Strategic design services for nonprofits and social impact organizations. Transform your purpose into measurable impact.')
+@section('twitter_image', asset('images/services-twitter-card.jpg'))
+
+{{-- Note: Main services page keeps hardcoded SEO as it doesn't have a specific database record --}}
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Design Services for Social Impact Organizations",
+    "description": "Strategic design services for nonprofits and social impact organizations including project design, communication design, and campaign design.",
+    "provider": {
+        "@type": "Organization",
+        "name": "Festa Design Studio",
+        "url": "{{ config('app.url') }}"
+    },
+    "serviceType": [
+        "Project Design",
+        "Communication Design", 
+        "Campaign Design"
+    ],
+    "areaServed": "Global",
+    "audience": {
+        "@type": "Audience",
+        "audienceType": ["Nonprofit Organizations", "Social Enterprises", "Purpose-driven Startups"]
+    }
+}
+</script>
+@endsection
+
 @section('content')
     <!-- Breadcrumb -->
     <x-core.breadcrumbs :items="[

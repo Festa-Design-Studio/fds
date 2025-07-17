@@ -19,11 +19,22 @@ class Service extends Model
         'expertise_description',
         'is_active',
         'display_order',
+        // SEO fields
+        'meta_description',
+        'meta_keywords',
+        'og_title',
+        'og_description',
+        'og_image',
+        'twitter_title',
+        'twitter_description',
+        'twitter_image',
+        'structured_data',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
         'display_order' => 'integer',
+        'structured_data' => 'array',
     ];
 
     public function deliverables(): HasMany

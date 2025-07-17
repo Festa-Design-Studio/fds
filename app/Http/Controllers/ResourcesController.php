@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\PageSeo;
 use App\Models\Toolkit;
 use App\Models\ToolkitCategory;
 use Illuminate\Support\Facades\Log;
@@ -63,8 +64,9 @@ class ResourcesController extends Controller
         Log::info('--- Blog Page: Finished fetching articles ---');
 
         $activeCategory = null;
+        $pageSeo = PageSeo::getForPage('blog_index');
 
-        return view('resources.blog.index', compact('articles', 'categories', 'activeCategory', 'featuredArticle'));
+        return view('resources.blog.index', compact('articles', 'categories', 'activeCategory', 'featuredArticle', 'pageSeo'));
     }
 
     public function blogByCategory($categorySlug)
@@ -105,7 +107,10 @@ class ResourcesController extends Controller
         $pageTitle = $activeCategory->name.' Articles';
         $pageSubtitle = 'Browse articles in the category: '.$activeCategory->name;
 
-        return view('resources.blog.index', compact('articles', 'categories', 'activeCategory', 'pageTitle', 'pageSubtitle', 'featuredArticle'));
+        // Get page SEO data for category pages
+        $pageSeo = PageSeo::getForPage('blog_category_' . $categorySlug) ?: PageSeo::getForPage('blog_index');
+
+        return view('resources.blog.index', compact('articles', 'categories', 'activeCategory', 'pageTitle', 'pageSubtitle', 'featuredArticle', 'pageSeo'));
     }
 
     public function show($slug)
@@ -154,8 +159,11 @@ class ResourcesController extends Controller
 
         // Fetch all toolkit categories for filtering
         $categories = ToolkitCategory::orderBy('name')->get();
+        
+        // Get page SEO data
+        $pageSeo = PageSeo::getForPage('toolkit');
 
-        return view('resources.toolkit.index', compact('toolkits', 'categories'));
+        return view('resources.toolkit.index', compact('toolkits', 'categories', 'pageSeo'));
     }
 
     public function designSystem()

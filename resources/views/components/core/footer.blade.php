@@ -44,23 +44,51 @@
                 </div>
           
                 <!-- Column 3: Newsletter -->
-                <div class="space-y-4">
+                <div id="newsletter" class="space-y-4">
                     <h3 class="text-h5 font-semibold text-the-end-900">Subscribe to our newsletter</h3>
                     <p class="text-body-sm text-the-end-700">Get weekly updates on our latest projects and initiatives.</p>
-                    <form class="flex flex-col gap-3">
+                    <form action="{{ route('newsletter.subscribe') }}" method="POST" class="flex flex-col gap-3">
+                        @csrf
+                        
                         <!-- Email input -->
                         <x-core.text-input
                             name="email"
                             placeholder="Enter your email"
                             type="email"
+                            value="{{ old('email') }}"
                             required
                         />
                         
                         <!-- Subscribe button -->
-                        <x-core.button variant="secondary" size="medium" type="submit">
+                        <x-core.button variant="secondary" size="medium" type="submit" :fullWidth="true">
                             Subscribe
                         </x-core.button>
                     </form>
+                    
+                    <!-- Newsletter Messages -->
+                    @if(session('newsletter_success'))
+                        <div class="mt-3 p-3 bg-pepper-green-50 border border-pepper-green-200 rounded-lg text-pepper-green-800 text-body-sm">
+                            {{ session('newsletter_success') }}
+                        </div>
+                    @endif
+                    
+                    @if(session('newsletter_error'))
+                        <div class="mt-3 p-3 bg-chicken-comb-50 border border-chicken-comb-200 rounded-lg text-chicken-comb-800 text-body-sm">
+                            {{ session('newsletter_error') }}
+                        </div>
+                    @endif
+                    
+                    @if(session('newsletter_info'))
+                        <div class="mt-3 p-3 bg-apocalyptic-orange-50 border border-apocalyptic-orange-200 rounded-lg text-apocalyptic-orange-800 text-body-sm">
+                            {{ session('newsletter_info') }}
+                        </div>
+                    @endif
+                    
+                    @error('email')
+                        <div class="mt-3 p-3 bg-chicken-comb-50 border border-chicken-comb-200 rounded-lg text-chicken-comb-800 text-body-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
             </div>
         @endif
@@ -68,15 +96,15 @@
         <!-- Social Links -->
         <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-the-end-200">
             <div class="flex space-x-6 mb-4 md:mb-0">
-                <a href="#" class="text-the-end-700 hover:text-pepper-green-600 transition-colors">
+                <a href="https://www.linkedin.com/company/festadesignstudio" target="_blank" rel="noopener noreferrer" class="text-the-end-700 hover:text-pepper-green-600 transition-colors">
                     <svg class="w-5 h-5 fill-the-end-700 hover:fill-pepper-green-600 transition-colors" viewBox="0 0 33 33"><title>logo-linkedin</title><g><path d="M31.74 0h-30.36c-0.76 0-1.38 0.62-1.38 1.38v30.36c0 0.76 0.62 1.38 1.38 1.38h30.36c0.76 0 1.38-0.62 1.38-1.38v-30.36c0-0.76-0.62-1.38-1.38-1.38z m-21.94 28.22h-4.9v-15.8h4.9v15.8z m-2.42-17.94c-1.59 0-2.83-1.24-2.83-2.83s1.24-2.83 2.83-2.83 2.83 1.24 2.83 2.83c0 1.52-1.24 2.83-2.83 2.83z m20.84 17.94h-4.9v-7.66c0-1.86 0-4.21-2.55-4.21s-2.97 2-2.97 4.07v7.8h-4.9v-15.8h4.69v2.14h0.07c0.62-1.24 2.28-2.55 4.63-2.55 4.97 0 5.86 3.24 5.86 7.52v8.69z"></path></g></svg>
                 </a>
                 
-                <a href="#" class="text-the-end-700 hover:text-pepper-green-600 transition-colors">
+                <a href="https://www.instagram.com/festadesignstudio/?igsh=cndnZDhsZTRia2Rw&utm_source=qr" target="_blank" rel="noopener noreferrer" class="text-the-end-700 hover:text-pepper-green-600 transition-colors">
                     <svg class="w-5 h-5 fill-the-end-700 hover:fill-pepper-green-600" viewBox="0 0 33 33"><title>logo-instagram</title><g><path d="M16.56 4.68c3.87 0 4.33 0.01 5.86 0.09a8.04 8.04 0 0 1 2.69 0.49 4.8 4.8 0 0 1 2.75 2.75 8.04 8.04 0 0 1 0.5 2.7c0.07 1.53 0.08 1.99 0.08 5.85s-0.01 4.33-0.08 5.86a8.04 8.04 0 0 1-0.5 2.69 4.8 4.8 0 0 1-2.75 2.75 8.04 8.04 0 0 1-2.69 0.5c-1.53 0.07-1.99 0.08-5.86 0.08s-4.33-0.01-5.86-0.08a8.04 8.04 0 0 1-2.69-0.5 4.8 4.8 0 0 1-2.75-2.75 8.04 8.04 0 0 1-0.5-2.69c-0.07-1.53-0.08-1.99-0.08-5.86s0.01-4.33 0.08-5.85a8.04 8.04 0 0 1 0.5-2.7 4.8 4.8 0 0 1 2.75-2.75 8.04 8.04 0 0 1 2.69-0.49c1.53-0.07 1.99-0.08 5.86-0.09m0-2.61c-3.93 0-4.43 0.02-5.97 0.09a10.64 10.64 0 0 0-3.52 0.67 7.1 7.1 0 0 0-2.57 1.67 7.1 7.1 0 0 0-1.67 2.57 10.64 10.64 0 0 0-0.67 3.52c-0.07 1.54-0.09 2.04-0.09 5.97s0.02 4.43 0.09 5.97a10.64 10.64 0 0 0 0.67 3.52 7.1 7.1 0 0 0 1.67 2.57 7.1 7.1 0 0 0 2.57 1.67 10.64 10.64 0 0 0 3.52 0.67c1.55 0.07 2.04 0.09 5.97 0.09s4.43-0.02 5.98-0.09a10.64 10.64 0 0 0 3.51-0.67 7.42 7.42 0 0 0 4.24-4.24 10.64 10.64 0 0 0 0.67-3.52c0.07-1.54 0.09-2.04 0.09-5.97s-0.02-4.43-0.09-5.97a10.64 10.64 0 0 0-0.67-3.52 7.1 7.1 0 0 0-1.67-2.57 7.1 7.1 0 0 0-2.57-1.67 10.64 10.64 0 0 0-3.52-0.67c-1.54-0.07-2.04-0.09-5.97-0.09z" ></path><path d="M16.56 9.12a7.44 7.44 0 1 0 7.44 7.44 7.44 7.44 0 0 0-7.44-7.44z m0 12.27a4.83 4.83 0 1 1 4.83-4.83 4.83 4.83 0 0 1-4.83 4.83z" ></path><path  d="M24.29 7.09a1.74 1.74 0 1 0 0 3.47 1.74 1.74 0 1 0 0-3.47z"></path></g></svg>
                 </a>
                 
-                <a href="#" class="text-the-end-700 hover:text-pepper-green-600 transition-colors">
+                <a href="https://github.com/Festa-Design-Studio" target="_blank" rel="noopener noreferrer" class="text-the-end-700 hover:text-pepper-green-600 transition-colors">
                     <svg class="w-5 h-5 fill-the-end-700 hover:fill-pepper-green-600" viewBox="0 0 33 33"><title>logo-github</title><g><path fill-rule="evenodd" clip-rule="evenodd" d="M16.56 0.41c-9.14 0-16.56 7.41-16.56 16.56 0 7.32 4.74 13.52 11.33 15.71 0.83 0.15 1.13-0.36 1.13-0.8 0-0.39-0.01-1.43-0.03-2.81-4.61 1-5.58-2.22-5.57-2.22-0.75-1.91-1.84-2.42-1.84-2.42-1.5-1.03 0.11-1.01 0.11-1.01 1.66 0.12 2.54 1.71 2.54 1.71 1.48 2.53 3.88 1.8 4.82 1.37 0.15-1.07 0.58-1.8 1.05-2.21-3.68-0.42-7.54-1.84-7.55-8.19 0-1.81 0.65-3.29 1.71-4.44-0.17-0.42-0.74-2.1 0.16-4.38 0 0 1.39-0.45 4.56 1.69 1.32-0.37 2.74-0.55 4.14-0.55 1.41 0.01 2.82 0.19 4.15 0.55 3.16-2.14 4.55-1.7 4.55-1.69 0.9 2.28 0.34 3.96 0.16 4.38 1.06 1.16 1.7 2.64 1.7 4.44 0 6.36-3.87 7.76-7.56 8.17 0.59 0.51 1.12 1.52 1.13 3.07 0 2.21-0.02 4-0.02 4.54 0 0.44 0.3 0.96 1.13 0.8 6.58-2.19 11.32-8.4 11.32-15.71 0-9.15-7.42-16.56-16.56-16.56z"></path></g></svg>
                 </a>
             </div>
