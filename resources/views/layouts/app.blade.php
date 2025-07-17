@@ -24,6 +24,11 @@
     <meta name="twitter:description" content="@yield('twitter_description', 'Design studio specializing in nonprofit and social impact design solutions')">
     <meta name="twitter:image" content="@yield('twitter_image', asset('images/festa-twitter-card.jpg'))">
     
+    {{-- Favicon --}}
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
+    
     @stack('meta')
     
     {{-- Page-specific structured data --}}

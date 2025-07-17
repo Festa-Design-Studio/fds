@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Festa Design Studio')</title>
+    
+    {{-- Favicon --}}
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
+    
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/mobile.js'])
 </head>
 <body class="bg-white-smoke-50">

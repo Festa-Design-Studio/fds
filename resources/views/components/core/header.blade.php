@@ -237,24 +237,4 @@
       </x-core.button>
     </div>
   </div>
-</header>
-
-<script>
-  // Mobile menu toggle functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const navContent = document.getElementById('nav-content');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-    const closeIcon = document.getElementById('close-icon');
-    
-    if (mobileMenuButton && navContent) {
-      mobileMenuButton.addEventListener('click', function() {
-        const expanded = this.getAttribute('aria-expanded') === 'true';
-        this.setAttribute('aria-expanded', !expanded);
-        navContent.classList.toggle('hidden');
-        hamburgerIcon.classList.toggle('hidden');
-        closeIcon.classList.toggle('hidden');
-      });
-    }
-  });
-</script> 
+</header> 
