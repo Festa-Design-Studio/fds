@@ -96,6 +96,16 @@ Route::prefix('admin/about/design-for-good')->middleware(['auth'])->group(functi
     Route::delete('/{designForGoodContent}', [\App\Http\Controllers\Admin\About\DesignForGoodContentController::class, 'destroy'])->name('admin.about.design-for-good.destroy');
 });
 
+// Admin About Our Process Management
+Route::prefix('admin/about/our-process')->middleware(['auth'])->group(function () {
+    Route::get('/', [\App\Http\Controllers\Admin\About\OurProcessController::class, 'index'])->name('admin.about.our-process.index');
+    Route::get('/create', [\App\Http\Controllers\Admin\About\OurProcessController::class, 'create'])->name('admin.about.our-process.create');
+    Route::post('/', [\App\Http\Controllers\Admin\About\OurProcessController::class, 'store'])->name('admin.about.our-process.store');
+    Route::get('/{ourProcess}/edit', [\App\Http\Controllers\Admin\About\OurProcessController::class, 'edit'])->name('admin.about.our-process.edit');
+    Route::put('/{ourProcess}', [\App\Http\Controllers\Admin\About\OurProcessController::class, 'update'])->name('admin.about.our-process.update');
+    Route::delete('/{ourProcess}', [\App\Http\Controllers\Admin\About\OurProcessController::class, 'destroy'])->name('admin.about.our-process.destroy');
+});
+
 // Resources
 Route::get('/resources/blog', [ResourcesController::class, 'blog'])->name('resources.blog');
 Route::get('/resources/blog/category/{categorySlug}', [ResourcesController::class, 'blogByCategory'])->name('resources.blog.category');

@@ -15,11 +15,11 @@
     <x-about.our-process.hero-section />
     
     <!-- Our Philosophy Section -->
-    <x-about.our-process.philosophy-section />
+    <x-about.our-process.philosophy-section :philosophy-items="$philosophyItems ?? collect()" />
     
     <!-- Our Methodology Section -->
-    <x-about.our-process.methodology-section />
+    <x-about.our-process.methodology-section :methodology-items="$methodologyItems ?? collect()" />
     
     <!-- Impact Measurement Section -->
-    <x-about.our-process.impact-measurement-section />
+    <x-about.our-process.impact-measurement-section :impact-items="$impactItems ?? collect()" />
 @endsection 

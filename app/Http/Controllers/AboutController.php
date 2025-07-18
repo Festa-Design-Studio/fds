@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PageSeo;
 use App\Models\TeamMember;
 use App\Models\DesignForGoodContent;
+use App\Models\OurProcess;
 
 class AboutController extends Controller
 {
@@ -25,7 +26,12 @@ class AboutController extends Controller
 
     public function process()
     {
-        return view('about.our-process');
+        // Get process data from database
+        $philosophyItems = OurProcess::philosophy()->get();
+        $methodologyItems = OurProcess::methodology()->get();
+        $impactItems = OurProcess::impact()->get();
+
+        return view('about.our-process', compact('philosophyItems', 'methodologyItems', 'impactItems'));
     }
 
     public function focus()

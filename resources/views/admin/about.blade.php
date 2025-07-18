@@ -78,6 +78,27 @@
             </x-core.button>
         </div>
 
+        <!-- Our Process Management -->
+        <div class="bg-white border border-white-smoke-300 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-lg bg-leaf-100 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-leaf-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                    </svg>
+                </div>
+                <h3 class="text-h5 font-semibold text-the-end-900">Our Process</h3>
+            </div>
+            <p class="text-body text-the-end-700 mb-6">View and manage our design methodology, philosophy, and impact measurement content.</p>
+            <div class="space-y-2">
+                <x-core.button variant="primary" size="medium" href="{{ route('admin.about.our-process.index') }}" fullWidth="true">
+                    Manage Content
+                </x-core.button>
+                <x-core.button variant="secondary" size="medium" href="{{ route('about.process') }}" target="_blank" fullWidth="true">
+                    View Process Page
+                </x-core.button>
+            </div>
+        </div>
+
         <!-- About Page Content -->
         <div class="bg-white border border-white-smoke-300 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
             <div class="flex items-center gap-3 mb-4">

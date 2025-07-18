@@ -1,43 +1,42 @@
+@props(['philosophyItems' => collect()])
+
 <!-- Our Philosophy Section -->
-<article class="relative bg-gradient-to-br from-apocalyptic-orange-50 via-white-smoke-50 to-chicken-comb-50 text-the-end-900 py-20 px-8 lg:px-16 mx-auto">
-  <!-- Section Header -->
-  <x-core.section-header
-    title="Our design philosophy"
-    description="At Festa Design Studio, we believe that thoughtful design has the power to amplify social impact and drive meaningful change. Our design philosophy is built on three core principles:"
-    variant="primary"
-    class="mb-20"
-  />
+<section class="py-24 bg-white-smoke-50">
+  <div class="container mx-auto px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="text-h2 lg:text-h1 font-bold text-the-end-900 mb-6">
+        Our design philosophy
+      </h2>
+      <p class="text-body-lg text-the-end-700 leading-relaxed">
+        At Festa Design Studio, we believe that thoughtful design has the power to amplify social impact and drive meaningful change. Our design philosophy is built on three core principles:
+      </p>
+    </div>
 
-  <!-- Philosophy Grid -->
-  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-    <x-core.process-step
-      number="1"
-      title="Purpose-Driven Design"
-      description="Every design decision we make is intentionally aligned with our clients' missions for social good. We believe that effective design must serve a greater purpose beyond aesthetics."
-      variant="accent"
-      layout="vertical"
-      badgeColor="bg-chicken-comb-100 text-chicken-comb-700"
-      class="lg:col-span-1"
-    />
+    <!-- Philosophy Cards Grid -->
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      @foreach($philosophyItems as $index => $item)
+        <article class="group relative bg-white-smoke-100 rounded-2xl border border-white-smoke-300 p-8 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+          <div class="flex flex-col items-center text-center">
+            <!-- Principle Number -->
+            <div class="mb-6 w-12 h-12 bg-pepper-green-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span class="text-h5 font-bold text-pepper-green-600">
+                {{ $index + 1 }}
+              </span>
+            </div>
 
-    <x-core.process-step
-      number="2"
-      title="Human-Centered Approach"
-      description="We place people at the heart of our design process, deeply understanding the needs of both our clients and their target audiences to create solutions that genuinely resonate and drive engagement."
-      variant="primary"
-      layout="vertical"
-      badgeColor="bg-pepper-green-100 text-pepper-green-700"
-      class="lg:col-span-1"
-    />
-
-    <x-core.process-step
-      number="3"
-      title="Impact-Focused Solutions"
-      description="Our designs are crafted to deliver measurable results. We combine creative excellence with strategic thinking to create solutions that advance our clients' goals for positive social change."
-      variant="secondary"
-      layout="vertical"
-      badgeColor="bg-apocalyptic-orange-100 text-apocalyptic-orange-700"
-      class="lg:col-span-1 md:col-span-2 lg:col-span-1"
-    />
-  </section>
-</article> 
+            <!-- Content -->
+            <div class="text-center">
+              <h3 class="text-h5 font-semibold text-the-end-900 mb-3">
+                {{ $item->title }}
+              </h3>
+              <p class="text-body text-the-end-700 leading-relaxed">
+                {{ $item->description }}
+              </p>
+            </div>
+          </div>
+        </article>
+      @endforeach
+    </div>
+  </div>
+</section> 
