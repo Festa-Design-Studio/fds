@@ -56,6 +56,40 @@
             </div>
         </div>
 
+        @if($pageSeo->page_identifier === 'services')
+        <!-- Content Section for Services Page -->
+        <div class="bg-white border border-white-smoke-300 p-6 rounded-xl shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-lg bg-chicken-comb-100 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-chicken-comb-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                </div>
+                <h2 class="text-h5 font-semibold text-the-end-900">Page Content</h2>
+            </div>
+
+            <div class="space-y-6">
+                <x-core.text-input 
+                    name="hero_title" 
+                    label="Hero Title" 
+                    value="{{ old('hero_title', $pageSeo->content['hero_title'] ?? '') }}"
+                    placeholder="e.g., Design that transforms purpose into impact" />
+                
+                <x-core.text-input 
+                    name="hero_subtitle" 
+                    label="Hero Subtitle" 
+                    value="{{ old('hero_subtitle', $pageSeo->content['hero_subtitle'] ?? '') }}"
+                    placeholder="e.g., Services" />
+                
+                <x-core.textarea 
+                    name="hero_description" 
+                    label="Hero Description" 
+                    rows="4"
+                    placeholder="Brief description that appears below the hero title...">{{ old('hero_description', $pageSeo->content['hero_description'] ?? '') }}</x-core.textarea>
+            </div>
+        </div>
+        @endif
+
         <!-- SEO Section -->
         <div class="bg-white border border-white-smoke-300 p-6 rounded-xl shadow-sm">
             <div class="flex items-center gap-3 mb-6">
@@ -136,7 +170,11 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                Update Page SEO
+                @if($pageSeo->page_identifier === 'services')
+                    Update Content & SEO
+                @else
+                    Update Page SEO
+                @endif
             </x-core.button>
         </div>
     </form>

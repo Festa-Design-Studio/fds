@@ -92,6 +92,42 @@
             </div>
         </div>
 
+        @if($service->type === 'main_page')
+        <!-- Hero Content Section for Main Page -->
+        <div class="bg-white border border-white-smoke-300 p-6 rounded-xl shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-lg bg-chicken-comb-100 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-chicken-comb-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                </div>
+                <h2 class="text-h5 font-semibold text-the-end-900">Hero Section Content</h2>
+            </div>
+
+            <div class="space-y-6">
+                <x-core.text-input 
+                    name="content" 
+                    label="Hero Title" 
+                    value="{{ old('content', $service->content) }}"
+                    placeholder="e.g., Design that transforms purpose into impact"
+                    required />
+                
+                <x-core.text-input 
+                    name="hero_subtitle" 
+                    label="Hero Subtitle" 
+                    value="{{ old('hero_subtitle', $service->hero_subtitle) }}"
+                    placeholder="e.g., Services" />
+                
+                <x-core.textarea 
+                    name="description" 
+                    label="Hero Description" 
+                    rows="4"
+                    placeholder="Brief description that appears below the hero title..."
+                    required>{{ old('description', $service->description) }}</x-core.textarea>
+            </div>
+        </div>
+        @else
+
         <!-- Expertise Section -->
         <div class="bg-white border border-white-smoke-300 p-6 rounded-xl shadow-sm">
             <div class="flex items-center gap-3 mb-6">
@@ -117,6 +153,7 @@
                     placeholder="Describe your expertise in this service area...">{{ old('expertise_description', $service->expertise_description) }}</x-core.textarea>
             </div>
         </div>
+        @endif
 
         <!-- SEO Section -->
         <div class="bg-white border border-white-smoke-300 p-6 rounded-xl shadow-sm">
@@ -193,6 +230,7 @@
             </div>
         </div>
 
+        @if($service->type !== 'main_page')
         <!-- Deliverables Section -->
         <div class="bg-white border border-white-smoke-300 p-6 rounded-xl shadow-sm">
             <div class="flex items-center gap-3 mb-6">
@@ -239,6 +277,7 @@
                 Add New Deliverable
             </x-core.button>
         </div>
+        @endif
 
         <div class="flex justify-end">
             <x-core.button type="submit" variant="primary" size="large">

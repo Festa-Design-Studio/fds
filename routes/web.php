@@ -102,6 +102,9 @@ Route::get('/resources/blog/category/{categorySlug}', [ResourcesController::clas
 Route::get('/resources/blog/{slug}', [ResourcesController::class, 'show'])->name('blog.show');
 Route::get('/resources/toolkit', [ResourcesController::class, 'toolkit'])->name('resources.toolkit');
 Route::get('/resources/design-system', [ResourcesController::class, 'designSystem'])->name('resources.design-system');
+Route::get('/resources/design-system/components', [ResourcesController::class, 'designSystemComponents'])->name('resources.design-system.components');
+Route::get('/resources/design-system/tokens', [ResourcesController::class, 'designSystemTokens'])->name('resources.design-system.tokens');
+Route::get('/resources/design-system/guidelines', [ResourcesController::class, 'designSystemGuidelines'])->name('resources.design-system.guidelines');
 
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');

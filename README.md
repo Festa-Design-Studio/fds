@@ -1,64 +1,100 @@
 # Festa Design Studio
 
-<svg class="h-40 w-auto" viewBox="0 0 27 40" preserveAspectRatio="xMidYMid meet">
-  <g>
-    <path class="cls-2" d="M26,5.66V1.12H1v22.73h4.55v-9.09h2.27v9.09h18.18v-13.64h-4.55v-4.55h4.55ZM7.82,10.21h-2.27v-4.55h2.27v4.55ZM15.2,10.21v9.09h-2.84V5.66h2.84v4.55ZM21.45,19.3h-1.7v-4.55h1.7v4.55Z" fill="#e02829"/>
-  </g>
-</svg>
+<div align="center">
+  <svg class="h-40 w-auto" viewBox="0 0 27 40" preserveAspectRatio="xMidYMid meet">
+    <g>
+      <path class="cls-2" d="M26,5.66V1.12H1v22.73h4.55v-9.09h2.27v9.09h18.18v-13.64h-4.55v-4.55h4.55ZM7.82,10.21h-2.27v-4.55h2.27v4.55ZM15.2,10.21v9.09h-2.84V5.66h2.84v4.55ZM21.45,19.3h-1.7v-4.55h1.7v4.55Z" fill="#e02829"/>
+    </g>
+  </svg>
+</div>
 
-## Project Overview
+## 🎯 Project Overview
 
-Festa Design Studio is a purpose-driven design agency website built with Laravel, Blade, and Tailwind CSS. The project showcases Festa's services, work portfolio, blog, and resources while implementing a comprehensive design system with a fully functional admin panel.
+**Festa Design Studio** is a professionally architected Laravel 12 web application for a purpose-driven design agency. This full-featured platform showcases services, portfolio work, team members, and resources while maintaining a consistent brand identity through a custom design system. Built with modern web technologies and best practices, it features a powerful content management system with a comprehensive admin panel.
 
-## Key Features
+## 🛠 Tech Stack
 
-- **Component-based architecture** using Blade components with a comprehensive design system
-- **Custom design system** with Tailwind CSS and reusable components
-- **Responsive layouts** for all device sizes
-- **Admin panel** for content management with modern Festa design system
-- **Blog platform** with full CRUD functionality for articles and categories
-  - **Featured Article** selection system for highlighting important content
-  - **Article rating** functionality for user feedback
-- **Portfolio showcase** for displaying work with advanced filtering
-  - **Client management** system with logo and project associations
-  - **Sector and Industry** categorization
-  - **SDG Alignment** tracking for impact measurement
-- **Services section** highlighting capabilities
-  - **Project Design** services
-  - **Communication Design** services
-  - **Campaign Design** services
-  - **Sector-specific** content for Nonprofits and Startups
-- **Interactive Toolkit page** with dynamic filtering and pagination
-  - **Real-time search** across toolkit resources
-  - **Category and tool filtering** with URL parameter management
-  - **Pagination system** with "Load More" functionality
-  - **Smooth animations** and responsive design
-- **Advanced Services Management** with sector-specific content
-  - **Dynamic Service Pages** for Project Design, Communication Design, and Campaign Design
-  - **Sector-Specific Pages** for Nonprofits and Startups with dynamic content
-  - **Admin Interface** for managing service content, deliverables, and sector information
-  - **ServiceSector Model** with JSON-based content management for hero sections, challenges, and expertise
-- **Contact system** for client inquiries
-- **Metrics display** with animated counters
-- **Testimonials system** for client feedback
-- **Sectors, Industries, and SDG Alignments** for advanced project categorization
-- **Cookie consent** integration with Spatie package
-- **SEO Optimization** with comprehensive sitemap implementation
-  - XML sitemaps for search engines
-  - Human-readable sitemap
-  - Proper caching strategy
-  - robots.txt integration
+### Backend
+- **Laravel 12** - Modern PHP framework
+- **PHP 8.2+** - Latest PHP version with improved performance
+- **SQLite** (default) / MySQL / PostgreSQL - Flexible database support
+- **Livewire 3.6** - Full-stack framework for dynamic interfaces
 
-## Installation & Setup
+### Frontend
+- **Blade** - Laravel's powerful templating engine
+- **Tailwind CSS 3.1** - Utility-first CSS framework
+- **Alpine.js 3.4** - Lightweight JavaScript framework
+- **Vite 6.2** - Next-generation frontend tooling
+
+### Development & Testing
+- **Pest PHP 3.8** - Elegant testing framework
+- **Laravel Pint** - Opinionated PHP code style fixer
+- **Laravel Pail** - Real-time application log viewer
+- **Concurrently** - Run multiple commands concurrently
+
+### Integrations
+- **Mailchimp API** - Newsletter subscription management
+- **Spatie Cookie Consent** - GDPR compliance
+- **Laravel Breeze** - Authentication scaffolding
+
+## ✨ Key Features
+
+### 🎨 Design & Architecture
+- **Component-Based Architecture** - Organized Blade components by domain
+- **Custom Festa Design System** - Unique color palette and consistent UI
+- **Responsive Design** - Mobile-first approach with Tailwind CSS
+- **Atomic Design Principles** - Reusable UI components
+
+### 🔧 Content Management
+- **Comprehensive Admin Panel** - Full CRUD operations for all content types
+- **Dynamic Content Management** - JSON fields for flexible content storage
+- **Rich Text Editor** - With image upload capabilities
+- **SEO Optimization** - Meta tags, sitemaps, and structured data
+
+### 📋 Main Features
+- **Services Management**
+  - Project Design, Communication Design, Campaign Design
+  - Sector specializations (Nonprofits, Startups)
+  - Dynamic deliverables and expertise management
+  
+- **Portfolio/Work Showcase**
+  - Project case studies with client associations
+  - Sector, industry, and SDG alignment tracking
+  - Advanced filtering and categorization
+  
+- **Blog Platform**
+  - Article management with categories
+  - Featured article selection
+  - Livewire-based rating system
+  - Author management
+  
+- **Team Management**
+  - Team member profiles with roles
+  - Social media links
+  - Profile images
+  
+- **Resources & Toolkit**
+  - Filterable design resources
+  - Category and tool-based filtering
+  - Real-time search with debouncing
+  - Load more pagination
+  
+- **Additional Features**
+  - Newsletter integration (Mailchimp)
+  - Client testimonials with ratings
+  - Contact forms with validation
+  - Cookie consent (GDPR)
+  - Work metrics with animated counters
+
+## 🚀 Quick Start
 
 ### Prerequisites
-
 - PHP 8.2 or higher
 - Composer
-- Node.js and NPM
-- MySQL/PostgreSQL database
+- Node.js 16+ and npm
+- SQLite (included) or MySQL/PostgreSQL
 
-### Installation Steps
+### Installation
 
 1. **Clone the repository**
    ```bash
@@ -66,503 +102,247 @@ Festa Design Studio is a purpose-driven design agency website built with Laravel
    cd fds
    ```
 
-2. **Install PHP dependencies**
+2. **Install dependencies**
    ```bash
    composer install
-   ```
-
-3. **Install JavaScript dependencies**
-   ```bash
    npm install
    ```
 
-4. **Environment Configuration**
+3. **Environment setup**
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
-   Then edit `.env` to set up your database credentials and other configuration.
 
-5. **Run database migrations**
+4. **Database setup**
    ```bash
-   php artisan migrate
+   # SQLite is configured by default
+   php artisan migrate --seed
    ```
 
-6. **Seed the database (optional)**
-   ```bash
-   php artisan db:seed
-   ```
-
-7. **Create storage link**
+5. **Create storage link**
    ```bash
    php artisan storage:link
    ```
 
-8. **Build frontend assets**
+6. **Start development server**
    ```bash
-   npm run build
-   ```
-
-9. **Start the development server**
-   ```bash
-   # Start Laravel server and Vite development server
-   composer run dev
-   ```
+   # Start all services with one command (recommended)
+   composer dev
    
-   Alternatively, you can start each service separately:
-   ```bash
-   # Laravel server
-   php artisan serve
-
-   # Vite development server
-   npm run dev
+   # This runs:
+   # - Laravel development server
+   # - Vite development server
+   # - Queue worker
+   # - Real-time log viewer (Pail)
    ```
 
-10. **Visit in your browser**
-    ```
-    http://localhost:8000
-    ```
+7. **Access the application**
+   - Application: http://localhost:8000
+   - Admin Panel: http://localhost:8000/admin
 
-## Recent Updates
-
-- **Admin Services Management Overhaul**: Completely redesigned admin interface for managing services with modern Festa design system
-- **ServiceSector Model Implementation**: Created comprehensive sector management with dynamic content for hero sections, challenges, and expertise areas
-- **Layout Improvements**: Updated all admin edit pages with consistent styling, proper form validation, and enhanced user experience
-- **Dynamic Sector Content**: Implemented database-driven content for startup and nonprofit sector pages, replacing hardcoded content
-- **Enhanced Form Validation**: Fixed checkbox handling, deliverables validation, and improved error messaging across admin forms
-- **JavaScript Improvements**: Fixed expertise card management, proper container targeting, and improved form submission handling
-- **Database Migrations**: Added comprehensive content fields to service sectors with proper JSON casting for complex data structures
-- **Seeder Updates**: Created detailed content seeders for both nonprofit and startup sectors with realistic challenge and expertise data
-- **Dynamic Toolkit Page**: Implemented a fully interactive toolkit page with filtering, search, and pagination functionality
-- **Real-time Filtering**: Added dynamic filtering by category and design tool with URL parameter management
-- **Load More Pagination**: Implemented pagination system showing 3 cards initially with "Load More" functionality
-- **Smooth Animations**: Added CSS animations and transitions for better user experience
-- **Blog Featured Article System**: Implemented a system to allow admins to select a featured article for the blog homepage
-- **Article Rating Functionality**: Added Livewire-based rating system for blog articles
-- **Cookie Consent**: Integrated Spatie's cookie consent package for GDPR compliance
-- **Performance Optimizations**: Improved database queries and page loading time
-
-## Services Management System
-
-The application now features a comprehensive services management system with the following capabilities:
-
-### 🎯 **Service Types**
-- **Project Design**: Strategic design solutions for purpose-driven projects
-- **Communication Design**: Clear messaging and visual communication strategies  
-- **Campaign Design**: Comprehensive campaign development and execution
-
-### 🏢 **Sector Specializations**
-- **Nonprofit Sector**: Tailored solutions for mission-driven organizations
-- **Startup Sector**: Strategic design for emerging purpose-driven businesses
-
-### ⚙️ **Admin Management Features**
-- **Dynamic Content Management**: Edit hero sections, challenge descriptions, and expertise areas
-- **Deliverables Management**: Add, edit, and remove service deliverables with validation
-- **Expertise Cards**: Manage expertise items with titles, descriptions, icons, and bullet points
-- **Challenge Cards**: Define sector-specific challenges with supporting data and sources
-- **Form Validation**: Comprehensive validation for all content types with proper error handling
-- **Modern UI**: Consistent Festa design system implementation across all admin interfaces
-
-### 🗄️ **Database Architecture**
-- **ServiceSector Model**: JSON-based content storage with proper casting for complex data
-- **Service Model**: Relationship management with deliverables and expertise content
-- **Migration System**: Comprehensive database structure for content management
-- **Seeder System**: Realistic content population for development and testing
-
-## Toolkit System Features
-
-The Toolkit page includes the following key features:
-
-### 🔍 **Dynamic Search & Filtering**
-- Real-time search across title, description, category, and tool fields
-- Category filtering (Project Design, Communication Design, Campaign Design)
-- Design tool filtering (Mailchimp, SEO, Figma, Canva, etc.)
-- Debounced search input (300ms delay for optimal performance)
-- URL parameter management for bookmarkable searches
-
-### 📄 **Pagination System**
-- Shows 3 toolkit cards by default
-- "Load More" button loads 3 additional cards per click
-- Button automatically hides when all cards are loaded
-- Smooth scrolling to newly loaded content
-- Loading state with visual feedback
-
-### ✨ **Enhanced User Experience**
-- Smooth CSS animations and transitions
-- Results counter showing "X of Y tools"
-- "No results found" state with clear filters option
-- Browser back/forward button support
-- Mobile-responsive design
-- Staggered card animations for visual appeal
-
-### 🔗 **Technical Features**
-- JavaScript class-based architecture (`ToolkitFilter`)
-- Component integration with existing Blade components
-- Vite-based asset compilation
-- Error handling and debugging features
-- Performance optimizations with requestAnimationFrame
-
-## Routes Structure
-
-### Web Routes (`routes/web.php`)
-
-```php
-// Home
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-// Admin Dashboard Redirect
-Route::get('/dashboard', function () {
-    return redirect()->route('admin.dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-// Services
-Route::get('/services', [ServicesController::class, 'index'])->name('services');
-Route::get('/services/project-design', [ServicesController::class, 'projectDesign'])->name('services.project-design');
-Route::get('/services/communication-design', [ServicesController::class, 'communicationDesign'])->name('services.communication-design');
-Route::get('/services/campaign-design', [ServicesController::class, 'campaignDesign'])->name('services.campaign-design');
-Route::get('/services/sectors/nonprofits', [ServicesController::class, 'nonprofits'])->name('services.sectors.nonprofits');
-Route::get('/services/sectors/startup', [ServicesController::class, 'startup'])->name('services.sectors.startup');
-
-// Work/Portfolio
-Route::get('/work', [WorkController::class, 'index'])->name('work');
-Route::get('/work/case-study', [WorkController::class, 'caseStudy'])->name('work.case-study');
-Route::get('/work/{slug}', [WorkController::class, 'show'])->name('work.show');
-
-// Client routes
-Route::get('/clients', [ClientController::class, 'index'])->name('clients');
-Route::get('/client/{slug}', [ClientController::class, 'show'])->name('client.show');
-
-// About
-Route::get('/about', [AboutController::class, 'index'])->name('about');
-Route::get('/about/team', [AboutController::class, 'team'])->name('about.team');
-Route::get('/about/our-process', [AboutController::class, 'process'])->name('about.process');
-Route::get('/about/focus', [AboutController::class, 'focus'])->name('about.focus');
-Route::get('/about/we-design-for-good', [AboutController::class, 'designForGood'])->name('about.design-for-good');
-
-// Team Members
-Route::get('/about/team/{team_member}', [TeamMemberController::class, 'show'])->name('about.team.show');
-
-// Resources
-Route::get('/resources/blog', [ResourcesController::class, 'blog'])->name('resources.blog');
-Route::get('/resources/blog/category/{categorySlug}', [ResourcesController::class, 'blogByCategory'])->name('resources.blog.category');
-Route::get('/resources/blog/{slug}', [ResourcesController::class, 'show'])->name('blog.show');
-Route::get('/resources/toolkit', [ResourcesController::class, 'toolkit'])->name('resources.toolkit');
-Route::get('/resources/design-system', [ResourcesController::class, 'designSystem'])->name('resources.design-system');
-
-// Contact
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::get('/contact/talktofesta', [ContactController::class, 'talkToFesta'])->name('contact.talk-to-festa');
-Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('contact.thank-you');
-
-// Utility Pages
-Route::get('/privacy', [UtilityController::class, 'privacy'])->name('privacy');
-Route::get('/terms', [UtilityController::class, 'terms'])->name('terms');
-Route::get('/sitemap', [UtilityController::class, 'sitemap'])->name('sitemap');
-
-// API Route for retrieving SDG information
-Route::get('/api/sdg/{id}', function($id) {
-    $sdg = \App\Models\SdgAlignment::find($id);
-    if (!$sdg) {
-        return response()->json(['error' => 'SDG not found'], 404);
-    }
-    return response()->json(['id' => $sdg->id, 'name' => $sdg->name, 'code' => $sdg->code]);
-});
-
-// Components Showcase
-Route::get('/components-showcase', function () {
-    return view('components-showcase');
-})->name('components.showcase');
-
-// Special test route for thank-you page
-Route::get('/test-thank-you', function () {
-    return view('contact.thank-you');
-})->name('test.thank-you');
-```
-
-## Admin Routes
-The application has a comprehensive admin area with the following routes:
-
-```php
-// Admin Routes
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
-    // Admin Dashboard
-    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-    
-    // Services Management
-    Route::get('/services', [AdminController::class, 'services'])->name('services');
-    Route::get('/services/{type}/edit', [App\Http\Controllers\Admin\ServiceController::class, 'edit'])->name('services.edit');
-    Route::put('/services/{type}', [App\Http\Controllers\Admin\ServiceController::class, 'update'])->name('services.update');
-    
-    // Service Sectors Management
-    Route::get('/services/sectors/{type}/edit', [App\Http\Controllers\Admin\ServiceSectorController::class, 'edit'])->name('services.sectors.edit');
-    Route::put('/services/sectors/{type}', [App\Http\Controllers\Admin\ServiceSectorController::class, 'update'])->name('services.sectors.update');
-    
-    // Blog Management
-    Route::get('/blog/posts', [BlogController::class, 'posts'])->name('blog.posts');
-    Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
-    Route::post('/blog/posts', [BlogController::class, 'store'])->name('blog.store');
-    Route::get('/blog/posts/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
-    Route::put('/blog/posts/{id}', [BlogController::class, 'update'])->name('blog.update');
-    Route::delete('/blog/posts/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
-    Route::resource('blog/categories', \App\Http\Controllers\Admin\BlogCategoryController::class)
-        ->names('blog.categories')
-        ->except(['show']);
-    
-    // New route for the admin ratings dashboard
-    Route::get('/blog/ratings-dashboard', \App\Livewire\Admin\ArticleRatingsDashboard::class)
-        ->name('blog.ratings-dashboard');
-    
-    // Work Management
-    Route::prefix('work')->name('work.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\Admin\WorkController::class, 'index'])->name('index');
-        Route::get('/create', [\App\Http\Controllers\Admin\WorkController::class, 'create'])->name('create');
-        Route::post('/', [\App\Http\Controllers\Admin\WorkController::class, 'store'])->name('store');
-        Route::get('/{id}/edit', [\App\Http\Controllers\Admin\WorkController::class, 'edit'])->name('edit');
-        Route::put('/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'update'])->name('update');
-        Route::delete('/{id}', [\App\Http\Controllers\Admin\WorkController::class, 'destroy'])->name('destroy');
-        
-        // Testimonials Management
-        Route::prefix('testimonials')->name('testimonials.')->group(function () {
-            Route::get('/', [TestimonialController::class, 'index'])->name('index');
-            Route::get('/create', [TestimonialController::class, 'create'])->name('create');
-            Route::post('/', [TestimonialController::class, 'store'])->name('store');
-            Route::get('/{testimonial}/edit', [TestimonialController::class, 'edit'])->name('edit');
-            Route::put('/{testimonial}', [TestimonialController::class, 'update'])->name('update');
-            Route::delete('/{testimonial}', [TestimonialController::class, 'destroy'])->name('destroy');
-        });
-        
-        // Metrics Routes
-        Route::prefix('metrics')->name('metrics.')->group(function () {
-            Route::get('/', [WorkMetricController::class, 'index'])->name('index');
-            Route::get('/create', [WorkMetricController::class, 'create'])->name('create');
-            Route::post('/', [WorkMetricController::class, 'store'])->name('store');
-            Route::get('/{metric}/edit', [WorkMetricController::class, 'edit'])->name('edit');
-            Route::put('/{metric}', [WorkMetricController::class, 'update'])->name('update');
-            Route::delete('/{metric}', [WorkMetricController::class, 'destroy'])->name('destroy');
-        });
-    });
-    
-    // Client Management
-    Route::resource('clients', \App\Http\Controllers\Admin\ClientController::class);
-    
-    // Sector Management
-    Route::resource('sectors', \App\Http\Controllers\Admin\SectorController::class);
-    
-    // Industry Management
-    Route::resource('industries', \App\Http\Controllers\Admin\IndustryController::class);
-    
-    // SDG Alignment Management
-    Route::resource('sdg-alignments', \App\Http\Controllers\Admin\SdgAlignmentController::class);
-    
-    // Team Members Management
-    Route::prefix('about/team')->group(function () {
-        Route::get('/', [TeamMemberController::class, 'index'])->name('about.team.index');
-        Route::get('/create', [TeamMemberController::class, 'create'])->name('about.team.create');
-        Route::post('/', [TeamMemberController::class, 'store'])->name('about.team.store');
-        Route::get('/{team_member}/edit', [TeamMemberController::class, 'edit'])->name('about.team.edit');
-        Route::put('/{team_member}', [TeamMemberController::class, 'update'])->name('about.team.update');
-        Route::delete('/{team_member}', [TeamMemberController::class, 'destroy'])->name('about.team.destroy');
-        Route::post('/upload-logo', [TeamMemberController::class, 'uploadLogo'])->name('about.team.upload-logo');
-    });
-    
-    // Pages Management
-    Route::get('/about', [AdminController::class, 'about'])->name('about');
-    Route::get('/toolkit', [AdminController::class, 'toolkit'])->name('toolkit');
-    Route::get('/design-system', [AdminController::class, 'designSystem'])->name('design-system');
-    Route::get('/contact', [AdminController::class, 'contact'])->name('contact');
-    Route::get('/privacy', [AdminController::class, 'privacy'])->name('privacy');
-    Route::get('/terms', [AdminController::class, 'terms'])->name('terms');
-    
-    // Image Upload for Editor
-    Route::post('/api/upload-image', [ImageController::class, 'upload'])->name('admin.api.upload-image');
-    
-    // Admin Settings
-    Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
-    Route::get('/users', [AdminController::class, 'users'])->name('users');
-    Route::get('/users/{user}/edit', [\App\Http\Controllers\Admin\UserController::class, 'edit'])->name('users.edit');
-    Route::put('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
-    Route::delete('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/users/create', [\App\Http\Controllers\Admin\UserController::class, 'create'])->name('users.create');
-    Route::post('/users', [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
-});
-```
-
-## Project Structure
-
-### Directory Structure
+## 📁 Project Structure
 
 ```
-app/
-├── Http/
-│   ├── Controllers/
-│   │   ├── Admin/           # Admin panel controllers
-│   │   └── ...             # Public controllers
-│   └── Livewire/           # Livewire components
-├── Models/                  # Eloquent models
-└── View/
-    └── Components/         # Blade component classes
-
-resources/
-├── js/
-│   ├── app.js             # Main application JavaScript
-│   ├── toolkit-filter.js  # Toolkit filtering functionality
-│   └── mobile.js          # Mobile-specific interactions
-├── css/
-│   ├── app.css            # Main application styles
-│   └── toolkit-filters.css # Toolkit-specific styles
-└── views/
-    ├── components/        # Blade components
-    │   ├── core/         # Core UI components
-    │   ├── blog/         # Blog components
-    │   ├── work/         # Portfolio components
-    │   ├── services/     # Service components
-    │   ├── toolkit/      # Toolkit components
-    │   ├── about/        # About page components
-    │   ├── home/         # Homepage components
-    │   └── contact/      # Contact components
-    ├── layouts/          # Layout templates
-    ├── admin/           # Admin panel views
-    └── ...              # Public views
+fds/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/      # Request handlers
+│   │   │   ├── Admin/        # Admin controllers
+│   │   │   └── ...           # Public controllers
+│   │   ├── Middleware/       # Custom middleware
+│   │   └── Requests/         # Form validation
+│   ├── Livewire/            # Livewire components
+│   ├── Models/              # Eloquent models
+│   └── Services/            # Business logic
+├── database/
+│   ├── migrations/          # Database schema
+│   ├── seeders/             # Test data
+│   └── database.sqlite      # Default database
+├── resources/
+│   ├── css/                 # Stylesheets
+│   ├── js/                  # JavaScript files
+│   └── views/               # Blade templates
+│       ├── admin/           # Admin interface
+│       ├── components/      # Reusable components
+│       │   ├── core/        # UI elements
+│       │   ├── blog/        # Blog components
+│       │   ├── work/        # Portfolio components
+│       │   ├── services/    # Service components
+│       │   ├── about/       # About components
+│       │   └── toolkit/     # Resource components
+│       └── layouts/         # Layout templates
+├── routes/
+│   └── web.php             # Application routes
+├── public/                 # Public assets
+└── tests/                  # Test files
 ```
 
-### Models
-
-The application uses the following data models:
-
-- `User`: Authentication and admin user management
-- `Project`: Portfolio projects and case studies with attributes like title, description, client, images
-- `Client`: Client information and relationships with attributes like name, logo, website
-- `TeamMember`: Team member information with attributes like name, position, bio, and social links
-- `WorkMetric`: Metrics displayed in the work section with attributes like value, title, description, color class, and display order
-- `Testimonial`: Client testimonials with attributes like author name, title, quote, avatar, published status, and display order
-- `Article`: Stores blog articles, including title, slug, excerpt, content, image, author and category relationships, publication status, featured article flag, and timestamps
-- `Category`: Stores blog categories, including name, slug, and description
-- `Service`: Service information with deliverables relationship and expertise content
-- `ServiceSector`: Sector-specific content with JSON-based storage for hero sections, challenges, and expertise items
-- `Sector`: Sectors for project categorization
-- `Industry`: Industries for project categorization
-- `SdgAlignment`: Sustainable Development Goal alignments for projects
-- `ArticleRating`: Stores user ratings for blog articles
-
-### Controllers
-
-The application logic is organized into controller groups:
-
-#### Public Controllers
-- `HomeController`: Handles the home page rendering
-- `ServicesController`: Manages service pages and sector specializations
-- `WorkController`: Manages portfolio and case studies
-- `AboutController`: Manages about pages including team, process and focus
-- `ResourcesController`: Handles blog listing, individual post views, and toolkit resources with dynamic filtering
-- `ContactController`: Manages contact forms and inquiries
-- `UtilityController`: Handles utility pages like privacy policy and terms
-- `ClientController`: Manages client information display
-- `TeamMemberController`: Handles team member profile display
-- `SitemapController`: Manages XML and human-readable sitemaps
-
-#### Admin Controllers
-- `AdminController`: Manages the admin dashboard and settings
-- `WorkController` (Admin): Manages project portfolio content
-- `WorkMetricController`: Manages metrics for the work section
-- `ClientController` (Admin): Handles client data management
-- `BlogController`: Manages blog posts (CRUD operations) and categories
-- `TeamMemberController` (Admin): Manages team member information
-- `ImageController`: Handles image uploads for content
-- `TestimonialController` (Admin): Manages client testimonials (CRUD)
-- `SectorController` (Admin): Manages sectors (CRUD)
-- `IndustryController` (Admin): Manages industries (CRUD)
-- `SdgAlignmentController` (Admin): Manages SDG alignments (CRUD)
+## 🏗 Architecture Overview
 
 ### Component System
+The application uses a comprehensive Blade component system organized by domain:
 
-The application uses a comprehensive component system built with Blade and Tailwind CSS:
+- **Core Components** - Buttons, forms, inputs, layouts
+- **Domain Components** - Blog, work, services, about, toolkit
+- **Layout Components** - Headers, footers, navigation
+- **Admin Components** - Dashboard widgets, forms, tables
 
-#### Core Components
-- `x-core.breadcrumbs`: Navigation breadcrumbs
-- `x-core.button`: Reusable button component with variants
-- `x-core.text-input`: Form input with icon support
-- `x-core.header`: Site header and navigation
-- `x-core.footer`: Site footer
+### Data Models & Relationships
+- **Service** → ServiceDeliverable (one-to-many)
+- **ServiceSector** - JSON fields for dynamic content
+- **Project** → Client, Sector, Industry, SDG (many-to-many)
+- **Article** → Category, User (belongs-to)
+- **TeamMember** - Standalone profiles
+- **ToolkitResource** → ToolkitCategory (many-to-many)
 
-#### Toolkit Components
-- `x-toolkit.hero-section`: Hero section with newsletter signup
-- `x-toolkit.filter-section`: Dynamic filtering and search container
-- `x-toolkit.select`: Dropdown filter components
-- `x-toolkit.grid`: Responsive grid layout for toolkit cards
-- `x-toolkit.card`: Individual toolkit resource cards
-- `x-toolkit.tags`: Category and tool tags
+### Routing Structure
+- **Public Routes** - Home, services, work, about, resources, contact
+- **Admin Routes** - `/admin/*` with authentication middleware
+- **API Routes** - Minimal endpoints for specific features
+- **Utility Routes** - Privacy, terms, sitemaps
 
-## Technologies Used
+## 💻 Development
 
-- **Laravel 12**: PHP framework for backend
-- **Blade**: Templating engine with component system
-- **Tailwind CSS**: Utility-first CSS framework
-- **Alpine.js**: Lightweight JavaScript framework
-- **Livewire**: Laravel package for dynamic interfaces
-- **Vite**: Modern build tool and development server
-- **JavaScript ES6+**: Modern JavaScript features
-- **CSS3**: Advanced animations and transitions
-- **Database**: Supports multiple database systems:
-  - SQLite (default for development)
-  - MySQL/MariaDB
-  - PostgreSQL
-  - SQL Server
-
-## Development Guidelines
-
-### Code Style
-The project follows Laravel's coding standards and PSR-12. You can use Laravel Pint for code style enforcement:
+### Essential Commands
 
 ```bash
+# Development (runs all services concurrently)
+composer dev
+
+# Build assets for production
+npm run build
+
+# Run tests
+composer test
+
+# Fix code style
 ./vendor/bin/pint
+
+# Database commands
+php artisan migrate:fresh --seed
+php artisan db:seed
 ```
 
-### Asset Compilation
-Build assets for production:
+### Individual Services
 
 ```bash
-npm run build
-```
+# Laravel server only
+php artisan serve
 
-Development mode with hot reloading:
-
-```bash
+# Vite dev server only
 npm run dev
+
+# Queue worker
+php artisan queue:listen
+
+# Real-time logs
+php artisan pail
 ```
 
-### Testing
-Run tests using Pest:
+## 🚢 Production Deployment
+
+### Build for Production
 
 ```bash
-php artisan test
-```
+# Install production dependencies
+composer install --optimize-autoloader --no-dev
+npm ci --production
 
-### Contributing
-1. Create a feature branch
-2. Make your changes
-3. Run tests and ensure they pass
-4. Build assets and verify functionality
-5. Submit a pull request
-
-## Deployment
-
-### Production Build
-Before deploying, ensure you build the assets:
-
-```bash
+# Build frontend assets
 npm run build
+
+# Cache optimization
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
+
+# Run migrations
+php artisan migrate --force
 ```
 
-### Environment Setup
-Ensure your production environment has:
-- PHP 8.2+
-- Node.js 16+ (for asset compilation)
-- Proper database configuration
-- Storage directory permissions
+### Environment Configuration
 
-## License
+1. Update `.env` file with production values
+2. Set `APP_ENV=production` and `APP_DEBUG=false`
+3. Configure database credentials
+4. Set up mail configuration
+5. Configure storage permissions
+
+### Database Configuration
+
+```env
+# SQLite (default for development)
+DB_CONNECTION=sqlite
+
+# MySQL/MariaDB
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+
+# PostgreSQL
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+composer test
+
+# Run specific test file
+./vendor/bin/pest tests/Feature/ExampleTest.php
+
+# Run with coverage
+./vendor/bin/pest --coverage
+
+# Run tests in parallel
+./vendor/bin/pest --parallel
+```
+
+## 📝 Code Quality
+
+```bash
+# Check code style
+./vendor/bin/pint --test
+
+# Fix code style automatically
+./vendor/bin/pint
+
+# Analyze code
+php artisan code:analyse
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Run tests and ensure they pass
+5. Fix code style (`./vendor/bin/pint`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
+
+## 📚 Documentation
+
+- [Laravel Documentation](https://laravel.com/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Alpine.js Documentation](https://alpinejs.dev)
+- [Livewire Documentation](https://livewire.laravel.com)
+- [Pest PHP Documentation](https://pestphp.com)
+
+## 🔒 Security
+
+If you discover a security vulnerability, please send an email to security@festastudio.com. All security vulnerabilities will be promptly addressed.
+
+## 📄 License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

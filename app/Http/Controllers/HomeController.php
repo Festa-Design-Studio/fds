@@ -14,6 +14,7 @@ class HomeController extends Controller
         // Cache the most recent published project for 30 minutes
         $latestProject = Cache::remember('home.latest_project', 1800, function () {
             return Project::whereNotNull('published_at')
+                ->with(['sector', 'industry', 'sdgAlignment'])
                 ->orderBy('published_at', 'desc')
                 ->first();
         });

@@ -22,10 +22,12 @@ class PageSeo extends Model
         'twitter_description',
         'twitter_image',
         'structured_data',
+        'content',
     ];
 
     protected $casts = [
         'structured_data' => 'array',
+        'content' => 'array',
     ];
 
     /**

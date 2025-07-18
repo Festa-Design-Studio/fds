@@ -32,6 +32,7 @@ class ServiceController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'content' => 'nullable|string',
+            'hero_subtitle' => 'nullable|string|max:255',
             'expertise_title' => 'nullable|string|max:255',
             'expertise_description' => 'nullable|string',
             'is_active' => 'nullable|in:0,1',

@@ -59,12 +59,33 @@ class PageSeoController extends Controller
             'twitter_title' => 'nullable|string|max:255',
             'twitter_description' => 'nullable|string|max:500',
             'twitter_image' => 'nullable|url|max:500',
+            // Content fields for specific pages
+            'hero_title' => 'nullable|string|max:255',
+            'hero_subtitle' => 'nullable|string|max:255',
+            'hero_description' => 'nullable|string|max:1000',
         ]);
 
         $pageSeo = PageSeo::getOrCreateForPage($pageIdentifier, $availablePages[$pageIdentifier]);
+        
+        // Handle content separately
+        $contentFields = ['hero_title', 'hero_subtitle', 'hero_description'];
+        $content = [];
+        foreach ($contentFields as $field) {
+            if (isset($validated[$field])) {
+                $content[$field] = $validated[$field];
+                unset($validated[$field]);
+            }
+        }
+        
+        // Update content if any content fields are provided
+        if (!empty($content)) {
+            $existingContent = $pageSeo->content ?? [];
+            $validated['content'] = array_merge($existingContent, $content);
+        }
+
         $pageSeo->update($validated);
 
         return redirect()->route('admin.page-seo.index')
-            ->with('success', 'Page SEO updated successfully.');
+            ->with('success', 'Page content and SEO updated successfully.');
     }
 }

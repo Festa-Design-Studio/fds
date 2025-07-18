@@ -30,7 +30,8 @@
       "Bash(time curl:*)",
       "Bash(cat:*)",
       "Bash(composer show:*)",
-      "Bash(composer:*)"
+      "Bash(composer:*)",
+      "Bash(pkill:*)"
     ],
     "deny": []
   }

@@ -104,10 +104,16 @@
                 </div>
                 <h3 class="text-h5 font-semibold text-the-end-900">Main Services Page</h3>
             </div>
-            <p class="text-body text-the-end-700 mb-6">View the main services overview page.</p>
-            <x-core.button variant="secondary" size="medium" href="{{ route('services') }}" target="_blank" fullWidth="true">
-                View Page
-            </x-core.button>
+            <p class="text-body text-the-end-700 mb-6">Manage the main services page content and SEO settings.</p>
+            <div class="space-y-3">
+                <a href="{{ route('admin.services.edit', 'main_page') }}" 
+                   class="block w-full bg-red-600 text-white text-center py-4 px-6 rounded-lg hover:bg-red-700 transition-colors font-bold text-lg">
+                    🎨 EDIT MAIN PAGE CONTENT & SEO 🎨
+                </a>
+                <x-core.button variant="secondary" size="medium" href="{{ route('services') }}" target="_blank" fullWidth="true">
+                    View Page
+                </x-core.button>
+            </div>
         </div>
     </div>
 

@@ -29,6 +29,16 @@ class Project extends Model
         'client_id',
         'is_featured',
         'published_at',
+        // SEO fields
+        'meta_description',
+        'meta_keywords',
+        'og_title',
+        'og_description',
+        'og_image',
+        'twitter_title',
+        'twitter_description',
+        'twitter_image',
+        'structured_data',
     ];
 
     /**
@@ -39,6 +49,7 @@ class Project extends Model
     protected $casts = [
         'is_featured' => 'boolean',
         'published_at' => 'datetime',
+        'structured_data' => 'array',
     ];
 
     /**

@@ -15,6 +15,7 @@ class Service extends Model
         'title',
         'description',
         'content',
+        'hero_subtitle',
         'expertise_title',
         'expertise_description',
         'is_active',

@@ -129,10 +129,13 @@
                 </div>
                 <h3 class="text-h5 font-semibold text-the-end-900">Main Services Page</h3>
             </div>
-            <p class="text-body text-the-end-700 mb-6">Manage the main services overview page.</p>
+            <p class="text-body text-the-end-700 mb-6">Manage the main services page content and SEO settings.</p>
             <div class="flex flex-col sm:flex-row gap-3">
                 <x-core.button variant="secondary" size="medium" href="{{ route('services') }}" target="_blank">
                     View Page
+                </x-core.button>
+                <x-core.button variant="primary" size="medium" href="{{ route('admin.services.edit', 'main_page') }}">
+                    Edit Content & SEO
                 </x-core.button>
             </div>
         </div>

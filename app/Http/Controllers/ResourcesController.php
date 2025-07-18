@@ -170,4 +170,19 @@ class ResourcesController extends Controller
     {
         return view('resources.design-system.index');
     }
+
+    public function designSystemComponents()
+    {
+        return view('resources.design-system.components');
+    }
+
+    public function designSystemTokens()
+    {
+        return view('resources.design-system.tokens');
+    }
+
+    public function designSystemGuidelines()
+    {
+        return view('resources.design-system.guidelines');
+    }
 }

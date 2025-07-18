@@ -1,68 +1,43 @@
 <!-- Our Philosophy Section -->
-<article
-  class="bg-apocalyptic-orange-50 text-the-end-900 py-20 px-8 lg:px-16 mx-auto justify-items-center"
->
-  <div class="max-w-3xl mx-auto text-center space-y-8 mb-16">
-    <h2 class="text-h2 font-bold text-pepper-green">Our design philosophy</h2>
-    <p class="text-body-lg text-the-end-700 max-w-2xl mx-auto">
-      At Festa Design Studio, we believe that thoughtful design has the power to
-      amplify social impact and drive meaningful change. Our design philosophy
-      is built on three core principles:
-    </p>
-  </div>
+<article class="relative bg-gradient-to-br from-apocalyptic-orange-50 via-white-smoke-50 to-chicken-comb-50 text-the-end-900 py-20 px-8 lg:px-16 mx-auto">
+  <!-- Section Header -->
+  <x-core.section-header
+    title="Our design philosophy"
+    description="At Festa Design Studio, we believe that thoughtful design has the power to amplify social impact and drive meaningful change. Our design philosophy is built on three core principles:"
+    variant="primary"
+    class="mb-20"
+  />
 
-  <!-- 2-Column Grid -->
-  <section class="grid grid-cols-1 md:grid-cols-2 gap-20 max-w-3xl mx-auto">
-    <div class="space-y-4">
-      <div class="flex items-center space-x-4">
-        <p
-          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
-        >
-          1
-        </p>
-        <h3 class="text-h4 font-semibold text-the-end-700">
-          Purpose-Driven Design
-        </h3>
-      </div>
-      <p class="text-body-sm text-the-end-600">
-        Every design decision we make is intentionally aligned with our clients'
-        missions for social good. We believe that effective design must serve a
-        greater purpose beyond aesthetics.
-      </p>
-    </div>
-    <div class="space-y-4">
-      <div class="flex items-center space-x-4">
-        <p
-          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
-        >
-          2
-        </p>
-        <h3 class="text-h4 font-semibold text-the-end-700">
-          Human-Centered Approach
-        </h3>
-      </div>
-      <p class="text-body-sm text-the-end-600">
-        We place people at the heart of our design process, deeply understanding
-        the needs of both our clients and their target audiences to create
-        solutions that genuinely resonate and drive engagement.
-      </p>
-    </div>
-    <div class="space-y-4 md:col-span-2 mx-auto" style="max-width: 450px;">
-      <div class="flex items-center space-x-4">
-        <p
-          class="bg-white-smoke-300 rounded-3xl p-3 text-body-lg text-chicken-comb-600 font-semibold"
-        >
-          3
-        </p>
-        <h3 class="text-h4 font-semibold text-the-end-700">
-          Impact-Focused Solutions
-        </h3>
-      </div>
-      <p class="text-body-sm text-the-end-600">
-        Our designs are crafted to deliver measurable results. We combine
-        creative excellence with strategic thinking to create solutions that
-        advance our clients' goals for positive social change.
-      </p>
-    </div>
+  <!-- Philosophy Grid -->
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <x-core.process-step
+      number="1"
+      title="Purpose-Driven Design"
+      description="Every design decision we make is intentionally aligned with our clients' missions for social good. We believe that effective design must serve a greater purpose beyond aesthetics."
+      variant="accent"
+      layout="vertical"
+      badgeColor="bg-chicken-comb-100 text-chicken-comb-700"
+      class="lg:col-span-1"
+    />
+
+    <x-core.process-step
+      number="2"
+      title="Human-Centered Approach"
+      description="We place people at the heart of our design process, deeply understanding the needs of both our clients and their target audiences to create solutions that genuinely resonate and drive engagement."
+      variant="primary"
+      layout="vertical"
+      badgeColor="bg-pepper-green-100 text-pepper-green-700"
+      class="lg:col-span-1"
+    />
+
+    <x-core.process-step
+      number="3"
+      title="Impact-Focused Solutions"
+      description="Our designs are crafted to deliver measurable results. We combine creative excellence with strategic thinking to create solutions that advance our clients' goals for positive social change."
+      variant="secondary"
+      layout="vertical"
+      badgeColor="bg-apocalyptic-orange-100 text-apocalyptic-orange-700"
+      class="lg:col-span-1 md:col-span-2 lg:col-span-1"
+    />
   </section>
 </article> 

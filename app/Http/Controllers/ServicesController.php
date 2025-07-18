@@ -4,12 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Models\ServiceSector;
+use Illuminate\Support\Facades\Cache;
 
 class ServicesController extends Controller
 {
     public function index()
     {
-        return view('services.index');
+        // Get main page content
+        $mainPage = Cache::remember('services.main_page', 3600, function () {
+            return Service::where('type', 'main_page')->first();
+        });
+
+        // Get services for the cards
+        $services = Cache::remember('services.all', 3600, function () {
+            return Service::whereIn('type', ['project_design', 'communication_design', 'campaign_design'])
+                ->where('is_active', true)
+                ->orderBy('display_order')
+                ->get();
+        });
+
+        return view('services.index', compact('mainPage', 'services'));
     }
 
     public function projectDesign()

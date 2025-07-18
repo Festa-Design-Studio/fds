@@ -57,44 +57,22 @@
         @if($latestProject)
             @php
                 $tags = [];
-                if ($latestProject->sector) {
-                    $tags[] = ['type' => 'sector', 'label' => $latestProject->sector];
+                
+                // Handle sector (string or relationship)
+                $sectorLabel = is_object($latestProject->sector) ? $latestProject->sector?->name : $latestProject->sector;
+                if ($sectorLabel) {
+                    $tags[] = ['type' => 'sector', 'label' => $sectorLabel];
                 }
-                if ($latestProject->industry) {
-                    $tags[] = ['type' => 'industry', 'label' => $latestProject->industry];
+                
+                // Handle industry (string or relationship)
+                $industryLabel = is_object($latestProject->industry) ? $latestProject->industry?->name : $latestProject->industry;
+                if ($industryLabel) {
+                    $tags[] = ['type' => 'industry', 'label' => $industryLabel];
                 }
-                if ($latestProject->sdg_alignment) {
-                    // Map SDG alignment to the correct label format, matching work/index.blade.php
-                    $sdgLabels = [
-                        'No Poverty' => 'sdg1',
-                        'Zero Hunger' => 'sdg2',
-                        'Good Health & Well-being' => 'sdg3',
-                        'Quality Education' => 'sdg4',
-                        'Gender equality' => 'sdg5',
-                        'Clean water & sanitation' => 'sdg6',
-                        'Affordable & clean energy' => 'sdg7',
-                        'Decent work & economic growth' => 'sdg8',
-                        'Industry, innovation and infrastructure' => 'sdg9',
-                        'Reduced inequalities' => 'sdg10',
-                        'Sustainable cities & communities' => 'sdg11',
-                        'Responsible consumption & production' => 'sdg12',
-                        'Climate Action' => 'sdg13',
-                        'Life below water' => 'sdg14',
-                        'Life on land' => 'sdg15',
-                        'Peace, justice & strong institutions' => 'sdg16',
-                        'Partnerships for the goals' => 'sdg17'
-                    ];
-                    
-                    // Flip the map to look up by code
-                    $sdgCodes = array_flip($sdgLabels);
-                    
-                    // If it's already a code (starts with 'sdg'), get the label
-                    $sdgLabel = $latestProject->sdg_alignment;
-                    if (str_starts_with($latestProject->sdg_alignment, 'sdg')) {
-                        $sdgCode = $latestProject->sdg_alignment;
-                        $sdgLabel = isset($sdgCodes[$sdgCode]) ? $sdgCodes[$sdgCode] : $latestProject->sdg_alignment;
-                    }
-                    
+                
+                // Handle SDG alignment (string or relationship) - match work detail page logic
+                $sdgLabel = is_object($latestProject->sdgAlignment) ? $latestProject->sdgAlignment?->name : $latestProject->sdg_alignment;
+                if ($sdgLabel) {
                     $tags[] = ['type' => 'sdg', 'label' => $sdgLabel];
                 }
             @endphp

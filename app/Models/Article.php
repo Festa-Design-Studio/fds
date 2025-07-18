@@ -23,6 +23,14 @@ class Article extends Model
         'is_featured',
         'meta_title',
         'meta_description',
+        'meta_keywords',
+        'og_title',
+        'og_description',
+        'og_image',
+        'twitter_title',
+        'twitter_description',
+        'twitter_image',
+        'structured_data',
         'reading_time',
     ];
 
@@ -34,6 +42,7 @@ class Article extends Model
     protected $casts = [
         'published_at' => 'datetime',
         'is_featured' => 'boolean',
+        'structured_data' => 'array',
     ];
 
     /**
