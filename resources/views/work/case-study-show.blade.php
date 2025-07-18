@@ -74,9 +74,9 @@
     <x-work.case-study-header
         :title="$project->title"
         :client="$project->client"
-        :sector="$project->sector"
-        :industry="$project->industry"
-        :sdgAlignment="$project->sdg_alignment"
+        :sector="is_object($project->sector) ? $project->sector?->name : $project->sector"
+        :industry="is_object($project->industry) ? $project->industry?->name : $project->industry"
+        :sdgAlignment="is_object($project->sdgAlignment) ? $project->sdgAlignment?->name : $project->sdg_alignment"
         :excerpt="$project->excerpt"
         :featuredImage="$project->featured_image"
     />

@@ -55,6 +55,7 @@ class PageSeo extends Model
         return [
             'home' => 'Home Page',
             'about' => 'About Us',
+            'design_for_good' => 'We Design for Good',
             'contact' => 'Contact',
             'blog_index' => 'Blog Index',
             'toolkit' => 'Toolkit',

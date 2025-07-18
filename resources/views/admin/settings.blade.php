@@ -1,24 +1,34 @@
 @extends('layouts.admin')
 
-@section('title', 'Settings - Admin')
+@section('title', 'Admin Settings')
+
+@section('header_title', 'Admin Settings')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 text-gray-900">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-bold text-gray-900">Admin Settings</h1>
-            </div>
+<div class="p-8 max-w-7xl mx-auto bg-white-smoke-100 rounded-lg shadow-sm">
+    {{-- Session Success Message --}}
+    @if(session('success'))
+        <div class="mb-6 p-4 bg-pepper-green-50 border border-pepper-green-300 text-pepper-green-700 rounded-lg">
+            {{ session('success') }}
+        </div>
+    @endif
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- User Management -->
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">User Management</h3>
-                    <p class="text-gray-600 mb-4">Manage admin users and their permissions.</p>
-                    <a href="{{ route('admin.users') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                        Manage Users
-                    </a>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- User Management -->
+        <div class="bg-white border border-white-smoke-300 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-lg bg-pepper-green-100 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-pepper-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                    </svg>
                 </div>
+                <h3 class="text-h5 font-semibold text-the-end-900">User Management</h3>
+            </div>
+            <p class="text-body text-the-end-700 mb-6">Manage admin users and their permissions.</p>
+            <x-core.button variant="primary" size="medium" href="{{ route('admin.users') }}" fullWidth="true">
+                Manage Users
+            </x-core.button>
+        </div>
 
                 <!-- System Information -->
                 <div class="bg-gray-50 p-6 rounded-lg">

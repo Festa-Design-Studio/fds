@@ -28,18 +28,18 @@
         <p class="text-the-end-600">No users found.</p>
       </div>
     @else
-      <div class="overflow-x-auto bg-white rounded-lg shadow">
-        <table class="min-w-full divide-y divide-the-end-200">
-          <thead class="bg-white-smoke-50">
+      <div class="overflow-x-auto bg-white-smoke-50 rounded-lg border border-white-smoke-300">
+        <table class="min-w-full">
+          <thead class="bg-white-smoke-100 border-b border-white-smoke-300">
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-the-end-500 uppercase tracking-wider">Avatar</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-the-end-500 uppercase tracking-wider">Name</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-the-end-500 uppercase tracking-wider">Email</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-the-end-500 uppercase tracking-wider">Title</th>
-              <th class="px-6 py-3 text-right text-xs font-medium text-the-end-500 uppercase tracking-wider">Actions</th>
+              <th class="px-6 py-4 text-left text-body-sm font-medium text-the-end-700 uppercase tracking-wider">Avatar</th>
+              <th class="px-6 py-4 text-left text-body-sm font-medium text-the-end-700 uppercase tracking-wider">Name</th>
+              <th class="px-6 py-4 text-left text-body-sm font-medium text-the-end-700 uppercase tracking-wider">Email</th>
+              <th class="px-6 py-4 text-left text-body-sm font-medium text-the-end-700 uppercase tracking-wider">Title</th>
+              <th class="px-6 py-4 text-right text-body-sm font-medium text-the-end-700 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-the-end-200">
+          <tbody class="bg-white-smoke-50 divide-y divide-white-smoke-300">
             @foreach($users as $user)
               <tr>
                 <td class="px-6 py-4 whitespace-nowrap">

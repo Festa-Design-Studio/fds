@@ -22,12 +22,12 @@
 @section('content')
 <div class="p-8 max-w-4xl mx-auto bg-white-smoke-100 rounded-lg shadow-sm">
     <div class="">
-        <div class="flex flex-col justify-between gap-3 items-center mb-8">
+        <div class="flex flex-col gap-6 mb-8">
             <!-- Filters Form -->
-            <form action="#" class="admin-filter-form w-full flex flex-col md:flex-row gap-3 justify-between">
+            <form action="#" class="admin-filter-form w-full grid grid-cols-1 md:grid-cols-3 gap-4">
                 <!-- Category select -->
                 <div class="relative">
-                    <select name="category" class="appearance-none pl-4 pr-10 py-2 text-body text-the-end-400 rounded-full border border-the-end-200 focus:outline-none focus:border-pepper-green-600">
+                    <select name="category" class="appearance-none w-full pl-4 pr-10 py-2 bg-white-smoke-50 border border-white-smoke-300 rounded-full text-body text-the-end-700 placeholder-the-end-400 focus:ring-1 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-white-smoke-100 transition-colors">
                         <option value="">All Categories</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
@@ -42,7 +42,7 @@
                 
                 <!-- Status select -->
                 <div class="relative">
-                    <select name="status" class="appearance-none pl-4 pr-10 py-2 text-body text-the-end-400 rounded-full border border-the-end-200 focus:outline-none focus:border-pepper-green-600">
+                    <select name="status" class="appearance-none w-full pl-4 pr-10 py-2 bg-white-smoke-50 border border-white-smoke-300 rounded-full text-body text-the-end-700 placeholder-the-end-400 focus:ring-1 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-white-smoke-100 transition-colors">
                         <option value="">All Status</option>
                         <option value="published" {{ request('status') == 'published' ? 'selected' : '' }}>Published</option>
                         <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
@@ -55,7 +55,7 @@
                 
                 <!-- Search input -->
                 <div class="relative">
-                    <input type="text" name="search" value="{{ request('search') }}" class="w-full pl-10 pr-4 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 placeholder-the-end-400 focus:ring-1 focus:ring-chicken-comb-300 focus:border-chicken-comb-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50" placeholder="Search toolkit...">
+                    <input type="text" name="search" value="{{ request('search') }}" class="w-full pl-10 pr-4 py-2 bg-white-smoke-50 border border-white-smoke-300 rounded-full text-body text-the-end-900 placeholder-the-end-400 focus:ring-1 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-white-smoke-100 transition-colors" placeholder="Search toolkit...">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <svg class="h-5 w-5 text-the-end-400" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
@@ -63,6 +63,13 @@
                     </div>
                 </div>
             </form>
+            
+            <!-- Clear filters button -->
+            <div class="flex justify-end">
+                <button class="admin-clear-filters px-4 py-2 text-body border border-white-smoke-400 text-the-end-700 rounded-full hover:bg-white-smoke-300/50 transition-colors">
+                    Clear filters
+                </button>
+            </div>
         </div>
 
         <!-- Display session messages -->

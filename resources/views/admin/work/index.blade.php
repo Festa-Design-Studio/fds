@@ -15,13 +15,13 @@
 @section('content')
 <div class="p-8 max-w-4xl mx-auto bg-white-smoke-100 rounded-lg shadow-sm">
   <div class="">
-    <div class="flex flex-col justify-between gap-3 items-center mb-8">
+    <div class="flex flex-col gap-6 mb-8">
       <!-- Filters Form -->
-      <form action="#" class="admin-filter-form w-full flex flex-col md:flex-row gap-3 justify-between">
+      <form action="#" class="admin-filter-form w-full grid grid-cols-1 md:grid-cols-4 gap-4">
         <!-- Sector select -->
         <div class="relative">
-          <select name="sector" class="appearance-none pl-4 pr-10 py-2 text-body text-the-end-400 rounded-full border border-the-end-200 focus:outline-none focus:border-pepper-green-600">
-            <option value="">Sector</option>
+          <select name="sector" class="appearance-none w-full pl-4 pr-10 py-2 bg-white-smoke-50 border border-white-smoke-300 rounded-full text-body text-the-end-700 placeholder-the-end-400 focus:ring-1 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-white-smoke-100 transition-colors">
+            <option value="">All Sectors</option>
             <option value="nonprofit" {{ request('sector') == 'nonprofit' ? 'selected' : '' }}>Nonprofit</option>
             <option value="startup" {{ request('sector') == 'startup' ? 'selected' : '' }}>Startup</option>
           </select>
@@ -32,8 +32,8 @@
         
         <!-- Industry select -->
         <div class="relative">
-          <select name="industry" class="appearance-none pl-4 pr-10 py-2 text-body text-the-end-400 rounded-full border border-the-end-200 focus:outline-none focus:border-pepper-green-600">
-            <option value="">Industry</option>
+          <select name="industry" class="appearance-none w-full pl-4 pr-10 py-2 bg-white-smoke-50 border border-white-smoke-300 rounded-full text-body text-the-end-700 placeholder-the-end-400 focus:ring-1 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-white-smoke-100 transition-colors">
+            <option value="">All Industries</option>
             <option value="education" {{ request('industry') == 'education' ? 'selected' : '' }}>Education</option>
             <option value="healthcare" {{ request('industry') == 'healthcare' ? 'selected' : '' }}>Healthcare</option>
             <option value="research-and-development" {{ request('industry') == 'research-and-development' ? 'selected' : '' }}>Research and development</option>
@@ -45,8 +45,8 @@
         
         <!-- SDG select -->
         <div class="relative">
-          <select name="sdg" class="appearance-none pl-4 pr-10 py-2 text-body text-the-end-400 rounded-full border border-the-end-200 focus:outline-none focus:border-pepper-green-600">
-            <option value="">SDG goals</option>
+          <select name="sdg" class="appearance-none w-full pl-4 pr-10 py-2 bg-white-smoke-50 border border-white-smoke-300 rounded-full text-body text-the-end-700 placeholder-the-end-400 focus:ring-1 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-white-smoke-100 transition-colors">
+            <option value="">All SDG Goals</option>
             <option value="sdg1" {{ request('sdg') == 'sdg1' ? 'selected' : '' }}>No Poverty</option>
             <option value="sdg2" {{ request('sdg') == 'sdg2' ? 'selected' : '' }}>Zero Hunger</option>
             <option value="sdg3" {{ request('sdg') == 'sdg3' ? 'selected' : '' }}>Good health & well-being</option>
@@ -72,7 +72,7 @@
         
         <!-- Search input -->
         <div class="relative">
-          <input type="text" name="search" value="{{ request('search') }}" class="w-full pl-10 pr-4 py-2 bg-white-smoke-50 border border-the-end-200 rounded-full text-the-end-900 placeholder-the-end-400 focus:ring-1 focus:ring-chicken-comb-300 focus:border-chicken-comb-600 hover:bg-chicken-comb-50 hover:border-chicken-comb-600/50" placeholder="Search...">
+          <input type="text" name="search" value="{{ request('search') }}" class="w-full pl-10 pr-4 py-2 bg-white-smoke-50 border border-white-smoke-300 rounded-full text-body text-the-end-900 placeholder-the-end-400 focus:ring-1 focus:ring-pepper-green-300 focus:border-pepper-green-600 hover:bg-white-smoke-100 transition-colors" placeholder="Search projects...">
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <svg class="h-5 w-5 text-the-end-400" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
@@ -82,9 +82,11 @@
       </form>
       
       <!-- Clear filters button -->
-      <button class="admin-clear-filters mt-3 md:mt-0 px-4 py-2 text-body-sm text-the-end-700 hover:bg-white-smoke-300/50 active:bg-white-smoke-300 rounded-full">
-        Clear filters
-      </button>
+      <div class="flex justify-end">
+        <button class="admin-clear-filters px-4 py-2 text-body border border-white-smoke-400 text-the-end-700 rounded-full hover:bg-white-smoke-300/50 transition-colors">
+          Clear filters
+        </button>
+      </div>
     </div>
     
     <!-- Display session messages -->

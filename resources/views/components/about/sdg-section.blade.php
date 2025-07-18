@@ -91,8 +91,8 @@
 
     <!-- CTA Button -->
     <div class="flex justify-center p-6">
-      <x-core.button variant="secondary" size="large" href="https://www.globalgoals.org/" target="_blank">
-        Learn more about SDGs
+      <x-core.button variant="secondary" size="large" href="/about/we-design-for-good">
+        Read our commitment
       </x-core.button>
     </div>
   </div>

@@ -86,6 +86,16 @@ Route::prefix('admin/about/partners')->middleware(['auth'])->group(function () {
     Route::delete('/{aboutPartner}', [\App\Http\Controllers\Admin\About\PartnerController::class, 'destroy'])->name('admin.about.partners.destroy');
 });
 
+// Admin About Design for Good Content Management
+Route::prefix('admin/about/design-for-good')->middleware(['auth'])->group(function () {
+    Route::get('/', [\App\Http\Controllers\Admin\About\DesignForGoodContentController::class, 'index'])->name('admin.about.design-for-good.index');
+    Route::get('/create', [\App\Http\Controllers\Admin\About\DesignForGoodContentController::class, 'create'])->name('admin.about.design-for-good.create');
+    Route::post('/', [\App\Http\Controllers\Admin\About\DesignForGoodContentController::class, 'store'])->name('admin.about.design-for-good.store');
+    Route::get('/{designForGoodContent}/edit', [\App\Http\Controllers\Admin\About\DesignForGoodContentController::class, 'edit'])->name('admin.about.design-for-good.edit');
+    Route::put('/{designForGoodContent}', [\App\Http\Controllers\Admin\About\DesignForGoodContentController::class, 'update'])->name('admin.about.design-for-good.update');
+    Route::delete('/{designForGoodContent}', [\App\Http\Controllers\Admin\About\DesignForGoodContentController::class, 'destroy'])->name('admin.about.design-for-good.destroy');
+});
+
 // Resources
 Route::get('/resources/blog', [ResourcesController::class, 'blog'])->name('resources.blog');
 Route::get('/resources/blog/category/{categorySlug}', [ResourcesController::class, 'blogByCategory'])->name('resources.blog.category');

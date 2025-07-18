@@ -40,6 +40,64 @@ class PageSeoSeeder extends Seeder
                 'structured_data' => null,
             ],
             [
+                'page_identifier' => 'design_for_good',
+                'page_title' => 'We Design for Good',
+                'meta_description' => 'Discover Festa Design Studio\'s commitment to creating meaningful impact through design. Learn about our mission, values, and approach to social change through purposeful design solutions.',
+                'meta_keywords' => 'design for good, social impact design, sustainable design, nonprofit design, ethical design, social change, SDG alignment, purposeful design',
+                'og_title' => 'We Design for Good - Festa Design Studio',
+                'og_description' => 'Our commitment to creating meaningful impact through design extends beyond aesthetics to address real-world challenges and drive positive social change across communities worldwide.',
+                'og_image' => null,
+                'twitter_title' => 'We Design for Good - Festa Design Studio',
+                'twitter_description' => 'Our commitment to creating meaningful impact through design extends beyond aesthetics to address real-world challenges and drive positive social change.',
+                'twitter_image' => null,
+                'structured_data' => [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'AboutPage',
+                    'name' => 'We Design for Good',
+                    'description' => 'Festa Design Studio\'s commitment to creating meaningful impact through design, addressing real-world challenges and driving positive social change.',
+                    'url' => '/about/we-design-for-good',
+                    'mainEntity' => [
+                        '@type' => 'Organization',
+                        'name' => 'Festa Design Studio',
+                        'description' => 'Strategic design studio specializing in nonprofit and social impact design solutions',
+                        'url' => '/',
+                        'foundingDate' => '2020',
+                        'slogan' => 'Design for Good',
+                        'knowsAbout' => [
+                            'Social Impact Design',
+                            'Nonprofit Design',
+                            'Sustainable Design',
+                            'Ethical Design',
+                            'Project Design',
+                            'Communication Design',
+                            'Campaign Design'
+                        ],
+                        'hasOfferCatalog' => [
+                            '@type' => 'OfferCatalog',
+                            'name' => 'Design for Good Services',
+                            'itemListElement' => [
+                                [
+                                    '@type' => 'Offer',
+                                    'itemOffered' => [
+                                        '@type' => 'Service',
+                                        'name' => 'Strategic Impact Design',
+                                        'description' => 'Design solutions aligned with organizational goals and social impact objectives'
+                                    ]
+                                ],
+                                [
+                                    '@type' => 'Offer',
+                                    'itemOffered' => [
+                                        '@type' => 'Service',
+                                        'name' => 'Ethical Design Framework',
+                                        'description' => 'Design guided by principles of accessibility, inclusivity, and sustainability'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+            ],
+            [
                 'page_identifier' => 'contact',
                 'page_title' => 'Contact',
                 'meta_description' => 'Get in touch with Festa Design Studio. Ready to transform your mission into visual impact? Contact our design team for nonprofit, startup, and social impact design projects.',
