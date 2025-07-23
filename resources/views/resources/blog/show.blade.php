@@ -17,7 +17,7 @@
     
 
         {{-- Main Article Content --}}
-        <div class="prose prose-lg lg:prose-xl max-w-2xl mx-auto px-4 my-8  text-the-end-700 festa-editor-content">
+        <div class="prose prose-lg lg:prose-xl max-w-3xl mx-auto px-4 my-8  text-the-end-700 festa-editor-content">
             {!! $article->content !!} {{-- Make sure content is sanitized if it contains user-generated HTML --}}
         </div>
 

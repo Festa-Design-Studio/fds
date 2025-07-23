@@ -51,7 +51,7 @@
             <x-toolkit.select 
                 id="toolkit-type-filter"
                 name="toolkit_type"
-                :options="$categories->pluck('name', 'id')->toArray()"
+                :options="$categories->pluck('name', 'name')->toArray()"
                 placeholder="Categories"
                 data-filter-type="category"
             />
