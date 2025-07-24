@@ -204,9 +204,9 @@
             <h3 class="text-h4 font-semibold text-the-end-900 mb-2">Follow Us</h3>
             <p class="text-body-sm text-the-end-600 mb-4">Stay updated with our latest work</p>
             <div class="flex justify-center gap-4">
-                <a href="#" class="text-pepper-green-600 hover:text-pepper-green-700">LinkedIn</a>
-                <a href="#" class="text-pepper-green-600 hover:text-pepper-green-700">Instagram</a>
-                <a href="#" class="text-pepper-green-600 hover:text-pepper-green-700">Github</a>
+                <a href="https://www.linkedin.com/company/festadesignstudio/" target="_blank" rel="noopener noreferrer" class="text-pepper-green-600 hover:text-pepper-green-700">LinkedIn</a>
+                <a href="https://www.instagram.com/festadesignstudio/" target="_blank" rel="noopener noreferrer" class="text-pepper-green-600 hover:text-pepper-green-700">Instagram</a>
+                <a href="https://github.com/Festa-Design-Studio" target="_blank" rel="noopener noreferrer" class="text-pepper-green-600 hover:text-pepper-green-700">GitHub</a>
             </div>
         </div>
 

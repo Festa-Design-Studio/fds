@@ -55,9 +55,9 @@
         ],
         "serviceArea": "Global",
         "sameAs": [
-            "https://www.linkedin.com/company/festa-design-studio",
-            "https://www.behance.net/festadesignstudio",
-            "https://dribbble.com/festadesignstudio"
+            "https://www.linkedin.com/company/festadesignstudio/",
+            "https://www.instagram.com/festadesignstudio/",
+            "https://github.com/Festa-Design-Studio"
         ],
         "address": {
             "@type": "PostalAddress",
