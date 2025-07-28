@@ -63,7 +63,7 @@
             // Load Google Analytics script dynamically
             var gaScript = document.createElement('script');
             gaScript.async = true;
-            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX'; // Replace with your GA4 Measurement ID
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-VVPR0KH690';
             document.head.appendChild(gaScript);
 
             // Initialize GA4 after script loads
@@ -72,7 +72,14 @@
                 function gtag(){dataLayer.push(arguments);}
                 window.gtag = gtag;
                 gtag('js', new Date());
-                gtag('config', 'G-XXXXXXXXXX'); // Replace with your GA4 Measurement ID
+                gtag('config', 'G-VVPR0KH690', {
+                    page_title: document.title,
+                    page_location: window.location.href,
+                    send_page_view: true
+                });
+
+                // Make gtag globally available for custom events
+                window.gtag = gtag;
             };
         });
     </script>
