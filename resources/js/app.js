@@ -2,8 +2,6 @@ import './bootstrap';
 import './work-filter';
 import './admin-work-filter';
 
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
+// Livewire 3 automatically includes and initializes Alpine.js
+// No need to import or start Alpine manually
+// Alpine is available globally via window.Alpine
