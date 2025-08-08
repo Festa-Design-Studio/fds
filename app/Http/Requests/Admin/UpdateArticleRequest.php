@@ -41,7 +41,7 @@ class UpdateArticleRequest extends FormRequest
             ],
             'excerpt' => 'nullable|string|max:1000',
             'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:51200', // 50MB max for GIFs and other images
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'user_id' => 'required|exists:users,id',
             'category_id' => 'nullable|exists:categories,id',
             'published_at' => 'nullable|date',

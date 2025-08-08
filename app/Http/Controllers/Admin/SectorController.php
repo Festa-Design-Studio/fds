@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Sector;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class SectorController extends Controller
@@ -40,6 +41,9 @@ class SectorController extends Controller
 
         Sector::create($validated);
 
+        // Clear the cached filters so the new sector appears immediately
+        Cache::forget('filters.sectors');
+
         return redirect()->route('admin.sectors.index')
             ->with('success', 'Sector created successfully.');
     }
@@ -73,6 +77,9 @@ class SectorController extends Controller
 
         $sector->update($validated);
 
+        // Clear the cached filters so the updated sector appears immediately
+        Cache::forget('filters.sectors');
+
         return redirect()->route('admin.sectors.index')
             ->with('success', 'Sector updated successfully.');
     }
@@ -89,6 +96,9 @@ class SectorController extends Controller
         }
 
         $sector->delete();
+
+        // Clear the cached filters so the deleted sector is removed immediately
+        Cache::forget('filters.sectors');
 
         return redirect()->route('admin.sectors.index')
             ->with('success', 'Sector deleted successfully.');

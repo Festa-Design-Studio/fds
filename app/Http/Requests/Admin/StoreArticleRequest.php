@@ -31,7 +31,7 @@ class StoreArticleRequest extends FormRequest
             'slug' => 'nullable|string|max:255|unique:articles,slug', // Nullable if auto-generated
             'excerpt' => 'nullable|string|max:1000',
             'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:51200', // 50MB max for GIFs and other images
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 'image' is the input name for file upload
             'user_id' => 'required|exists:users,id', // If not setting automatically
             'category_id' => 'nullable|exists:categories,id',
             'published_at' => 'nullable|date',

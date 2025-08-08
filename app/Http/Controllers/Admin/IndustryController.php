@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Industry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class IndustryController extends Controller
@@ -40,6 +41,9 @@ class IndustryController extends Controller
 
         Industry::create($validated);
 
+        // Clear the cached filters so the new industry appears immediately
+        Cache::forget('filters.industries');
+
         return redirect()->route('admin.industries.index')
             ->with('success', 'Industry created successfully.');
     }
@@ -73,6 +77,9 @@ class IndustryController extends Controller
 
         $industry->update($validated);
 
+        // Clear the cached filters so the updated industry appears immediately
+        Cache::forget('filters.industries');
+
         return redirect()->route('admin.industries.index')
             ->with('success', 'Industry updated successfully.');
     }
@@ -89,6 +96,9 @@ class IndustryController extends Controller
         }
 
         $industry->delete();
+
+        // Clear the cached filters so the deleted industry is removed immediately
+        Cache::forget('filters.industries');
 
         return redirect()->route('admin.industries.index')
             ->with('success', 'Industry deleted successfully.');

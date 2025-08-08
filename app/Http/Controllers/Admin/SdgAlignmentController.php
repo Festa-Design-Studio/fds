@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SdgAlignment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class SdgAlignmentController extends Controller
@@ -41,6 +42,9 @@ class SdgAlignmentController extends Controller
 
         SdgAlignment::create($validated);
 
+        // Clear the cached filters so the new SDG alignment appears immediately
+        Cache::forget('filters.sdg_alignments');
+
         return redirect()->route('admin.sdg-alignments.index')
             ->with('success', 'SDG Alignment created successfully.');
     }
@@ -75,6 +79,9 @@ class SdgAlignmentController extends Controller
 
         $sdgAlignment->update($validated);
 
+        // Clear the cached filters so the updated SDG alignment appears immediately
+        Cache::forget('filters.sdg_alignments');
+
         return redirect()->route('admin.sdg-alignments.index')
             ->with('success', 'SDG Alignment updated successfully.');
     }
@@ -91,6 +98,9 @@ class SdgAlignmentController extends Controller
         }
 
         $sdgAlignment->delete();
+
+        // Clear the cached filters so the deleted SDG alignment is removed immediately
+        Cache::forget('filters.sdg_alignments');
 
         return redirect()->route('admin.sdg-alignments.index')
             ->with('success', 'SDG Alignment deleted successfully.');

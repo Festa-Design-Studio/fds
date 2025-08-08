@@ -31,7 +31,7 @@
 
 # PHP Upload and POST Size Configuration
 <IfModule mod_php.c>
-    php_value post_max_size 52M
+    php_value post_max_size 100M
     php_value upload_max_filesize 50M
     php_value max_input_time 300
     php_value max_execution_time 300

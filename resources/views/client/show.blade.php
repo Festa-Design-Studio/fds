@@ -121,7 +121,7 @@
                 <h2 class="text-h3 font-medium text-the-end-900 mb-8">Projects with {{ $client->name }}</h2>
                 
                 @if($client->projects->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                     @foreach($client->projects as $project)
                     <div class="rounded-2xl border border-white-smoke-300 shadow-sm bg-gradient-to-t from-white-smoke-100 via-pepper-green-50 to-white-smoke-50">
                         @if($project->featured_image)
