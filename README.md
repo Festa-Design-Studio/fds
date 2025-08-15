@@ -36,6 +36,8 @@
 - **Mailchimp API** - Newsletter subscription management
 - **Spatie Cookie Consent** - GDPR compliance
 - **Laravel Breeze** - Authentication scaffolding
+- **Google Analytics 4** - Advanced analytics and event tracking
+- **Intervention/Image** - Image optimization and responsive sizing
 
 ## ✨ Key Features
 
@@ -48,8 +50,10 @@
 ### 🔧 Content Management
 - **Comprehensive Admin Panel** - Full CRUD operations for all content types
 - **Dynamic Content Management** - JSON fields for flexible content storage
-- **Rich Text Editor** - With image upload capabilities
-- **SEO Optimization** - Meta tags, sitemaps, and structured data
+- **Custom Rich Text Editor** - Festa-branded editor with image upload and video embedding
+- **Advanced SEO System** - HasSeoFields trait with Open Graph, Twitter Cards, and Schema.org
+- **Image Optimization Service** - Automatic resizing and responsive image generation
+- **Large File Support** - Custom middleware allowing 100MB uploads for content
 
 ### 📋 Main Features
 - **Services Management**
@@ -65,8 +69,10 @@
 - **Blog Platform**
   - Article management with categories
   - Featured article selection
-  - Livewire-based rating system
+  - IP-based article rating system with admin dashboard
   - Author management
+  - Category color configuration system
+  - SEO optimization per article
   
 - **Team Management**
   - Team member profiles with roles
@@ -79,12 +85,22 @@
   - Real-time search with debouncing
   - Load more pagination
   
+- **About Section Management**
+  - SDG (Sustainable Development Goals) alignment tracking
+  - Partners management system
+  - Design for Good content management
+  - Our Process section with metrics
+  - Mission, values, and impact framework
+  
 - **Additional Features**
-  - Newsletter integration (Mailchimp)
+  - Advanced newsletter system with Mailchimp integration
   - Client testimonials with ratings
   - Contact forms with validation
-  - Cookie consent (GDPR)
+  - Cookie consent (GDPR compliance)
   - Work metrics with animated counters
+  - XML sitemap generation for SEO
+  - PageSeo model for centralized SEO management
+  - Google Analytics 4 with event tracking
 
 ## 🚀 Quick Start
 
@@ -193,8 +209,16 @@ The application uses a comprehensive Blade component system organized by domain:
 - **ServiceSector** - JSON fields for dynamic content
 - **Project** → Client, Sector, Industry, SDG (many-to-many)
 - **Article** → Category, User (belongs-to)
-- **TeamMember** - Standalone profiles
+- **ArticleRating** → Article (belongs-to) - IP-based ratings
+- **TeamMember** - Standalone profiles with social links
 - **ToolkitResource** → ToolkitCategory (many-to-many)
+- **WorkMetric** - Display metrics with animations
+- **Testimonial** - Client testimonials with ratings
+- **AboutSdg** - SDG content management
+- **AboutPartner** - Partner organizations
+- **DesignForGoodContent** - Social impact content
+- **OurProcess** - Process methodology with metrics
+- **PageSeo** - Centralized SEO management
 
 ### Routing Structure
 - **Public Routes** - Home, services, work, about, resources, contact
@@ -222,6 +246,12 @@ composer test
 # Database commands
 php artisan migrate:fresh --seed
 php artisan db:seed
+
+# Cache warmup for performance
+php artisan cache:warmup
+
+# Create admin user
+php artisan app:create-admin-user
 ```
 
 ### Individual Services
@@ -268,6 +298,14 @@ php artisan migrate --force
 3. Configure database credentials
 4. Set up mail configuration
 5. Configure storage permissions
+6. Set up Mailchimp API credentials:
+   ```env
+   MAILCHIMP_API_KEY=your-mailchimp-api-key
+   MAILCHIMP_LIST_ID=your-mailchimp-list-id
+   ```
+7. Configure Google Analytics (optional):
+   - Add GA4 tracking code to layout files
+   - Measurement ID: G-VVPR0KH690
 
 ### Database Configuration
 
@@ -331,13 +369,44 @@ php artisan code:analyse
 6. Push to the branch (`git push origin feature/amazing-feature`)
 7. Open a Pull Request
 
+## 🛠️ Advanced Features
+
+### Performance Optimization
+- **Cache Warmup Command** - Pre-loads frequently used data for better performance
+- **Image Optimization** - Automatic compression and responsive image generation
+- **Database Query Caching** - Strategic caching of expensive queries
+
+### SEO & Analytics
+- **Advanced SEO Management** - HasSeoFields trait for comprehensive SEO control
+- **XML Sitemap Generation** - Dynamic sitemaps for search engines
+- **Google Analytics 4** - Full implementation with event tracking
+- **Structured Data** - Schema.org implementation for rich snippets
+
+### Developer Tools
+- **Components Showcase** - `/components-showcase` route for UI component preview
+- **Test Routes** - Debug routes for testing specific features
+- **Concurrent Dev Server** - Run all services with color-coded output
+- **Custom Middleware** - ValidatePostSize for large file uploads (100MB)
+
+### Content Features
+- **Article Rating Dashboard** - Analytics for blog post engagement
+- **Newsletter Management** - Full Mailchimp integration with admin controls
+- **SDG Alignment** - Track Sustainable Development Goals alignment
+- **Partner Management** - Manage organizational partnerships
+
 ## 📚 Documentation
 
+### External Documentation
 - [Laravel Documentation](https://laravel.com/docs)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [Alpine.js Documentation](https://alpinejs.dev)
 - [Livewire Documentation](https://livewire.laravel.com)
 - [Pest PHP Documentation](https://pestphp.com)
+
+### Internal Documentation
+- **Newsletter System** - See `docs/NEWSLETTER_SUBSCRIPTION_SYSTEM.md`
+- **Google Analytics Setup** - See `GOOGLE_ANALYTICS_SETUP_UPDATED.md`
+- **Server Configuration** - See `SERVER_CONFIG.md` for upload limits and optimization
 
 ## 🔒 Security
 

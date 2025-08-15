@@ -32,7 +32,10 @@
       "Bash(composer show:*)",
       "Bash(composer:*)",
       "Bash(pkill:*)",
-      "Bash(sqlite3:*)"
+      "Bash(sqlite3:*)",
+      "Bash(sed:*)",
+      "Bash(od:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }
