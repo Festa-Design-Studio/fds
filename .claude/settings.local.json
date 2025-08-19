@@ -35,7 +35,8 @@
       "Bash(sqlite3:*)",
       "Bash(sed:*)",
       "Bash(od:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "WebFetch(domain:cloud.laravel.com)"
     ],
     "deny": []
   }

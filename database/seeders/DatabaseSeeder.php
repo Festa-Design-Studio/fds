@@ -13,22 +13,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Only seed test users in local/development environment
+        if (app()->environment('local', 'development')) {
+            User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+            ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
-        // Add Abayomi user
-        User::updateOrCreate(
-            ['email' => 'abayomi@festa.design'],
-            [
-                'name' => 'Abayomi',
-                'password' => \Illuminate\Support\Facades\Hash::make('Doctor99'),
-                'email_verified_at' => now(),
-            ]
-        );
+            // Add development admin user (only for local testing)
+            User::updateOrCreate(
+                ['email' => 'admin@festa.local'],
+                [
+                    'name' => 'Development Admin',
+                    'password' => \Illuminate\Support\Facades\Hash::make(\Illuminate\Support\Str::random(32)),
+                    'email_verified_at' => now(),
+                ]
+            );
+        }
 
         $this->call([
             TeamMemberSeeder::class,

@@ -121,9 +121,13 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contact/talktofesta', [ContactController::class, 'talkToFesta'])->name('contact.talk-to-festa');
 Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('contact.thank-you');
 
-// Newsletter
-Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
-Route::post('/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+// Newsletter - with rate limiting to prevent abuse
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
+    ->middleware('throttle:newsletter')
+    ->name('newsletter.subscribe');
+Route::post('/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe'])
+    ->middleware('throttle:newsletter')
+    ->name('newsletter.unsubscribe');
 
 
 // Utility Pages
@@ -287,30 +291,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
         ->name('admin.blog.ratings-dashboard');
 });
 
-// Test route for isolated Livewire component testing
-Route::get('/test-rating', function () {
-    if (! \App\Models\Article::find(1)) {
-        // Ensure at least one article, user, and category exist for the test
-        if (! \App\Models\User::find(1)) {
-            \App\Models\User::create(['name' => 'Test User', 'email' => 'testuser@example.com', 'password' => bcrypt('password')]);
+// Test routes should only be available in local/development environment
+if (app()->environment('local')) {
+    Route::get('/test-rating', function () {
+        // This route is for development testing only
+        $article = \App\Models\Article::first();
+        if (!$article) {
+            abort(404, 'No articles found. Please seed the database first.');
         }
-        if (! \App\Models\Category::find(1)) {
-            \App\Models\Category::create(['name' => 'Test Category', 'slug' => 'test-category']);
-        }
-        \App\Models\Article::create([
-            'title' => 'Test Article for Rating Page',
-            'slug' => 'test-article-for-rating-page',
-            'excerpt' => 'Test excerpt.',
-            'content' => 'Test content.',
-            'user_id' => 1,
-            'category_id' => 1,
-            'published_at' => now(),
-            'status' => 'published',
-        ]);
-    }
-
-    return view('test-rating-page');
-})->name('test-rating');
+        return view('test-rating-page');
+    })->name('test-rating');
+}
 
 // Direct Livewire asset routes
 Route::get('/livewire/livewire.js', function () {
