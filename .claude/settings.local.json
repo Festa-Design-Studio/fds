@@ -36,7 +36,9 @@
       "Bash(sed:*)",
       "Bash(od:*)",
       "Bash(mv:*)",
-      "WebFetch(domain:cloud.laravel.com)"
+      "WebFetch(domain:cloud.laravel.com)",
+      "Bash(npm view:*)",
+      "Bash(npm update:*)"
     ],
     "deny": []
   }
