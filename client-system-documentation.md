@@ -674,7 +674,7 @@ php artisan test
 MIT License
 
 ## Support
-For support, please contact [support@festadesign.com](mailto:support@festadesign.com)
+For support, please contact [support@festadesign.com](mailto:hello@festa.design.com)
 
 ---
 Created by Festa Design Studio Team | Last Updated: April 2024
