@@ -39,7 +39,8 @@
       "WebFetch(domain:cloud.laravel.com)",
       "Bash(npm view:*)",
       "Bash(npm update:*)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(mysql:*)"
     ],
     "deny": []
   }
